@@ -7,7 +7,7 @@
     "url": "git+ssh://git@github.com/MeasureAuthoringTool/fhir-mongoid-models.git"
   },
   "scripts": {
-    "generate-mongoid": "npx generateMongoidTypes -o src/models"
+    "generate-mongoid": "npx generateMongoidTypes -o app/models"
   },
   "keywords": [],
   "author": "SemanticBits sb-mat-help@semanticbits.com",
