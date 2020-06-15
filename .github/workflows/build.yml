@@ -26,7 +26,7 @@ jobs:
       - name: Install bundler
         run: |
           sudo apt-get -yqq install libpq-dev
-          gem install bundler
+          gem install bundler -v 2.1.4
 
       - name: Install ruby gems
         run: bundle install
