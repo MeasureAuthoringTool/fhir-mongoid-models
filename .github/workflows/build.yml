@@ -1,0 +1,40 @@
+name: CONTINIOUS INTEGRATION
+
+on:
+  push:
+    branches: [master, develop]
+  pull_request:
+    branches: [master, develop]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-16.04
+
+    services:
+      mongodb:
+        image: mongo:3.4.23
+        ports: ['27017:2701']
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Ruby 2.4.6
+        uses: actions/setup-ruby@v1
+        with:
+          ruby-version: 2.4.6
+
+      - name: Install bundler
+        run: |
+          sudo apt-get -yqq install libpq-dev
+          gem install bundler
+
+      - name: Install ruby gems
+          run: bundle install --jobs 4 --retry 3
+
+      - name: Build and test with Rake
+        env:
+          RAILS_ENV: test
+        run: |
+          bundle exec rake
+          bundle exec rubocop
+          bundle exec bundle-audit update && bundle exec bundle-audit check
