@@ -1,0 +1,53 @@
+name: Build
+
+on:
+  push:
+    branches: [master, develop]
+  pull_request:
+    branches: [master, develop]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    services:
+      mongodb:
+        image: mongo:3.4.23
+        ports: ['27017:2701']
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Ruby 2.4
+        uses: actions/setup-ruby@v1
+        with:
+          ruby-version: 2.4
+
+      - name: Install bundler
+        run: |
+          sudo apt-get -yqq install libpq-dev
+          gem install bundler -v 2.1.4
+
+      - name: Install ruby gems
+        run: bundle install
+
+      - name: Build and test with Rake
+        env:
+          RAILS_ENV: test
+        run: |
+          # bundle exec rubocop
+          bundle exec bundle-audit update && bundle exec bundle-audit check
+          bundle exec rake
+
+      - name: Upload coverage results
+        uses: actions/upload-artifact@master
+        if: always()
+        with:
+          name: coverage-report
+          path: coverage
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v1
+        with:
+          file: coverage/lcov.info
+          fail_ci_if_error: true

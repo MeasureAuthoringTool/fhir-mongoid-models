@@ -1,3 +1,5 @@
+![Build](https://github.com/MeasureAuthoringTool/fhir-mongoid-models/workflows/Build/badge.svg)
+[![codecov](https://codecov.io/gh/MeasureAuthoringTool/fhir-mongoid-models/branch/master/graph/badge.svg)](https://codecov.io/gh/MeasureAuthoringTool/fhir-mongoid-models)
 # fhir-mongoid-models
 This is a library containing Ruby Mongoid models that conform to the FHIR specification. Its code is generated using the model-info-parser utility
 
