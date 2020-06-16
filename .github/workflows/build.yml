@@ -1,4 +1,4 @@
-name: CONTINIOUS INTEGRATION
+name: Build
 
 on:
   push:
