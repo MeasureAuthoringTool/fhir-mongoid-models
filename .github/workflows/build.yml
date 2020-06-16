@@ -39,14 +39,9 @@ jobs:
           bundle exec bundle-audit update && bundle exec bundle-audit check
           bundle exec rake
 
-
-  upload-codecov-coverage:
-    name: Upload code coveage to Codecov
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@master
-      - uses: codecov/codecov-action@v1
-        with:
-          file: lcov.info
-          fail_ci_if_error: true
+      - name: Upload coverage results
+          uses: actions/upload-artifact@master
+          if: always()
+          with:
+            name: coverage-report
+            path: coverage
