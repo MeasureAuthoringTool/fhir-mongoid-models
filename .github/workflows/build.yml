@@ -35,12 +35,6 @@ jobs:
         env:
           RAILS_ENV: test
         run: |
-          bundle exec rake
           bundle exec rubocop
           bundle exec bundle-audit update && bundle exec bundle-audit check
-
-      - name: Upload code coverage to Codecov
-        uses: codecov/codecov-action@v1
-        with:
-          file: coverage/lcov.info
-          fail_ci_if_error: true
+          bundle exec rake
