@@ -45,3 +45,9 @@ jobs:
         with:
           name: coverage-report
           path: coverage
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v1
+        with:
+          file: coverage/.last_run.json
+          fail_ci_if_error: true
