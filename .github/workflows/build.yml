@@ -49,5 +49,5 @@ jobs:
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v1
         with:
-          file: coverage/.last_run.json
+          file: coverage/lcov.info
           fail_ci_if_error: true
