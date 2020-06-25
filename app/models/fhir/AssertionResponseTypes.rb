@@ -1,8 +1,0 @@
-module FHIR
-  class AssertionResponseTypes < Element
-    include Mongoid::Document
-    field :typeName, type: String, default: 'AssertionResponseTypes'
-    field :value, type: String # primitive
-    embeds_one :_value, class_name: 'Extension'
-  end
-end

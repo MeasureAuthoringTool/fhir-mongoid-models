@@ -1,0 +1,17 @@
+module FHIR
+  # fhir/specimen_definition_type_tested_container_additive.rb
+  class SpecimenDefinitionTypeTestedContainerAdditive < BackboneElement
+    include Mongoid::Document
+    field :typeName, type: String, default: 'SpecimenDefinitionTypeTestedContainerAdditive'
+    embeds_one :additiveCodeableConcept, class_name: 'CodeableConcept'
+    embeds_one :additiveReference, class_name: 'Reference'
+
+    def self.transform_json(json_hash)
+      result = SpecimenDefinitionTypeTestedContainerAdditive.new
+      result['additiveCodeableConcept'] = CodeableConcept.transform_json(json_hash['additiveCodeableConcept']) unless json_hash['additiveCodeableConcept'].nil?      
+      result['additiveReference'] = Reference.transform_json(json_hash['additiveReference']) unless json_hash['additiveReference'].nil?      
+
+      result
+    end
+  end
+end

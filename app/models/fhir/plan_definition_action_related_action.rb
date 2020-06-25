@@ -1,0 +1,21 @@
+module FHIR
+  # fhir/plan_definition_action_related_action.rb
+  class PlanDefinitionActionRelatedAction < BackboneElement
+    include Mongoid::Document
+    field :typeName, type: String, default: 'PlanDefinitionActionRelatedAction'
+    embeds_one :actionId, class_name: 'PrimitiveId'
+    embeds_one :relationship, class_name: 'ActionRelationshipType'
+    embeds_one :offsetDuration, class_name: 'Duration'
+    embeds_one :offsetRange, class_name: 'Range'
+
+    def self.transform_json(json_hash)
+      result = PlanDefinitionActionRelatedAction.new
+      result['actionId'] = PrimitiveId.transform_json(json_hash['actionId'], json_hash['_actionId']) unless json_hash['actionId'].nil?      
+      result['relationship'] = ActionRelationshipType.transform_json(json_hash['relationship']) unless json_hash['relationship'].nil?      
+      result['offsetDuration'] = Duration.transform_json(json_hash['offsetDuration']) unless json_hash['offsetDuration'].nil?      
+      result['offsetRange'] = Range.transform_json(json_hash['offsetRange']) unless json_hash['offsetRange'].nil?      
+
+      result
+    end
+  end
+end

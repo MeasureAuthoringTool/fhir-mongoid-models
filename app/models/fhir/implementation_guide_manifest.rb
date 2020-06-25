@@ -1,0 +1,29 @@
+module FHIR
+  # fhir/implementation_guide_manifest.rb
+  class ImplementationGuideManifest < BackboneElement
+    include Mongoid::Document
+    field :typeName, type: String, default: 'ImplementationGuideManifest'
+    embeds_one :rendering, class_name: 'PrimitiveUrl'
+    embeds_many :resource, class_name: 'ImplementationGuideManifestResource'
+    embeds_many :page, class_name: 'ImplementationGuideManifestPage'
+    embeds_many :image, class_name: 'PrimitiveString'
+    embeds_many :other, class_name: 'PrimitiveString'
+
+    def self.transform_json(json_hash)
+      result = ImplementationGuideManifest.new
+      result['rendering'] = PrimitiveUrl.transform_json(json_hash['rendering'], json_hash['_rendering']) unless json_hash['rendering'].nil?      
+      result['resource'] = json_hash['resource'].map { |var| ImplementationGuideManifestResource.transform_json(var) } unless json_hash['resource'].nil?
+      result['page'] = json_hash['page'].map { |var| ImplementationGuideManifestPage.transform_json(var) } unless json_hash['page'].nil?
+      result['image'] = json_hash['image'].each_with_index.map do |var, i|
+        extension_hash = json_hash['_image'] && json_hash['_image'][i]
+        PrimitiveString.transform_json(var, extension_hash)
+      end unless json_hash['image'].nil?
+      result['other'] = json_hash['other'].each_with_index.map do |var, i|
+        extension_hash = json_hash['_other'] && json_hash['_other'][i]
+        PrimitiveString.transform_json(var, extension_hash)
+      end unless json_hash['other'].nil?
+
+      result
+    end
+  end
+end

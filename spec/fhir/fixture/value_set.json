@@ -1,0 +1,47 @@
+{
+  "resourceType": "ValueSet",
+  "id": "2.16.840.1.111222.3.333.5.4567",
+  "meta": {
+    "versionId": "21",
+    "lastUpdated": "2020-03-07T01:00:21.000-05:00"
+  },
+  "text": {
+    "status": "generated",
+    "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">Test Value Set</div>"
+  },
+  "url": "http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.111222.3.333.5.4567",
+  "version": "20200677",
+  "name": "Creatinine test",
+  "status": "active",
+  "date": "2020-03-07T01:00:21-05:00",
+  "publisher": "SB",
+  "compose": {
+    "include": [
+      {
+        "system": "http://loinc.org",
+        "concept": [
+          {
+            "code": "14682-29",
+            "display": "Creatinine [Moles/volume] in Serum or Plasma"
+          },
+          {
+            "code": "21232-24",
+            "display": "Creatinine [Mass/volume] in Arterial blood"
+          },
+          {
+            "code": "2160-30",
+            "display": "Creatinine [Mass/volume] in Serum or Plasma"
+          },
+          {
+            "code": "38483-44",
+            "display": "Creatinine [Mass/volume] in Blood"
+          },
+          {
+            "code": "59826-58",
+            "display": "Creatinine [Moles/volume] in Blood"
+          }
+        ]
+      }
+    ]
+  }
+}

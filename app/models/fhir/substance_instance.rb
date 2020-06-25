@@ -1,0 +1,19 @@
+module FHIR
+  # fhir/substance_instance.rb
+  class SubstanceInstance < BackboneElement
+    include Mongoid::Document
+    field :typeName, type: String, default: 'SubstanceInstance'
+    embeds_one :identifier, class_name: 'Identifier'
+    embeds_one :expiry, class_name: 'PrimitiveDateTime'
+    embeds_one :quantity, class_name: 'SimpleQuantity'
+
+    def self.transform_json(json_hash)
+      result = SubstanceInstance.new
+      result['identifier'] = Identifier.transform_json(json_hash['identifier']) unless json_hash['identifier'].nil?      
+      result['expiry'] = PrimitiveDateTime.transform_json(json_hash['expiry'], json_hash['_expiry']) unless json_hash['expiry'].nil?      
+      result['quantity'] = SimpleQuantity.transform_json(json_hash['quantity']) unless json_hash['quantity'].nil?      
+
+      result
+    end
+  end
+end

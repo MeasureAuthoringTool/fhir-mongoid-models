@@ -1,0 +1,15 @@
+module FHIR
+  # fhir/structure_definition_snapshot.rb
+  class StructureDefinitionSnapshot < BackboneElement
+    include Mongoid::Document
+    field :typeName, type: String, default: 'StructureDefinitionSnapshot'
+    embeds_many :element, class_name: 'ElementDefinition'
+
+    def self.transform_json(json_hash)
+      result = StructureDefinitionSnapshot.new
+      result['element'] = json_hash['element'].map { |var| ElementDefinition.transform_json(var) } unless json_hash['element'].nil?
+
+      result
+    end
+  end
+end

@@ -1,0 +1,15 @@
+module FHIR
+  # fhir/section_mode.rb
+  class SectionMode < Element
+    include Mongoid::Document
+    field :typeName, type: String, default: 'SectionMode'
+    field :value, type: String
+
+    def self.transform_json(json_hash)
+      result = SectionMode.new
+      result['value'] = json_hash['value'] unless json_hash['value'].nil?
+
+      result
+    end
+  end
+end
