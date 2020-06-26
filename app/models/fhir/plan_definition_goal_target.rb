@@ -1,0 +1,23 @@
+module FHIR
+  # fhir/plan_definition_goal_target.rb
+  class PlanDefinitionGoalTarget < BackboneElement
+    include Mongoid::Document
+    field :typeName, type: String, default: 'PlanDefinitionGoalTarget'
+    embeds_one :measure, class_name: 'CodeableConcept'
+    embeds_one :detailQuantity, class_name: 'Quantity'
+    embeds_one :detailRange, class_name: 'Range'
+    embeds_one :detailCodeableConcept, class_name: 'CodeableConcept'
+    embeds_one :due, class_name: 'Duration'
+
+    def self.transform_json(json_hash)
+      result = PlanDefinitionGoalTarget.new
+      result['measure'] = CodeableConcept.transform_json(json_hash['measure']) unless json_hash['measure'].nil?      
+      result['detailQuantity'] = Quantity.transform_json(json_hash['detailQuantity']) unless json_hash['detailQuantity'].nil?      
+      result['detailRange'] = Range.transform_json(json_hash['detailRange']) unless json_hash['detailRange'].nil?      
+      result['detailCodeableConcept'] = CodeableConcept.transform_json(json_hash['detailCodeableConcept']) unless json_hash['detailCodeableConcept'].nil?      
+      result['due'] = Duration.transform_json(json_hash['due']) unless json_hash['due'].nil?      
+
+      result
+    end
+  end
+end

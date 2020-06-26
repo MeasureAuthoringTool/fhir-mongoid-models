@@ -1,0 +1,29 @@
+module FHIR
+  # fhir/substance_protein_subunit.rb
+  class SubstanceProteinSubunit < BackboneElement
+    include Mongoid::Document
+    field :typeName, type: String, default: 'SubstanceProteinSubunit'
+    embeds_one :subunit, class_name: 'PrimitiveInteger'
+    embeds_one :sequence, class_name: 'PrimitiveString'
+    embeds_one :length, class_name: 'PrimitiveInteger'
+    embeds_one :sequenceAttachment, class_name: 'Attachment'
+    embeds_one :nTerminalModificationId, class_name: 'Identifier'
+    embeds_one :nTerminalModification, class_name: 'PrimitiveString'
+    embeds_one :cTerminalModificationId, class_name: 'Identifier'
+    embeds_one :cTerminalModification, class_name: 'PrimitiveString'
+
+    def self.transform_json(json_hash)
+      result = SubstanceProteinSubunit.new
+      result['subunit'] = PrimitiveInteger.transform_json(json_hash['subunit'], json_hash['_subunit']) unless json_hash['subunit'].nil?      
+      result['sequence'] = PrimitiveString.transform_json(json_hash['sequence'], json_hash['_sequence']) unless json_hash['sequence'].nil?      
+      result['length'] = PrimitiveInteger.transform_json(json_hash['length'], json_hash['_length']) unless json_hash['length'].nil?      
+      result['sequenceAttachment'] = Attachment.transform_json(json_hash['sequenceAttachment']) unless json_hash['sequenceAttachment'].nil?      
+      result['nTerminalModificationId'] = Identifier.transform_json(json_hash['nTerminalModificationId']) unless json_hash['nTerminalModificationId'].nil?      
+      result['nTerminalModification'] = PrimitiveString.transform_json(json_hash['nTerminalModification'], json_hash['_nTerminalModification']) unless json_hash['nTerminalModification'].nil?      
+      result['cTerminalModificationId'] = Identifier.transform_json(json_hash['cTerminalModificationId']) unless json_hash['cTerminalModificationId'].nil?      
+      result['cTerminalModification'] = PrimitiveString.transform_json(json_hash['cTerminalModification'], json_hash['_cTerminalModification']) unless json_hash['cTerminalModification'].nil?      
+
+      result
+    end
+  end
+end

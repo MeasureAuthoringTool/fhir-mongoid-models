@@ -1,0 +1,27 @@
+module FHIR
+  # fhir/plan_definition_goal.rb
+  class PlanDefinitionGoal < BackboneElement
+    include Mongoid::Document
+    field :typeName, type: String, default: 'PlanDefinitionGoal'
+    embeds_one :category, class_name: 'CodeableConcept'
+    embeds_one :description, class_name: 'CodeableConcept'
+    embeds_one :priority, class_name: 'CodeableConcept'
+    embeds_one :start, class_name: 'CodeableConcept'
+    embeds_many :addresses, class_name: 'CodeableConcept'
+    embeds_many :documentation, class_name: 'RelatedArtifact'
+    embeds_many :target, class_name: 'PlanDefinitionGoalTarget'
+
+    def self.transform_json(json_hash)
+      result = PlanDefinitionGoal.new
+      result['category'] = CodeableConcept.transform_json(json_hash['category']) unless json_hash['category'].nil?      
+      result['description'] = CodeableConcept.transform_json(json_hash['description']) unless json_hash['description'].nil?      
+      result['priority'] = CodeableConcept.transform_json(json_hash['priority']) unless json_hash['priority'].nil?      
+      result['start'] = CodeableConcept.transform_json(json_hash['start']) unless json_hash['start'].nil?      
+      result['addresses'] = json_hash['addresses'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['addresses'].nil?
+      result['documentation'] = json_hash['documentation'].map { |var| RelatedArtifact.transform_json(var) } unless json_hash['documentation'].nil?
+      result['target'] = json_hash['target'].map { |var| PlanDefinitionGoalTarget.transform_json(var) } unless json_hash['target'].nil?
+
+      result
+    end
+  end
+end

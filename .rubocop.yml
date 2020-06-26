@@ -1,0 +1,19 @@
+AllCops:
+  Exclude:
+    - 'bin/**/*'
+    - 'vendor/**/*'
+    - 'spec/**/*'
+    #TODO: enable this once we have models in fully working state
+    - 'app/models/**/*'
+  TargetRubyVersion: 2.4
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+Layout/TrailingWhitespace:
+  Enabled: false
+Metrics/LineLength:
+  Enabled: false
+Style/GuardClause:
+  Enabled: false
+Metrics/BlockLength:
+  Enabled: false

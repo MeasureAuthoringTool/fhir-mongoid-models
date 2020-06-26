@@ -1,0 +1,19 @@
+module FHIR
+  # fhir/terminology_capabilities_code_system.rb
+  class TerminologyCapabilitiesCodeSystem < BackboneElement
+    include Mongoid::Document
+    field :typeName, type: String, default: 'TerminologyCapabilitiesCodeSystem'
+    embeds_one :uri, class_name: 'PrimitiveCanonical'
+    embeds_many :version, class_name: 'TerminologyCapabilitiesCodeSystemVersion'
+    embeds_one :subsumption, class_name: 'PrimitiveBoolean'
+
+    def self.transform_json(json_hash)
+      result = TerminologyCapabilitiesCodeSystem.new
+      result['uri'] = PrimitiveCanonical.transform_json(json_hash['uri'], json_hash['_uri']) unless json_hash['uri'].nil?      
+      result['version'] = json_hash['version'].map { |var| TerminologyCapabilitiesCodeSystemVersion.transform_json(var) } unless json_hash['version'].nil?
+      result['subsumption'] = PrimitiveBoolean.transform_json(json_hash['subsumption'], json_hash['_subsumption']) unless json_hash['subsumption'].nil?      
+
+      result
+    end
+  end
+end

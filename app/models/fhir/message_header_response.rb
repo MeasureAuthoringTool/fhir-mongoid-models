@@ -1,0 +1,19 @@
+module FHIR
+  # fhir/message_header_response.rb
+  class MessageHeaderResponse < BackboneElement
+    include Mongoid::Document
+    field :typeName, type: String, default: 'MessageHeaderResponse'
+    embeds_one :identifier, class_name: 'PrimitiveId'
+    embeds_one :code, class_name: 'ResponseType'
+    embeds_one :details, class_name: 'Reference'
+
+    def self.transform_json(json_hash)
+      result = MessageHeaderResponse.new
+      result['identifier'] = PrimitiveId.transform_json(json_hash['identifier'], json_hash['_identifier']) unless json_hash['identifier'].nil?      
+      result['code'] = ResponseType.transform_json(json_hash['code']) unless json_hash['code'].nil?      
+      result['details'] = Reference.transform_json(json_hash['details']) unless json_hash['details'].nil?      
+
+      result
+    end
+  end
+end

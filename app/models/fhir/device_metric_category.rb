@@ -1,0 +1,15 @@
+module FHIR
+  # fhir/device_metric_category.rb
+  class DeviceMetricCategory < Element
+    include Mongoid::Document
+    field :typeName, type: String, default: 'DeviceMetricCategory'
+    field :value, type: String
+
+    def self.transform_json(json_hash)
+      result = DeviceMetricCategory.new
+      result['value'] = json_hash['value'] unless json_hash['value'].nil?
+
+      result
+    end
+  end
+end

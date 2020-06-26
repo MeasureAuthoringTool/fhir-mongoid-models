@@ -1,0 +1,27 @@
+module FHIR
+  # fhir/allergy_intolerance_reaction.rb
+  class AllergyIntoleranceReaction < BackboneElement
+    include Mongoid::Document
+    field :typeName, type: String, default: 'AllergyIntoleranceReaction'
+    embeds_one :substance, class_name: 'CodeableConcept'
+    embeds_many :manifestation, class_name: 'CodeableConcept'
+    embeds_one :description, class_name: 'PrimitiveString'
+    embeds_one :onset, class_name: 'PrimitiveDateTime'
+    embeds_one :severity, class_name: 'AllergyIntoleranceSeverity'
+    embeds_one :exposureRoute, class_name: 'CodeableConcept'
+    embeds_many :note, class_name: 'Annotation'
+
+    def self.transform_json(json_hash)
+      result = AllergyIntoleranceReaction.new
+      result['substance'] = CodeableConcept.transform_json(json_hash['substance']) unless json_hash['substance'].nil?      
+      result['manifestation'] = json_hash['manifestation'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['manifestation'].nil?
+      result['description'] = PrimitiveString.transform_json(json_hash['description'], json_hash['_description']) unless json_hash['description'].nil?      
+      result['onset'] = PrimitiveDateTime.transform_json(json_hash['onset'], json_hash['_onset']) unless json_hash['onset'].nil?      
+      result['severity'] = AllergyIntoleranceSeverity.transform_json(json_hash['severity']) unless json_hash['severity'].nil?      
+      result['exposureRoute'] = CodeableConcept.transform_json(json_hash['exposureRoute']) unless json_hash['exposureRoute'].nil?      
+      result['note'] = json_hash['note'].map { |var| Annotation.transform_json(var) } unless json_hash['note'].nil?
+
+      result
+    end
+  end
+end
