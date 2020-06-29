@@ -5,8 +5,8 @@ module FHIR
     field :typeName, type: String, default: 'AppointmentStatus'
     field :value, type: String
 
-    def self.transform_json(json_hash)
-      result = AppointmentStatus.new
+    def self.transform_json(json_hash, target=AppointmentStatus.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['value'] = json_hash['value'] unless json_hash['value'].nil?
 
       result

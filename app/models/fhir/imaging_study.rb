@@ -24,8 +24,8 @@ module FHIR
     embeds_one :description, class_name: 'PrimitiveString'
     embeds_many :series, class_name: 'ImagingStudySeries'
 
-    def self.transform_json(json_hash)
-      result = ImagingStudy.new
+    def self.transform_json(json_hash, target=ImagingStudy.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['status'] = ImagingStudyStatus.transform_json(json_hash['status']) unless json_hash['status'].nil?      
       result['modality'] = json_hash['modality'].map { |var| Coding.transform_json(var) } unless json_hash['modality'].nil?

@@ -9,8 +9,8 @@ module FHIR
     embeds_many :image, class_name: 'PrimitiveString'
     embeds_many :other, class_name: 'PrimitiveString'
 
-    def self.transform_json(json_hash)
-      result = ImplementationGuideManifest.new
+    def self.transform_json(json_hash, target=ImplementationGuideManifest.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['rendering'] = PrimitiveUrl.transform_json(json_hash['rendering'], json_hash['_rendering']) unless json_hash['rendering'].nil?      
       result['resource'] = json_hash['resource'].map { |var| ImplementationGuideManifestResource.transform_json(var) } unless json_hash['resource'].nil?
       result['page'] = json_hash['page'].map { |var| ImplementationGuideManifestPage.transform_json(var) } unless json_hash['page'].nil?

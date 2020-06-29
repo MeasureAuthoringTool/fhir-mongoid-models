@@ -11,15 +11,15 @@ module FHIR
     embeds_many :dateCriterion, class_name: 'ImmunizationRecommendationRecommendationDateCriterion'
     embeds_one :description, class_name: 'PrimitiveString'
     embeds_one :series, class_name: 'PrimitiveString'
-    embeds_one :doseNumberpositiveInt, class_name: 'PrimitivePositiveInt'
-    embeds_one :doseNumberstring, class_name: 'PrimitiveString'
-    embeds_one :seriesDosespositiveInt, class_name: 'PrimitivePositiveInt'
-    embeds_one :seriesDosesstring, class_name: 'PrimitiveString'
+    embeds_one :doseNumberPositiveInt, class_name: 'PrimitivePositiveInt'
+    embeds_one :doseNumberString, class_name: 'PrimitiveString'
+    embeds_one :seriesDosesPositiveInt, class_name: 'PrimitivePositiveInt'
+    embeds_one :seriesDosesString, class_name: 'PrimitiveString'
     embeds_many :supportingImmunization, class_name: 'Reference'
     embeds_many :supportingPatientInformation, class_name: 'Reference'
 
-    def self.transform_json(json_hash)
-      result = ImmunizationRecommendationRecommendation.new
+    def self.transform_json(json_hash, target=ImmunizationRecommendationRecommendation.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['vaccineCode'] = json_hash['vaccineCode'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['vaccineCode'].nil?
       result['targetDisease'] = CodeableConcept.transform_json(json_hash['targetDisease']) unless json_hash['targetDisease'].nil?      
       result['contraindicatedVaccineCode'] = json_hash['contraindicatedVaccineCode'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['contraindicatedVaccineCode'].nil?
@@ -28,10 +28,10 @@ module FHIR
       result['dateCriterion'] = json_hash['dateCriterion'].map { |var| ImmunizationRecommendationRecommendationDateCriterion.transform_json(var) } unless json_hash['dateCriterion'].nil?
       result['description'] = PrimitiveString.transform_json(json_hash['description'], json_hash['_description']) unless json_hash['description'].nil?      
       result['series'] = PrimitiveString.transform_json(json_hash['series'], json_hash['_series']) unless json_hash['series'].nil?      
-      result['doseNumberpositiveInt'] = PrimitivePositiveInt.transform_json(json_hash['doseNumberpositiveInt'], json_hash['_doseNumberpositiveInt']) unless json_hash['doseNumberpositiveInt'].nil?      
-      result['doseNumberstring'] = PrimitiveString.transform_json(json_hash['doseNumberstring'], json_hash['_doseNumberstring']) unless json_hash['doseNumberstring'].nil?      
-      result['seriesDosespositiveInt'] = PrimitivePositiveInt.transform_json(json_hash['seriesDosespositiveInt'], json_hash['_seriesDosespositiveInt']) unless json_hash['seriesDosespositiveInt'].nil?      
-      result['seriesDosesstring'] = PrimitiveString.transform_json(json_hash['seriesDosesstring'], json_hash['_seriesDosesstring']) unless json_hash['seriesDosesstring'].nil?      
+      result['doseNumberPositiveInt'] = PrimitivePositiveInt.transform_json(json_hash['doseNumberPositiveInt'], json_hash['_doseNumberPositiveInt']) unless json_hash['doseNumberPositiveInt'].nil?      
+      result['doseNumberString'] = PrimitiveString.transform_json(json_hash['doseNumberString'], json_hash['_doseNumberString']) unless json_hash['doseNumberString'].nil?      
+      result['seriesDosesPositiveInt'] = PrimitivePositiveInt.transform_json(json_hash['seriesDosesPositiveInt'], json_hash['_seriesDosesPositiveInt']) unless json_hash['seriesDosesPositiveInt'].nil?      
+      result['seriesDosesString'] = PrimitiveString.transform_json(json_hash['seriesDosesString'], json_hash['_seriesDosesString']) unless json_hash['seriesDosesString'].nil?      
       result['supportingImmunization'] = json_hash['supportingImmunization'].map { |var| Reference.transform_json(var) } unless json_hash['supportingImmunization'].nil?
       result['supportingPatientInformation'] = json_hash['supportingPatientInformation'].map { |var| Reference.transform_json(var) } unless json_hash['supportingPatientInformation'].nil?
 

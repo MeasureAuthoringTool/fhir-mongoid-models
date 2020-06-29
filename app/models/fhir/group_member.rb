@@ -7,8 +7,8 @@ module FHIR
     embeds_one :period, class_name: 'Period'
     embeds_one :inactive, class_name: 'PrimitiveBoolean'
 
-    def self.transform_json(json_hash)
-      result = GroupMember.new
+    def self.transform_json(json_hash, target=GroupMember.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['entity'] = Reference.transform_json(json_hash['entity']) unless json_hash['entity'].nil?      
       result['period'] = Period.transform_json(json_hash['period']) unless json_hash['period'].nil?      
       result['inactive'] = PrimitiveBoolean.transform_json(json_hash['inactive'], json_hash['_inactive']) unless json_hash['inactive'].nil?      

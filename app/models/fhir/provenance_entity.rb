@@ -7,8 +7,8 @@ module FHIR
     embeds_one :what, class_name: 'Reference'
     embeds_many :agent, class_name: 'ProvenanceAgent'
 
-    def self.transform_json(json_hash)
-      result = ProvenanceEntity.new
+    def self.transform_json(json_hash, target=ProvenanceEntity.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['role'] = ProvenanceEntityRole.transform_json(json_hash['role']) unless json_hash['role'].nil?      
       result['what'] = Reference.transform_json(json_hash['what']) unless json_hash['what'].nil?      
       result['agent'] = json_hash['agent'].map { |var| ProvenanceAgent.transform_json(var) } unless json_hash['agent'].nil?

@@ -30,8 +30,8 @@ module FHIR
     embeds_many :safety, class_name: 'CodeableConcept'
     embeds_one :parent, class_name: 'Reference'
 
-    def self.transform_json(json_hash)
-      result = Device.new
+    def self.transform_json(json_hash, target=Device.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['definition'] = Reference.transform_json(json_hash['definition']) unless json_hash['definition'].nil?      
       result['udiCarrier'] = json_hash['udiCarrier'].map { |var| DeviceUdiCarrier.transform_json(var) } unless json_hash['udiCarrier'].nil?

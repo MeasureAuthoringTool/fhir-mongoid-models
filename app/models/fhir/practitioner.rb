@@ -14,8 +14,8 @@ module FHIR
     embeds_many :qualification, class_name: 'PractitionerQualification'
     embeds_many :communication, class_name: 'CodeableConcept'
 
-    def self.transform_json(json_hash)
-      result = Practitioner.new
+    def self.transform_json(json_hash, target=Practitioner.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['active'] = PrimitiveBoolean.transform_json(json_hash['active'], json_hash['_active']) unless json_hash['active'].nil?      
       result['name'] = json_hash['name'].map { |var| HumanName.transform_json(var) } unless json_hash['name'].nil?

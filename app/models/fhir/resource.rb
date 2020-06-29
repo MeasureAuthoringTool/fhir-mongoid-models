@@ -9,8 +9,8 @@ module FHIR
     embeds_one :language, class_name: 'PrimitiveCode'
     field :resourceType, type: String
 
-    def self.transform_json(json_hash)
-      result = Resource.new
+    def self.transform_json(json_hash, target=Resource.new)
+      result = target
       result['id'] = json_hash['id'] unless json_hash['id'].nil?
       result['meta'] = Meta.transform_json(json_hash['meta']) unless json_hash['meta'].nil?      
       result['implicitRules'] = PrimitiveUri.transform_json(json_hash['implicitRules'], json_hash['_implicitRules']) unless json_hash['implicitRules'].nil?      

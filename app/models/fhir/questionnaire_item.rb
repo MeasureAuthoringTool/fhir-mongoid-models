@@ -20,8 +20,8 @@ module FHIR
     embeds_many :initial, class_name: 'QuestionnaireItemInitial'
     embeds_many :item, class_name: 'QuestionnaireItem'
 
-    def self.transform_json(json_hash)
-      result = QuestionnaireItem.new
+    def self.transform_json(json_hash, target=QuestionnaireItem.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['linkId'] = PrimitiveString.transform_json(json_hash['linkId'], json_hash['_linkId']) unless json_hash['linkId'].nil?      
       result['definition'] = PrimitiveUri.transform_json(json_hash['definition'], json_hash['_definition']) unless json_hash['definition'].nil?      
       result['code'] = json_hash['code'].map { |var| Coding.transform_json(var) } unless json_hash['code'].nil?

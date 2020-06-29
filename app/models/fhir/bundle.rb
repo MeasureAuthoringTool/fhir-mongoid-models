@@ -11,8 +11,8 @@ module FHIR
     embeds_many :entry, class_name: 'BundleEntry'
     embeds_one :signature, class_name: 'Signature'
 
-    def self.transform_json(json_hash)
-      result = Bundle.new
+    def self.transform_json(json_hash, target=Bundle.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = Identifier.transform_json(json_hash['identifier']) unless json_hash['identifier'].nil?      
       result['type'] = BundleType.transform_json(json_hash['type']) unless json_hash['type'].nil?      
       result['timestamp'] = PrimitiveInstant.transform_json(json_hash['timestamp'], json_hash['_timestamp']) unless json_hash['timestamp'].nil?      

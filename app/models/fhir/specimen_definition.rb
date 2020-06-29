@@ -16,8 +16,8 @@ module FHIR
       res
     end
 
-    def self.transform_json(json_hash)
-      result = SpecimenDefinition.new
+    def self.transform_json(json_hash, target=SpecimenDefinition.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = Identifier.transform_json(json_hash['identifier']) unless json_hash['identifier'].nil?      
       result['typeCollected'] = CodeableConcept.transform_json(json_hash['typeCollected']) unless json_hash['typeCollected'].nil?      
       result['patientPreparation'] = json_hash['patientPreparation'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['patientPreparation'].nil?

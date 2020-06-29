@@ -8,7 +8,7 @@ module FHIR
     embeds_one :code, class_name: 'CodeableConcept'
     embeds_one :severity, class_name: 'DetectedIssueSeverity'
     embeds_one :patient, class_name: 'Reference'
-    embeds_one :identifieddateTime, class_name: 'PrimitiveDateTime'
+    embeds_one :identifiedDateTime, class_name: 'PrimitiveDateTime'
     embeds_one :identifiedPeriod, class_name: 'Period'
     embeds_one :author, class_name: 'Reference'
     embeds_many :implicated, class_name: 'Reference'
@@ -17,14 +17,14 @@ module FHIR
     embeds_one :reference, class_name: 'PrimitiveUri'
     embeds_many :mitigation, class_name: 'DetectedIssueMitigation'
 
-    def self.transform_json(json_hash)
-      result = DetectedIssue.new
+    def self.transform_json(json_hash, target=DetectedIssue.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['status'] = DetectedIssueStatus.transform_json(json_hash['status']) unless json_hash['status'].nil?      
       result['code'] = CodeableConcept.transform_json(json_hash['code']) unless json_hash['code'].nil?      
       result['severity'] = DetectedIssueSeverity.transform_json(json_hash['severity']) unless json_hash['severity'].nil?      
       result['patient'] = Reference.transform_json(json_hash['patient']) unless json_hash['patient'].nil?      
-      result['identifieddateTime'] = PrimitiveDateTime.transform_json(json_hash['identifieddateTime'], json_hash['_identifieddateTime']) unless json_hash['identifieddateTime'].nil?      
+      result['identifiedDateTime'] = PrimitiveDateTime.transform_json(json_hash['identifiedDateTime'], json_hash['_identifiedDateTime']) unless json_hash['identifiedDateTime'].nil?      
       result['identifiedPeriod'] = Period.transform_json(json_hash['identifiedPeriod']) unless json_hash['identifiedPeriod'].nil?      
       result['author'] = Reference.transform_json(json_hash['author']) unless json_hash['author'].nil?      
       result['implicated'] = json_hash['implicated'].map { |var| Reference.transform_json(var) } unless json_hash['implicated'].nil?

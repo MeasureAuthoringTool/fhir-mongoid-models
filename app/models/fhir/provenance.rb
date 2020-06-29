@@ -5,7 +5,7 @@ module FHIR
     field :typeName, type: String, default: 'Provenance'
     embeds_many :target, class_name: 'Reference'
     embeds_one :occurredPeriod, class_name: 'Period'
-    embeds_one :occurreddateTime, class_name: 'PrimitiveDateTime'
+    embeds_one :occurredDateTime, class_name: 'PrimitiveDateTime'
     embeds_one :recorded, class_name: 'PrimitiveInstant'
     embeds_many :policy, class_name: 'PrimitiveUri'
     embeds_one :location, class_name: 'Reference'
@@ -15,11 +15,11 @@ module FHIR
     embeds_many :entity, class_name: 'ProvenanceEntity'
     embeds_many :signature, class_name: 'Signature'
 
-    def self.transform_json(json_hash)
-      result = Provenance.new
+    def self.transform_json(json_hash, target=Provenance.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['target'] = json_hash['target'].map { |var| Reference.transform_json(var) } unless json_hash['target'].nil?
       result['occurredPeriod'] = Period.transform_json(json_hash['occurredPeriod']) unless json_hash['occurredPeriod'].nil?      
-      result['occurreddateTime'] = PrimitiveDateTime.transform_json(json_hash['occurreddateTime'], json_hash['_occurreddateTime']) unless json_hash['occurreddateTime'].nil?      
+      result['occurredDateTime'] = PrimitiveDateTime.transform_json(json_hash['occurredDateTime'], json_hash['_occurredDateTime']) unless json_hash['occurredDateTime'].nil?      
       result['recorded'] = PrimitiveInstant.transform_json(json_hash['recorded'], json_hash['_recorded']) unless json_hash['recorded'].nil?      
       result['policy'] = json_hash['policy'].each_with_index.map do |var, i|
         extension_hash = json_hash['_policy'] && json_hash['_policy'][i]

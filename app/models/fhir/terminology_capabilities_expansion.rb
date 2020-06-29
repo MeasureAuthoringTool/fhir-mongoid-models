@@ -9,8 +9,8 @@ module FHIR
     embeds_many :parameter, class_name: 'TerminologyCapabilitiesExpansionParameter'
     embeds_one :textFilter, class_name: 'PrimitiveMarkdown'
 
-    def self.transform_json(json_hash)
-      result = TerminologyCapabilitiesExpansion.new
+    def self.transform_json(json_hash, target=TerminologyCapabilitiesExpansion.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['hierarchical'] = PrimitiveBoolean.transform_json(json_hash['hierarchical'], json_hash['_hierarchical']) unless json_hash['hierarchical'].nil?      
       result['paging'] = PrimitiveBoolean.transform_json(json_hash['paging'], json_hash['_paging']) unless json_hash['paging'].nil?      
       result['incomplete'] = PrimitiveBoolean.transform_json(json_hash['incomplete'], json_hash['_incomplete']) unless json_hash['incomplete'].nil?      

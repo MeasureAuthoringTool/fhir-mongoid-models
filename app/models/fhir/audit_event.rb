@@ -15,8 +15,8 @@ module FHIR
     embeds_one :source, class_name: 'AuditEventSource'
     embeds_many :entity, class_name: 'AuditEventEntity'
 
-    def self.transform_json(json_hash)
-      result = AuditEvent.new
+    def self.transform_json(json_hash, target=AuditEvent.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['type'] = Coding.transform_json(json_hash['type']) unless json_hash['type'].nil?      
       result['subtype'] = json_hash['subtype'].map { |var| Coding.transform_json(var) } unless json_hash['subtype'].nil?
       result['action'] = AuditEventAction.transform_json(json_hash['action']) unless json_hash['action'].nil?      

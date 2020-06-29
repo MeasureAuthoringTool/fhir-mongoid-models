@@ -6,8 +6,8 @@ module FHIR
     embeds_one :index, class_name: 'PrimitiveInteger'
     embeds_one :profile, class_name: 'Coding'
 
-    def self.transform_json(json_hash)
-      result = TestScriptDestination.new
+    def self.transform_json(json_hash, target=TestScriptDestination.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['index'] = PrimitiveInteger.transform_json(json_hash['index'], json_hash['_index']) unless json_hash['index'].nil?      
       result['profile'] = Coding.transform_json(json_hash['profile']) unless json_hash['profile'].nil?      
 

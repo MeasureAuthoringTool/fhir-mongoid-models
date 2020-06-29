@@ -11,8 +11,8 @@ module FHIR
     embeds_one :exposureRoute, class_name: 'CodeableConcept'
     embeds_many :note, class_name: 'Annotation'
 
-    def self.transform_json(json_hash)
-      result = AllergyIntoleranceReaction.new
+    def self.transform_json(json_hash, target=AllergyIntoleranceReaction.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['substance'] = CodeableConcept.transform_json(json_hash['substance']) unless json_hash['substance'].nil?      
       result['manifestation'] = json_hash['manifestation'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['manifestation'].nil?
       result['description'] = PrimitiveString.transform_json(json_hash['description'], json_hash['_description']) unless json_hash['description'].nil?      

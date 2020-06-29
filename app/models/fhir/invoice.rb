@@ -20,8 +20,8 @@ module FHIR
     embeds_one :paymentTerms, class_name: 'PrimitiveMarkdown'
     embeds_many :note, class_name: 'Annotation'
 
-    def self.transform_json(json_hash)
-      result = Invoice.new
+    def self.transform_json(json_hash, target=Invoice.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['status'] = InvoiceStatus.transform_json(json_hash['status']) unless json_hash['status'].nil?      
       result['cancelledReason'] = PrimitiveString.transform_json(json_hash['cancelledReason'], json_hash['_cancelledReason']) unless json_hash['cancelledReason'].nil?      

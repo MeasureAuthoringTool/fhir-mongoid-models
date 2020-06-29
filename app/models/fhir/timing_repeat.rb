@@ -21,8 +21,8 @@ module FHIR
     embeds_many :when, class_name: 'EventTiming'
     embeds_one :offset, class_name: 'PrimitiveUnsignedInt'
 
-    def self.transform_json(json_hash)
-      result = TimingRepeat.new
+    def self.transform_json(json_hash, target=TimingRepeat.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['boundsDuration'] = Duration.transform_json(json_hash['boundsDuration']) unless json_hash['boundsDuration'].nil?      
       result['boundsRange'] = Range.transform_json(json_hash['boundsRange']) unless json_hash['boundsRange'].nil?      
       result['boundsPeriod'] = Period.transform_json(json_hash['boundsPeriod']) unless json_hash['boundsPeriod'].nil?      

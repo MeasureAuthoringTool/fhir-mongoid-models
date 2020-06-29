@@ -10,8 +10,8 @@ module FHIR
     embeds_many :security, class_name: 'Coding'
     embeds_many :tag, class_name: 'Coding'
 
-    def self.transform_json(json_hash)
-      result = Meta.new
+    def self.transform_json(json_hash, target=Meta.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['versionId'] = PrimitiveId.transform_json(json_hash['versionId'], json_hash['_versionId']) unless json_hash['versionId'].nil?      
       result['lastUpdated'] = PrimitiveInstant.transform_json(json_hash['lastUpdated'], json_hash['_lastUpdated']) unless json_hash['lastUpdated'].nil?      
       result['source'] = PrimitiveUri.transform_json(json_hash['source'], json_hash['_source']) unless json_hash['source'].nil?      

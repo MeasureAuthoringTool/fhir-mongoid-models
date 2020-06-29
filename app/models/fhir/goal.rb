@@ -10,7 +10,7 @@ module FHIR
     embeds_one :priority, class_name: 'CodeableConcept'
     embeds_one :description, class_name: 'CodeableConcept'
     embeds_one :subject, class_name: 'Reference'
-    embeds_one :startdate, class_name: 'PrimitiveDate'
+    embeds_one :startDate, class_name: 'PrimitiveDate'
     embeds_one :startCodeableConcept, class_name: 'CodeableConcept'
     embeds_many :target, class_name: 'GoalTarget'
     embeds_one :statusDate, class_name: 'PrimitiveDate'
@@ -21,8 +21,8 @@ module FHIR
     embeds_many :outcomeCode, class_name: 'CodeableConcept'
     embeds_many :outcomeReference, class_name: 'Reference'
 
-    def self.transform_json(json_hash)
-      result = Goal.new
+    def self.transform_json(json_hash, target=Goal.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['lifecycleStatus'] = GoalLifecycleStatus.transform_json(json_hash['lifecycleStatus']) unless json_hash['lifecycleStatus'].nil?      
       result['achievementStatus'] = CodeableConcept.transform_json(json_hash['achievementStatus']) unless json_hash['achievementStatus'].nil?      
@@ -30,7 +30,7 @@ module FHIR
       result['priority'] = CodeableConcept.transform_json(json_hash['priority']) unless json_hash['priority'].nil?      
       result['description'] = CodeableConcept.transform_json(json_hash['description']) unless json_hash['description'].nil?      
       result['subject'] = Reference.transform_json(json_hash['subject']) unless json_hash['subject'].nil?      
-      result['startdate'] = PrimitiveDate.transform_json(json_hash['startdate'], json_hash['_startdate']) unless json_hash['startdate'].nil?      
+      result['startDate'] = PrimitiveDate.transform_json(json_hash['startDate'], json_hash['_startDate']) unless json_hash['startDate'].nil?      
       result['startCodeableConcept'] = CodeableConcept.transform_json(json_hash['startCodeableConcept']) unless json_hash['startCodeableConcept'].nil?      
       result['target'] = json_hash['target'].map { |var| GoalTarget.transform_json(var) } unless json_hash['target'].nil?
       result['statusDate'] = PrimitiveDate.transform_json(json_hash['statusDate'], json_hash['_statusDate']) unless json_hash['statusDate'].nil?      

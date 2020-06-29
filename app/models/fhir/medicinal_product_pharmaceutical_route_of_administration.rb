@@ -11,8 +11,8 @@ module FHIR
     embeds_one :maxTreatmentPeriod, class_name: 'Duration'
     embeds_many :targetSpecies, class_name: 'MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpecies'
 
-    def self.transform_json(json_hash)
-      result = MedicinalProductPharmaceuticalRouteOfAdministration.new
+    def self.transform_json(json_hash, target=MedicinalProductPharmaceuticalRouteOfAdministration.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['code'] = CodeableConcept.transform_json(json_hash['code']) unless json_hash['code'].nil?      
       result['firstDose'] = Quantity.transform_json(json_hash['firstDose']) unless json_hash['firstDose'].nil?      
       result['maxSingleDose'] = Quantity.transform_json(json_hash['maxSingleDose']) unless json_hash['maxSingleDose'].nil?      

@@ -5,8 +5,8 @@ module FHIR
     field :typeName, type: String, default: 'NamingSystemType'
     field :value, type: String
 
-    def self.transform_json(json_hash)
-      result = NamingSystemType.new
+    def self.transform_json(json_hash, target=NamingSystemType.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['value'] = json_hash['value'] unless json_hash['value'].nil?
 
       result

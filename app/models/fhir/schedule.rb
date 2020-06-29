@@ -12,8 +12,8 @@ module FHIR
     embeds_one :planningHorizon, class_name: 'Period'
     embeds_one :comment, class_name: 'PrimitiveString'
 
-    def self.transform_json(json_hash)
-      result = Schedule.new
+    def self.transform_json(json_hash, target=Schedule.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['active'] = PrimitiveBoolean.transform_json(json_hash['active'], json_hash['_active']) unless json_hash['active'].nil?      
       result['serviceCategory'] = json_hash['serviceCategory'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['serviceCategory'].nil?

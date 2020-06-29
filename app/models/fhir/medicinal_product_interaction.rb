@@ -11,8 +11,8 @@ module FHIR
     embeds_one :incidence, class_name: 'CodeableConcept'
     embeds_one :management, class_name: 'CodeableConcept'
 
-    def self.transform_json(json_hash)
-      result = MedicinalProductInteraction.new
+    def self.transform_json(json_hash, target=MedicinalProductInteraction.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['subject'] = json_hash['subject'].map { |var| Reference.transform_json(var) } unless json_hash['subject'].nil?
       result['description'] = PrimitiveString.transform_json(json_hash['description'], json_hash['_description']) unless json_hash['description'].nil?      
       result['interactant'] = json_hash['interactant'].map { |var| MedicinalProductInteractionInteractant.transform_json(var) } unless json_hash['interactant'].nil?

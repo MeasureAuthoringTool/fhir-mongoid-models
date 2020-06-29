@@ -8,8 +8,8 @@ module FHIR
     embeds_one :value, class_name: 'PrimitiveString'
     embeds_one :display, class_name: 'PrimitiveString'
 
-    def self.transform_json(json_hash)
-      result = ConceptMapGroupElementTargetDependsOn.new
+    def self.transform_json(json_hash, target=ConceptMapGroupElementTargetDependsOn.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['property'] = PrimitiveUri.transform_json(json_hash['property'], json_hash['_property']) unless json_hash['property'].nil?      
       result['system'] = PrimitiveCanonical.transform_json(json_hash['system'], json_hash['_system']) unless json_hash['system'].nil?      
       result['value'] = PrimitiveString.transform_json(json_hash['value'], json_hash['_value']) unless json_hash['value'].nil?      

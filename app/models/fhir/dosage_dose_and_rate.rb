@@ -10,8 +10,8 @@ module FHIR
     embeds_one :rateRange, class_name: 'Range'
     embeds_one :rateSimpleQuantity, class_name: 'SimpleQuantity'
 
-    def self.transform_json(json_hash)
-      result = DosageDoseAndRate.new
+    def self.transform_json(json_hash, target=DosageDoseAndRate.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['type'] = CodeableConcept.transform_json(json_hash['type']) unless json_hash['type'].nil?      
       result['doseRange'] = Range.transform_json(json_hash['doseRange']) unless json_hash['doseRange'].nil?      
       result['doseSimpleQuantity'] = SimpleQuantity.transform_json(json_hash['doseSimpleQuantity']) unless json_hash['doseSimpleQuantity'].nil?      

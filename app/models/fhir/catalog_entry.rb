@@ -17,8 +17,8 @@ module FHIR
     embeds_many :additionalClassification, class_name: 'CodeableConcept'
     embeds_many :relatedEntry, class_name: 'CatalogEntryRelatedEntry'
 
-    def self.transform_json(json_hash)
-      result = CatalogEntry.new
+    def self.transform_json(json_hash, target=CatalogEntry.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['type'] = CodeableConcept.transform_json(json_hash['type']) unless json_hash['type'].nil?      
       result['orderable'] = PrimitiveBoolean.transform_json(json_hash['orderable'], json_hash['_orderable']) unless json_hash['orderable'].nil?      

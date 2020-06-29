@@ -16,8 +16,8 @@ module FHIR
     embeds_many :test, class_name: 'TestReportTest'
     embeds_one :teardown, class_name: 'TestReportTeardown'
 
-    def self.transform_json(json_hash)
-      result = TestReport.new
+    def self.transform_json(json_hash, target=TestReport.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = Identifier.transform_json(json_hash['identifier']) unless json_hash['identifier'].nil?      
       result['name'] = PrimitiveString.transform_json(json_hash['name'], json_hash['_name']) unless json_hash['name'].nil?      
       result['status'] = TestReportStatus.transform_json(json_hash['status']) unless json_hash['status'].nil?      

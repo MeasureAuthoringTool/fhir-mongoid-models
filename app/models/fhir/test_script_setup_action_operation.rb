@@ -21,8 +21,8 @@ module FHIR
     embeds_one :targetId, class_name: 'PrimitiveId'
     embeds_one :url, class_name: 'PrimitiveString'
 
-    def self.transform_json(json_hash)
-      result = TestScriptSetupActionOperation.new
+    def self.transform_json(json_hash, target=TestScriptSetupActionOperation.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['type'] = Coding.transform_json(json_hash['type']) unless json_hash['type'].nil?      
       result['resource'] = FHIRDefinedType.transform_json(json_hash['resource']) unless json_hash['resource'].nil?      
       result['label'] = PrimitiveString.transform_json(json_hash['label'], json_hash['_label']) unless json_hash['label'].nil?      

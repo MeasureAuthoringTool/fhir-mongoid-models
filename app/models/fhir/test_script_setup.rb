@@ -5,8 +5,8 @@ module FHIR
     field :typeName, type: String, default: 'TestScriptSetup'
     embeds_many :action, class_name: 'TestScriptSetupAction'
 
-    def self.transform_json(json_hash)
-      result = TestScriptSetup.new
+    def self.transform_json(json_hash, target=TestScriptSetup.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['action'] = json_hash['action'].map { |var| TestScriptSetupAction.transform_json(var) } unless json_hash['action'].nil?
 
       result

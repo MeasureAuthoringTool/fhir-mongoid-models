@@ -8,8 +8,8 @@ module FHIR
     embeds_one :period, class_name: 'Period'
     embeds_one :issuer, class_name: 'Reference'
 
-    def self.transform_json(json_hash)
-      result = PractitionerQualification.new
+    def self.transform_json(json_hash, target=PractitionerQualification.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['code'] = CodeableConcept.transform_json(json_hash['code']) unless json_hash['code'].nil?      
       result['period'] = Period.transform_json(json_hash['period']) unless json_hash['period'].nil?      

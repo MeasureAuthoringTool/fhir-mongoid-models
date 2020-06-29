@@ -8,8 +8,8 @@ module FHIR
     embeds_many :include, class_name: 'ValueSetComposeInclude'
     embeds_many :exclude, class_name: 'ValueSetComposeInclude'
 
-    def self.transform_json(json_hash)
-      result = ValueSetCompose.new
+    def self.transform_json(json_hash, target=ValueSetCompose.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['lockedDate'] = PrimitiveDate.transform_json(json_hash['lockedDate'], json_hash['_lockedDate']) unless json_hash['lockedDate'].nil?      
       result['inactive'] = PrimitiveBoolean.transform_json(json_hash['inactive'], json_hash['_inactive']) unless json_hash['inactive'].nil?      
       result['include'] = json_hash['include'].map { |var| ValueSetComposeInclude.transform_json(var) } unless json_hash['include'].nil?

@@ -8,8 +8,8 @@ module FHIR
     embeds_one :confidentiality, class_name: 'CodeableConcept'
     embeds_many :strength, class_name: 'MedicinalProductIngredientSpecifiedSubstanceStrength'
 
-    def self.transform_json(json_hash)
-      result = MedicinalProductIngredientSpecifiedSubstance.new
+    def self.transform_json(json_hash, target=MedicinalProductIngredientSpecifiedSubstance.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['code'] = CodeableConcept.transform_json(json_hash['code']) unless json_hash['code'].nil?      
       result['group'] = CodeableConcept.transform_json(json_hash['group']) unless json_hash['group'].nil?      
       result['confidentiality'] = CodeableConcept.transform_json(json_hash['confidentiality']) unless json_hash['confidentiality'].nil?      

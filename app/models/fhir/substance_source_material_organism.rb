@@ -12,8 +12,8 @@ module FHIR
     embeds_one :hybrid, class_name: 'SubstanceSourceMaterialOrganismHybrid'
     embeds_one :organismGeneral, class_name: 'SubstanceSourceMaterialOrganismOrganismGeneral'
 
-    def self.transform_json(json_hash)
-      result = SubstanceSourceMaterialOrganism.new
+    def self.transform_json(json_hash, target=SubstanceSourceMaterialOrganism.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['family'] = CodeableConcept.transform_json(json_hash['family']) unless json_hash['family'].nil?      
       result['genus'] = CodeableConcept.transform_json(json_hash['genus']) unless json_hash['genus'].nil?      
       result['species'] = CodeableConcept.transform_json(json_hash['species']) unless json_hash['species'].nil?      

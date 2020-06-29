@@ -11,8 +11,8 @@ module FHIR
     embeds_many :country, class_name: 'CodeableConcept'
     embeds_many :referenceStrength, class_name: 'MedicinalProductIngredientSpecifiedSubstanceStrengthReferenceStrength'
 
-    def self.transform_json(json_hash)
-      result = MedicinalProductIngredientSpecifiedSubstanceStrength.new
+    def self.transform_json(json_hash, target=MedicinalProductIngredientSpecifiedSubstanceStrength.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['presentation'] = Ratio.transform_json(json_hash['presentation']) unless json_hash['presentation'].nil?      
       result['presentationLowLimit'] = Ratio.transform_json(json_hash['presentationLowLimit']) unless json_hash['presentationLowLimit'].nil?      
       result['concentration'] = Ratio.transform_json(json_hash['concentration']) unless json_hash['concentration'].nil?      

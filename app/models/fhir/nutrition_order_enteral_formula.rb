@@ -13,8 +13,8 @@ module FHIR
     embeds_one :maxVolumeToDeliver, class_name: 'SimpleQuantity'
     embeds_one :administrationInstruction, class_name: 'PrimitiveString'
 
-    def self.transform_json(json_hash)
-      result = NutritionOrderEnteralFormula.new
+    def self.transform_json(json_hash, target=NutritionOrderEnteralFormula.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['baseFormulaType'] = CodeableConcept.transform_json(json_hash['baseFormulaType']) unless json_hash['baseFormulaType'].nil?      
       result['baseFormulaProductName'] = PrimitiveString.transform_json(json_hash['baseFormulaProductName'], json_hash['_baseFormulaProductName']) unless json_hash['baseFormulaProductName'].nil?      
       result['additiveType'] = CodeableConcept.transform_json(json_hash['additiveType']) unless json_hash['additiveType'].nil?      

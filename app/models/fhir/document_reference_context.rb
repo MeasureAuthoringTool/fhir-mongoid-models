@@ -11,8 +11,8 @@ module FHIR
     embeds_one :sourcePatientInfo, class_name: 'Reference'
     embeds_many :related, class_name: 'Reference'
 
-    def self.transform_json(json_hash)
-      result = DocumentReferenceContext.new
+    def self.transform_json(json_hash, target=DocumentReferenceContext.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['encounter'] = json_hash['encounter'].map { |var| Reference.transform_json(var) } unless json_hash['encounter'].nil?
       result['event'] = json_hash['event'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['event'].nil?
       result['period'] = Period.transform_json(json_hash['period']) unless json_hash['period'].nil?      

@@ -11,8 +11,8 @@ module FHIR
     embeds_many :suffix, class_name: 'PrimitiveString'
     embeds_one :period, class_name: 'Period'
 
-    def self.transform_json(json_hash)
-      result = HumanName.new
+    def self.transform_json(json_hash, target=HumanName.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['use'] = NameUse.transform_json(json_hash['use']) unless json_hash['use'].nil?      
       result['text'] = PrimitiveString.transform_json(json_hash['text'], json_hash['_text']) unless json_hash['text'].nil?      
       result['family'] = PrimitiveString.transform_json(json_hash['family'], json_hash['_family']) unless json_hash['family'].nil?      

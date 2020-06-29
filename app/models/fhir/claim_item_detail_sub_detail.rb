@@ -15,8 +15,8 @@ module FHIR
     embeds_one :net, class_name: 'Money'
     embeds_many :udi, class_name: 'Reference'
 
-    def self.transform_json(json_hash)
-      result = ClaimItemDetailSubDetail.new
+    def self.transform_json(json_hash, target=ClaimItemDetailSubDetail.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['sequence'] = PrimitivePositiveInt.transform_json(json_hash['sequence'], json_hash['_sequence']) unless json_hash['sequence'].nil?      
       result['revenue'] = CodeableConcept.transform_json(json_hash['revenue']) unless json_hash['revenue'].nil?      
       result['category'] = CodeableConcept.transform_json(json_hash['category']) unless json_hash['category'].nil?      

@@ -16,8 +16,8 @@ module FHIR
     embeds_many :team, class_name: 'Reference'
     embeds_many :account, class_name: 'Reference'
 
-    def self.transform_json(json_hash)
-      result = EpisodeOfCare.new
+    def self.transform_json(json_hash, target=EpisodeOfCare.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['status'] = EpisodeOfCareStatus.transform_json(json_hash['status']) unless json_hash['status'].nil?      
       result['statusHistory'] = json_hash['statusHistory'].map { |var| EpisodeOfCareStatusHistory.transform_json(var) } unless json_hash['statusHistory'].nil?

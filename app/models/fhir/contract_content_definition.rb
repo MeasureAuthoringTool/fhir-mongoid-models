@@ -10,8 +10,8 @@ module FHIR
     embeds_one :publicationStatus, class_name: 'ContractPublicationStatus'
     embeds_one :copyright, class_name: 'PrimitiveMarkdown'
 
-    def self.transform_json(json_hash)
-      result = ContractContentDefinition.new
+    def self.transform_json(json_hash, target=ContractContentDefinition.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['type'] = CodeableConcept.transform_json(json_hash['type']) unless json_hash['type'].nil?      
       result['subType'] = CodeableConcept.transform_json(json_hash['subType']) unless json_hash['subType'].nil?      
       result['publisher'] = Reference.transform_json(json_hash['publisher']) unless json_hash['publisher'].nil?      

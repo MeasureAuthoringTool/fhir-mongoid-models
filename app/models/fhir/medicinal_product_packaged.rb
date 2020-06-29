@@ -13,8 +13,8 @@ module FHIR
     embeds_many :batchIdentifier, class_name: 'MedicinalProductPackagedBatchIdentifier'
     embeds_many :packageItem, class_name: 'MedicinalProductPackagedPackageItem'
 
-    def self.transform_json(json_hash)
-      result = MedicinalProductPackaged.new
+    def self.transform_json(json_hash, target=MedicinalProductPackaged.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['subject'] = json_hash['subject'].map { |var| Reference.transform_json(var) } unless json_hash['subject'].nil?
       result['description'] = PrimitiveString.transform_json(json_hash['description'], json_hash['_description']) unless json_hash['description'].nil?      

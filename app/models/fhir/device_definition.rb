@@ -5,7 +5,7 @@ module FHIR
     field :typeName, type: String, default: 'DeviceDefinition'
     embeds_many :identifier, class_name: 'Identifier'
     embeds_many :udiDeviceIdentifier, class_name: 'DeviceDefinitionUdiDeviceIdentifier'
-    embeds_one :manufacturerstring, class_name: 'PrimitiveString'
+    embeds_one :manufacturerString, class_name: 'PrimitiveString'
     embeds_one :manufacturerReference, class_name: 'Reference'
     embeds_many :deviceName, class_name: 'DeviceDefinitionDeviceName'
     embeds_one :modelNumber, class_name: 'PrimitiveString'
@@ -27,11 +27,11 @@ module FHIR
     embeds_one :parentDevice, class_name: 'Reference'
     embeds_many :material, class_name: 'DeviceDefinitionMaterial'
 
-    def self.transform_json(json_hash)
-      result = DeviceDefinition.new
+    def self.transform_json(json_hash, target=DeviceDefinition.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['udiDeviceIdentifier'] = json_hash['udiDeviceIdentifier'].map { |var| DeviceDefinitionUdiDeviceIdentifier.transform_json(var) } unless json_hash['udiDeviceIdentifier'].nil?
-      result['manufacturerstring'] = PrimitiveString.transform_json(json_hash['manufacturerstring'], json_hash['_manufacturerstring']) unless json_hash['manufacturerstring'].nil?      
+      result['manufacturerString'] = PrimitiveString.transform_json(json_hash['manufacturerString'], json_hash['_manufacturerString']) unless json_hash['manufacturerString'].nil?      
       result['manufacturerReference'] = Reference.transform_json(json_hash['manufacturerReference']) unless json_hash['manufacturerReference'].nil?      
       result['deviceName'] = json_hash['deviceName'].map { |var| DeviceDefinitionDeviceName.transform_json(var) } unless json_hash['deviceName'].nil?
       result['modelNumber'] = PrimitiveString.transform_json(json_hash['modelNumber'], json_hash['_modelNumber']) unless json_hash['modelNumber'].nil?      

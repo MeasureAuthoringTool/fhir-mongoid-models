@@ -10,8 +10,8 @@ module FHIR
     embeds_many :monomerSet, class_name: 'SubstancePolymerMonomerSet'
     embeds_many :repeat, class_name: 'SubstancePolymerRepeat'
 
-    def self.transform_json(json_hash)
-      result = SubstancePolymer.new
+    def self.transform_json(json_hash, target=SubstancePolymer.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['class'] = CodeableConcept.transform_json(json_hash['class']) unless json_hash['class'].nil?      
       result['geometry'] = CodeableConcept.transform_json(json_hash['geometry']) unless json_hash['geometry'].nil?      
       result['copolymerConnectivity'] = json_hash['copolymerConnectivity'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['copolymerConnectivity'].nil?

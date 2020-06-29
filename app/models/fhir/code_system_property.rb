@@ -8,8 +8,8 @@ module FHIR
     embeds_one :description, class_name: 'PrimitiveString'
     embeds_one :type, class_name: 'PropertyType'
 
-    def self.transform_json(json_hash)
-      result = CodeSystemProperty.new
+    def self.transform_json(json_hash, target=CodeSystemProperty.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['code'] = PrimitiveCode.transform_json(json_hash['code'], json_hash['_code']) unless json_hash['code'].nil?      
       result['uri'] = PrimitiveUri.transform_json(json_hash['uri'], json_hash['_uri']) unless json_hash['uri'].nil?      
       result['description'] = PrimitiveString.transform_json(json_hash['description'], json_hash['_description']) unless json_hash['description'].nil?      

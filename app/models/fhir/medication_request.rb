@@ -10,7 +10,7 @@ module FHIR
     embeds_many :category, class_name: 'CodeableConcept'
     embeds_one :priority, class_name: 'MedicationRequestPriority'
     embeds_one :doNotPerform, class_name: 'PrimitiveBoolean'
-    embeds_one :reportedboolean, class_name: 'PrimitiveBoolean'
+    embeds_one :reportedBoolean, class_name: 'PrimitiveBoolean'
     embeds_one :reportedReference, class_name: 'Reference'
     embeds_one :medicationCodeableConcept, class_name: 'CodeableConcept'
     embeds_one :medicationReference, class_name: 'Reference'
@@ -38,8 +38,8 @@ module FHIR
     embeds_many :detectedIssue, class_name: 'Reference'
     embeds_many :eventHistory, class_name: 'Reference'
 
-    def self.transform_json(json_hash)
-      result = MedicationRequest.new
+    def self.transform_json(json_hash, target=MedicationRequest.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['status'] = MedicationRequestStatus.transform_json(json_hash['status']) unless json_hash['status'].nil?      
       result['statusReason'] = CodeableConcept.transform_json(json_hash['statusReason']) unless json_hash['statusReason'].nil?      
@@ -47,7 +47,7 @@ module FHIR
       result['category'] = json_hash['category'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['category'].nil?
       result['priority'] = MedicationRequestPriority.transform_json(json_hash['priority']) unless json_hash['priority'].nil?      
       result['doNotPerform'] = PrimitiveBoolean.transform_json(json_hash['doNotPerform'], json_hash['_doNotPerform']) unless json_hash['doNotPerform'].nil?      
-      result['reportedboolean'] = PrimitiveBoolean.transform_json(json_hash['reportedboolean'], json_hash['_reportedboolean']) unless json_hash['reportedboolean'].nil?      
+      result['reportedBoolean'] = PrimitiveBoolean.transform_json(json_hash['reportedBoolean'], json_hash['_reportedBoolean']) unless json_hash['reportedBoolean'].nil?      
       result['reportedReference'] = Reference.transform_json(json_hash['reportedReference']) unless json_hash['reportedReference'].nil?      
       result['medicationCodeableConcept'] = CodeableConcept.transform_json(json_hash['medicationCodeableConcept']) unless json_hash['medicationCodeableConcept'].nil?      
       result['medicationReference'] = Reference.transform_json(json_hash['medicationReference']) unless json_hash['medicationReference'].nil?      

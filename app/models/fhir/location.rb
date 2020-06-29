@@ -21,8 +21,8 @@ module FHIR
     embeds_one :availabilityExceptions, class_name: 'PrimitiveString'
     embeds_many :endpoint, class_name: 'Reference'
 
-    def self.transform_json(json_hash)
-      result = Location.new
+    def self.transform_json(json_hash, target=Location.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['status'] = LocationStatus.transform_json(json_hash['status']) unless json_hash['status'].nil?      
       result['operationalStatus'] = Coding.transform_json(json_hash['operationalStatus']) unless json_hash['operationalStatus'].nil?      

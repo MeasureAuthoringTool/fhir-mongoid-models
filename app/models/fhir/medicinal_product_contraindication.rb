@@ -11,8 +11,8 @@ module FHIR
     embeds_many :otherTherapy, class_name: 'MedicinalProductContraindicationOtherTherapy'
     embeds_many :population, class_name: 'Population'
 
-    def self.transform_json(json_hash)
-      result = MedicinalProductContraindication.new
+    def self.transform_json(json_hash, target=MedicinalProductContraindication.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['subject'] = json_hash['subject'].map { |var| Reference.transform_json(var) } unless json_hash['subject'].nil?
       result['disease'] = CodeableConcept.transform_json(json_hash['disease']) unless json_hash['disease'].nil?      
       result['diseaseStatus'] = CodeableConcept.transform_json(json_hash['diseaseStatus']) unless json_hash['diseaseStatus'].nil?      

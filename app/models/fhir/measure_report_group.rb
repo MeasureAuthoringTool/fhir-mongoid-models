@@ -8,8 +8,8 @@ module FHIR
     embeds_one :measureScore, class_name: 'Quantity'
     embeds_many :stratifier, class_name: 'MeasureReportGroupStratifier'
 
-    def self.transform_json(json_hash)
-      result = MeasureReportGroup.new
+    def self.transform_json(json_hash, target=MeasureReportGroup.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['code'] = CodeableConcept.transform_json(json_hash['code']) unless json_hash['code'].nil?      
       result['population'] = json_hash['population'].map { |var| MeasureReportGroupPopulation.transform_json(var) } unless json_hash['population'].nil?
       result['measureScore'] = Quantity.transform_json(json_hash['measureScore']) unless json_hash['measureScore'].nil?      

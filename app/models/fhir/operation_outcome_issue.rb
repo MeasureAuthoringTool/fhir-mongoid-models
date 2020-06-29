@@ -10,8 +10,8 @@ module FHIR
     embeds_many :location, class_name: 'PrimitiveString'
     embeds_many :expression, class_name: 'PrimitiveString'
 
-    def self.transform_json(json_hash)
-      result = OperationOutcomeIssue.new
+    def self.transform_json(json_hash, target=OperationOutcomeIssue.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['severity'] = IssueSeverity.transform_json(json_hash['severity']) unless json_hash['severity'].nil?      
       result['code'] = IssueType.transform_json(json_hash['code']) unless json_hash['code'].nil?      
       result['details'] = CodeableConcept.transform_json(json_hash['details']) unless json_hash['details'].nil?      

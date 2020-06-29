@@ -7,8 +7,8 @@ module FHIR
     embeds_one :display, class_name: 'PrimitiveString'
     embeds_many :designation, class_name: 'ValueSetComposeIncludeConceptDesignation'
 
-    def self.transform_json(json_hash)
-      result = ValueSetComposeIncludeConcept.new
+    def self.transform_json(json_hash, target=ValueSetComposeIncludeConcept.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['code'] = PrimitiveCode.transform_json(json_hash['code'], json_hash['_code']) unless json_hash['code'].nil?      
       result['display'] = PrimitiveString.transform_json(json_hash['display'], json_hash['_display']) unless json_hash['display'].nil?      
       result['designation'] = json_hash['designation'].map { |var| ValueSetComposeIncludeConceptDesignation.transform_json(var) } unless json_hash['designation'].nil?

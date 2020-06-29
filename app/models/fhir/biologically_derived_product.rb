@@ -21,8 +21,8 @@ module FHIR
       res
     end
 
-    def self.transform_json(json_hash)
-      result = BiologicallyDerivedProduct.new
+    def self.transform_json(json_hash, target=BiologicallyDerivedProduct.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['productCategory'] = BiologicallyDerivedProductCategory.transform_json(json_hash['productCategory']) unless json_hash['productCategory'].nil?      
       result['productCode'] = CodeableConcept.transform_json(json_hash['productCode']) unless json_hash['productCode'].nil?      

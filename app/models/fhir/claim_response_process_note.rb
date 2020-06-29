@@ -8,8 +8,8 @@ module FHIR
     embeds_one :text, class_name: 'PrimitiveString'
     embeds_one :language, class_name: 'CodeableConcept'
 
-    def self.transform_json(json_hash)
-      result = ClaimResponseProcessNote.new
+    def self.transform_json(json_hash, target=ClaimResponseProcessNote.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['number'] = PrimitivePositiveInt.transform_json(json_hash['number'], json_hash['_number']) unless json_hash['number'].nil?      
       result['type'] = NoteType.transform_json(json_hash['type']) unless json_hash['type'].nil?      
       result['text'] = PrimitiveString.transform_json(json_hash['text'], json_hash['_text']) unless json_hash['text'].nil?      

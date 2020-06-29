@@ -11,8 +11,8 @@ module FHIR
     embeds_many :documentation, class_name: 'RelatedArtifact'
     embeds_many :target, class_name: 'PlanDefinitionGoalTarget'
 
-    def self.transform_json(json_hash)
-      result = PlanDefinitionGoal.new
+    def self.transform_json(json_hash, target=PlanDefinitionGoal.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['category'] = CodeableConcept.transform_json(json_hash['category']) unless json_hash['category'].nil?      
       result['description'] = CodeableConcept.transform_json(json_hash['description']) unless json_hash['description'].nil?      
       result['priority'] = CodeableConcept.transform_json(json_hash['priority']) unless json_hash['priority'].nil?      

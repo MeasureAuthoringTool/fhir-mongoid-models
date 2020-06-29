@@ -14,8 +14,8 @@ module FHIR
     embeds_one :request, class_name: 'ExampleScenarioInstanceContainedInstance'
     embeds_one :response, class_name: 'ExampleScenarioInstanceContainedInstance'
 
-    def self.transform_json(json_hash)
-      result = ExampleScenarioProcessStepOperation.new
+    def self.transform_json(json_hash, target=ExampleScenarioProcessStepOperation.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['number'] = PrimitiveString.transform_json(json_hash['number'], json_hash['_number']) unless json_hash['number'].nil?      
       result['type'] = PrimitiveString.transform_json(json_hash['type'], json_hash['_type']) unless json_hash['type'].nil?      
       result['name'] = PrimitiveString.transform_json(json_hash['name'], json_hash['_name']) unless json_hash['name'].nil?      

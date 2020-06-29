@@ -7,8 +7,8 @@ module FHIR
     embeds_one :repeat, class_name: 'TimingRepeat'
     embeds_one :code, class_name: 'CodeableConcept'
 
-    def self.transform_json(json_hash)
-      result = Timing.new
+    def self.transform_json(json_hash, target=Timing.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['event'] = json_hash['event'].each_with_index.map do |var, i|
         extension_hash = json_hash['_event'] && json_hash['_event'][i]
         PrimitiveDateTime.transform_json(var, extension_hash)

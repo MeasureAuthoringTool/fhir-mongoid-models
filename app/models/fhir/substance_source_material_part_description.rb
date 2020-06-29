@@ -6,8 +6,8 @@ module FHIR
     embeds_one :part, class_name: 'CodeableConcept'
     embeds_one :partLocation, class_name: 'CodeableConcept'
 
-    def self.transform_json(json_hash)
-      result = SubstanceSourceMaterialPartDescription.new
+    def self.transform_json(json_hash, target=SubstanceSourceMaterialPartDescription.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['part'] = CodeableConcept.transform_json(json_hash['part']) unless json_hash['part'].nil?      
       result['partLocation'] = CodeableConcept.transform_json(json_hash['partLocation']) unless json_hash['partLocation'].nil?      
 

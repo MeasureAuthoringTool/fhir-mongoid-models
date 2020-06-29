@@ -26,8 +26,8 @@ module FHIR
     embeds_many :participant, class_name: 'AppointmentParticipant'
     embeds_many :requestedPeriod, class_name: 'Period'
 
-    def self.transform_json(json_hash)
-      result = Appointment.new
+    def self.transform_json(json_hash, target=Appointment.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['status'] = AppointmentStatus.transform_json(json_hash['status']) unless json_hash['status'].nil?      
       result['cancelationReason'] = CodeableConcept.transform_json(json_hash['cancelationReason']) unless json_hash['cancelationReason'].nil?      

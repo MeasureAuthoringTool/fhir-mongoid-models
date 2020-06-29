@@ -10,8 +10,8 @@ module FHIR
     embeds_one :procedureReference, class_name: 'Reference'
     embeds_many :udi, class_name: 'Reference'
 
-    def self.transform_json(json_hash)
-      result = ExplanationOfBenefitProcedure.new
+    def self.transform_json(json_hash, target=ExplanationOfBenefitProcedure.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['sequence'] = PrimitivePositiveInt.transform_json(json_hash['sequence'], json_hash['_sequence']) unless json_hash['sequence'].nil?      
       result['type'] = json_hash['type'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['type'].nil?
       result['date'] = PrimitiveDateTime.transform_json(json_hash['date'], json_hash['_date']) unless json_hash['date'].nil?      

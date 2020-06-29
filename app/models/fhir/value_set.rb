@@ -22,8 +22,8 @@ module FHIR
     embeds_one :compose, class_name: 'ValueSetCompose'
     embeds_one :expansion, class_name: 'ValueSetExpansion'
 
-    def self.transform_json(json_hash)
-      result = ValueSet.new
+    def self.transform_json(json_hash, target=ValueSet.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['url'] = PrimitiveUri.transform_json(json_hash['url'], json_hash['_url']) unless json_hash['url'].nil?      
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['version'] = PrimitiveString.transform_json(json_hash['version'], json_hash['_version']) unless json_hash['version'].nil?      

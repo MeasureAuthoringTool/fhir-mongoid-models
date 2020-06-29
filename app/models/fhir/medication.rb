@@ -12,8 +12,8 @@ module FHIR
     embeds_many :ingredient, class_name: 'MedicationIngredient'
     embeds_one :batch, class_name: 'MedicationBatch'
 
-    def self.transform_json(json_hash)
-      result = Medication.new
+    def self.transform_json(json_hash, target=Medication.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['code'] = CodeableConcept.transform_json(json_hash['code']) unless json_hash['code'].nil?      
       result['status'] = MedicationStatus.transform_json(json_hash['status']) unless json_hash['status'].nil?      

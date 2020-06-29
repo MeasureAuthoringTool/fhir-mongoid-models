@@ -30,8 +30,8 @@ module FHIR
     embeds_many :detectedIssue, class_name: 'Reference'
     embeds_many :eventHistory, class_name: 'Reference'
 
-    def self.transform_json(json_hash)
-      result = MedicationDispense.new
+    def self.transform_json(json_hash, target=MedicationDispense.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['partOf'] = json_hash['partOf'].map { |var| Reference.transform_json(var) } unless json_hash['partOf'].nil?
       result['status'] = MedicationDispenseStatus.transform_json(json_hash['status']) unless json_hash['status'].nil?      

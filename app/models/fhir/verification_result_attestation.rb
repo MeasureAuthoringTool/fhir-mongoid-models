@@ -12,8 +12,8 @@ module FHIR
     embeds_one :proxySignature, class_name: 'Signature'
     embeds_one :sourceSignature, class_name: 'Signature'
 
-    def self.transform_json(json_hash)
-      result = VerificationResultAttestation.new
+    def self.transform_json(json_hash, target=VerificationResultAttestation.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['who'] = Reference.transform_json(json_hash['who']) unless json_hash['who'].nil?      
       result['onBehalfOf'] = Reference.transform_json(json_hash['onBehalfOf']) unless json_hash['onBehalfOf'].nil?      
       result['communicationMethod'] = CodeableConcept.transform_json(json_hash['communicationMethod']) unless json_hash['communicationMethod'].nil?      

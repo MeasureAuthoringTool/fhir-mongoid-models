@@ -12,8 +12,8 @@ module FHIR
     embeds_many :designation, class_name: 'ValueSetComposeIncludeConceptDesignation'
     embeds_many :contains, class_name: 'ValueSetExpansionContains'
 
-    def self.transform_json(json_hash)
-      result = ValueSetExpansionContains.new
+    def self.transform_json(json_hash, target=ValueSetExpansionContains.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['system'] = PrimitiveUri.transform_json(json_hash['system'], json_hash['_system']) unless json_hash['system'].nil?      
       result['abstract'] = PrimitiveBoolean.transform_json(json_hash['abstract'], json_hash['_abstract']) unless json_hash['abstract'].nil?      
       result['inactive'] = PrimitiveBoolean.transform_json(json_hash['inactive'], json_hash['_inactive']) unless json_hash['inactive'].nil?      

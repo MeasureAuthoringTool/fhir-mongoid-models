@@ -12,8 +12,8 @@ module FHIR
     embeds_one :term, class_name: 'CodeableConcept'
     embeds_many :financial, class_name: 'ExplanationOfBenefitBenefitBalanceFinancial'
 
-    def self.transform_json(json_hash)
-      result = ExplanationOfBenefitBenefitBalance.new
+    def self.transform_json(json_hash, target=ExplanationOfBenefitBenefitBalance.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['category'] = CodeableConcept.transform_json(json_hash['category']) unless json_hash['category'].nil?      
       result['excluded'] = PrimitiveBoolean.transform_json(json_hash['excluded'], json_hash['_excluded']) unless json_hash['excluded'].nil?      
       result['name'] = PrimitiveString.transform_json(json_hash['name'], json_hash['_name']) unless json_hash['name'].nil?      

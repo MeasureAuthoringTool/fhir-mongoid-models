@@ -7,7 +7,7 @@ module FHIR
     embeds_one :status, class_name: 'EligibilityResponseStatus'
     embeds_many :purpose, class_name: 'EligibilityResponsePurpose'
     embeds_one :patient, class_name: 'Reference'
-    embeds_one :serviceddate, class_name: 'PrimitiveDate'
+    embeds_one :servicedDate, class_name: 'PrimitiveDate'
     embeds_one :servicedPeriod, class_name: 'Period'
     embeds_one :created, class_name: 'PrimitiveDateTime'
     embeds_one :requestor, class_name: 'Reference'
@@ -20,13 +20,13 @@ module FHIR
     embeds_one :form, class_name: 'CodeableConcept'
     embeds_many :error, class_name: 'CoverageEligibilityResponseError'
 
-    def self.transform_json(json_hash)
-      result = CoverageEligibilityResponse.new
+    def self.transform_json(json_hash, target=CoverageEligibilityResponse.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['status'] = EligibilityResponseStatus.transform_json(json_hash['status']) unless json_hash['status'].nil?      
       result['purpose'] = json_hash['purpose'].map { |var| EligibilityResponsePurpose.transform_json(var) } unless json_hash['purpose'].nil?
       result['patient'] = Reference.transform_json(json_hash['patient']) unless json_hash['patient'].nil?      
-      result['serviceddate'] = PrimitiveDate.transform_json(json_hash['serviceddate'], json_hash['_serviceddate']) unless json_hash['serviceddate'].nil?      
+      result['servicedDate'] = PrimitiveDate.transform_json(json_hash['servicedDate'], json_hash['_servicedDate']) unless json_hash['servicedDate'].nil?      
       result['servicedPeriod'] = Period.transform_json(json_hash['servicedPeriod']) unless json_hash['servicedPeriod'].nil?      
       result['created'] = PrimitiveDateTime.transform_json(json_hash['created'], json_hash['_created']) unless json_hash['created'].nil?      
       result['requestor'] = Reference.transform_json(json_hash['requestor']) unless json_hash['requestor'].nil?      

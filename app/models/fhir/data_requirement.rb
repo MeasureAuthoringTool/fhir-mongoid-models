@@ -13,8 +13,8 @@ module FHIR
     embeds_one :limit, class_name: 'PrimitivePositiveInt'
     embeds_many :sort, class_name: 'DataRequirementSort'
 
-    def self.transform_json(json_hash)
-      result = DataRequirement.new
+    def self.transform_json(json_hash, target=DataRequirement.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['type'] = FHIRAllTypes.transform_json(json_hash['type']) unless json_hash['type'].nil?      
       result['profile'] = json_hash['profile'].each_with_index.map do |var, i|
         extension_hash = json_hash['_profile'] && json_hash['_profile'][i]

@@ -13,8 +13,8 @@ module FHIR
     embeds_one :windowStart, class_name: 'PrimitiveInteger'
     embeds_one :windowEnd, class_name: 'PrimitiveInteger'
 
-    def self.transform_json(json_hash)
-      result = MolecularSequenceReferenceSeq.new
+    def self.transform_json(json_hash, target=MolecularSequenceReferenceSeq.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['chromosome'] = CodeableConcept.transform_json(json_hash['chromosome']) unless json_hash['chromosome'].nil?      
       result['genomeBuild'] = PrimitiveString.transform_json(json_hash['genomeBuild'], json_hash['_genomeBuild']) unless json_hash['genomeBuild'].nil?      
       result['orientation'] = OrientationType.transform_json(json_hash['orientation']) unless json_hash['orientation'].nil?      

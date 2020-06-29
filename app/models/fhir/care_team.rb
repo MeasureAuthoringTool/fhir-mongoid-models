@@ -17,8 +17,8 @@ module FHIR
     embeds_many :telecom, class_name: 'ContactPoint'
     embeds_many :note, class_name: 'Annotation'
 
-    def self.transform_json(json_hash)
-      result = CareTeam.new
+    def self.transform_json(json_hash, target=CareTeam.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['status'] = CareTeamStatus.transform_json(json_hash['status']) unless json_hash['status'].nil?      
       result['category'] = json_hash['category'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['category'].nil?

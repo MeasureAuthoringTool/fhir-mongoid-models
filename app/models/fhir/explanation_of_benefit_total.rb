@@ -6,8 +6,8 @@ module FHIR
     embeds_one :category, class_name: 'CodeableConcept'
     embeds_one :amount, class_name: 'Money'
 
-    def self.transform_json(json_hash)
-      result = ExplanationOfBenefitTotal.new
+    def self.transform_json(json_hash, target=ExplanationOfBenefitTotal.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['category'] = CodeableConcept.transform_json(json_hash['category']) unless json_hash['category'].nil?      
       result['amount'] = Money.transform_json(json_hash['amount']) unless json_hash['amount'].nil?      
 

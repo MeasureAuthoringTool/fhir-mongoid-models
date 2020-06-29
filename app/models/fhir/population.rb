@@ -9,8 +9,8 @@ module FHIR
     embeds_one :race, class_name: 'CodeableConcept'
     embeds_one :physiologicalCondition, class_name: 'CodeableConcept'
 
-    def self.transform_json(json_hash)
-      result = Population.new
+    def self.transform_json(json_hash, target=Population.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['ageRange'] = Range.transform_json(json_hash['ageRange']) unless json_hash['ageRange'].nil?      
       result['ageCodeableConcept'] = CodeableConcept.transform_json(json_hash['ageCodeableConcept']) unless json_hash['ageCodeableConcept'].nil?      
       result['gender'] = CodeableConcept.transform_json(json_hash['gender']) unless json_hash['gender'].nil?      

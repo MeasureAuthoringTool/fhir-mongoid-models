@@ -11,8 +11,8 @@ module FHIR
     embeds_one :error, class_name: 'PrimitiveString'
     embeds_one :channel, class_name: 'SubscriptionChannel'
 
-    def self.transform_json(json_hash)
-      result = Subscription.new
+    def self.transform_json(json_hash, target=Subscription.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['status'] = SubscriptionStatus.transform_json(json_hash['status']) unless json_hash['status'].nil?      
       result['contact'] = json_hash['contact'].map { |var| ContactPoint.transform_json(var) } unless json_hash['contact'].nil?
       result['end'] = PrimitiveInstant.transform_json(json_hash['end'], json_hash['_end']) unless json_hash['end'].nil?      

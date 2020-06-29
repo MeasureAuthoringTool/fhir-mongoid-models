@@ -28,8 +28,8 @@ module FHIR
     embeds_many :arm, class_name: 'ResearchStudyArm'
     embeds_many :objective, class_name: 'ResearchStudyObjective'
 
-    def self.transform_json(json_hash)
-      result = ResearchStudy.new
+    def self.transform_json(json_hash, target=ResearchStudy.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['title'] = PrimitiveString.transform_json(json_hash['title'], json_hash['_title']) unless json_hash['title'].nil?      
       result['protocol'] = json_hash['protocol'].map { |var| Reference.transform_json(var) } unless json_hash['protocol'].nil?

@@ -28,8 +28,8 @@ module FHIR
     embeds_many :test, class_name: 'TestScriptTest'
     embeds_one :teardown, class_name: 'TestScriptTeardown'
 
-    def self.transform_json(json_hash)
-      result = TestScript.new
+    def self.transform_json(json_hash, target=TestScript.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['url'] = PrimitiveUri.transform_json(json_hash['url'], json_hash['_url']) unless json_hash['url'].nil?      
       result['identifier'] = Identifier.transform_json(json_hash['identifier']) unless json_hash['identifier'].nil?      
       result['version'] = PrimitiveString.transform_json(json_hash['version'], json_hash['_version']) unless json_hash['version'].nil?      

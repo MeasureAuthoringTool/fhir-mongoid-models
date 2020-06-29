@@ -10,8 +10,8 @@ module FHIR
     embeds_many :filter, class_name: 'TerminologyCapabilitiesCodeSystemVersionFilter'
     embeds_many :property, class_name: 'PrimitiveCode'
 
-    def self.transform_json(json_hash)
-      result = TerminologyCapabilitiesCodeSystemVersion.new
+    def self.transform_json(json_hash, target=TerminologyCapabilitiesCodeSystemVersion.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['code'] = PrimitiveString.transform_json(json_hash['code'], json_hash['_code']) unless json_hash['code'].nil?      
       result['isDefault'] = PrimitiveBoolean.transform_json(json_hash['isDefault'], json_hash['_isDefault']) unless json_hash['isDefault'].nil?      
       result['compositional'] = PrimitiveBoolean.transform_json(json_hash['compositional'], json_hash['_compositional']) unless json_hash['compositional'].nil?      

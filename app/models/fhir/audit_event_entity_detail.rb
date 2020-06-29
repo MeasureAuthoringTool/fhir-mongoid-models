@@ -4,14 +4,14 @@ module FHIR
     include Mongoid::Document
     field :typeName, type: String, default: 'AuditEventEntityDetail'
     embeds_one :type, class_name: 'PrimitiveString'
-    embeds_one :valuestring, class_name: 'PrimitiveString'
-    embeds_one :valuebase64Binary, class_name: 'PrimitiveBase64Binary'
+    embeds_one :valueString, class_name: 'PrimitiveString'
+    embeds_one :valueBase64Binary, class_name: 'PrimitiveBase64Binary'
 
-    def self.transform_json(json_hash)
-      result = AuditEventEntityDetail.new
+    def self.transform_json(json_hash, target=AuditEventEntityDetail.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['type'] = PrimitiveString.transform_json(json_hash['type'], json_hash['_type']) unless json_hash['type'].nil?      
-      result['valuestring'] = PrimitiveString.transform_json(json_hash['valuestring'], json_hash['_valuestring']) unless json_hash['valuestring'].nil?      
-      result['valuebase64Binary'] = PrimitiveBase64Binary.transform_json(json_hash['valuebase64Binary'], json_hash['_valuebase64Binary']) unless json_hash['valuebase64Binary'].nil?      
+      result['valueString'] = PrimitiveString.transform_json(json_hash['valueString'], json_hash['_valueString']) unless json_hash['valueString'].nil?      
+      result['valueBase64Binary'] = PrimitiveBase64Binary.transform_json(json_hash['valueBase64Binary'], json_hash['_valueBase64Binary']) unless json_hash['valueBase64Binary'].nil?      
 
       result
     end

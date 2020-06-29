@@ -11,8 +11,8 @@ module FHIR
     embeds_one :physicalCharacteristics, class_name: 'ProdCharacteristic'
     embeds_many :otherCharacteristics, class_name: 'CodeableConcept'
 
-    def self.transform_json(json_hash)
-      result = MedicinalProductManufactured.new
+    def self.transform_json(json_hash, target=MedicinalProductManufactured.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['manufacturedDoseForm'] = CodeableConcept.transform_json(json_hash['manufacturedDoseForm']) unless json_hash['manufacturedDoseForm'].nil?      
       result['unitOfPresentation'] = CodeableConcept.transform_json(json_hash['unitOfPresentation']) unless json_hash['unitOfPresentation'].nil?      
       result['quantity'] = Quantity.transform_json(json_hash['quantity']) unless json_hash['quantity'].nil?      

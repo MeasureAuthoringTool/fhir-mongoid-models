@@ -5,16 +5,16 @@ module FHIR
     field :typeName, type: String, default: 'SubstanceAmount'
     embeds_one :amountQuantity, class_name: 'Quantity'
     embeds_one :amountRange, class_name: 'Range'
-    embeds_one :amountstring, class_name: 'PrimitiveString'
+    embeds_one :amountString, class_name: 'PrimitiveString'
     embeds_one :amountType, class_name: 'CodeableConcept'
     embeds_one :amountText, class_name: 'PrimitiveString'
     embeds_one :referenceRange, class_name: 'SubstanceAmountReferenceRange'
 
-    def self.transform_json(json_hash)
-      result = SubstanceAmount.new
+    def self.transform_json(json_hash, target=SubstanceAmount.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['amountQuantity'] = Quantity.transform_json(json_hash['amountQuantity']) unless json_hash['amountQuantity'].nil?      
       result['amountRange'] = Range.transform_json(json_hash['amountRange']) unless json_hash['amountRange'].nil?      
-      result['amountstring'] = PrimitiveString.transform_json(json_hash['amountstring'], json_hash['_amountstring']) unless json_hash['amountstring'].nil?      
+      result['amountString'] = PrimitiveString.transform_json(json_hash['amountString'], json_hash['_amountString']) unless json_hash['amountString'].nil?      
       result['amountType'] = CodeableConcept.transform_json(json_hash['amountType']) unless json_hash['amountType'].nil?      
       result['amountText'] = PrimitiveString.transform_json(json_hash['amountText'], json_hash['_amountText']) unless json_hash['amountText'].nil?      
       result['referenceRange'] = SubstanceAmountReferenceRange.transform_json(json_hash['referenceRange']) unless json_hash['referenceRange'].nil?      

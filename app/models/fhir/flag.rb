@@ -12,8 +12,8 @@ module FHIR
     embeds_one :encounter, class_name: 'Reference'
     embeds_one :author, class_name: 'Reference'
 
-    def self.transform_json(json_hash)
-      result = Flag.new
+    def self.transform_json(json_hash, target=Flag.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['status'] = FlagStatus.transform_json(json_hash['status']) unless json_hash['status'].nil?      
       result['category'] = json_hash['category'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['category'].nil?

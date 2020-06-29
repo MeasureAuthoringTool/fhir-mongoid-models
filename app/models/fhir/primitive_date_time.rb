@@ -5,8 +5,8 @@ module FHIR
     field :typeName, type: String, default: 'PrimitiveDateTime'
     field :value, type: DateTime
 
-    def self.transform_json(json_hash, extension_hash)
-      result = PrimitiveDateTime.new
+    def self.transform_json(json_hash, extension_hash, target=PrimitiveDateTime.new)
+      result = target
       unless extension_hash.nil?
         result['id'] = extension_hash['id']
         result['extension'] = extension_hash['extension'].map { |ext| Extension.transform_json(ext) }

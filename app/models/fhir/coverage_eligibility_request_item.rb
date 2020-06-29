@@ -14,8 +14,8 @@ module FHIR
     embeds_many :diagnosis, class_name: 'CoverageEligibilityRequestItemDiagnosis'
     embeds_many :detail, class_name: 'Reference'
 
-    def self.transform_json(json_hash)
-      result = CoverageEligibilityRequestItem.new
+    def self.transform_json(json_hash, target=CoverageEligibilityRequestItem.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['supportingInfoSequence'] = json_hash['supportingInfoSequence'].each_with_index.map do |var, i|
         extension_hash = json_hash['_supportingInfoSequence'] && json_hash['_supportingInfoSequence'][i]
         PrimitivePositiveInt.transform_json(var, extension_hash)

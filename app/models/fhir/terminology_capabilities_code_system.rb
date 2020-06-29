@@ -7,8 +7,8 @@ module FHIR
     embeds_many :version, class_name: 'TerminologyCapabilitiesCodeSystemVersion'
     embeds_one :subsumption, class_name: 'PrimitiveBoolean'
 
-    def self.transform_json(json_hash)
-      result = TerminologyCapabilitiesCodeSystem.new
+    def self.transform_json(json_hash, target=TerminologyCapabilitiesCodeSystem.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['uri'] = PrimitiveCanonical.transform_json(json_hash['uri'], json_hash['_uri']) unless json_hash['uri'].nil?      
       result['version'] = json_hash['version'].map { |var| TerminologyCapabilitiesCodeSystemVersion.transform_json(var) } unless json_hash['version'].nil?
       result['subsumption'] = PrimitiveBoolean.transform_json(json_hash['subsumption'], json_hash['_subsumption']) unless json_hash['subsumption'].nil?      

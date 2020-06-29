@@ -13,8 +13,8 @@ module FHIR
     embeds_one :destination, class_name: 'Reference'
     embeds_one :dischargeDisposition, class_name: 'CodeableConcept'
 
-    def self.transform_json(json_hash)
-      result = EncounterHospitalization.new
+    def self.transform_json(json_hash, target=EncounterHospitalization.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['preAdmissionIdentifier'] = Identifier.transform_json(json_hash['preAdmissionIdentifier']) unless json_hash['preAdmissionIdentifier'].nil?      
       result['origin'] = Reference.transform_json(json_hash['origin']) unless json_hash['origin'].nil?      
       result['admitSource'] = CodeableConcept.transform_json(json_hash['admitSource']) unless json_hash['admitSource'].nil?      

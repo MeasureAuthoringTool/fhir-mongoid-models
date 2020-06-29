@@ -11,8 +11,8 @@ module FHIR
     embeds_one :numeratorCount, class_name: 'PrimitiveInteger'
     embeds_many :precisionEstimate, class_name: 'RiskEvidenceSynthesisRiskEstimatePrecisionEstimate'
 
-    def self.transform_json(json_hash)
-      result = RiskEvidenceSynthesisRiskEstimate.new
+    def self.transform_json(json_hash, target=RiskEvidenceSynthesisRiskEstimate.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['description'] = PrimitiveString.transform_json(json_hash['description'], json_hash['_description']) unless json_hash['description'].nil?      
       result['type'] = CodeableConcept.transform_json(json_hash['type']) unless json_hash['type'].nil?      
       result['value'] = PrimitiveDecimal.transform_json(json_hash['value'], json_hash['_value']) unless json_hash['value'].nil?      

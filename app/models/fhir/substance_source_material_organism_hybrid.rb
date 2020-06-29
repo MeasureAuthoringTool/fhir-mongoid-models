@@ -9,8 +9,8 @@ module FHIR
     embeds_one :paternalOrganismName, class_name: 'PrimitiveString'
     embeds_one :hybridType, class_name: 'CodeableConcept'
 
-    def self.transform_json(json_hash)
-      result = SubstanceSourceMaterialOrganismHybrid.new
+    def self.transform_json(json_hash, target=SubstanceSourceMaterialOrganismHybrid.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['maternalOrganismId'] = PrimitiveString.transform_json(json_hash['maternalOrganismId'], json_hash['_maternalOrganismId']) unless json_hash['maternalOrganismId'].nil?      
       result['maternalOrganismName'] = PrimitiveString.transform_json(json_hash['maternalOrganismName'], json_hash['_maternalOrganismName']) unless json_hash['maternalOrganismName'].nil?      
       result['paternalOrganismId'] = PrimitiveString.transform_json(json_hash['paternalOrganismId'], json_hash['_paternalOrganismId']) unless json_hash['paternalOrganismId'].nil?      

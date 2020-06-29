@@ -7,8 +7,8 @@ module FHIR
     embeds_one :uri, class_name: 'PrimitiveUri'
     embeds_one :display, class_name: 'PrimitiveString'
 
-    def self.transform_json(json_hash)
-      result = TestReportParticipant.new
+    def self.transform_json(json_hash, target=TestReportParticipant.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['type'] = TestReportParticipantType.transform_json(json_hash['type']) unless json_hash['type'].nil?      
       result['uri'] = PrimitiveUri.transform_json(json_hash['uri'], json_hash['_uri']) unless json_hash['uri'].nil?      
       result['display'] = PrimitiveString.transform_json(json_hash['display'], json_hash['_display']) unless json_hash['display'].nil?      

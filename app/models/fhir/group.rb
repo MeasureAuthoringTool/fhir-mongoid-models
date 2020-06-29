@@ -14,8 +14,8 @@ module FHIR
     embeds_many :characteristic, class_name: 'GroupCharacteristic'
     embeds_many :member, class_name: 'GroupMember'
 
-    def self.transform_json(json_hash)
-      result = Group.new
+    def self.transform_json(json_hash, target=Group.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['active'] = PrimitiveBoolean.transform_json(json_hash['active'], json_hash['_active']) unless json_hash['active'].nil?      
       result['type'] = GroupType.transform_json(json_hash['type']) unless json_hash['type'].nil?      

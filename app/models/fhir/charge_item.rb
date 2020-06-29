@@ -11,7 +11,7 @@ module FHIR
     embeds_one :code, class_name: 'CodeableConcept'
     embeds_one :subject, class_name: 'Reference'
     embeds_one :context, class_name: 'Reference'
-    embeds_one :occurrencedateTime, class_name: 'PrimitiveDateTime'
+    embeds_one :occurrenceDateTime, class_name: 'PrimitiveDateTime'
     embeds_one :occurrencePeriod, class_name: 'Period'
     embeds_one :occurrenceTiming, class_name: 'Timing'
     embeds_many :performer, class_name: 'ChargeItemPerformer'
@@ -33,8 +33,8 @@ module FHIR
     embeds_many :note, class_name: 'Annotation'
     embeds_many :supportingInformation, class_name: 'Reference'
 
-    def self.transform_json(json_hash)
-      result = ChargeItem.new
+    def self.transform_json(json_hash, target=ChargeItem.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['definitionUri'] = json_hash['definitionUri'].each_with_index.map do |var, i|
         extension_hash = json_hash['_definitionUri'] && json_hash['_definitionUri'][i]
@@ -49,7 +49,7 @@ module FHIR
       result['code'] = CodeableConcept.transform_json(json_hash['code']) unless json_hash['code'].nil?      
       result['subject'] = Reference.transform_json(json_hash['subject']) unless json_hash['subject'].nil?      
       result['context'] = Reference.transform_json(json_hash['context']) unless json_hash['context'].nil?      
-      result['occurrencedateTime'] = PrimitiveDateTime.transform_json(json_hash['occurrencedateTime'], json_hash['_occurrencedateTime']) unless json_hash['occurrencedateTime'].nil?      
+      result['occurrenceDateTime'] = PrimitiveDateTime.transform_json(json_hash['occurrenceDateTime'], json_hash['_occurrenceDateTime']) unless json_hash['occurrenceDateTime'].nil?      
       result['occurrencePeriod'] = Period.transform_json(json_hash['occurrencePeriod']) unless json_hash['occurrencePeriod'].nil?      
       result['occurrenceTiming'] = Timing.transform_json(json_hash['occurrenceTiming']) unless json_hash['occurrenceTiming'].nil?      
       result['performer'] = json_hash['performer'].map { |var| ChargeItemPerformer.transform_json(var) } unless json_hash['performer'].nil?

@@ -9,8 +9,8 @@ module FHIR
     embeds_one :vaccineCode, class_name: 'CodeableConcept'
     embeds_one :patient, class_name: 'Reference'
     embeds_one :encounter, class_name: 'Reference'
-    embeds_one :occurrencedateTime, class_name: 'PrimitiveDateTime'
-    embeds_one :occurrencestring, class_name: 'PrimitiveString'
+    embeds_one :occurrenceDateTime, class_name: 'PrimitiveDateTime'
+    embeds_one :occurrenceString, class_name: 'PrimitiveString'
     embeds_one :recorded, class_name: 'PrimitiveDateTime'
     embeds_one :primarySource, class_name: 'PrimitiveBoolean'
     embeds_one :reportOrigin, class_name: 'CodeableConcept'
@@ -33,16 +33,16 @@ module FHIR
     embeds_many :reaction, class_name: 'ImmunizationReaction'
     embeds_many :protocolApplied, class_name: 'ImmunizationProtocolApplied'
 
-    def self.transform_json(json_hash)
-      result = Immunization.new
+    def self.transform_json(json_hash, target=Immunization.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['status'] = ImmunizationStatus.transform_json(json_hash['status']) unless json_hash['status'].nil?      
       result['statusReason'] = CodeableConcept.transform_json(json_hash['statusReason']) unless json_hash['statusReason'].nil?      
       result['vaccineCode'] = CodeableConcept.transform_json(json_hash['vaccineCode']) unless json_hash['vaccineCode'].nil?      
       result['patient'] = Reference.transform_json(json_hash['patient']) unless json_hash['patient'].nil?      
       result['encounter'] = Reference.transform_json(json_hash['encounter']) unless json_hash['encounter'].nil?      
-      result['occurrencedateTime'] = PrimitiveDateTime.transform_json(json_hash['occurrencedateTime'], json_hash['_occurrencedateTime']) unless json_hash['occurrencedateTime'].nil?      
-      result['occurrencestring'] = PrimitiveString.transform_json(json_hash['occurrencestring'], json_hash['_occurrencestring']) unless json_hash['occurrencestring'].nil?      
+      result['occurrenceDateTime'] = PrimitiveDateTime.transform_json(json_hash['occurrenceDateTime'], json_hash['_occurrenceDateTime']) unless json_hash['occurrenceDateTime'].nil?      
+      result['occurrenceString'] = PrimitiveString.transform_json(json_hash['occurrenceString'], json_hash['_occurrenceString']) unless json_hash['occurrenceString'].nil?      
       result['recorded'] = PrimitiveDateTime.transform_json(json_hash['recorded'], json_hash['_recorded']) unless json_hash['recorded'].nil?      
       result['primarySource'] = PrimitiveBoolean.transform_json(json_hash['primarySource'], json_hash['_primarySource']) unless json_hash['primarySource'].nil?      
       result['reportOrigin'] = CodeableConcept.transform_json(json_hash['reportOrigin']) unless json_hash['reportOrigin'].nil?      

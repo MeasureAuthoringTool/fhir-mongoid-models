@@ -7,8 +7,8 @@ module FHIR
     embeds_one :jurisdiction, class_name: 'CodeableConcept'
     embeds_one :language, class_name: 'CodeableConcept'
 
-    def self.transform_json(json_hash)
-      result = MedicinalProductNameCountryLanguage.new
+    def self.transform_json(json_hash, target=MedicinalProductNameCountryLanguage.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['country'] = CodeableConcept.transform_json(json_hash['country']) unless json_hash['country'].nil?      
       result['jurisdiction'] = CodeableConcept.transform_json(json_hash['jurisdiction']) unless json_hash['jurisdiction'].nil?      
       result['language'] = CodeableConcept.transform_json(json_hash['language']) unless json_hash['language'].nil?      

@@ -10,7 +10,7 @@ module FHIR
     embeds_one :code, class_name: 'CodeableConcept'
     embeds_one :subject, class_name: 'Reference'
     embeds_one :encounter, class_name: 'Reference'
-    embeds_one :effectivedateTime, class_name: 'PrimitiveDateTime'
+    embeds_one :effectiveDateTime, class_name: 'PrimitiveDateTime'
     embeds_one :effectivePeriod, class_name: 'Period'
     embeds_one :issued, class_name: 'PrimitiveInstant'
     embeds_many :performer, class_name: 'Reference'
@@ -23,8 +23,8 @@ module FHIR
     embeds_many :conclusionCode, class_name: 'CodeableConcept'
     embeds_many :presentedForm, class_name: 'Attachment'
 
-    def self.transform_json(json_hash)
-      result = DiagnosticReport.new
+    def self.transform_json(json_hash, target=DiagnosticReport.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['basedOn'] = json_hash['basedOn'].map { |var| Reference.transform_json(var) } unless json_hash['basedOn'].nil?
       result['status'] = DiagnosticReportStatus.transform_json(json_hash['status']) unless json_hash['status'].nil?      
@@ -32,7 +32,7 @@ module FHIR
       result['code'] = CodeableConcept.transform_json(json_hash['code']) unless json_hash['code'].nil?      
       result['subject'] = Reference.transform_json(json_hash['subject']) unless json_hash['subject'].nil?      
       result['encounter'] = Reference.transform_json(json_hash['encounter']) unless json_hash['encounter'].nil?      
-      result['effectivedateTime'] = PrimitiveDateTime.transform_json(json_hash['effectivedateTime'], json_hash['_effectivedateTime']) unless json_hash['effectivedateTime'].nil?      
+      result['effectiveDateTime'] = PrimitiveDateTime.transform_json(json_hash['effectiveDateTime'], json_hash['_effectiveDateTime']) unless json_hash['effectiveDateTime'].nil?      
       result['effectivePeriod'] = Period.transform_json(json_hash['effectivePeriod']) unless json_hash['effectivePeriod'].nil?      
       result['issued'] = PrimitiveInstant.transform_json(json_hash['issued'], json_hash['_issued']) unless json_hash['issued'].nil?      
       result['performer'] = json_hash['performer'].map { |var| Reference.transform_json(var) } unless json_hash['performer'].nil?

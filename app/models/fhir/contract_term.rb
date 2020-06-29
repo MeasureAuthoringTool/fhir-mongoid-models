@@ -17,8 +17,8 @@ module FHIR
     embeds_many :action, class_name: 'ContractTermAction'
     embeds_many :group, class_name: 'ContractTerm'
 
-    def self.transform_json(json_hash)
-      result = ContractTerm.new
+    def self.transform_json(json_hash, target=ContractTerm.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = Identifier.transform_json(json_hash['identifier']) unless json_hash['identifier'].nil?      
       result['issued'] = PrimitiveDateTime.transform_json(json_hash['issued'], json_hash['_issued']) unless json_hash['issued'].nil?      
       result['applies'] = Period.transform_json(json_hash['applies']) unless json_hash['applies'].nil?      

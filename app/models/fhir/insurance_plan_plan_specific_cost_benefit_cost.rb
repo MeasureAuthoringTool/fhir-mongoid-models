@@ -8,8 +8,8 @@ module FHIR
     embeds_many :qualifiers, class_name: 'CodeableConcept'
     embeds_one :value, class_name: 'Quantity'
 
-    def self.transform_json(json_hash)
-      result = InsurancePlanPlanSpecificCostBenefitCost.new
+    def self.transform_json(json_hash, target=InsurancePlanPlanSpecificCostBenefitCost.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['type'] = CodeableConcept.transform_json(json_hash['type']) unless json_hash['type'].nil?      
       result['applicability'] = CodeableConcept.transform_json(json_hash['applicability']) unless json_hash['applicability'].nil?      
       result['qualifiers'] = json_hash['qualifiers'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['qualifiers'].nil?

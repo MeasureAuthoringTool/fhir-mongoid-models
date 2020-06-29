@@ -7,8 +7,8 @@ module FHIR
     embeds_one :type, class_name: 'CodeableConcept'
     embeds_one :amount, class_name: 'Quantity'
 
-    def self.transform_json(json_hash)
-      result = SubstanceSpecificationStructureIsotopeMolecularWeight.new
+    def self.transform_json(json_hash, target=SubstanceSpecificationStructureIsotopeMolecularWeight.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['method'] = CodeableConcept.transform_json(json_hash['method']) unless json_hash['method'].nil?      
       result['type'] = CodeableConcept.transform_json(json_hash['type']) unless json_hash['type'].nil?      
       result['amount'] = Quantity.transform_json(json_hash['amount']) unless json_hash['amount'].nil?      

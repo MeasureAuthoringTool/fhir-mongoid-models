@@ -7,5 +7,11 @@ RSpec.describe FHIR::Measure do
       measure.save!
     end.to_not raise_error
     expect(measure._id).to be_present
+    expect(measure.name.value).to eq measure_hash['name']
+
+    #attributes from super class should be included
+    expect(measure.extension).to be_present
+    expect(measure.contained).to be_present
+    expect(measure.meta).to be_present
   end
 end

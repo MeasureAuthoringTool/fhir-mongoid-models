@@ -9,8 +9,8 @@ module FHIR
     embeds_many :degreeOfPolymerisation, class_name: 'SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation'
     embeds_many :structuralRepresentation, class_name: 'SubstancePolymerRepeatRepeatUnitStructuralRepresentation'
 
-    def self.transform_json(json_hash)
-      result = SubstancePolymerRepeatRepeatUnit.new
+    def self.transform_json(json_hash, target=SubstancePolymerRepeatRepeatUnit.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['orientationOfPolymerisation'] = CodeableConcept.transform_json(json_hash['orientationOfPolymerisation']) unless json_hash['orientationOfPolymerisation'].nil?      
       result['repeatUnit'] = PrimitiveString.transform_json(json_hash['repeatUnit'], json_hash['_repeatUnit']) unless json_hash['repeatUnit'].nil?      
       result['amount'] = SubstanceAmount.transform_json(json_hash['amount']) unless json_hash['amount'].nil?      

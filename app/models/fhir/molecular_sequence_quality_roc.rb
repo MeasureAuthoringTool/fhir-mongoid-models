@@ -11,8 +11,8 @@ module FHIR
     embeds_many :sensitivity, class_name: 'PrimitiveDecimal'
     embeds_many :fMeasure, class_name: 'PrimitiveDecimal'
 
-    def self.transform_json(json_hash)
-      result = MolecularSequenceQualityRoc.new
+    def self.transform_json(json_hash, target=MolecularSequenceQualityRoc.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['score'] = json_hash['score'].each_with_index.map do |var, i|
         extension_hash = json_hash['_score'] && json_hash['_score'][i]
         PrimitiveInteger.transform_json(var, extension_hash)

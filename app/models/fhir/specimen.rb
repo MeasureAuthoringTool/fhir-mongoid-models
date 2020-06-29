@@ -23,8 +23,8 @@ module FHIR
       res
     end
 
-    def self.transform_json(json_hash)
-      result = Specimen.new
+    def self.transform_json(json_hash, target=Specimen.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['accessionIdentifier'] = Identifier.transform_json(json_hash['accessionIdentifier']) unless json_hash['accessionIdentifier'].nil?      
       result['status'] = SpecimenStatus.transform_json(json_hash['status']) unless json_hash['status'].nil?      

@@ -6,8 +6,8 @@ module FHIR
     embeds_one :code, class_name: 'CodeableConcept'
     embeds_one :comment, class_name: 'PrimitiveMarkdown'
 
-    def self.transform_json(json_hash)
-      result = HealthcareServiceEligibility.new
+    def self.transform_json(json_hash, target=HealthcareServiceEligibility.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['code'] = CodeableConcept.transform_json(json_hash['code']) unless json_hash['code'].nil?      
       result['comment'] = PrimitiveMarkdown.transform_json(json_hash['comment'], json_hash['_comment']) unless json_hash['comment'].nil?      
 

@@ -5,8 +5,8 @@ module FHIR
     field :typeName, type: String, default: 'TerminologyCapabilitiesClosure'
     embeds_one :translation, class_name: 'PrimitiveBoolean'
 
-    def self.transform_json(json_hash)
-      result = TerminologyCapabilitiesClosure.new
+    def self.transform_json(json_hash, target=TerminologyCapabilitiesClosure.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['translation'] = PrimitiveBoolean.transform_json(json_hash['translation'], json_hash['_translation']) unless json_hash['translation'].nil?      
 
       result

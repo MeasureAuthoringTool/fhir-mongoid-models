@@ -16,8 +16,8 @@ module FHIR
     embeds_many :performer, class_name: 'ImagingStudySeriesPerformer'
     embeds_many :instance, class_name: 'ImagingStudySeriesInstance'
 
-    def self.transform_json(json_hash)
-      result = ImagingStudySeries.new
+    def self.transform_json(json_hash, target=ImagingStudySeries.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['uid'] = PrimitiveId.transform_json(json_hash['uid'], json_hash['_uid']) unless json_hash['uid'].nil?      
       result['number'] = PrimitiveUnsignedInt.transform_json(json_hash['number'], json_hash['_number']) unless json_hash['number'].nil?      
       result['modality'] = Coding.transform_json(json_hash['modality']) unless json_hash['modality'].nil?      

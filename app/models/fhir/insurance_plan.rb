@@ -18,8 +18,8 @@ module FHIR
     embeds_many :coverage, class_name: 'InsurancePlanCoverage'
     embeds_many :plan, class_name: 'InsurancePlanPlan'
 
-    def self.transform_json(json_hash)
-      result = InsurancePlan.new
+    def self.transform_json(json_hash, target=InsurancePlan.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['status'] = PublicationStatus.transform_json(json_hash['status']) unless json_hash['status'].nil?      
       result['type'] = json_hash['type'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['type'].nil?

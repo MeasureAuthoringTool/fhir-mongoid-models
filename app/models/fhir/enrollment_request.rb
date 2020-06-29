@@ -11,8 +11,8 @@ module FHIR
     embeds_one :candidate, class_name: 'Reference'
     embeds_one :coverage, class_name: 'Reference'
 
-    def self.transform_json(json_hash)
-      result = EnrollmentRequest.new
+    def self.transform_json(json_hash, target=EnrollmentRequest.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['status'] = EnrollmentRequestStatus.transform_json(json_hash['status']) unless json_hash['status'].nil?      
       result['created'] = PrimitiveDateTime.transform_json(json_hash['created'], json_hash['_created']) unless json_hash['created'].nil?      

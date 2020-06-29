@@ -14,24 +14,24 @@ module FHIR
     embeds_one :relationship, class_name: 'CodeableConcept'
     embeds_one :sex, class_name: 'CodeableConcept'
     embeds_one :bornPeriod, class_name: 'Period'
-    embeds_one :borndate, class_name: 'PrimitiveDate'
-    embeds_one :bornstring, class_name: 'PrimitiveString'
+    embeds_one :bornDate, class_name: 'PrimitiveDate'
+    embeds_one :bornString, class_name: 'PrimitiveString'
     embeds_one :ageAge, class_name: 'Age'
     embeds_one :ageRange, class_name: 'Range'
-    embeds_one :agestring, class_name: 'PrimitiveString'
+    embeds_one :ageString, class_name: 'PrimitiveString'
     embeds_one :estimatedAge, class_name: 'PrimitiveBoolean'
-    embeds_one :deceasedboolean, class_name: 'PrimitiveBoolean'
+    embeds_one :deceasedBoolean, class_name: 'PrimitiveBoolean'
     embeds_one :deceasedAge, class_name: 'Age'
     embeds_one :deceasedRange, class_name: 'Range'
-    embeds_one :deceaseddate, class_name: 'PrimitiveDate'
-    embeds_one :deceasedstring, class_name: 'PrimitiveString'
+    embeds_one :deceasedDate, class_name: 'PrimitiveDate'
+    embeds_one :deceasedString, class_name: 'PrimitiveString'
     embeds_many :reasonCode, class_name: 'CodeableConcept'
     embeds_many :reasonReference, class_name: 'Reference'
     embeds_many :note, class_name: 'Annotation'
     embeds_many :condition, class_name: 'FamilyMemberHistoryCondition'
 
-    def self.transform_json(json_hash)
-      result = FamilyMemberHistory.new
+    def self.transform_json(json_hash, target=FamilyMemberHistory.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['instantiatesCanonical'] = json_hash['instantiatesCanonical'].each_with_index.map do |var, i|
         extension_hash = json_hash['_instantiatesCanonical'] && json_hash['_instantiatesCanonical'][i]
@@ -49,17 +49,17 @@ module FHIR
       result['relationship'] = CodeableConcept.transform_json(json_hash['relationship']) unless json_hash['relationship'].nil?      
       result['sex'] = CodeableConcept.transform_json(json_hash['sex']) unless json_hash['sex'].nil?      
       result['bornPeriod'] = Period.transform_json(json_hash['bornPeriod']) unless json_hash['bornPeriod'].nil?      
-      result['borndate'] = PrimitiveDate.transform_json(json_hash['borndate'], json_hash['_borndate']) unless json_hash['borndate'].nil?      
-      result['bornstring'] = PrimitiveString.transform_json(json_hash['bornstring'], json_hash['_bornstring']) unless json_hash['bornstring'].nil?      
+      result['bornDate'] = PrimitiveDate.transform_json(json_hash['bornDate'], json_hash['_bornDate']) unless json_hash['bornDate'].nil?      
+      result['bornString'] = PrimitiveString.transform_json(json_hash['bornString'], json_hash['_bornString']) unless json_hash['bornString'].nil?      
       result['ageAge'] = Age.transform_json(json_hash['ageAge']) unless json_hash['ageAge'].nil?      
       result['ageRange'] = Range.transform_json(json_hash['ageRange']) unless json_hash['ageRange'].nil?      
-      result['agestring'] = PrimitiveString.transform_json(json_hash['agestring'], json_hash['_agestring']) unless json_hash['agestring'].nil?      
+      result['ageString'] = PrimitiveString.transform_json(json_hash['ageString'], json_hash['_ageString']) unless json_hash['ageString'].nil?      
       result['estimatedAge'] = PrimitiveBoolean.transform_json(json_hash['estimatedAge'], json_hash['_estimatedAge']) unless json_hash['estimatedAge'].nil?      
-      result['deceasedboolean'] = PrimitiveBoolean.transform_json(json_hash['deceasedboolean'], json_hash['_deceasedboolean']) unless json_hash['deceasedboolean'].nil?      
+      result['deceasedBoolean'] = PrimitiveBoolean.transform_json(json_hash['deceasedBoolean'], json_hash['_deceasedBoolean']) unless json_hash['deceasedBoolean'].nil?      
       result['deceasedAge'] = Age.transform_json(json_hash['deceasedAge']) unless json_hash['deceasedAge'].nil?      
       result['deceasedRange'] = Range.transform_json(json_hash['deceasedRange']) unless json_hash['deceasedRange'].nil?      
-      result['deceaseddate'] = PrimitiveDate.transform_json(json_hash['deceaseddate'], json_hash['_deceaseddate']) unless json_hash['deceaseddate'].nil?      
-      result['deceasedstring'] = PrimitiveString.transform_json(json_hash['deceasedstring'], json_hash['_deceasedstring']) unless json_hash['deceasedstring'].nil?      
+      result['deceasedDate'] = PrimitiveDate.transform_json(json_hash['deceasedDate'], json_hash['_deceasedDate']) unless json_hash['deceasedDate'].nil?      
+      result['deceasedString'] = PrimitiveString.transform_json(json_hash['deceasedString'], json_hash['_deceasedString']) unless json_hash['deceasedString'].nil?      
       result['reasonCode'] = json_hash['reasonCode'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['reasonCode'].nil?
       result['reasonReference'] = json_hash['reasonReference'].map { |var| Reference.transform_json(var) } unless json_hash['reasonReference'].nil?
       result['note'] = json_hash['note'].map { |var| Annotation.transform_json(var) } unless json_hash['note'].nil?

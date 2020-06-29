@@ -20,8 +20,8 @@ module FHIR
     embeds_many :pointer, class_name: 'Reference'
     embeds_many :structureVariant, class_name: 'MolecularSequenceStructureVariant'
 
-    def self.transform_json(json_hash)
-      result = MolecularSequence.new
+    def self.transform_json(json_hash, target=MolecularSequence.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['type'] = SequenceType.transform_json(json_hash['type']) unless json_hash['type'].nil?      
       result['coordinateSystem'] = PrimitiveInteger.transform_json(json_hash['coordinateSystem'], json_hash['_coordinateSystem']) unless json_hash['coordinateSystem'].nil?      

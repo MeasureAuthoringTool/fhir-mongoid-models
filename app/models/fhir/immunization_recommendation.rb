@@ -9,8 +9,8 @@ module FHIR
     embeds_one :authority, class_name: 'Reference'
     embeds_many :recommendation, class_name: 'ImmunizationRecommendationRecommendation'
 
-    def self.transform_json(json_hash)
-      result = ImmunizationRecommendation.new
+    def self.transform_json(json_hash, target=ImmunizationRecommendation.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['patient'] = Reference.transform_json(json_hash['patient']) unless json_hash['patient'].nil?      
       result['date'] = PrimitiveDateTime.transform_json(json_hash['date'], json_hash['_date']) unless json_hash['date'].nil?      

@@ -15,8 +15,8 @@ module FHIR
     embeds_one :source, class_name: 'Reference'
     embeds_many :item, class_name: 'QuestionnaireResponseItem'
 
-    def self.transform_json(json_hash)
-      result = QuestionnaireResponse.new
+    def self.transform_json(json_hash, target=QuestionnaireResponse.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = Identifier.transform_json(json_hash['identifier']) unless json_hash['identifier'].nil?      
       result['basedOn'] = json_hash['basedOn'].map { |var| Reference.transform_json(var) } unless json_hash['basedOn'].nil?
       result['partOf'] = json_hash['partOf'].map { |var| Reference.transform_json(var) } unless json_hash['partOf'].nil?

@@ -4,8 +4,8 @@ module FHIR
     include Mongoid::Document
     field :typeName, type: String, default: 'Distance'
 
-    def self.transform_json(json_hash)
-      result = Distance.new
+    def self.transform_json(json_hash, target=Distance.new)
+      result = self.superclass.transform_json(json_hash, target)
 
       result
     end

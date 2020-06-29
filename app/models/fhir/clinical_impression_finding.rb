@@ -7,8 +7,8 @@ module FHIR
     embeds_one :itemReference, class_name: 'Reference'
     embeds_one :basis, class_name: 'PrimitiveString'
 
-    def self.transform_json(json_hash)
-      result = ClinicalImpressionFinding.new
+    def self.transform_json(json_hash, target=ClinicalImpressionFinding.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['itemCodeableConcept'] = CodeableConcept.transform_json(json_hash['itemCodeableConcept']) unless json_hash['itemCodeableConcept'].nil?      
       result['itemReference'] = Reference.transform_json(json_hash['itemReference']) unless json_hash['itemReference'].nil?      
       result['basis'] = PrimitiveString.transform_json(json_hash['basis'], json_hash['_basis']) unless json_hash['basis'].nil?      

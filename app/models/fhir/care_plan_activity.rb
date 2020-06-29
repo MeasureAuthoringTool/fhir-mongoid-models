@@ -9,8 +9,8 @@ module FHIR
     embeds_one :reference, class_name: 'Reference'
     embeds_one :detail, class_name: 'CarePlanActivityDetail'
 
-    def self.transform_json(json_hash)
-      result = CarePlanActivity.new
+    def self.transform_json(json_hash, target=CarePlanActivity.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['outcomeCodeableConcept'] = json_hash['outcomeCodeableConcept'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['outcomeCodeableConcept'].nil?
       result['outcomeReference'] = json_hash['outcomeReference'].map { |var| Reference.transform_json(var) } unless json_hash['outcomeReference'].nil?
       result['progress'] = json_hash['progress'].map { |var| Annotation.transform_json(var) } unless json_hash['progress'].nil?

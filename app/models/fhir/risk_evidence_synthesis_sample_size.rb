@@ -7,8 +7,8 @@ module FHIR
     embeds_one :numberOfStudies, class_name: 'PrimitiveInteger'
     embeds_one :numberOfParticipants, class_name: 'PrimitiveInteger'
 
-    def self.transform_json(json_hash)
-      result = RiskEvidenceSynthesisSampleSize.new
+    def self.transform_json(json_hash, target=RiskEvidenceSynthesisSampleSize.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['description'] = PrimitiveString.transform_json(json_hash['description'], json_hash['_description']) unless json_hash['description'].nil?      
       result['numberOfStudies'] = PrimitiveInteger.transform_json(json_hash['numberOfStudies'], json_hash['_numberOfStudies']) unless json_hash['numberOfStudies'].nil?      
       result['numberOfParticipants'] = PrimitiveInteger.transform_json(json_hash['numberOfParticipants'], json_hash['_numberOfParticipants']) unless json_hash['numberOfParticipants'].nil?      

@@ -15,8 +15,8 @@ module FHIR
     embeds_many :official, class_name: 'SubstanceSpecificationNameOfficial'
     embeds_many :source, class_name: 'Reference'
 
-    def self.transform_json(json_hash)
-      result = SubstanceSpecificationName.new
+    def self.transform_json(json_hash, target=SubstanceSpecificationName.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['name'] = PrimitiveString.transform_json(json_hash['name'], json_hash['_name']) unless json_hash['name'].nil?      
       result['type'] = CodeableConcept.transform_json(json_hash['type']) unless json_hash['type'].nil?      
       result['status'] = CodeableConcept.transform_json(json_hash['status']) unless json_hash['status'].nil?      

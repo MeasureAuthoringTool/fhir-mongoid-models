@@ -11,8 +11,8 @@ module FHIR
     embeds_one :dimensions, class_name: 'PrimitivePositiveInt'
     embeds_one :data, class_name: 'PrimitiveString'
 
-    def self.transform_json(json_hash)
-      result = SampledData.new
+    def self.transform_json(json_hash, target=SampledData.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['origin'] = SimpleQuantity.transform_json(json_hash['origin']) unless json_hash['origin'].nil?      
       result['period'] = PrimitiveDecimal.transform_json(json_hash['period'], json_hash['_period']) unless json_hash['period'].nil?      
       result['factor'] = PrimitiveDecimal.transform_json(json_hash['factor'], json_hash['_factor']) unless json_hash['factor'].nil?      

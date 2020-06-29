@@ -9,8 +9,8 @@ module FHIR
     embeds_one :system, class_name: 'PrimitiveUri'
     embeds_one :code, class_name: 'PrimitiveCode'
 
-    def self.transform_json(json_hash)
-      result = Quantity.new
+    def self.transform_json(json_hash, target=Quantity.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['value'] = PrimitiveDecimal.transform_json(json_hash['value'], json_hash['_value']) unless json_hash['value'].nil?      
       result['comparator'] = QuantityComparator.transform_json(json_hash['comparator']) unless json_hash['comparator'].nil?      
       result['unit'] = PrimitiveString.transform_json(json_hash['unit'], json_hash['_unit']) unless json_hash['unit'].nil?      

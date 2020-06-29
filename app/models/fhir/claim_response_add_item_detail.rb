@@ -13,8 +13,8 @@ module FHIR
     embeds_many :adjudication, class_name: 'ClaimResponseItemAdjudication'
     embeds_many :subDetail, class_name: 'ClaimResponseAddItemDetailSubDetail'
 
-    def self.transform_json(json_hash)
-      result = ClaimResponseAddItemDetail.new
+    def self.transform_json(json_hash, target=ClaimResponseAddItemDetail.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['productOrService'] = CodeableConcept.transform_json(json_hash['productOrService']) unless json_hash['productOrService'].nil?      
       result['modifier'] = json_hash['modifier'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['modifier'].nil?
       result['quantity'] = SimpleQuantity.transform_json(json_hash['quantity']) unless json_hash['quantity'].nil?      

@@ -5,17 +5,17 @@ module FHIR
     field :typeName, type: String, default: 'MedicationKnowledgeDrugCharacteristic'
     embeds_one :type, class_name: 'CodeableConcept'
     embeds_one :valueCodeableConcept, class_name: 'CodeableConcept'
-    embeds_one :valuestring, class_name: 'PrimitiveString'
+    embeds_one :valueString, class_name: 'PrimitiveString'
     embeds_one :valueSimpleQuantity, class_name: 'SimpleQuantity'
-    embeds_one :valuebase64Binary, class_name: 'PrimitiveBase64Binary'
+    embeds_one :valueBase64Binary, class_name: 'PrimitiveBase64Binary'
 
-    def self.transform_json(json_hash)
-      result = MedicationKnowledgeDrugCharacteristic.new
+    def self.transform_json(json_hash, target=MedicationKnowledgeDrugCharacteristic.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['type'] = CodeableConcept.transform_json(json_hash['type']) unless json_hash['type'].nil?      
       result['valueCodeableConcept'] = CodeableConcept.transform_json(json_hash['valueCodeableConcept']) unless json_hash['valueCodeableConcept'].nil?      
-      result['valuestring'] = PrimitiveString.transform_json(json_hash['valuestring'], json_hash['_valuestring']) unless json_hash['valuestring'].nil?      
+      result['valueString'] = PrimitiveString.transform_json(json_hash['valueString'], json_hash['_valueString']) unless json_hash['valueString'].nil?      
       result['valueSimpleQuantity'] = SimpleQuantity.transform_json(json_hash['valueSimpleQuantity']) unless json_hash['valueSimpleQuantity'].nil?      
-      result['valuebase64Binary'] = PrimitiveBase64Binary.transform_json(json_hash['valuebase64Binary'], json_hash['_valuebase64Binary']) unless json_hash['valuebase64Binary'].nil?      
+      result['valueBase64Binary'] = PrimitiveBase64Binary.transform_json(json_hash['valueBase64Binary'], json_hash['_valueBase64Binary']) unless json_hash['valueBase64Binary'].nil?      
 
       result
     end

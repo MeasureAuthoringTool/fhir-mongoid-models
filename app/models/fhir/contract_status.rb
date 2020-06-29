@@ -5,8 +5,8 @@ module FHIR
     field :typeName, type: String, default: 'ContractStatus'
     field :value, type: String
 
-    def self.transform_json(json_hash)
-      result = ContractStatus.new
+    def self.transform_json(json_hash, target=ContractStatus.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['value'] = json_hash['value'] unless json_hash['value'].nil?
 
       result

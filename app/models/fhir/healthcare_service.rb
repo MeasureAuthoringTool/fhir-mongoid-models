@@ -28,8 +28,8 @@ module FHIR
     embeds_one :availabilityExceptions, class_name: 'PrimitiveString'
     embeds_many :endpoint, class_name: 'Reference'
 
-    def self.transform_json(json_hash)
-      result = HealthcareService.new
+    def self.transform_json(json_hash, target=HealthcareService.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['active'] = PrimitiveBoolean.transform_json(json_hash['active'], json_hash['_active']) unless json_hash['active'].nil?      
       result['providedBy'] = Reference.transform_json(json_hash['providedBy']) unless json_hash['providedBy'].nil?      

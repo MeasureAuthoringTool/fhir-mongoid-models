@@ -17,8 +17,8 @@ module FHIR
     embeds_one :abnormalCodedValueSet, class_name: 'Reference'
     embeds_one :criticalCodedValueSet, class_name: 'Reference'
 
-    def self.transform_json(json_hash)
-      result = ObservationDefinition.new
+    def self.transform_json(json_hash, target=ObservationDefinition.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['category'] = json_hash['category'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['category'].nil?
       result['code'] = CodeableConcept.transform_json(json_hash['code']) unless json_hash['code'].nil?      
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?

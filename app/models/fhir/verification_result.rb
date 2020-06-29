@@ -18,8 +18,8 @@ module FHIR
     embeds_one :attestation, class_name: 'VerificationResultAttestation'
     embeds_many :validator, class_name: 'VerificationResultValidator'
 
-    def self.transform_json(json_hash)
-      result = VerificationResult.new
+    def self.transform_json(json_hash, target=VerificationResult.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['target'] = json_hash['target'].map { |var| Reference.transform_json(var) } unless json_hash['target'].nil?
       result['targetLocation'] = json_hash['targetLocation'].each_with_index.map do |var, i|
         extension_hash = json_hash['_targetLocation'] && json_hash['_targetLocation'][i]

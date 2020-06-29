@@ -15,8 +15,8 @@ module FHIR
     embeds_one :address, class_name: 'PrimitiveUrl'
     embeds_many :header, class_name: 'PrimitiveString'
 
-    def self.transform_json(json_hash)
-      result = Endpoint.new
+    def self.transform_json(json_hash, target=Endpoint.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['status'] = EndpointStatus.transform_json(json_hash['status']) unless json_hash['status'].nil?      
       result['connectionType'] = Coding.transform_json(json_hash['connectionType']) unless json_hash['connectionType'].nil?      

@@ -15,8 +15,8 @@ module FHIR
     embeds_many :referencedFrom, class_name: 'OperationDefinitionParameterReferencedFrom'
     embeds_many :part, class_name: 'OperationDefinitionParameter'
 
-    def self.transform_json(json_hash)
-      result = OperationDefinitionParameter.new
+    def self.transform_json(json_hash, target=OperationDefinitionParameter.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['name'] = PrimitiveCode.transform_json(json_hash['name'], json_hash['_name']) unless json_hash['name'].nil?      
       result['use'] = OperationParameterUse.transform_json(json_hash['use']) unless json_hash['use'].nil?      
       result['min'] = PrimitiveInteger.transform_json(json_hash['min'], json_hash['_min']) unless json_hash['min'].nil?      

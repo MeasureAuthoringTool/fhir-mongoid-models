@@ -12,8 +12,8 @@ module FHIR
     embeds_one :actualArm, class_name: 'PrimitiveString'
     embeds_one :consent, class_name: 'Reference'
 
-    def self.transform_json(json_hash)
-      result = ResearchSubject.new
+    def self.transform_json(json_hash, target=ResearchSubject.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['status'] = ResearchSubjectStatus.transform_json(json_hash['status']) unless json_hash['status'].nil?      
       result['period'] = Period.transform_json(json_hash['period']) unless json_hash['period'].nil?      

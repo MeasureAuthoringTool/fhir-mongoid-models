@@ -21,8 +21,8 @@ module FHIR
     embeds_many :searchParam, class_name: 'CapabilityStatementRestResourceSearchParam'
     embeds_many :operation, class_name: 'CapabilityStatementRestResourceOperation'
 
-    def self.transform_json(json_hash)
-      result = CapabilityStatementRestResource.new
+    def self.transform_json(json_hash, target=CapabilityStatementRestResource.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['type'] = ResourceType.transform_json(json_hash['type']) unless json_hash['type'].nil?      
       result['profile'] = PrimitiveCanonical.transform_json(json_hash['profile'], json_hash['_profile']) unless json_hash['profile'].nil?      
       result['supportedProfile'] = json_hash['supportedProfile'].each_with_index.map do |var, i|

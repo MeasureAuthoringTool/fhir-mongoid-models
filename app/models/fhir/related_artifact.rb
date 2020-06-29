@@ -11,8 +11,8 @@ module FHIR
     embeds_one :document, class_name: 'Attachment'
     embeds_one :resource, class_name: 'PrimitiveCanonical'
 
-    def self.transform_json(json_hash)
-      result = RelatedArtifact.new
+    def self.transform_json(json_hash, target=RelatedArtifact.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['type'] = RelatedArtifactType.transform_json(json_hash['type']) unless json_hash['type'].nil?      
       result['label'] = PrimitiveString.transform_json(json_hash['label'], json_hash['_label']) unless json_hash['label'].nil?      
       result['display'] = PrimitiveString.transform_json(json_hash['display'], json_hash['_display']) unless json_hash['display'].nil?      

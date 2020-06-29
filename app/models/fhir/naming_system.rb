@@ -17,8 +17,8 @@ module FHIR
     embeds_one :usage, class_name: 'PrimitiveString'
     embeds_many :uniqueId, class_name: 'NamingSystemUniqueId'
 
-    def self.transform_json(json_hash)
-      result = NamingSystem.new
+    def self.transform_json(json_hash, target=NamingSystem.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['name'] = PrimitiveString.transform_json(json_hash['name'], json_hash['_name']) unless json_hash['name'].nil?      
       result['status'] = PublicationStatus.transform_json(json_hash['status']) unless json_hash['status'].nil?      
       result['kind'] = NamingSystemType.transform_json(json_hash['kind']) unless json_hash['kind'].nil?      

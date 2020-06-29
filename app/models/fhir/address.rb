@@ -14,8 +14,8 @@ module FHIR
     embeds_one :country, class_name: 'PrimitiveString'
     embeds_one :period, class_name: 'Period'
 
-    def self.transform_json(json_hash)
-      result = Address.new
+    def self.transform_json(json_hash, target=Address.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['use'] = AddressUse.transform_json(json_hash['use']) unless json_hash['use'].nil?      
       result['type'] = AddressType.transform_json(json_hash['type']) unless json_hash['type'].nil?      
       result['text'] = PrimitiveString.transform_json(json_hash['text'], json_hash['_text']) unless json_hash['text'].nil?      

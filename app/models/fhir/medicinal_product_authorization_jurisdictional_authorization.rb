@@ -9,8 +9,8 @@ module FHIR
     embeds_one :legalStatusOfSupply, class_name: 'CodeableConcept'
     embeds_one :validityPeriod, class_name: 'Period'
 
-    def self.transform_json(json_hash)
-      result = MedicinalProductAuthorizationJurisdictionalAuthorization.new
+    def self.transform_json(json_hash, target=MedicinalProductAuthorizationJurisdictionalAuthorization.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['country'] = CodeableConcept.transform_json(json_hash['country']) unless json_hash['country'].nil?      
       result['jurisdiction'] = json_hash['jurisdiction'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['jurisdiction'].nil?

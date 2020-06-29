@@ -6,8 +6,8 @@ module FHIR
     embeds_one :diagnosisCodeableConcept, class_name: 'CodeableConcept'
     embeds_one :diagnosisReference, class_name: 'Reference'
 
-    def self.transform_json(json_hash)
-      result = CoverageEligibilityRequestItemDiagnosis.new
+    def self.transform_json(json_hash, target=CoverageEligibilityRequestItemDiagnosis.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['diagnosisCodeableConcept'] = CodeableConcept.transform_json(json_hash['diagnosisCodeableConcept']) unless json_hash['diagnosisCodeableConcept'].nil?      
       result['diagnosisReference'] = Reference.transform_json(json_hash['diagnosisReference']) unless json_hash['diagnosisReference'].nil?      
 

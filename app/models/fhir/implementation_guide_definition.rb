@@ -9,8 +9,8 @@ module FHIR
     embeds_many :parameter, class_name: 'ImplementationGuideDefinitionParameter'
     embeds_many :template, class_name: 'ImplementationGuideDefinitionTemplate'
 
-    def self.transform_json(json_hash)
-      result = ImplementationGuideDefinition.new
+    def self.transform_json(json_hash, target=ImplementationGuideDefinition.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['grouping'] = json_hash['grouping'].map { |var| ImplementationGuideDefinitionGrouping.transform_json(var) } unless json_hash['grouping'].nil?
       result['resource'] = json_hash['resource'].map { |var| ImplementationGuideDefinitionResource.transform_json(var) } unless json_hash['resource'].nil?
       result['page'] = ImplementationGuideDefinitionPage.transform_json(json_hash['page']) unless json_hash['page'].nil?      

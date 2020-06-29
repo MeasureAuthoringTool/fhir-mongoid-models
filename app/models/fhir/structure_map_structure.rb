@@ -8,8 +8,8 @@ module FHIR
     embeds_one :alias, class_name: 'PrimitiveString'
     embeds_one :documentation, class_name: 'PrimitiveString'
 
-    def self.transform_json(json_hash)
-      result = StructureMapStructure.new
+    def self.transform_json(json_hash, target=StructureMapStructure.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['url'] = PrimitiveCanonical.transform_json(json_hash['url'], json_hash['_url']) unless json_hash['url'].nil?      
       result['mode'] = StructureMapModelMode.transform_json(json_hash['mode']) unless json_hash['mode'].nil?      
       result['alias'] = PrimitiveString.transform_json(json_hash['alias'], json_hash['_alias']) unless json_hash['alias'].nil?      

@@ -10,8 +10,8 @@ module FHIR
     embeds_one :unitOfMeasure, class_name: 'CodeableConcept'
     embeds_many :precisionEstimate, class_name: 'EffectEvidenceSynthesisEffectEstimatePrecisionEstimate'
 
-    def self.transform_json(json_hash)
-      result = EffectEvidenceSynthesisEffectEstimate.new
+    def self.transform_json(json_hash, target=EffectEvidenceSynthesisEffectEstimate.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['description'] = PrimitiveString.transform_json(json_hash['description'], json_hash['_description']) unless json_hash['description'].nil?      
       result['type'] = CodeableConcept.transform_json(json_hash['type']) unless json_hash['type'].nil?      
       result['variantState'] = CodeableConcept.transform_json(json_hash['variantState']) unless json_hash['variantState'].nil?      

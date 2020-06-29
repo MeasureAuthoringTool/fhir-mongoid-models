@@ -7,25 +7,25 @@ module FHIR
     embeds_one :min, class_name: 'PrimitiveInteger'
     embeds_one :max, class_name: 'PrimitiveString'
     embeds_one :type, class_name: 'PrimitiveString'
-    embeds_one :defaultValuebase64Binary, class_name: 'PrimitiveBase64Binary'
-    embeds_one :defaultValueboolean, class_name: 'PrimitiveBoolean'
-    embeds_one :defaultValuecanonical, class_name: 'PrimitiveCanonical'
-    embeds_one :defaultValuecode, class_name: 'PrimitiveCode'
-    embeds_one :defaultValuedate, class_name: 'PrimitiveDate'
-    embeds_one :defaultValuedateTime, class_name: 'PrimitiveDateTime'
-    embeds_one :defaultValuedecimal, class_name: 'PrimitiveDecimal'
-    embeds_one :defaultValueid, class_name: 'PrimitiveId'
-    embeds_one :defaultValueinstant, class_name: 'PrimitiveInstant'
-    embeds_one :defaultValueinteger, class_name: 'PrimitiveInteger'
-    embeds_one :defaultValuemarkdown, class_name: 'PrimitiveMarkdown'
-    embeds_one :defaultValueoid, class_name: 'PrimitiveOid'
-    embeds_one :defaultValuepositiveInt, class_name: 'PrimitivePositiveInt'
-    embeds_one :defaultValuestring, class_name: 'PrimitiveString'
-    embeds_one :defaultValuetime, class_name: 'PrimitiveTime'
-    embeds_one :defaultValueunsignedInt, class_name: 'PrimitiveUnsignedInt'
-    embeds_one :defaultValueuri, class_name: 'PrimitiveUri'
-    embeds_one :defaultValueurl, class_name: 'PrimitiveUrl'
-    embeds_one :defaultValueuuid, class_name: 'PrimitiveUuid'
+    embeds_one :defaultValueBase64Binary, class_name: 'PrimitiveBase64Binary'
+    embeds_one :defaultValueBoolean, class_name: 'PrimitiveBoolean'
+    embeds_one :defaultValueCanonical, class_name: 'PrimitiveCanonical'
+    embeds_one :defaultValueCode, class_name: 'PrimitiveCode'
+    embeds_one :defaultValueDate, class_name: 'PrimitiveDate'
+    embeds_one :defaultValueDateTime, class_name: 'PrimitiveDateTime'
+    embeds_one :defaultValueDecimal, class_name: 'PrimitiveDecimal'
+    embeds_one :defaultValueId, class_name: 'PrimitiveId'
+    embeds_one :defaultValueInstant, class_name: 'PrimitiveInstant'
+    embeds_one :defaultValueInteger, class_name: 'PrimitiveInteger'
+    embeds_one :defaultValueMarkdown, class_name: 'PrimitiveMarkdown'
+    embeds_one :defaultValueOid, class_name: 'PrimitiveOid'
+    embeds_one :defaultValuePositiveInt, class_name: 'PrimitivePositiveInt'
+    embeds_one :defaultValueString, class_name: 'PrimitiveString'
+    embeds_one :defaultValueTime, class_name: 'PrimitiveTime'
+    embeds_one :defaultValueUnsignedInt, class_name: 'PrimitiveUnsignedInt'
+    embeds_one :defaultValueUri, class_name: 'PrimitiveUri'
+    embeds_one :defaultValueUrl, class_name: 'PrimitiveUrl'
+    embeds_one :defaultValueUuid, class_name: 'PrimitiveUuid'
     embeds_one :defaultValueAddress, class_name: 'Address'
     embeds_one :defaultValueAge, class_name: 'Age'
     embeds_one :defaultValueAnnotation, class_name: 'Annotation'
@@ -64,31 +64,31 @@ module FHIR
     embeds_one :check, class_name: 'PrimitiveString'
     embeds_one :logMessage, class_name: 'PrimitiveString'
 
-    def self.transform_json(json_hash)
-      result = StructureMapGroupRuleSource.new
+    def self.transform_json(json_hash, target=StructureMapGroupRuleSource.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['context'] = PrimitiveId.transform_json(json_hash['context'], json_hash['_context']) unless json_hash['context'].nil?      
       result['min'] = PrimitiveInteger.transform_json(json_hash['min'], json_hash['_min']) unless json_hash['min'].nil?      
       result['max'] = PrimitiveString.transform_json(json_hash['max'], json_hash['_max']) unless json_hash['max'].nil?      
       result['type'] = PrimitiveString.transform_json(json_hash['type'], json_hash['_type']) unless json_hash['type'].nil?      
-      result['defaultValuebase64Binary'] = PrimitiveBase64Binary.transform_json(json_hash['defaultValuebase64Binary'], json_hash['_defaultValuebase64Binary']) unless json_hash['defaultValuebase64Binary'].nil?      
-      result['defaultValueboolean'] = PrimitiveBoolean.transform_json(json_hash['defaultValueboolean'], json_hash['_defaultValueboolean']) unless json_hash['defaultValueboolean'].nil?      
-      result['defaultValuecanonical'] = PrimitiveCanonical.transform_json(json_hash['defaultValuecanonical'], json_hash['_defaultValuecanonical']) unless json_hash['defaultValuecanonical'].nil?      
-      result['defaultValuecode'] = PrimitiveCode.transform_json(json_hash['defaultValuecode'], json_hash['_defaultValuecode']) unless json_hash['defaultValuecode'].nil?      
-      result['defaultValuedate'] = PrimitiveDate.transform_json(json_hash['defaultValuedate'], json_hash['_defaultValuedate']) unless json_hash['defaultValuedate'].nil?      
-      result['defaultValuedateTime'] = PrimitiveDateTime.transform_json(json_hash['defaultValuedateTime'], json_hash['_defaultValuedateTime']) unless json_hash['defaultValuedateTime'].nil?      
-      result['defaultValuedecimal'] = PrimitiveDecimal.transform_json(json_hash['defaultValuedecimal'], json_hash['_defaultValuedecimal']) unless json_hash['defaultValuedecimal'].nil?      
-      result['defaultValueid'] = PrimitiveId.transform_json(json_hash['defaultValueid'], json_hash['_defaultValueid']) unless json_hash['defaultValueid'].nil?      
-      result['defaultValueinstant'] = PrimitiveInstant.transform_json(json_hash['defaultValueinstant'], json_hash['_defaultValueinstant']) unless json_hash['defaultValueinstant'].nil?      
-      result['defaultValueinteger'] = PrimitiveInteger.transform_json(json_hash['defaultValueinteger'], json_hash['_defaultValueinteger']) unless json_hash['defaultValueinteger'].nil?      
-      result['defaultValuemarkdown'] = PrimitiveMarkdown.transform_json(json_hash['defaultValuemarkdown'], json_hash['_defaultValuemarkdown']) unless json_hash['defaultValuemarkdown'].nil?      
-      result['defaultValueoid'] = PrimitiveOid.transform_json(json_hash['defaultValueoid'], json_hash['_defaultValueoid']) unless json_hash['defaultValueoid'].nil?      
-      result['defaultValuepositiveInt'] = PrimitivePositiveInt.transform_json(json_hash['defaultValuepositiveInt'], json_hash['_defaultValuepositiveInt']) unless json_hash['defaultValuepositiveInt'].nil?      
-      result['defaultValuestring'] = PrimitiveString.transform_json(json_hash['defaultValuestring'], json_hash['_defaultValuestring']) unless json_hash['defaultValuestring'].nil?      
-      result['defaultValuetime'] = PrimitiveTime.transform_json(json_hash['defaultValuetime'], json_hash['_defaultValuetime']) unless json_hash['defaultValuetime'].nil?      
-      result['defaultValueunsignedInt'] = PrimitiveUnsignedInt.transform_json(json_hash['defaultValueunsignedInt'], json_hash['_defaultValueunsignedInt']) unless json_hash['defaultValueunsignedInt'].nil?      
-      result['defaultValueuri'] = PrimitiveUri.transform_json(json_hash['defaultValueuri'], json_hash['_defaultValueuri']) unless json_hash['defaultValueuri'].nil?      
-      result['defaultValueurl'] = PrimitiveUrl.transform_json(json_hash['defaultValueurl'], json_hash['_defaultValueurl']) unless json_hash['defaultValueurl'].nil?      
-      result['defaultValueuuid'] = PrimitiveUuid.transform_json(json_hash['defaultValueuuid'], json_hash['_defaultValueuuid']) unless json_hash['defaultValueuuid'].nil?      
+      result['defaultValueBase64Binary'] = PrimitiveBase64Binary.transform_json(json_hash['defaultValueBase64Binary'], json_hash['_defaultValueBase64Binary']) unless json_hash['defaultValueBase64Binary'].nil?      
+      result['defaultValueBoolean'] = PrimitiveBoolean.transform_json(json_hash['defaultValueBoolean'], json_hash['_defaultValueBoolean']) unless json_hash['defaultValueBoolean'].nil?      
+      result['defaultValueCanonical'] = PrimitiveCanonical.transform_json(json_hash['defaultValueCanonical'], json_hash['_defaultValueCanonical']) unless json_hash['defaultValueCanonical'].nil?      
+      result['defaultValueCode'] = PrimitiveCode.transform_json(json_hash['defaultValueCode'], json_hash['_defaultValueCode']) unless json_hash['defaultValueCode'].nil?      
+      result['defaultValueDate'] = PrimitiveDate.transform_json(json_hash['defaultValueDate'], json_hash['_defaultValueDate']) unless json_hash['defaultValueDate'].nil?      
+      result['defaultValueDateTime'] = PrimitiveDateTime.transform_json(json_hash['defaultValueDateTime'], json_hash['_defaultValueDateTime']) unless json_hash['defaultValueDateTime'].nil?      
+      result['defaultValueDecimal'] = PrimitiveDecimal.transform_json(json_hash['defaultValueDecimal'], json_hash['_defaultValueDecimal']) unless json_hash['defaultValueDecimal'].nil?      
+      result['defaultValueId'] = PrimitiveId.transform_json(json_hash['defaultValueId'], json_hash['_defaultValueId']) unless json_hash['defaultValueId'].nil?      
+      result['defaultValueInstant'] = PrimitiveInstant.transform_json(json_hash['defaultValueInstant'], json_hash['_defaultValueInstant']) unless json_hash['defaultValueInstant'].nil?      
+      result['defaultValueInteger'] = PrimitiveInteger.transform_json(json_hash['defaultValueInteger'], json_hash['_defaultValueInteger']) unless json_hash['defaultValueInteger'].nil?      
+      result['defaultValueMarkdown'] = PrimitiveMarkdown.transform_json(json_hash['defaultValueMarkdown'], json_hash['_defaultValueMarkdown']) unless json_hash['defaultValueMarkdown'].nil?      
+      result['defaultValueOid'] = PrimitiveOid.transform_json(json_hash['defaultValueOid'], json_hash['_defaultValueOid']) unless json_hash['defaultValueOid'].nil?      
+      result['defaultValuePositiveInt'] = PrimitivePositiveInt.transform_json(json_hash['defaultValuePositiveInt'], json_hash['_defaultValuePositiveInt']) unless json_hash['defaultValuePositiveInt'].nil?      
+      result['defaultValueString'] = PrimitiveString.transform_json(json_hash['defaultValueString'], json_hash['_defaultValueString']) unless json_hash['defaultValueString'].nil?      
+      result['defaultValueTime'] = PrimitiveTime.transform_json(json_hash['defaultValueTime'], json_hash['_defaultValueTime']) unless json_hash['defaultValueTime'].nil?      
+      result['defaultValueUnsignedInt'] = PrimitiveUnsignedInt.transform_json(json_hash['defaultValueUnsignedInt'], json_hash['_defaultValueUnsignedInt']) unless json_hash['defaultValueUnsignedInt'].nil?      
+      result['defaultValueUri'] = PrimitiveUri.transform_json(json_hash['defaultValueUri'], json_hash['_defaultValueUri']) unless json_hash['defaultValueUri'].nil?      
+      result['defaultValueUrl'] = PrimitiveUrl.transform_json(json_hash['defaultValueUrl'], json_hash['_defaultValueUrl']) unless json_hash['defaultValueUrl'].nil?      
+      result['defaultValueUuid'] = PrimitiveUuid.transform_json(json_hash['defaultValueUuid'], json_hash['_defaultValueUuid']) unless json_hash['defaultValueUuid'].nil?      
       result['defaultValueAddress'] = Address.transform_json(json_hash['defaultValueAddress']) unless json_hash['defaultValueAddress'].nil?      
       result['defaultValueAge'] = Age.transform_json(json_hash['defaultValueAge']) unless json_hash['defaultValueAge'].nil?      
       result['defaultValueAnnotation'] = Annotation.transform_json(json_hash['defaultValueAnnotation']) unless json_hash['defaultValueAnnotation'].nil?      

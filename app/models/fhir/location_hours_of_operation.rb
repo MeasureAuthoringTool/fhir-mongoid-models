@@ -8,8 +8,8 @@ module FHIR
     embeds_one :openingTime, class_name: 'PrimitiveTime'
     embeds_one :closingTime, class_name: 'PrimitiveTime'
 
-    def self.transform_json(json_hash)
-      result = LocationHoursOfOperation.new
+    def self.transform_json(json_hash, target=LocationHoursOfOperation.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['daysOfWeek'] = json_hash['daysOfWeek'].map { |var| DaysOfWeek.transform_json(var) } unless json_hash['daysOfWeek'].nil?
       result['allDay'] = PrimitiveBoolean.transform_json(json_hash['allDay'], json_hash['_allDay']) unless json_hash['allDay'].nil?      
       result['openingTime'] = PrimitiveTime.transform_json(json_hash['openingTime'], json_hash['_openingTime']) unless json_hash['openingTime'].nil?      

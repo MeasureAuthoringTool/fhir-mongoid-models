@@ -9,8 +9,8 @@ module FHIR
     embeds_one :oligoNucleotideType, class_name: 'CodeableConcept'
     embeds_many :subunit, class_name: 'SubstanceNucleicAcidSubunit'
 
-    def self.transform_json(json_hash)
-      result = SubstanceNucleicAcid.new
+    def self.transform_json(json_hash, target=SubstanceNucleicAcid.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['sequenceType'] = CodeableConcept.transform_json(json_hash['sequenceType']) unless json_hash['sequenceType'].nil?      
       result['numberOfSubunits'] = PrimitiveInteger.transform_json(json_hash['numberOfSubunits'], json_hash['_numberOfSubunits']) unless json_hash['numberOfSubunits'].nil?      
       result['areaOfHybridisation'] = PrimitiveString.transform_json(json_hash['areaOfHybridisation'], json_hash['_areaOfHybridisation']) unless json_hash['areaOfHybridisation'].nil?      

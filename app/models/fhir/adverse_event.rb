@@ -24,8 +24,8 @@ module FHIR
     embeds_many :referenceDocument, class_name: 'Reference'
     embeds_many :study, class_name: 'Reference'
 
-    def self.transform_json(json_hash)
-      result = AdverseEvent.new
+    def self.transform_json(json_hash, target=AdverseEvent.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = Identifier.transform_json(json_hash['identifier']) unless json_hash['identifier'].nil?      
       result['actuality'] = AdverseEventActuality.transform_json(json_hash['actuality']) unless json_hash['actuality'].nil?      
       result['category'] = json_hash['category'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['category'].nil?

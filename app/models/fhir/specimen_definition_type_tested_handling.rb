@@ -8,8 +8,8 @@ module FHIR
     embeds_one :maxDuration, class_name: 'Duration'
     embeds_one :instruction, class_name: 'PrimitiveString'
 
-    def self.transform_json(json_hash)
-      result = SpecimenDefinitionTypeTestedHandling.new
+    def self.transform_json(json_hash, target=SpecimenDefinitionTypeTestedHandling.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['temperatureQualifier'] = CodeableConcept.transform_json(json_hash['temperatureQualifier']) unless json_hash['temperatureQualifier'].nil?      
       result['temperatureRange'] = Range.transform_json(json_hash['temperatureRange']) unless json_hash['temperatureRange'].nil?      
       result['maxDuration'] = Duration.transform_json(json_hash['maxDuration']) unless json_hash['maxDuration'].nil?      

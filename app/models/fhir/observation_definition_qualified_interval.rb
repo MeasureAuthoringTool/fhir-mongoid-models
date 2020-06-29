@@ -12,8 +12,8 @@ module FHIR
     embeds_one :gestationalAge, class_name: 'Range'
     embeds_one :condition, class_name: 'PrimitiveString'
 
-    def self.transform_json(json_hash)
-      result = ObservationDefinitionQualifiedInterval.new
+    def self.transform_json(json_hash, target=ObservationDefinitionQualifiedInterval.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['category'] = ObservationRangeCategory.transform_json(json_hash['category']) unless json_hash['category'].nil?      
       result['range'] = Range.transform_json(json_hash['range']) unless json_hash['range'].nil?      
       result['context'] = CodeableConcept.transform_json(json_hash['context']) unless json_hash['context'].nil?      

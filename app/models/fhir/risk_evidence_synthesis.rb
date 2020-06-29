@@ -35,8 +35,8 @@ module FHIR
     embeds_one :riskEstimate, class_name: 'RiskEvidenceSynthesisRiskEstimate'
     embeds_many :certainty, class_name: 'RiskEvidenceSynthesisCertainty'
 
-    def self.transform_json(json_hash)
-      result = RiskEvidenceSynthesis.new
+    def self.transform_json(json_hash, target=RiskEvidenceSynthesis.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['url'] = PrimitiveUri.transform_json(json_hash['url'], json_hash['_url']) unless json_hash['url'].nil?      
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['version'] = PrimitiveString.transform_json(json_hash['version'], json_hash['_version']) unless json_hash['version'].nil?      

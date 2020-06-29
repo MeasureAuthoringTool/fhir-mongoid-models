@@ -19,7 +19,7 @@ module FHIR
     embeds_many :input, class_name: 'DataRequirement'
     embeds_many :output, class_name: 'DataRequirement'
     embeds_many :relatedAction, class_name: 'PlanDefinitionActionRelatedAction'
-    embeds_one :timingdateTime, class_name: 'PrimitiveDateTime'
+    embeds_one :timingDateTime, class_name: 'PrimitiveDateTime'
     embeds_one :timingAge, class_name: 'Age'
     embeds_one :timingPeriod, class_name: 'Period'
     embeds_one :timingDuration, class_name: 'Duration'
@@ -32,14 +32,14 @@ module FHIR
     embeds_one :requiredBehavior, class_name: 'ActionRequiredBehavior'
     embeds_one :precheckBehavior, class_name: 'ActionPrecheckBehavior'
     embeds_one :cardinalityBehavior, class_name: 'ActionCardinalityBehavior'
-    embeds_one :definitioncanonical, class_name: 'PrimitiveCanonical'
-    embeds_one :definitionuri, class_name: 'PrimitiveUri'
+    embeds_one :definitionCanonical, class_name: 'PrimitiveCanonical'
+    embeds_one :definitionUri, class_name: 'PrimitiveUri'
     embeds_one :transform, class_name: 'PrimitiveCanonical'
     embeds_many :dynamicValue, class_name: 'PlanDefinitionActionDynamicValue'
     embeds_many :action, class_name: 'PlanDefinitionAction'
 
-    def self.transform_json(json_hash)
-      result = PlanDefinitionAction.new
+    def self.transform_json(json_hash, target=PlanDefinitionAction.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['prefix'] = PrimitiveString.transform_json(json_hash['prefix'], json_hash['_prefix']) unless json_hash['prefix'].nil?      
       result['title'] = PrimitiveString.transform_json(json_hash['title'], json_hash['_title']) unless json_hash['title'].nil?      
       result['description'] = PrimitiveString.transform_json(json_hash['description'], json_hash['_description']) unless json_hash['description'].nil?      
@@ -59,7 +59,7 @@ module FHIR
       result['input'] = json_hash['input'].map { |var| DataRequirement.transform_json(var) } unless json_hash['input'].nil?
       result['output'] = json_hash['output'].map { |var| DataRequirement.transform_json(var) } unless json_hash['output'].nil?
       result['relatedAction'] = json_hash['relatedAction'].map { |var| PlanDefinitionActionRelatedAction.transform_json(var) } unless json_hash['relatedAction'].nil?
-      result['timingdateTime'] = PrimitiveDateTime.transform_json(json_hash['timingdateTime'], json_hash['_timingdateTime']) unless json_hash['timingdateTime'].nil?      
+      result['timingDateTime'] = PrimitiveDateTime.transform_json(json_hash['timingDateTime'], json_hash['_timingDateTime']) unless json_hash['timingDateTime'].nil?      
       result['timingAge'] = Age.transform_json(json_hash['timingAge']) unless json_hash['timingAge'].nil?      
       result['timingPeriod'] = Period.transform_json(json_hash['timingPeriod']) unless json_hash['timingPeriod'].nil?      
       result['timingDuration'] = Duration.transform_json(json_hash['timingDuration']) unless json_hash['timingDuration'].nil?      
@@ -72,8 +72,8 @@ module FHIR
       result['requiredBehavior'] = ActionRequiredBehavior.transform_json(json_hash['requiredBehavior']) unless json_hash['requiredBehavior'].nil?      
       result['precheckBehavior'] = ActionPrecheckBehavior.transform_json(json_hash['precheckBehavior']) unless json_hash['precheckBehavior'].nil?      
       result['cardinalityBehavior'] = ActionCardinalityBehavior.transform_json(json_hash['cardinalityBehavior']) unless json_hash['cardinalityBehavior'].nil?      
-      result['definitioncanonical'] = PrimitiveCanonical.transform_json(json_hash['definitioncanonical'], json_hash['_definitioncanonical']) unless json_hash['definitioncanonical'].nil?      
-      result['definitionuri'] = PrimitiveUri.transform_json(json_hash['definitionuri'], json_hash['_definitionuri']) unless json_hash['definitionuri'].nil?      
+      result['definitionCanonical'] = PrimitiveCanonical.transform_json(json_hash['definitionCanonical'], json_hash['_definitionCanonical']) unless json_hash['definitionCanonical'].nil?      
+      result['definitionUri'] = PrimitiveUri.transform_json(json_hash['definitionUri'], json_hash['_definitionUri']) unless json_hash['definitionUri'].nil?      
       result['transform'] = PrimitiveCanonical.transform_json(json_hash['transform'], json_hash['_transform']) unless json_hash['transform'].nil?      
       result['dynamicValue'] = json_hash['dynamicValue'].map { |var| PlanDefinitionActionDynamicValue.transform_json(var) } unless json_hash['dynamicValue'].nil?
       result['action'] = json_hash['action'].map { |var| PlanDefinitionAction.transform_json(var) } unless json_hash['action'].nil?

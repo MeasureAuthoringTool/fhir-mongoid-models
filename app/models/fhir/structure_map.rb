@@ -22,8 +22,8 @@ module FHIR
     embeds_many :import, class_name: 'PrimitiveCanonical'
     embeds_many :group, class_name: 'StructureMapGroup'
 
-    def self.transform_json(json_hash)
-      result = StructureMap.new
+    def self.transform_json(json_hash, target=StructureMap.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['url'] = PrimitiveUri.transform_json(json_hash['url'], json_hash['_url']) unless json_hash['url'].nil?      
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['version'] = PrimitiveString.transform_json(json_hash['version'], json_hash['_version']) unless json_hash['version'].nil?      
