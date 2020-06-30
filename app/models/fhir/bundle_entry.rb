@@ -10,8 +10,8 @@ module FHIR
     embeds_one :request, class_name: 'BundleEntryRequest'
     embeds_one :response, class_name: 'BundleEntryResponse'
 
-    def self.transform_json(json_hash)
-      result = BundleEntry.new
+    def self.transform_json(json_hash, target=BundleEntry.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['link'] = json_hash['link'].map { |var| BundleLink.transform_json(var) } unless json_hash['link'].nil?
       result['fullUrl'] = PrimitiveUri.transform_json(json_hash['fullUrl'], json_hash['_fullUrl']) unless json_hash['fullUrl'].nil?      
       result['resource'] = Resource.transform_json(json_hash['resource']) unless json_hash['resource'].nil?      

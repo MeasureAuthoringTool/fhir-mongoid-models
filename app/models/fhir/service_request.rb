@@ -21,10 +21,10 @@ module FHIR
     embeds_one :quantityRange, class_name: 'Range'
     embeds_one :subject, class_name: 'Reference'
     embeds_one :encounter, class_name: 'Reference'
-    embeds_one :occurrencedateTime, class_name: 'PrimitiveDateTime'
+    embeds_one :occurrenceDateTime, class_name: 'PrimitiveDateTime'
     embeds_one :occurrencePeriod, class_name: 'Period'
     embeds_one :occurrenceTiming, class_name: 'Timing'
-    embeds_one :asNeededboolean, class_name: 'PrimitiveBoolean'
+    embeds_one :asNeededBoolean, class_name: 'PrimitiveBoolean'
     embeds_one :asNeededCodeableConcept, class_name: 'CodeableConcept'
     embeds_one :authoredOn, class_name: 'PrimitiveDateTime'
     embeds_one :requester, class_name: 'Reference'
@@ -42,8 +42,8 @@ module FHIR
     embeds_one :patientInstruction, class_name: 'PrimitiveString'
     embeds_many :relevantHistory, class_name: 'Reference'
 
-    def self.transform_json(json_hash)
-      result = ServiceRequest.new
+    def self.transform_json(json_hash, target=ServiceRequest.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['instantiatesCanonical'] = json_hash['instantiatesCanonical'].each_with_index.map do |var, i|
         extension_hash = json_hash['_instantiatesCanonical'] && json_hash['_instantiatesCanonical'][i]
@@ -68,10 +68,10 @@ module FHIR
       result['quantityRange'] = Range.transform_json(json_hash['quantityRange']) unless json_hash['quantityRange'].nil?      
       result['subject'] = Reference.transform_json(json_hash['subject']) unless json_hash['subject'].nil?      
       result['encounter'] = Reference.transform_json(json_hash['encounter']) unless json_hash['encounter'].nil?      
-      result['occurrencedateTime'] = PrimitiveDateTime.transform_json(json_hash['occurrencedateTime'], json_hash['_occurrencedateTime']) unless json_hash['occurrencedateTime'].nil?      
+      result['occurrenceDateTime'] = PrimitiveDateTime.transform_json(json_hash['occurrenceDateTime'], json_hash['_occurrenceDateTime']) unless json_hash['occurrenceDateTime'].nil?      
       result['occurrencePeriod'] = Period.transform_json(json_hash['occurrencePeriod']) unless json_hash['occurrencePeriod'].nil?      
       result['occurrenceTiming'] = Timing.transform_json(json_hash['occurrenceTiming']) unless json_hash['occurrenceTiming'].nil?      
-      result['asNeededboolean'] = PrimitiveBoolean.transform_json(json_hash['asNeededboolean'], json_hash['_asNeededboolean']) unless json_hash['asNeededboolean'].nil?      
+      result['asNeededBoolean'] = PrimitiveBoolean.transform_json(json_hash['asNeededBoolean'], json_hash['_asNeededBoolean']) unless json_hash['asNeededBoolean'].nil?      
       result['asNeededCodeableConcept'] = CodeableConcept.transform_json(json_hash['asNeededCodeableConcept']) unless json_hash['asNeededCodeableConcept'].nil?      
       result['authoredOn'] = PrimitiveDateTime.transform_json(json_hash['authoredOn'], json_hash['_authoredOn']) unless json_hash['authoredOn'].nil?      
       result['requester'] = Reference.transform_json(json_hash['requester']) unless json_hash['requester'].nil?      

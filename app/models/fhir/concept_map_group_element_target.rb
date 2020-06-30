@@ -10,8 +10,8 @@ module FHIR
     embeds_many :dependsOn, class_name: 'ConceptMapGroupElementTargetDependsOn'
     embeds_many :product, class_name: 'ConceptMapGroupElementTargetDependsOn'
 
-    def self.transform_json(json_hash)
-      result = ConceptMapGroupElementTarget.new
+    def self.transform_json(json_hash, target=ConceptMapGroupElementTarget.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['code'] = PrimitiveCode.transform_json(json_hash['code'], json_hash['_code']) unless json_hash['code'].nil?      
       result['display'] = PrimitiveString.transform_json(json_hash['display'], json_hash['_display']) unless json_hash['display'].nil?      
       result['equivalence'] = ConceptMapEquivalence.transform_json(json_hash['equivalence']) unless json_hash['equivalence'].nil?      

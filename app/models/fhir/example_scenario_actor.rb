@@ -8,8 +8,8 @@ module FHIR
     embeds_one :name, class_name: 'PrimitiveString'
     embeds_one :description, class_name: 'PrimitiveMarkdown'
 
-    def self.transform_json(json_hash)
-      result = ExampleScenarioActor.new
+    def self.transform_json(json_hash, target=ExampleScenarioActor.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['actorId'] = PrimitiveString.transform_json(json_hash['actorId'], json_hash['_actorId']) unless json_hash['actorId'].nil?      
       result['type'] = ExampleScenarioActorType.transform_json(json_hash['type']) unless json_hash['type'].nil?      
       result['name'] = PrimitiveString.transform_json(json_hash['name'], json_hash['_name']) unless json_hash['name'].nil?      

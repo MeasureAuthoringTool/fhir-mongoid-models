@@ -17,8 +17,8 @@ module FHIR
     embeds_many :noteNumber, class_name: 'PrimitivePositiveInt'
     embeds_many :adjudication, class_name: 'ExplanationOfBenefitItemAdjudication'
 
-    def self.transform_json(json_hash)
-      result = ExplanationOfBenefitItemDetailSubDetail.new
+    def self.transform_json(json_hash, target=ExplanationOfBenefitItemDetailSubDetail.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['sequence'] = PrimitivePositiveInt.transform_json(json_hash['sequence'], json_hash['_sequence']) unless json_hash['sequence'].nil?      
       result['revenue'] = CodeableConcept.transform_json(json_hash['revenue']) unless json_hash['revenue'].nil?      
       result['category'] = CodeableConcept.transform_json(json_hash['category']) unless json_hash['category'].nil?      

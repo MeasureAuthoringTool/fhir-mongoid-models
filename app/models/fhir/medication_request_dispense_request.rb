@@ -11,8 +11,8 @@ module FHIR
     embeds_one :expectedSupplyDuration, class_name: 'Duration'
     embeds_one :performer, class_name: 'Reference'
 
-    def self.transform_json(json_hash)
-      result = MedicationRequestDispenseRequest.new
+    def self.transform_json(json_hash, target=MedicationRequestDispenseRequest.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['initialFill'] = MedicationRequestDispenseRequestInitialFill.transform_json(json_hash['initialFill']) unless json_hash['initialFill'].nil?      
       result['dispenseInterval'] = Duration.transform_json(json_hash['dispenseInterval']) unless json_hash['dispenseInterval'].nil?      
       result['validityPeriod'] = Period.transform_json(json_hash['validityPeriod']) unless json_hash['validityPeriod'].nil?      

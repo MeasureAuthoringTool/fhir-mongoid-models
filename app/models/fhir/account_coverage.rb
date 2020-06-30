@@ -6,8 +6,8 @@ module FHIR
     embeds_one :coverage, class_name: 'Reference'
     embeds_one :priority, class_name: 'PrimitivePositiveInt'
 
-    def self.transform_json(json_hash)
-      result = AccountCoverage.new
+    def self.transform_json(json_hash, target=AccountCoverage.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['coverage'] = Reference.transform_json(json_hash['coverage']) unless json_hash['coverage'].nil?      
       result['priority'] = PrimitivePositiveInt.transform_json(json_hash['priority'], json_hash['_priority']) unless json_hash['priority'].nil?      
 

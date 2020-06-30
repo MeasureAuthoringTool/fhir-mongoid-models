@@ -18,8 +18,8 @@ module FHIR
     embeds_one :search, class_name: 'PrimitiveBoolean'
     embeds_many :resource, class_name: 'CompartmentDefinitionResource'
 
-    def self.transform_json(json_hash)
-      result = CompartmentDefinition.new
+    def self.transform_json(json_hash, target=CompartmentDefinition.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['url'] = PrimitiveUri.transform_json(json_hash['url'], json_hash['_url']) unless json_hash['url'].nil?      
       result['version'] = PrimitiveString.transform_json(json_hash['version'], json_hash['_version']) unless json_hash['version'].nil?      
       result['name'] = PrimitiveString.transform_json(json_hash['name'], json_hash['_name']) unless json_hash['name'].nil?      

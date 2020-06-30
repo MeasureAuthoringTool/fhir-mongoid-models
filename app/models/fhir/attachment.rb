@@ -12,8 +12,8 @@ module FHIR
     embeds_one :title, class_name: 'PrimitiveString'
     embeds_one :creation, class_name: 'PrimitiveDateTime'
 
-    def self.transform_json(json_hash)
-      result = Attachment.new
+    def self.transform_json(json_hash, target=Attachment.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['contentType'] = MimeType.transform_json(json_hash['contentType']) unless json_hash['contentType'].nil?      
       result['language'] = PrimitiveCode.transform_json(json_hash['language'], json_hash['_language']) unless json_hash['language'].nil?      
       result['data'] = PrimitiveBase64Binary.transform_json(json_hash['data'], json_hash['_data']) unless json_hash['data'].nil?      

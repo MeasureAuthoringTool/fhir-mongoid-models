@@ -19,8 +19,8 @@ module FHIR
     embeds_one :formCode, class_name: 'CodeableConcept'
     embeds_many :processNote, class_name: 'PaymentReconciliationProcessNote'
 
-    def self.transform_json(json_hash)
-      result = PaymentReconciliation.new
+    def self.transform_json(json_hash, target=PaymentReconciliation.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['status'] = PaymentReconciliationStatus.transform_json(json_hash['status']) unless json_hash['status'].nil?      
       result['period'] = Period.transform_json(json_hash['period']) unless json_hash['period'].nil?      

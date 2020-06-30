@@ -14,8 +14,8 @@ module FHIR
     embeds_one :emptyReason, class_name: 'CodeableConcept'
     embeds_many :section, class_name: 'CompositionSection'
 
-    def self.transform_json(json_hash)
-      result = CompositionSection.new
+    def self.transform_json(json_hash, target=CompositionSection.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['title'] = PrimitiveString.transform_json(json_hash['title'], json_hash['_title']) unless json_hash['title'].nil?      
       result['code'] = CodeableConcept.transform_json(json_hash['code']) unless json_hash['code'].nil?      
       result['author'] = json_hash['author'].map { |var| Reference.transform_json(var) } unless json_hash['author'].nil?

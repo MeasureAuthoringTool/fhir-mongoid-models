@@ -16,8 +16,8 @@ module FHIR
     embeds_many :shelfLifeStorage, class_name: 'ProductShelfLife'
     embeds_many :manufacturer, class_name: 'Reference'
 
-    def self.transform_json(json_hash)
-      result = MedicinalProductPackagedPackageItem.new
+    def self.transform_json(json_hash, target=MedicinalProductPackagedPackageItem.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['type'] = CodeableConcept.transform_json(json_hash['type']) unless json_hash['type'].nil?      
       result['quantity'] = Quantity.transform_json(json_hash['quantity']) unless json_hash['quantity'].nil?      

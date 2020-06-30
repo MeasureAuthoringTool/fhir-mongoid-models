@@ -9,8 +9,8 @@ module FHIR
     embeds_one :display, class_name: 'PrimitiveString'
     embeds_one :userSelected, class_name: 'PrimitiveBoolean'
 
-    def self.transform_json(json_hash)
-      result = Coding.new
+    def self.transform_json(json_hash, target=Coding.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['system'] = PrimitiveUri.transform_json(json_hash['system'], json_hash['_system']) unless json_hash['system'].nil?      
       result['version'] = PrimitiveString.transform_json(json_hash['version'], json_hash['_version']) unless json_hash['version'].nil?      
       result['code'] = PrimitiveCode.transform_json(json_hash['code'], json_hash['_code']) unless json_hash['code'].nil?      

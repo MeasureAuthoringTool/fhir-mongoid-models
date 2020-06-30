@@ -10,8 +10,8 @@ module FHIR
     embeds_many :input, class_name: 'StructureMapGroupInput'
     embeds_many :rule, class_name: 'StructureMapGroupRule'
 
-    def self.transform_json(json_hash)
-      result = StructureMapGroup.new
+    def self.transform_json(json_hash, target=StructureMapGroup.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['name'] = PrimitiveId.transform_json(json_hash['name'], json_hash['_name']) unless json_hash['name'].nil?      
       result['extends'] = PrimitiveId.transform_json(json_hash['extends'], json_hash['_extends']) unless json_hash['extends'].nil?      
       result['typeMode'] = StructureMapGroupTypeMode.transform_json(json_hash['typeMode']) unless json_hash['typeMode'].nil?      

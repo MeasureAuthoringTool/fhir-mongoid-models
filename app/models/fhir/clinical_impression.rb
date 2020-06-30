@@ -10,7 +10,7 @@ module FHIR
     embeds_one :description, class_name: 'PrimitiveString'
     embeds_one :subject, class_name: 'Reference'
     embeds_one :encounter, class_name: 'Reference'
-    embeds_one :effectivedateTime, class_name: 'PrimitiveDateTime'
+    embeds_one :effectiveDateTime, class_name: 'PrimitiveDateTime'
     embeds_one :effectivePeriod, class_name: 'Period'
     embeds_one :date, class_name: 'PrimitiveDateTime'
     embeds_one :assessor, class_name: 'Reference'
@@ -25,8 +25,8 @@ module FHIR
     embeds_many :supportingInfo, class_name: 'Reference'
     embeds_many :note, class_name: 'Annotation'
 
-    def self.transform_json(json_hash)
-      result = ClinicalImpression.new
+    def self.transform_json(json_hash, target=ClinicalImpression.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['status'] = ClinicalImpressionStatus.transform_json(json_hash['status']) unless json_hash['status'].nil?      
       result['statusReason'] = CodeableConcept.transform_json(json_hash['statusReason']) unless json_hash['statusReason'].nil?      
@@ -34,7 +34,7 @@ module FHIR
       result['description'] = PrimitiveString.transform_json(json_hash['description'], json_hash['_description']) unless json_hash['description'].nil?      
       result['subject'] = Reference.transform_json(json_hash['subject']) unless json_hash['subject'].nil?      
       result['encounter'] = Reference.transform_json(json_hash['encounter']) unless json_hash['encounter'].nil?      
-      result['effectivedateTime'] = PrimitiveDateTime.transform_json(json_hash['effectivedateTime'], json_hash['_effectivedateTime']) unless json_hash['effectivedateTime'].nil?      
+      result['effectiveDateTime'] = PrimitiveDateTime.transform_json(json_hash['effectiveDateTime'], json_hash['_effectiveDateTime']) unless json_hash['effectiveDateTime'].nil?      
       result['effectivePeriod'] = Period.transform_json(json_hash['effectivePeriod']) unless json_hash['effectivePeriod'].nil?      
       result['date'] = PrimitiveDateTime.transform_json(json_hash['date'], json_hash['_date']) unless json_hash['date'].nil?      
       result['assessor'] = Reference.transform_json(json_hash['assessor']) unless json_hash['assessor'].nil?      

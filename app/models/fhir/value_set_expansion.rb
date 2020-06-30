@@ -10,8 +10,8 @@ module FHIR
     embeds_many :parameter, class_name: 'ValueSetExpansionParameter'
     embeds_many :contains, class_name: 'ValueSetExpansionContains'
 
-    def self.transform_json(json_hash)
-      result = ValueSetExpansion.new
+    def self.transform_json(json_hash, target=ValueSetExpansion.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = PrimitiveUri.transform_json(json_hash['identifier'], json_hash['_identifier']) unless json_hash['identifier'].nil?      
       result['timestamp'] = PrimitiveDateTime.transform_json(json_hash['timestamp'], json_hash['_timestamp']) unless json_hash['timestamp'].nil?      
       result['total'] = PrimitiveInteger.transform_json(json_hash['total'], json_hash['_total']) unless json_hash['total'].nil?      

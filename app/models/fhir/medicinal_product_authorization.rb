@@ -20,8 +20,8 @@ module FHIR
     embeds_one :regulator, class_name: 'Reference'
     embeds_one :procedure, class_name: 'MedicinalProductAuthorizationProcedure'
 
-    def self.transform_json(json_hash)
-      result = MedicinalProductAuthorization.new
+    def self.transform_json(json_hash, target=MedicinalProductAuthorization.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['subject'] = Reference.transform_json(json_hash['subject']) unless json_hash['subject'].nil?      
       result['country'] = json_hash['country'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['country'].nil?

@@ -7,8 +7,8 @@ module FHIR
     embeds_one :name, class_name: 'PrimitiveString'
     embeds_one :residueSite, class_name: 'PrimitiveString'
 
-    def self.transform_json(json_hash)
-      result = SubstanceNucleicAcidSubunitSugar.new
+    def self.transform_json(json_hash, target=SubstanceNucleicAcidSubunitSugar.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = Identifier.transform_json(json_hash['identifier']) unless json_hash['identifier'].nil?      
       result['name'] = PrimitiveString.transform_json(json_hash['name'], json_hash['_name']) unless json_hash['name'].nil?      
       result['residueSite'] = PrimitiveString.transform_json(json_hash['residueSite'], json_hash['_residueSite']) unless json_hash['residueSite'].nil?      

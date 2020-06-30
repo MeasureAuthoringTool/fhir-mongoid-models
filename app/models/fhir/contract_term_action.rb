@@ -11,7 +11,7 @@ module FHIR
     embeds_one :status, class_name: 'CodeableConcept'
     embeds_one :context, class_name: 'Reference'
     embeds_many :contextLinkId, class_name: 'PrimitiveString'
-    embeds_one :occurrencedateTime, class_name: 'PrimitiveDateTime'
+    embeds_one :occurrenceDateTime, class_name: 'PrimitiveDateTime'
     embeds_one :occurrencePeriod, class_name: 'Period'
     embeds_one :occurrenceTiming, class_name: 'Timing'
     embeds_many :requester, class_name: 'Reference'
@@ -27,8 +27,8 @@ module FHIR
     embeds_many :note, class_name: 'Annotation'
     embeds_many :securityLabelNumber, class_name: 'PrimitiveUnsignedInt'
 
-    def self.transform_json(json_hash)
-      result = ContractTermAction.new
+    def self.transform_json(json_hash, target=ContractTermAction.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['doNotPerform'] = PrimitiveBoolean.transform_json(json_hash['doNotPerform'], json_hash['_doNotPerform']) unless json_hash['doNotPerform'].nil?      
       result['type'] = CodeableConcept.transform_json(json_hash['type']) unless json_hash['type'].nil?      
       result['subject'] = json_hash['subject'].map { |var| ContractTermActionSubject.transform_json(var) } unless json_hash['subject'].nil?
@@ -43,7 +43,7 @@ module FHIR
         extension_hash = json_hash['_contextLinkId'] && json_hash['_contextLinkId'][i]
         PrimitiveString.transform_json(var, extension_hash)
       end unless json_hash['contextLinkId'].nil?
-      result['occurrencedateTime'] = PrimitiveDateTime.transform_json(json_hash['occurrencedateTime'], json_hash['_occurrencedateTime']) unless json_hash['occurrencedateTime'].nil?      
+      result['occurrenceDateTime'] = PrimitiveDateTime.transform_json(json_hash['occurrenceDateTime'], json_hash['_occurrenceDateTime']) unless json_hash['occurrenceDateTime'].nil?      
       result['occurrencePeriod'] = Period.transform_json(json_hash['occurrencePeriod']) unless json_hash['occurrencePeriod'].nil?      
       result['occurrenceTiming'] = Timing.transform_json(json_hash['occurrenceTiming']) unless json_hash['occurrenceTiming'].nil?      
       result['requester'] = json_hash['requester'].map { |var| Reference.transform_json(var) } unless json_hash['requester'].nil?

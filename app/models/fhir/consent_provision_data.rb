@@ -6,8 +6,8 @@ module FHIR
     embeds_one :meaning, class_name: 'ConsentDataMeaning'
     embeds_one :reference, class_name: 'Reference'
 
-    def self.transform_json(json_hash)
-      result = ConsentProvisionData.new
+    def self.transform_json(json_hash, target=ConsentProvisionData.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['meaning'] = ConsentDataMeaning.transform_json(json_hash['meaning']) unless json_hash['meaning'].nil?      
       result['reference'] = Reference.transform_json(json_hash['reference']) unless json_hash['reference'].nil?      
 

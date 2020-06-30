@@ -27,8 +27,8 @@ module FHIR
     embeds_many :applicability, class_name: 'ChargeItemDefinitionApplicability'
     embeds_many :propertyGroup, class_name: 'ChargeItemDefinitionPropertyGroup'
 
-    def self.transform_json(json_hash)
-      result = ChargeItemDefinition.new
+    def self.transform_json(json_hash, target=ChargeItemDefinition.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['url'] = PrimitiveUri.transform_json(json_hash['url'], json_hash['_url']) unless json_hash['url'].nil?      
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['version'] = PrimitiveString.transform_json(json_hash['version'], json_hash['_version']) unless json_hash['version'].nil?      

@@ -35,8 +35,8 @@ module FHIR
     embeds_many :input, class_name: 'TaskInput'
     embeds_many :output, class_name: 'TaskOutput'
 
-    def self.transform_json(json_hash)
-      result = Task.new
+    def self.transform_json(json_hash, target=Task.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['instantiatesCanonical'] = PrimitiveCanonical.transform_json(json_hash['instantiatesCanonical'], json_hash['_instantiatesCanonical']) unless json_hash['instantiatesCanonical'].nil?      
       result['instantiatesUri'] = PrimitiveUri.transform_json(json_hash['instantiatesUri'], json_hash['_instantiatesUri']) unless json_hash['instantiatesUri'].nil?      

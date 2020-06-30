@@ -7,8 +7,8 @@ module FHIR
     embeds_many :valueQuantity, class_name: 'Quantity'
     embeds_many :valueCode, class_name: 'CodeableConcept'
 
-    def self.transform_json(json_hash)
-      result = DeviceDefinitionProperty.new
+    def self.transform_json(json_hash, target=DeviceDefinitionProperty.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['type'] = CodeableConcept.transform_json(json_hash['type']) unless json_hash['type'].nil?      
       result['valueQuantity'] = json_hash['valueQuantity'].map { |var| Quantity.transform_json(var) } unless json_hash['valueQuantity'].nil?
       result['valueCode'] = json_hash['valueCode'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['valueCode'].nil?

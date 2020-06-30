@@ -5,8 +5,8 @@ module FHIR
     field :typeName, type: String, default: 'GuidanceResponse'
     embeds_one :requestIdentifier, class_name: 'Identifier'
     embeds_many :identifier, class_name: 'Identifier'
-    embeds_one :moduleuri, class_name: 'PrimitiveUri'
-    embeds_one :modulecanonical, class_name: 'PrimitiveCanonical'
+    embeds_one :moduleUri, class_name: 'PrimitiveUri'
+    embeds_one :moduleCanonical, class_name: 'PrimitiveCanonical'
     embeds_one :moduleCodeableConcept, class_name: 'CodeableConcept'
     embeds_one :status, class_name: 'GuidanceResponseStatus'
     embeds_one :subject, class_name: 'Reference'
@@ -21,12 +21,12 @@ module FHIR
     embeds_one :result, class_name: 'Reference'
     embeds_many :dataRequirement, class_name: 'DataRequirement'
 
-    def self.transform_json(json_hash)
-      result = GuidanceResponse.new
+    def self.transform_json(json_hash, target=GuidanceResponse.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['requestIdentifier'] = Identifier.transform_json(json_hash['requestIdentifier']) unless json_hash['requestIdentifier'].nil?      
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
-      result['moduleuri'] = PrimitiveUri.transform_json(json_hash['moduleuri'], json_hash['_moduleuri']) unless json_hash['moduleuri'].nil?      
-      result['modulecanonical'] = PrimitiveCanonical.transform_json(json_hash['modulecanonical'], json_hash['_modulecanonical']) unless json_hash['modulecanonical'].nil?      
+      result['moduleUri'] = PrimitiveUri.transform_json(json_hash['moduleUri'], json_hash['_moduleUri']) unless json_hash['moduleUri'].nil?      
+      result['moduleCanonical'] = PrimitiveCanonical.transform_json(json_hash['moduleCanonical'], json_hash['_moduleCanonical']) unless json_hash['moduleCanonical'].nil?      
       result['moduleCodeableConcept'] = CodeableConcept.transform_json(json_hash['moduleCodeableConcept']) unless json_hash['moduleCodeableConcept'].nil?      
       result['status'] = GuidanceResponseStatus.transform_json(json_hash['status']) unless json_hash['status'].nil?      
       result['subject'] = Reference.transform_json(json_hash['subject']) unless json_hash['subject'].nil?      

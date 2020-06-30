@@ -18,8 +18,8 @@ module FHIR
     embeds_one :brand, class_name: 'PrimitiveString'
     embeds_many :note, class_name: 'Annotation'
 
-    def self.transform_json(json_hash)
-      result = VisionPrescriptionLensSpecification.new
+    def self.transform_json(json_hash, target=VisionPrescriptionLensSpecification.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['product'] = CodeableConcept.transform_json(json_hash['product']) unless json_hash['product'].nil?      
       result['eye'] = VisionEyes.transform_json(json_hash['eye']) unless json_hash['eye'].nil?      
       result['sphere'] = PrimitiveDecimal.transform_json(json_hash['sphere'], json_hash['_sphere']) unless json_hash['sphere'].nil?      

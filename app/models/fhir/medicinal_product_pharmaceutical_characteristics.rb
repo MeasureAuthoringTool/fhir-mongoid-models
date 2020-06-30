@@ -6,8 +6,8 @@ module FHIR
     embeds_one :code, class_name: 'CodeableConcept'
     embeds_one :status, class_name: 'CodeableConcept'
 
-    def self.transform_json(json_hash)
-      result = MedicinalProductPharmaceuticalCharacteristics.new
+    def self.transform_json(json_hash, target=MedicinalProductPharmaceuticalCharacteristics.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['code'] = CodeableConcept.transform_json(json_hash['code']) unless json_hash['code'].nil?      
       result['status'] = CodeableConcept.transform_json(json_hash['status']) unless json_hash['status'].nil?      
 

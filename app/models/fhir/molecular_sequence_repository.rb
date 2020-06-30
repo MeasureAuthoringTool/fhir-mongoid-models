@@ -10,8 +10,8 @@ module FHIR
     embeds_one :variantsetId, class_name: 'PrimitiveString'
     embeds_one :readsetId, class_name: 'PrimitiveString'
 
-    def self.transform_json(json_hash)
-      result = MolecularSequenceRepository.new
+    def self.transform_json(json_hash, target=MolecularSequenceRepository.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['type'] = RepositoryType.transform_json(json_hash['type']) unless json_hash['type'].nil?      
       result['url'] = PrimitiveUri.transform_json(json_hash['url'], json_hash['_url']) unless json_hash['url'].nil?      
       result['name'] = PrimitiveString.transform_json(json_hash['name'], json_hash['_name']) unless json_hash['name'].nil?      

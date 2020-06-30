@@ -19,8 +19,8 @@ module FHIR
     embeds_many :event, class_name: 'CompositionEvent'
     embeds_many :section, class_name: 'CompositionSection'
 
-    def self.transform_json(json_hash)
-      result = Composition.new
+    def self.transform_json(json_hash, target=Composition.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = Identifier.transform_json(json_hash['identifier']) unless json_hash['identifier'].nil?      
       result['status'] = CompositionStatus.transform_json(json_hash['status']) unless json_hash['status'].nil?      
       result['type'] = CodeableConcept.transform_json(json_hash['type']) unless json_hash['type'].nil?      

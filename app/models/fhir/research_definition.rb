@@ -39,8 +39,8 @@ module FHIR
     embeds_one :exposureAlternative, class_name: 'Reference'
     embeds_one :outcome, class_name: 'Reference'
 
-    def self.transform_json(json_hash)
-      result = ResearchDefinition.new
+    def self.transform_json(json_hash, target=ResearchDefinition.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['url'] = PrimitiveUri.transform_json(json_hash['url'], json_hash['_url']) unless json_hash['url'].nil?      
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['version'] = PrimitiveString.transform_json(json_hash['version'], json_hash['_version']) unless json_hash['version'].nil?      

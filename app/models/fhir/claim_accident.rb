@@ -8,8 +8,8 @@ module FHIR
     embeds_one :locationAddress, class_name: 'Address'
     embeds_one :locationReference, class_name: 'Reference'
 
-    def self.transform_json(json_hash)
-      result = ClaimAccident.new
+    def self.transform_json(json_hash, target=ClaimAccident.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['date'] = PrimitiveDate.transform_json(json_hash['date'], json_hash['_date']) unless json_hash['date'].nil?      
       result['type'] = CodeableConcept.transform_json(json_hash['type']) unless json_hash['type'].nil?      
       result['locationAddress'] = Address.transform_json(json_hash['locationAddress']) unless json_hash['locationAddress'].nil?      

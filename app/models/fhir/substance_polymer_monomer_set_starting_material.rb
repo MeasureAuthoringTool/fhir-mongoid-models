@@ -8,8 +8,8 @@ module FHIR
     embeds_one :isDefining, class_name: 'PrimitiveBoolean'
     embeds_one :amount, class_name: 'SubstanceAmount'
 
-    def self.transform_json(json_hash)
-      result = SubstancePolymerMonomerSetStartingMaterial.new
+    def self.transform_json(json_hash, target=SubstancePolymerMonomerSetStartingMaterial.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['material'] = CodeableConcept.transform_json(json_hash['material']) unless json_hash['material'].nil?      
       result['type'] = CodeableConcept.transform_json(json_hash['type']) unless json_hash['type'].nil?      
       result['isDefining'] = PrimitiveBoolean.transform_json(json_hash['isDefining'], json_hash['_isDefining']) unless json_hash['isDefining'].nil?      

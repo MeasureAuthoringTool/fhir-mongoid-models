@@ -8,7 +8,7 @@ module FHIR
     embeds_many :additionalInstruction, class_name: 'CodeableConcept'
     embeds_one :patientInstruction, class_name: 'PrimitiveString'
     embeds_one :timing, class_name: 'Timing'
-    embeds_one :asNeededboolean, class_name: 'PrimitiveBoolean'
+    embeds_one :asNeededBoolean, class_name: 'PrimitiveBoolean'
     embeds_one :asNeededCodeableConcept, class_name: 'CodeableConcept'
     embeds_one :site, class_name: 'CodeableConcept'
     embeds_one :route, class_name: 'CodeableConcept'
@@ -18,14 +18,14 @@ module FHIR
     embeds_one :maxDosePerAdministration, class_name: 'SimpleQuantity'
     embeds_one :maxDosePerLifetime, class_name: 'SimpleQuantity'
 
-    def self.transform_json(json_hash)
-      result = Dosage.new
+    def self.transform_json(json_hash, target=Dosage.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['sequence'] = PrimitiveInteger.transform_json(json_hash['sequence'], json_hash['_sequence']) unless json_hash['sequence'].nil?      
       result['text'] = PrimitiveString.transform_json(json_hash['text'], json_hash['_text']) unless json_hash['text'].nil?      
       result['additionalInstruction'] = json_hash['additionalInstruction'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['additionalInstruction'].nil?
       result['patientInstruction'] = PrimitiveString.transform_json(json_hash['patientInstruction'], json_hash['_patientInstruction']) unless json_hash['patientInstruction'].nil?      
       result['timing'] = Timing.transform_json(json_hash['timing']) unless json_hash['timing'].nil?      
-      result['asNeededboolean'] = PrimitiveBoolean.transform_json(json_hash['asNeededboolean'], json_hash['_asNeededboolean']) unless json_hash['asNeededboolean'].nil?      
+      result['asNeededBoolean'] = PrimitiveBoolean.transform_json(json_hash['asNeededBoolean'], json_hash['_asNeededBoolean']) unless json_hash['asNeededBoolean'].nil?      
       result['asNeededCodeableConcept'] = CodeableConcept.transform_json(json_hash['asNeededCodeableConcept']) unless json_hash['asNeededCodeableConcept'].nil?      
       result['site'] = CodeableConcept.transform_json(json_hash['site']) unless json_hash['site'].nil?      
       result['route'] = CodeableConcept.transform_json(json_hash['route']) unless json_hash['route'].nil?      

@@ -6,8 +6,8 @@ module FHIR
     embeds_one :quantity, class_name: 'SimpleQuantity'
     embeds_one :duration, class_name: 'Duration'
 
-    def self.transform_json(json_hash)
-      result = MedicationRequestDispenseRequestInitialFill.new
+    def self.transform_json(json_hash, target=MedicationRequestDispenseRequestInitialFill.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['quantity'] = SimpleQuantity.transform_json(json_hash['quantity']) unless json_hash['quantity'].nil?      
       result['duration'] = Duration.transform_json(json_hash['duration']) unless json_hash['duration'].nil?      
 

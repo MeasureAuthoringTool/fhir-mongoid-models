@@ -8,8 +8,8 @@ module FHIR
     embeds_one :variantState, class_name: 'CodeableConcept'
     embeds_one :riskEvidenceSynthesis, class_name: 'Reference'
 
-    def self.transform_json(json_hash)
-      result = EffectEvidenceSynthesisResultsByExposure.new
+    def self.transform_json(json_hash, target=EffectEvidenceSynthesisResultsByExposure.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['description'] = PrimitiveString.transform_json(json_hash['description'], json_hash['_description']) unless json_hash['description'].nil?      
       result['exposureState'] = ExposureState.transform_json(json_hash['exposureState']) unless json_hash['exposureState'].nil?      
       result['variantState'] = CodeableConcept.transform_json(json_hash['variantState']) unless json_hash['variantState'].nil?      

@@ -9,8 +9,8 @@ module FHIR
     embeds_one :created, class_name: 'PrimitiveDate'
     embeds_one :author, class_name: 'Reference'
 
-    def self.transform_json(json_hash)
-      result = Basic.new
+    def self.transform_json(json_hash, target=Basic.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['code'] = CodeableConcept.transform_json(json_hash['code']) unless json_hash['code'].nil?      
       result['subject'] = Reference.transform_json(json_hash['subject']) unless json_hash['subject'].nil?      

@@ -3,29 +3,29 @@ module FHIR
   class QuestionnaireItemInitial < BackboneElement
     include Mongoid::Document
     field :typeName, type: String, default: 'QuestionnaireItemInitial'
-    embeds_one :valueboolean, class_name: 'PrimitiveBoolean'
-    embeds_one :valuedecimal, class_name: 'PrimitiveDecimal'
-    embeds_one :valueinteger, class_name: 'PrimitiveInteger'
-    embeds_one :valuedate, class_name: 'PrimitiveDate'
-    embeds_one :valuedateTime, class_name: 'PrimitiveDateTime'
-    embeds_one :valuetime, class_name: 'PrimitiveTime'
-    embeds_one :valuestring, class_name: 'PrimitiveString'
-    embeds_one :valueuri, class_name: 'PrimitiveUri'
+    embeds_one :valueBoolean, class_name: 'PrimitiveBoolean'
+    embeds_one :valueDecimal, class_name: 'PrimitiveDecimal'
+    embeds_one :valueInteger, class_name: 'PrimitiveInteger'
+    embeds_one :valueDate, class_name: 'PrimitiveDate'
+    embeds_one :valueDateTime, class_name: 'PrimitiveDateTime'
+    embeds_one :valueTime, class_name: 'PrimitiveTime'
+    embeds_one :valueString, class_name: 'PrimitiveString'
+    embeds_one :valueUri, class_name: 'PrimitiveUri'
     embeds_one :valueAttachment, class_name: 'Attachment'
     embeds_one :valueCoding, class_name: 'Coding'
     embeds_one :valueQuantity, class_name: 'Quantity'
     embeds_one :valueReference, class_name: 'Reference'
 
-    def self.transform_json(json_hash)
-      result = QuestionnaireItemInitial.new
-      result['valueboolean'] = PrimitiveBoolean.transform_json(json_hash['valueboolean'], json_hash['_valueboolean']) unless json_hash['valueboolean'].nil?      
-      result['valuedecimal'] = PrimitiveDecimal.transform_json(json_hash['valuedecimal'], json_hash['_valuedecimal']) unless json_hash['valuedecimal'].nil?      
-      result['valueinteger'] = PrimitiveInteger.transform_json(json_hash['valueinteger'], json_hash['_valueinteger']) unless json_hash['valueinteger'].nil?      
-      result['valuedate'] = PrimitiveDate.transform_json(json_hash['valuedate'], json_hash['_valuedate']) unless json_hash['valuedate'].nil?      
-      result['valuedateTime'] = PrimitiveDateTime.transform_json(json_hash['valuedateTime'], json_hash['_valuedateTime']) unless json_hash['valuedateTime'].nil?      
-      result['valuetime'] = PrimitiveTime.transform_json(json_hash['valuetime'], json_hash['_valuetime']) unless json_hash['valuetime'].nil?      
-      result['valuestring'] = PrimitiveString.transform_json(json_hash['valuestring'], json_hash['_valuestring']) unless json_hash['valuestring'].nil?      
-      result['valueuri'] = PrimitiveUri.transform_json(json_hash['valueuri'], json_hash['_valueuri']) unless json_hash['valueuri'].nil?      
+    def self.transform_json(json_hash, target=QuestionnaireItemInitial.new)
+      result = self.superclass.transform_json(json_hash, target)
+      result['valueBoolean'] = PrimitiveBoolean.transform_json(json_hash['valueBoolean'], json_hash['_valueBoolean']) unless json_hash['valueBoolean'].nil?      
+      result['valueDecimal'] = PrimitiveDecimal.transform_json(json_hash['valueDecimal'], json_hash['_valueDecimal']) unless json_hash['valueDecimal'].nil?      
+      result['valueInteger'] = PrimitiveInteger.transform_json(json_hash['valueInteger'], json_hash['_valueInteger']) unless json_hash['valueInteger'].nil?      
+      result['valueDate'] = PrimitiveDate.transform_json(json_hash['valueDate'], json_hash['_valueDate']) unless json_hash['valueDate'].nil?      
+      result['valueDateTime'] = PrimitiveDateTime.transform_json(json_hash['valueDateTime'], json_hash['_valueDateTime']) unless json_hash['valueDateTime'].nil?      
+      result['valueTime'] = PrimitiveTime.transform_json(json_hash['valueTime'], json_hash['_valueTime']) unless json_hash['valueTime'].nil?      
+      result['valueString'] = PrimitiveString.transform_json(json_hash['valueString'], json_hash['_valueString']) unless json_hash['valueString'].nil?      
+      result['valueUri'] = PrimitiveUri.transform_json(json_hash['valueUri'], json_hash['_valueUri']) unless json_hash['valueUri'].nil?      
       result['valueAttachment'] = Attachment.transform_json(json_hash['valueAttachment']) unless json_hash['valueAttachment'].nil?      
       result['valueCoding'] = Coding.transform_json(json_hash['valueCoding']) unless json_hash['valueCoding'].nil?      
       result['valueQuantity'] = Quantity.transform_json(json_hash['valueQuantity']) unless json_hash['valueQuantity'].nil?      

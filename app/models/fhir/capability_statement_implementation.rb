@@ -7,8 +7,8 @@ module FHIR
     embeds_one :url, class_name: 'PrimitiveUrl'
     embeds_one :custodian, class_name: 'Reference'
 
-    def self.transform_json(json_hash)
-      result = CapabilityStatementImplementation.new
+    def self.transform_json(json_hash, target=CapabilityStatementImplementation.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['description'] = PrimitiveString.transform_json(json_hash['description'], json_hash['_description']) unless json_hash['description'].nil?      
       result['url'] = PrimitiveUrl.transform_json(json_hash['url'], json_hash['_url']) unless json_hash['url'].nil?      
       result['custodian'] = Reference.transform_json(json_hash['custodian']) unless json_hash['custodian'].nil?      

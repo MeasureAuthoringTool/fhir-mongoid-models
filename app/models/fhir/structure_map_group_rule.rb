@@ -10,8 +10,8 @@ module FHIR
     embeds_many :dependent, class_name: 'StructureMapGroupRuleDependent'
     embeds_one :documentation, class_name: 'PrimitiveString'
 
-    def self.transform_json(json_hash)
-      result = StructureMapGroupRule.new
+    def self.transform_json(json_hash, target=StructureMapGroupRule.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['name'] = PrimitiveId.transform_json(json_hash['name'], json_hash['_name']) unless json_hash['name'].nil?      
       result['source'] = json_hash['source'].map { |var| StructureMapGroupRuleSource.transform_json(var) } unless json_hash['source'].nil?
       result['target'] = json_hash['target'].map { |var| StructureMapGroupRuleTarget.transform_json(var) } unless json_hash['target'].nil?

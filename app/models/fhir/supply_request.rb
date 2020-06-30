@@ -11,7 +11,7 @@ module FHIR
     embeds_one :itemReference, class_name: 'Reference'
     embeds_one :quantity, class_name: 'Quantity'
     embeds_many :parameter, class_name: 'SupplyRequestParameter'
-    embeds_one :occurrencedateTime, class_name: 'PrimitiveDateTime'
+    embeds_one :occurrenceDateTime, class_name: 'PrimitiveDateTime'
     embeds_one :occurrencePeriod, class_name: 'Period'
     embeds_one :occurrenceTiming, class_name: 'Timing'
     embeds_one :authoredOn, class_name: 'PrimitiveDateTime'
@@ -22,8 +22,8 @@ module FHIR
     embeds_one :deliverFrom, class_name: 'Reference'
     embeds_one :deliverTo, class_name: 'Reference'
 
-    def self.transform_json(json_hash)
-      result = SupplyRequest.new
+    def self.transform_json(json_hash, target=SupplyRequest.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['status'] = SupplyRequestStatus.transform_json(json_hash['status']) unless json_hash['status'].nil?      
       result['category'] = CodeableConcept.transform_json(json_hash['category']) unless json_hash['category'].nil?      
@@ -32,7 +32,7 @@ module FHIR
       result['itemReference'] = Reference.transform_json(json_hash['itemReference']) unless json_hash['itemReference'].nil?      
       result['quantity'] = Quantity.transform_json(json_hash['quantity']) unless json_hash['quantity'].nil?      
       result['parameter'] = json_hash['parameter'].map { |var| SupplyRequestParameter.transform_json(var) } unless json_hash['parameter'].nil?
-      result['occurrencedateTime'] = PrimitiveDateTime.transform_json(json_hash['occurrencedateTime'], json_hash['_occurrencedateTime']) unless json_hash['occurrencedateTime'].nil?      
+      result['occurrenceDateTime'] = PrimitiveDateTime.transform_json(json_hash['occurrenceDateTime'], json_hash['_occurrenceDateTime']) unless json_hash['occurrenceDateTime'].nil?      
       result['occurrencePeriod'] = Period.transform_json(json_hash['occurrencePeriod']) unless json_hash['occurrencePeriod'].nil?      
       result['occurrenceTiming'] = Timing.transform_json(json_hash['occurrenceTiming']) unless json_hash['occurrenceTiming'].nil?      
       result['authoredOn'] = PrimitiveDateTime.transform_json(json_hash['authoredOn'], json_hash['_authoredOn']) unless json_hash['authoredOn'].nil?      

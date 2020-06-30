@@ -19,8 +19,8 @@ module FHIR
     embeds_many :linkId, class_name: 'PrimitiveString'
     embeds_many :securityLabelNumber, class_name: 'PrimitiveUnsignedInt'
 
-    def self.transform_json(json_hash)
-      result = ContractTermAssetValuedItem.new
+    def self.transform_json(json_hash, target=ContractTermAssetValuedItem.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['entityCodeableConcept'] = CodeableConcept.transform_json(json_hash['entityCodeableConcept']) unless json_hash['entityCodeableConcept'].nil?      
       result['entityReference'] = Reference.transform_json(json_hash['entityReference']) unless json_hash['entityReference'].nil?      
       result['identifier'] = Identifier.transform_json(json_hash['identifier']) unless json_hash['identifier'].nil?      

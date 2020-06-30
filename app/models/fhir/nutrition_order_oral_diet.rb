@@ -10,8 +10,8 @@ module FHIR
     embeds_many :fluidConsistencyType, class_name: 'CodeableConcept'
     embeds_one :instruction, class_name: 'PrimitiveString'
 
-    def self.transform_json(json_hash)
-      result = NutritionOrderOralDiet.new
+    def self.transform_json(json_hash, target=NutritionOrderOralDiet.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['type'] = json_hash['type'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['type'].nil?
       result['schedule'] = json_hash['schedule'].map { |var| Timing.transform_json(var) } unless json_hash['schedule'].nil?
       result['nutrient'] = json_hash['nutrient'].map { |var| NutritionOrderOralDietNutrient.transform_json(var) } unless json_hash['nutrient'].nil?

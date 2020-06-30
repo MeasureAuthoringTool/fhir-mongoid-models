@@ -6,8 +6,8 @@ module FHIR
     embeds_one :code, class_name: 'CodeableConcept'
     embeds_many :withdrawalPeriod, class_name: 'MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdrawalPeriod'
 
-    def self.transform_json(json_hash)
-      result = MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpecies.new
+    def self.transform_json(json_hash, target=MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpecies.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['code'] = CodeableConcept.transform_json(json_hash['code']) unless json_hash['code'].nil?      
       result['withdrawalPeriod'] = json_hash['withdrawalPeriod'].map { |var| MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdrawalPeriod.transform_json(var) } unless json_hash['withdrawalPeriod'].nil?
 

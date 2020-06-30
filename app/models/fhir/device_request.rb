@@ -17,7 +17,7 @@ module FHIR
     embeds_many :parameter, class_name: 'DeviceRequestParameter'
     embeds_one :subject, class_name: 'Reference'
     embeds_one :encounter, class_name: 'Reference'
-    embeds_one :occurrencedateTime, class_name: 'PrimitiveDateTime'
+    embeds_one :occurrenceDateTime, class_name: 'PrimitiveDateTime'
     embeds_one :occurrencePeriod, class_name: 'Period'
     embeds_one :occurrenceTiming, class_name: 'Timing'
     embeds_one :authoredOn, class_name: 'PrimitiveDateTime'
@@ -31,8 +31,8 @@ module FHIR
     embeds_many :note, class_name: 'Annotation'
     embeds_many :relevantHistory, class_name: 'Reference'
 
-    def self.transform_json(json_hash)
-      result = DeviceRequest.new
+    def self.transform_json(json_hash, target=DeviceRequest.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['instantiatesCanonical'] = json_hash['instantiatesCanonical'].each_with_index.map do |var, i|
         extension_hash = json_hash['_instantiatesCanonical'] && json_hash['_instantiatesCanonical'][i]
@@ -53,7 +53,7 @@ module FHIR
       result['parameter'] = json_hash['parameter'].map { |var| DeviceRequestParameter.transform_json(var) } unless json_hash['parameter'].nil?
       result['subject'] = Reference.transform_json(json_hash['subject']) unless json_hash['subject'].nil?      
       result['encounter'] = Reference.transform_json(json_hash['encounter']) unless json_hash['encounter'].nil?      
-      result['occurrencedateTime'] = PrimitiveDateTime.transform_json(json_hash['occurrencedateTime'], json_hash['_occurrencedateTime']) unless json_hash['occurrencedateTime'].nil?      
+      result['occurrenceDateTime'] = PrimitiveDateTime.transform_json(json_hash['occurrenceDateTime'], json_hash['_occurrenceDateTime']) unless json_hash['occurrenceDateTime'].nil?      
       result['occurrencePeriod'] = Period.transform_json(json_hash['occurrencePeriod']) unless json_hash['occurrencePeriod'].nil?      
       result['occurrenceTiming'] = Timing.transform_json(json_hash['occurrenceTiming']) unless json_hash['occurrenceTiming'].nil?      
       result['authoredOn'] = PrimitiveDateTime.transform_json(json_hash['authoredOn'], json_hash['_authoredOn']) unless json_hash['authoredOn'].nil?      

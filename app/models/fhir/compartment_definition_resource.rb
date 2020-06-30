@@ -7,8 +7,8 @@ module FHIR
     embeds_many :param, class_name: 'PrimitiveString'
     embeds_one :documentation, class_name: 'PrimitiveString'
 
-    def self.transform_json(json_hash)
-      result = CompartmentDefinitionResource.new
+    def self.transform_json(json_hash, target=CompartmentDefinitionResource.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['code'] = ResourceType.transform_json(json_hash['code']) unless json_hash['code'].nil?      
       result['param'] = json_hash['param'].each_with_index.map do |var, i|
         extension_hash = json_hash['_param'] && json_hash['_param'][i]

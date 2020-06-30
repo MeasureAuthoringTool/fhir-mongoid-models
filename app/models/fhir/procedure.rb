@@ -14,9 +14,9 @@ module FHIR
     embeds_one :code, class_name: 'CodeableConcept'
     embeds_one :subject, class_name: 'Reference'
     embeds_one :encounter, class_name: 'Reference'
-    embeds_one :performeddateTime, class_name: 'PrimitiveDateTime'
+    embeds_one :performedDateTime, class_name: 'PrimitiveDateTime'
     embeds_one :performedPeriod, class_name: 'Period'
-    embeds_one :performedstring, class_name: 'PrimitiveString'
+    embeds_one :performedString, class_name: 'PrimitiveString'
     embeds_one :performedAge, class_name: 'Age'
     embeds_one :performedRange, class_name: 'Range'
     embeds_one :recorder, class_name: 'Reference'
@@ -36,8 +36,8 @@ module FHIR
     embeds_many :usedReference, class_name: 'Reference'
     embeds_many :usedCode, class_name: 'CodeableConcept'
 
-    def self.transform_json(json_hash)
-      result = Procedure.new
+    def self.transform_json(json_hash, target=Procedure.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['instantiatesCanonical'] = json_hash['instantiatesCanonical'].each_with_index.map do |var, i|
         extension_hash = json_hash['_instantiatesCanonical'] && json_hash['_instantiatesCanonical'][i]
@@ -55,9 +55,9 @@ module FHIR
       result['code'] = CodeableConcept.transform_json(json_hash['code']) unless json_hash['code'].nil?      
       result['subject'] = Reference.transform_json(json_hash['subject']) unless json_hash['subject'].nil?      
       result['encounter'] = Reference.transform_json(json_hash['encounter']) unless json_hash['encounter'].nil?      
-      result['performeddateTime'] = PrimitiveDateTime.transform_json(json_hash['performeddateTime'], json_hash['_performeddateTime']) unless json_hash['performeddateTime'].nil?      
+      result['performedDateTime'] = PrimitiveDateTime.transform_json(json_hash['performedDateTime'], json_hash['_performedDateTime']) unless json_hash['performedDateTime'].nil?      
       result['performedPeriod'] = Period.transform_json(json_hash['performedPeriod']) unless json_hash['performedPeriod'].nil?      
-      result['performedstring'] = PrimitiveString.transform_json(json_hash['performedstring'], json_hash['_performedstring']) unless json_hash['performedstring'].nil?      
+      result['performedString'] = PrimitiveString.transform_json(json_hash['performedString'], json_hash['_performedString']) unless json_hash['performedString'].nil?      
       result['performedAge'] = Age.transform_json(json_hash['performedAge']) unless json_hash['performedAge'].nil?      
       result['performedRange'] = Range.transform_json(json_hash['performedRange']) unless json_hash['performedRange'].nil?      
       result['recorder'] = Reference.transform_json(json_hash['recorder']) unless json_hash['recorder'].nil?      

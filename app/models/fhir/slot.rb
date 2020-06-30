@@ -15,8 +15,8 @@ module FHIR
     embeds_one :overbooked, class_name: 'PrimitiveBoolean'
     embeds_one :comment, class_name: 'PrimitiveString'
 
-    def self.transform_json(json_hash)
-      result = Slot.new
+    def self.transform_json(json_hash, target=Slot.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['serviceCategory'] = json_hash['serviceCategory'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['serviceCategory'].nil?
       result['serviceType'] = json_hash['serviceType'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['serviceType'].nil?

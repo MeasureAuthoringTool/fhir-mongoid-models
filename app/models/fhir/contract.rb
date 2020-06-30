@@ -39,8 +39,8 @@ module FHIR
     embeds_one :legallyBindingAttachment, class_name: 'Attachment'
     embeds_one :legallyBindingReference, class_name: 'Reference'
 
-    def self.transform_json(json_hash)
-      result = Contract.new
+    def self.transform_json(json_hash, target=Contract.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['url'] = PrimitiveUri.transform_json(json_hash['url'], json_hash['_url']) unless json_hash['url'].nil?      
       result['version'] = PrimitiveString.transform_json(json_hash['version'], json_hash['_version']) unless json_hash['version'].nil?      

@@ -5,8 +5,8 @@ module FHIR
     field :typeName, type: String, default: 'CoverageEligibilityResponseError'
     embeds_one :code, class_name: 'CodeableConcept'
 
-    def self.transform_json(json_hash)
-      result = CoverageEligibilityResponseError.new
+    def self.transform_json(json_hash, target=CoverageEligibilityResponseError.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['code'] = CodeableConcept.transform_json(json_hash['code']) unless json_hash['code'].nil?      
 
       result

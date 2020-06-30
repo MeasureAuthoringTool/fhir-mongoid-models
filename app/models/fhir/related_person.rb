@@ -16,8 +16,8 @@ module FHIR
     embeds_one :period, class_name: 'Period'
     embeds_many :communication, class_name: 'RelatedPersonCommunication'
 
-    def self.transform_json(json_hash)
-      result = RelatedPerson.new
+    def self.transform_json(json_hash, target=RelatedPerson.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['active'] = PrimitiveBoolean.transform_json(json_hash['active'], json_hash['_active']) unless json_hash['active'].nil?      
       result['patient'] = Reference.transform_json(json_hash['patient']) unless json_hash['patient'].nil?      

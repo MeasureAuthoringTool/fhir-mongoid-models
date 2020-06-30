@@ -9,8 +9,8 @@ module FHIR
     embeds_many :classification, class_name: 'SubstanceReferenceInformationClassification'
     embeds_many :target, class_name: 'SubstanceReferenceInformationTarget'
 
-    def self.transform_json(json_hash)
-      result = SubstanceReferenceInformation.new
+    def self.transform_json(json_hash, target=SubstanceReferenceInformation.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['comment'] = PrimitiveString.transform_json(json_hash['comment'], json_hash['_comment']) unless json_hash['comment'].nil?      
       result['gene'] = json_hash['gene'].map { |var| SubstanceReferenceInformationGene.transform_json(var) } unless json_hash['gene'].nil?
       result['geneElement'] = json_hash['geneElement'].map { |var| SubstanceReferenceInformationGeneElement.transform_json(var) } unless json_hash['geneElement'].nil?

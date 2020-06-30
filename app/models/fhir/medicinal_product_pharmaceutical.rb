@@ -11,8 +11,8 @@ module FHIR
     embeds_many :characteristics, class_name: 'MedicinalProductPharmaceuticalCharacteristics'
     embeds_many :routeOfAdministration, class_name: 'MedicinalProductPharmaceuticalRouteOfAdministration'
 
-    def self.transform_json(json_hash)
-      result = MedicinalProductPharmaceutical.new
+    def self.transform_json(json_hash, target=MedicinalProductPharmaceutical.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['administrableDoseForm'] = CodeableConcept.transform_json(json_hash['administrableDoseForm']) unless json_hash['administrableDoseForm'].nil?      
       result['unitOfPresentation'] = CodeableConcept.transform_json(json_hash['unitOfPresentation']) unless json_hash['unitOfPresentation'].nil?      

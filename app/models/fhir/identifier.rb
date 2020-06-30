@@ -10,8 +10,8 @@ module FHIR
     embeds_one :period, class_name: 'Period'
     embeds_one :assigner, class_name: 'Reference'
 
-    def self.transform_json(json_hash)
-      result = Identifier.new
+    def self.transform_json(json_hash, target=Identifier.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['use'] = IdentifierUse.transform_json(json_hash['use']) unless json_hash['use'].nil?      
       result['type'] = CodeableConcept.transform_json(json_hash['type']) unless json_hash['type'].nil?      
       result['system'] = PrimitiveUri.transform_json(json_hash['system'], json_hash['_system']) unless json_hash['system'].nil?      

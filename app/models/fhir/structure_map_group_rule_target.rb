@@ -12,8 +12,8 @@ module FHIR
     embeds_one :transform, class_name: 'StructureMapTransform'
     embeds_many :parameter, class_name: 'StructureMapGroupRuleTargetParameter'
 
-    def self.transform_json(json_hash)
-      result = StructureMapGroupRuleTarget.new
+    def self.transform_json(json_hash, target=StructureMapGroupRuleTarget.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['context'] = PrimitiveId.transform_json(json_hash['context'], json_hash['_context']) unless json_hash['context'].nil?      
       result['contextType'] = StructureMapContextType.transform_json(json_hash['contextType']) unless json_hash['contextType'].nil?      
       result['element'] = PrimitiveString.transform_json(json_hash['element'], json_hash['_element']) unless json_hash['element'].nil?      

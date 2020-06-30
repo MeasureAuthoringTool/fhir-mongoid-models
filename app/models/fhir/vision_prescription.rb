@@ -12,8 +12,8 @@ module FHIR
     embeds_one :prescriber, class_name: 'Reference'
     embeds_many :lensSpecification, class_name: 'VisionPrescriptionLensSpecification'
 
-    def self.transform_json(json_hash)
-      result = VisionPrescription.new
+    def self.transform_json(json_hash, target=VisionPrescription.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['status'] = VisionStatus.transform_json(json_hash['status']) unless json_hash['status'].nil?      
       result['created'] = PrimitiveDateTime.transform_json(json_hash['created'], json_hash['_created']) unless json_hash['created'].nil?      

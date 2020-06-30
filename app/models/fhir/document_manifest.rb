@@ -16,8 +16,8 @@ module FHIR
     embeds_many :content, class_name: 'Reference'
     embeds_many :related, class_name: 'DocumentManifestRelated'
 
-    def self.transform_json(json_hash)
-      result = DocumentManifest.new
+    def self.transform_json(json_hash, target=DocumentManifest.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['masterIdentifier'] = Identifier.transform_json(json_hash['masterIdentifier']) unless json_hash['masterIdentifier'].nil?      
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['status'] = DocumentReferenceStatus.transform_json(json_hash['status']) unless json_hash['status'].nil?      

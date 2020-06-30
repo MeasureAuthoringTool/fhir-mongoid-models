@@ -10,8 +10,8 @@ module FHIR
     embeds_many :property, class_name: 'CodeSystemConceptProperty'
     embeds_many :concept, class_name: 'CodeSystemConcept'
 
-    def self.transform_json(json_hash)
-      result = CodeSystemConcept.new
+    def self.transform_json(json_hash, target=CodeSystemConcept.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['code'] = PrimitiveCode.transform_json(json_hash['code'], json_hash['_code']) unless json_hash['code'].nil?      
       result['display'] = PrimitiveString.transform_json(json_hash['display'], json_hash['_display']) unless json_hash['display'].nil?      
       result['definition'] = PrimitiveString.transform_json(json_hash['definition'], json_hash['_definition']) unless json_hash['definition'].nil?      

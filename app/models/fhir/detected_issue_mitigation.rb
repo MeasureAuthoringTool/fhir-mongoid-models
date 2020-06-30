@@ -7,8 +7,8 @@ module FHIR
     embeds_one :date, class_name: 'PrimitiveDateTime'
     embeds_one :author, class_name: 'Reference'
 
-    def self.transform_json(json_hash)
-      result = DetectedIssueMitigation.new
+    def self.transform_json(json_hash, target=DetectedIssueMitigation.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['action'] = CodeableConcept.transform_json(json_hash['action']) unless json_hash['action'].nil?      
       result['date'] = PrimitiveDateTime.transform_json(json_hash['date'], json_hash['_date']) unless json_hash['date'].nil?      
       result['author'] = Reference.transform_json(json_hash['author']) unless json_hash['author'].nil?      

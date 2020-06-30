@@ -19,8 +19,8 @@ module FHIR
     embeds_one :fScore, class_name: 'PrimitiveDecimal'
     embeds_one :roc, class_name: 'MolecularSequenceQualityRoc'
 
-    def self.transform_json(json_hash)
-      result = MolecularSequenceQuality.new
+    def self.transform_json(json_hash, target=MolecularSequenceQuality.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['type'] = QualityType.transform_json(json_hash['type']) unless json_hash['type'].nil?      
       result['standardSequence'] = CodeableConcept.transform_json(json_hash['standardSequence']) unless json_hash['standardSequence'].nil?      
       result['start'] = PrimitiveInteger.transform_json(json_hash['start'], json_hash['_start']) unless json_hash['start'].nil?      

@@ -6,8 +6,8 @@ module FHIR
     embeds_one :code, class_name: 'CodeableConcept'
     embeds_one :value, class_name: 'PrimitiveDateTime'
 
-    def self.transform_json(json_hash)
-      result = ImmunizationRecommendationRecommendationDateCriterion.new
+    def self.transform_json(json_hash, target=ImmunizationRecommendationRecommendationDateCriterion.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['code'] = CodeableConcept.transform_json(json_hash['code']) unless json_hash['code'].nil?      
       result['value'] = PrimitiveDateTime.transform_json(json_hash['value'], json_hash['_value']) unless json_hash['value'].nil?      
 

@@ -9,8 +9,8 @@ module FHIR
     embeds_one :quantity, class_name: 'SimpleQuantity'
     embeds_one :instruction, class_name: 'PrimitiveString'
 
-    def self.transform_json(json_hash)
-      result = NutritionOrderSupplement.new
+    def self.transform_json(json_hash, target=NutritionOrderSupplement.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['type'] = CodeableConcept.transform_json(json_hash['type']) unless json_hash['type'].nil?      
       result['productName'] = PrimitiveString.transform_json(json_hash['productName'], json_hash['_productName']) unless json_hash['productName'].nil?      
       result['schedule'] = json_hash['schedule'].map { |var| Timing.transform_json(var) } unless json_hash['schedule'].nil?

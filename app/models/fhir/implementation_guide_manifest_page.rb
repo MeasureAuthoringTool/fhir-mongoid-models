@@ -7,8 +7,8 @@ module FHIR
     embeds_one :title, class_name: 'PrimitiveString'
     embeds_many :anchor, class_name: 'PrimitiveString'
 
-    def self.transform_json(json_hash)
-      result = ImplementationGuideManifestPage.new
+    def self.transform_json(json_hash, target=ImplementationGuideManifestPage.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['name'] = PrimitiveString.transform_json(json_hash['name'], json_hash['_name']) unless json_hash['name'].nil?      
       result['title'] = PrimitiveString.transform_json(json_hash['title'], json_hash['_title']) unless json_hash['title'].nil?      
       result['anchor'] = json_hash['anchor'].each_with_index.map do |var, i|

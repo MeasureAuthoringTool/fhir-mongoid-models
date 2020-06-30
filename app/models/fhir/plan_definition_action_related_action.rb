@@ -8,8 +8,8 @@ module FHIR
     embeds_one :offsetDuration, class_name: 'Duration'
     embeds_one :offsetRange, class_name: 'Range'
 
-    def self.transform_json(json_hash)
-      result = PlanDefinitionActionRelatedAction.new
+    def self.transform_json(json_hash, target=PlanDefinitionActionRelatedAction.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['actionId'] = PrimitiveId.transform_json(json_hash['actionId'], json_hash['_actionId']) unless json_hash['actionId'].nil?      
       result['relationship'] = ActionRelationshipType.transform_json(json_hash['relationship']) unless json_hash['relationship'].nil?      
       result['offsetDuration'] = Duration.transform_json(json_hash['offsetDuration']) unless json_hash['offsetDuration'].nil?      

@@ -10,8 +10,8 @@ module FHIR
     embeds_many :manufacturer, class_name: 'Reference'
     embeds_one :regulator, class_name: 'Reference'
 
-    def self.transform_json(json_hash)
-      result = MedicinalProductManufacturingBusinessOperation.new
+    def self.transform_json(json_hash, target=MedicinalProductManufacturingBusinessOperation.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['operationType'] = CodeableConcept.transform_json(json_hash['operationType']) unless json_hash['operationType'].nil?      
       result['authorisationReferenceNumber'] = Identifier.transform_json(json_hash['authorisationReferenceNumber']) unless json_hash['authorisationReferenceNumber'].nil?      
       result['effectiveDate'] = PrimitiveDateTime.transform_json(json_hash['effectiveDate'], json_hash['_effectiveDate']) unless json_hash['effectiveDate'].nil?      

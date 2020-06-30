@@ -8,8 +8,8 @@ module FHIR
     embeds_one :ordered, class_name: 'PrimitiveBoolean'
     embeds_one :rules, class_name: 'SlicingRules'
 
-    def self.transform_json(json_hash)
-      result = ElementDefinitionSlicing.new
+    def self.transform_json(json_hash, target=ElementDefinitionSlicing.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['discriminator'] = json_hash['discriminator'].map { |var| ElementDefinitionSlicingDiscriminator.transform_json(var) } unless json_hash['discriminator'].nil?
       result['description'] = PrimitiveString.transform_json(json_hash['description'], json_hash['_description']) unless json_hash['description'].nil?      
       result['ordered'] = PrimitiveBoolean.transform_json(json_hash['ordered'], json_hash['_ordered']) unless json_hash['ordered'].nil?      

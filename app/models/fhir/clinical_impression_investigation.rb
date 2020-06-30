@@ -6,8 +6,8 @@ module FHIR
     embeds_one :code, class_name: 'CodeableConcept'
     embeds_many :item, class_name: 'Reference'
 
-    def self.transform_json(json_hash)
-      result = ClinicalImpressionInvestigation.new
+    def self.transform_json(json_hash, target=ClinicalImpressionInvestigation.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['code'] = CodeableConcept.transform_json(json_hash['code']) unless json_hash['code'].nil?      
       result['item'] = json_hash['item'].map { |var| Reference.transform_json(var) } unless json_hash['item'].nil?
 

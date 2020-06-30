@@ -22,15 +22,15 @@ module FHIR
     embeds_one :base, class_name: 'PrimitiveCanonical'
     embeds_many :parent, class_name: 'PrimitiveCanonical'
     embeds_one :eventCoding, class_name: 'Coding'
-    embeds_one :eventuri, class_name: 'PrimitiveUri'
+    embeds_one :eventUri, class_name: 'PrimitiveUri'
     embeds_one :category, class_name: 'MessageSignificanceCategory'
     embeds_many :focus, class_name: 'MessageDefinitionFocus'
     embeds_one :responseRequired, class_name: 'MessageheaderResponseRequest'
     embeds_many :allowedResponse, class_name: 'MessageDefinitionAllowedResponse'
     embeds_many :graph, class_name: 'PrimitiveCanonical'
 
-    def self.transform_json(json_hash)
-      result = MessageDefinition.new
+    def self.transform_json(json_hash, target=MessageDefinition.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['url'] = PrimitiveUri.transform_json(json_hash['url'], json_hash['_url']) unless json_hash['url'].nil?      
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['version'] = PrimitiveString.transform_json(json_hash['version'], json_hash['_version']) unless json_hash['version'].nil?      
@@ -56,7 +56,7 @@ module FHIR
         PrimitiveCanonical.transform_json(var, extension_hash)
       end unless json_hash['parent'].nil?
       result['eventCoding'] = Coding.transform_json(json_hash['eventCoding']) unless json_hash['eventCoding'].nil?      
-      result['eventuri'] = PrimitiveUri.transform_json(json_hash['eventuri'], json_hash['_eventuri']) unless json_hash['eventuri'].nil?      
+      result['eventUri'] = PrimitiveUri.transform_json(json_hash['eventUri'], json_hash['_eventUri']) unless json_hash['eventUri'].nil?      
       result['category'] = MessageSignificanceCategory.transform_json(json_hash['category']) unless json_hash['category'].nil?      
       result['focus'] = json_hash['focus'].map { |var| MessageDefinitionFocus.transform_json(var) } unless json_hash['focus'].nil?
       result['responseRequired'] = MessageheaderResponseRequest.transform_json(json_hash['responseRequired']) unless json_hash['responseRequired'].nil?      

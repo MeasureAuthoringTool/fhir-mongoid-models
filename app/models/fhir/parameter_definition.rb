@@ -11,8 +11,8 @@ module FHIR
     embeds_one :type, class_name: 'FHIRAllTypes'
     embeds_one :profile, class_name: 'PrimitiveCanonical'
 
-    def self.transform_json(json_hash)
-      result = ParameterDefinition.new
+    def self.transform_json(json_hash, target=ParameterDefinition.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['name'] = PrimitiveCode.transform_json(json_hash['name'], json_hash['_name']) unless json_hash['name'].nil?      
       result['use'] = ParameterUse.transform_json(json_hash['use']) unless json_hash['use'].nil?      
       result['min'] = PrimitiveInteger.transform_json(json_hash['min'], json_hash['_min']) unless json_hash['min'].nil?      

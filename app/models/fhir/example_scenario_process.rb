@@ -9,8 +9,8 @@ module FHIR
     embeds_one :postConditions, class_name: 'PrimitiveMarkdown'
     embeds_many :step, class_name: 'ExampleScenarioProcessStep'
 
-    def self.transform_json(json_hash)
-      result = ExampleScenarioProcess.new
+    def self.transform_json(json_hash, target=ExampleScenarioProcess.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['title'] = PrimitiveString.transform_json(json_hash['title'], json_hash['_title']) unless json_hash['title'].nil?      
       result['description'] = PrimitiveMarkdown.transform_json(json_hash['description'], json_hash['_description']) unless json_hash['description'].nil?      
       result['preConditions'] = PrimitiveMarkdown.transform_json(json_hash['preConditions'], json_hash['_preConditions']) unless json_hash['preConditions'].nil?      

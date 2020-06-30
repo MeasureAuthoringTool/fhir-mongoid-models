@@ -8,8 +8,8 @@ module FHIR
     embeds_one :description, class_name: 'PrimitiveString'
     embeds_one :criteria, class_name: 'Expression'
 
-    def self.transform_json(json_hash)
-      result = MeasureSupplementalData.new
+    def self.transform_json(json_hash, target=MeasureSupplementalData.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['code'] = CodeableConcept.transform_json(json_hash['code']) unless json_hash['code'].nil?      
       result['usage'] = json_hash['usage'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['usage'].nil?
       result['description'] = PrimitiveString.transform_json(json_hash['description'], json_hash['_description']) unless json_hash['description'].nil?      

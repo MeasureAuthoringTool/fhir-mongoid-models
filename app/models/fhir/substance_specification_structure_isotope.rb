@@ -9,8 +9,8 @@ module FHIR
     embeds_one :halfLife, class_name: 'Quantity'
     embeds_one :molecularWeight, class_name: 'SubstanceSpecificationStructureIsotopeMolecularWeight'
 
-    def self.transform_json(json_hash)
-      result = SubstanceSpecificationStructureIsotope.new
+    def self.transform_json(json_hash, target=SubstanceSpecificationStructureIsotope.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = Identifier.transform_json(json_hash['identifier']) unless json_hash['identifier'].nil?      
       result['name'] = CodeableConcept.transform_json(json_hash['name']) unless json_hash['name'].nil?      
       result['substitution'] = CodeableConcept.transform_json(json_hash['substitution']) unless json_hash['substitution'].nil?      

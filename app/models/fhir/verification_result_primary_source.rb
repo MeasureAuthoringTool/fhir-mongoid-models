@@ -11,8 +11,8 @@ module FHIR
     embeds_one :canPushUpdates, class_name: 'CodeableConcept'
     embeds_many :pushTypeAvailable, class_name: 'CodeableConcept'
 
-    def self.transform_json(json_hash)
-      result = VerificationResultPrimarySource.new
+    def self.transform_json(json_hash, target=VerificationResultPrimarySource.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['who'] = Reference.transform_json(json_hash['who']) unless json_hash['who'].nil?      
       result['type'] = json_hash['type'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['type'].nil?
       result['communicationMethod'] = json_hash['communicationMethod'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['communicationMethod'].nil?

@@ -10,8 +10,8 @@ module FHIR
     embeds_one :ifMatch, class_name: 'PrimitiveString'
     embeds_one :ifNoneExist, class_name: 'PrimitiveString'
 
-    def self.transform_json(json_hash)
-      result = BundleEntryRequest.new
+    def self.transform_json(json_hash, target=BundleEntryRequest.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['method'] = HTTPVerb.transform_json(json_hash['method']) unless json_hash['method'].nil?      
       result['url'] = PrimitiveUri.transform_json(json_hash['url'], json_hash['_url']) unless json_hash['url'].nil?      
       result['ifNoneMatch'] = PrimitiveString.transform_json(json_hash['ifNoneMatch'], json_hash['_ifNoneMatch']) unless json_hash['ifNoneMatch'].nil?      

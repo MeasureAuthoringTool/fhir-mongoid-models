@@ -10,8 +10,8 @@ module FHIR
     embeds_many :element, class_name: 'ConceptMapGroupElement'
     embeds_one :unmapped, class_name: 'ConceptMapGroupUnmapped'
 
-    def self.transform_json(json_hash)
-      result = ConceptMapGroup.new
+    def self.transform_json(json_hash, target=ConceptMapGroup.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['source'] = PrimitiveUri.transform_json(json_hash['source'], json_hash['_source']) unless json_hash['source'].nil?      
       result['sourceVersion'] = PrimitiveString.transform_json(json_hash['sourceVersion'], json_hash['_sourceVersion']) unless json_hash['sourceVersion'].nil?      
       result['target'] = PrimitiveUri.transform_json(json_hash['target'], json_hash['_target']) unless json_hash['target'].nil?      

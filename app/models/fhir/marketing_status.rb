@@ -9,8 +9,8 @@ module FHIR
     embeds_one :dateRange, class_name: 'Period'
     embeds_one :restoreDate, class_name: 'PrimitiveDateTime'
 
-    def self.transform_json(json_hash)
-      result = MarketingStatus.new
+    def self.transform_json(json_hash, target=MarketingStatus.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['country'] = CodeableConcept.transform_json(json_hash['country']) unless json_hash['country'].nil?      
       result['jurisdiction'] = CodeableConcept.transform_json(json_hash['jurisdiction']) unless json_hash['jurisdiction'].nil?      
       result['status'] = CodeableConcept.transform_json(json_hash['status']) unless json_hash['status'].nil?      

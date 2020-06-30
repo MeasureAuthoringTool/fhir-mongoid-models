@@ -8,8 +8,8 @@ module FHIR
     embeds_one :subDetailSequence, class_name: 'PrimitivePositiveInt'
     embeds_one :code, class_name: 'CodeableConcept'
 
-    def self.transform_json(json_hash)
-      result = ClaimResponseError.new
+    def self.transform_json(json_hash, target=ClaimResponseError.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['itemSequence'] = PrimitivePositiveInt.transform_json(json_hash['itemSequence'], json_hash['_itemSequence']) unless json_hash['itemSequence'].nil?      
       result['detailSequence'] = PrimitivePositiveInt.transform_json(json_hash['detailSequence'], json_hash['_detailSequence']) unless json_hash['detailSequence'].nil?      
       result['subDetailSequence'] = PrimitivePositiveInt.transform_json(json_hash['subDetailSequence'], json_hash['_subDetailSequence']) unless json_hash['subDetailSequence'].nil?      

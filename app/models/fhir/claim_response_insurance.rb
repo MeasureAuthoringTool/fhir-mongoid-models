@@ -9,8 +9,8 @@ module FHIR
     embeds_one :businessArrangement, class_name: 'PrimitiveString'
     embeds_one :claimResponse, class_name: 'Reference'
 
-    def self.transform_json(json_hash)
-      result = ClaimResponseInsurance.new
+    def self.transform_json(json_hash, target=ClaimResponseInsurance.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['sequence'] = PrimitivePositiveInt.transform_json(json_hash['sequence'], json_hash['_sequence']) unless json_hash['sequence'].nil?      
       result['focal'] = PrimitiveBoolean.transform_json(json_hash['focal'], json_hash['_focal']) unless json_hash['focal'].nil?      
       result['coverage'] = Reference.transform_json(json_hash['coverage']) unless json_hash['coverage'].nil?      

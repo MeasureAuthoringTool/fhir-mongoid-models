@@ -10,8 +10,8 @@ module FHIR
     embeds_one :onAdmission, class_name: 'CodeableConcept'
     embeds_one :packageCode, class_name: 'CodeableConcept'
 
-    def self.transform_json(json_hash)
-      result = ExplanationOfBenefitDiagnosis.new
+    def self.transform_json(json_hash, target=ExplanationOfBenefitDiagnosis.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['sequence'] = PrimitivePositiveInt.transform_json(json_hash['sequence'], json_hash['_sequence']) unless json_hash['sequence'].nil?      
       result['diagnosisCodeableConcept'] = CodeableConcept.transform_json(json_hash['diagnosisCodeableConcept']) unless json_hash['diagnosisCodeableConcept'].nil?      
       result['diagnosisReference'] = Reference.transform_json(json_hash['diagnosisReference']) unless json_hash['diagnosisReference'].nil?      

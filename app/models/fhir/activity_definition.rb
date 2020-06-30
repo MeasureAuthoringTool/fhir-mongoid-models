@@ -39,7 +39,7 @@ module FHIR
     embeds_one :priority, class_name: 'RequestPriority'
     embeds_one :doNotPerform, class_name: 'PrimitiveBoolean'
     embeds_one :timingTiming, class_name: 'Timing'
-    embeds_one :timingdateTime, class_name: 'PrimitiveDateTime'
+    embeds_one :timingDateTime, class_name: 'PrimitiveDateTime'
     embeds_one :timingAge, class_name: 'Age'
     embeds_one :timingPeriod, class_name: 'Period'
     embeds_one :timingRange, class_name: 'Range'
@@ -57,8 +57,8 @@ module FHIR
     embeds_one :transform, class_name: 'PrimitiveCanonical'
     embeds_many :dynamicValue, class_name: 'ActivityDefinitionDynamicValue'
 
-    def self.transform_json(json_hash)
-      result = ActivityDefinition.new
+    def self.transform_json(json_hash, target=ActivityDefinition.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['url'] = PrimitiveUri.transform_json(json_hash['url'], json_hash['_url']) unless json_hash['url'].nil?      
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['version'] = PrimitiveString.transform_json(json_hash['version'], json_hash['_version']) unless json_hash['version'].nil?      
@@ -98,7 +98,7 @@ module FHIR
       result['priority'] = RequestPriority.transform_json(json_hash['priority']) unless json_hash['priority'].nil?      
       result['doNotPerform'] = PrimitiveBoolean.transform_json(json_hash['doNotPerform'], json_hash['_doNotPerform']) unless json_hash['doNotPerform'].nil?      
       result['timingTiming'] = Timing.transform_json(json_hash['timingTiming']) unless json_hash['timingTiming'].nil?      
-      result['timingdateTime'] = PrimitiveDateTime.transform_json(json_hash['timingdateTime'], json_hash['_timingdateTime']) unless json_hash['timingdateTime'].nil?      
+      result['timingDateTime'] = PrimitiveDateTime.transform_json(json_hash['timingDateTime'], json_hash['_timingDateTime']) unless json_hash['timingDateTime'].nil?      
       result['timingAge'] = Age.transform_json(json_hash['timingAge']) unless json_hash['timingAge'].nil?      
       result['timingPeriod'] = Period.transform_json(json_hash['timingPeriod']) unless json_hash['timingPeriod'].nil?      
       result['timingRange'] = Range.transform_json(json_hash['timingRange']) unless json_hash['timingRange'].nil?      

@@ -15,8 +15,8 @@ module FHIR
     embeds_many :image, class_name: 'Attachment'
     embeds_one :scoring, class_name: 'CodeableConcept'
 
-    def self.transform_json(json_hash)
-      result = ProdCharacteristic.new
+    def self.transform_json(json_hash, target=ProdCharacteristic.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['height'] = Quantity.transform_json(json_hash['height']) unless json_hash['height'].nil?      
       result['width'] = Quantity.transform_json(json_hash['width']) unless json_hash['width'].nil?      
       result['depth'] = Quantity.transform_json(json_hash['depth']) unless json_hash['depth'].nil?      

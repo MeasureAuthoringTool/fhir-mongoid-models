@@ -7,8 +7,8 @@ module FHIR
     embeds_many :noteNumber, class_name: 'PrimitivePositiveInt'
     embeds_many :adjudication, class_name: 'ClaimResponseItemAdjudication'
 
-    def self.transform_json(json_hash)
-      result = ClaimResponseItemDetailSubDetail.new
+    def self.transform_json(json_hash, target=ClaimResponseItemDetailSubDetail.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['subDetailSequence'] = PrimitivePositiveInt.transform_json(json_hash['subDetailSequence'], json_hash['_subDetailSequence']) unless json_hash['subDetailSequence'].nil?      
       result['noteNumber'] = json_hash['noteNumber'].each_with_index.map do |var, i|
         extension_hash = json_hash['_noteNumber'] && json_hash['_noteNumber'][i]

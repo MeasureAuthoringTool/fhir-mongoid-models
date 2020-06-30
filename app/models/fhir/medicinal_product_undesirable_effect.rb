@@ -9,8 +9,8 @@ module FHIR
     embeds_one :frequencyOfOccurrence, class_name: 'CodeableConcept'
     embeds_many :population, class_name: 'Population'
 
-    def self.transform_json(json_hash)
-      result = MedicinalProductUndesirableEffect.new
+    def self.transform_json(json_hash, target=MedicinalProductUndesirableEffect.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['subject'] = json_hash['subject'].map { |var| Reference.transform_json(var) } unless json_hash['subject'].nil?
       result['symptomConditionEffect'] = CodeableConcept.transform_json(json_hash['symptomConditionEffect']) unless json_hash['symptomConditionEffect'].nil?      
       result['classification'] = CodeableConcept.transform_json(json_hash['classification']) unless json_hash['classification'].nil?      

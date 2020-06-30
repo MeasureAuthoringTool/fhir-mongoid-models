@@ -8,8 +8,8 @@ module FHIR
     embeds_one :map, class_name: 'PrimitiveString'
     embeds_one :comment, class_name: 'PrimitiveString'
 
-    def self.transform_json(json_hash)
-      result = ElementDefinitionMapping.new
+    def self.transform_json(json_hash, target=ElementDefinitionMapping.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['identity'] = PrimitiveId.transform_json(json_hash['identity'], json_hash['_identity']) unless json_hash['identity'].nil?      
       result['language'] = MimeType.transform_json(json_hash['language']) unless json_hash['language'].nil?      
       result['map'] = PrimitiveString.transform_json(json_hash['map'], json_hash['_map']) unless json_hash['map'].nil?      

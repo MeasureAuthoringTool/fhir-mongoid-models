@@ -8,8 +8,8 @@ module FHIR
     embeds_one :isActive, class_name: 'PrimitiveBoolean'
     embeds_one :strength, class_name: 'Ratio'
 
-    def self.transform_json(json_hash)
-      result = MedicationIngredient.new
+    def self.transform_json(json_hash, target=MedicationIngredient.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['itemCodeableConcept'] = CodeableConcept.transform_json(json_hash['itemCodeableConcept']) unless json_hash['itemCodeableConcept'].nil?      
       result['itemReference'] = Reference.transform_json(json_hash['itemReference']) unless json_hash['itemReference'].nil?      
       result['isActive'] = PrimitiveBoolean.transform_json(json_hash['isActive'], json_hash['_isActive']) unless json_hash['isActive'].nil?      

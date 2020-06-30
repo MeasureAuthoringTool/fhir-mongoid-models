@@ -8,8 +8,8 @@ module FHIR
     embeds_one :mode, class_name: 'StructureMapInputMode'
     embeds_one :documentation, class_name: 'PrimitiveString'
 
-    def self.transform_json(json_hash)
-      result = StructureMapGroupInput.new
+    def self.transform_json(json_hash, target=StructureMapGroupInput.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['name'] = PrimitiveId.transform_json(json_hash['name'], json_hash['_name']) unless json_hash['name'].nil?      
       result['type'] = PrimitiveString.transform_json(json_hash['type'], json_hash['_type']) unless json_hash['type'].nil?      
       result['mode'] = StructureMapInputMode.transform_json(json_hash['mode']) unless json_hash['mode'].nil?      

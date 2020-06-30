@@ -8,8 +8,8 @@ module FHIR
     embeds_one :cost, class_name: 'Money'
     embeds_one :comment, class_name: 'PrimitiveString'
 
-    def self.transform_json(json_hash)
-      result = InsurancePlanPlanGeneralCost.new
+    def self.transform_json(json_hash, target=InsurancePlanPlanGeneralCost.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['type'] = CodeableConcept.transform_json(json_hash['type']) unless json_hash['type'].nil?      
       result['groupSize'] = PrimitivePositiveInt.transform_json(json_hash['groupSize'], json_hash['_groupSize']) unless json_hash['groupSize'].nil?      
       result['cost'] = Money.transform_json(json_hash['cost']) unless json_hash['cost'].nil?      

@@ -17,8 +17,8 @@ module FHIR
       res
     end
 
-    def self.transform_json(json_hash)
-      result = TestScriptMetadataCapability.new
+    def self.transform_json(json_hash, target=TestScriptMetadataCapability.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['required'] = PrimitiveBoolean.transform_json(json_hash['required'], json_hash['_required']) unless json_hash['required'].nil?      
       result['_validated'] = PrimitiveBoolean.transform_json(json_hash['validated'], json_hash['_validated']) unless json_hash['validated'].nil?      
       result['description'] = PrimitiveString.transform_json(json_hash['description'], json_hash['_description']) unless json_hash['description'].nil?      

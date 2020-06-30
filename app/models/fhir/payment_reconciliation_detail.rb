@@ -14,8 +14,8 @@ module FHIR
     embeds_one :payee, class_name: 'Reference'
     embeds_one :amount, class_name: 'Money'
 
-    def self.transform_json(json_hash)
-      result = PaymentReconciliationDetail.new
+    def self.transform_json(json_hash, target=PaymentReconciliationDetail.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = Identifier.transform_json(json_hash['identifier']) unless json_hash['identifier'].nil?      
       result['predecessor'] = Identifier.transform_json(json_hash['predecessor']) unless json_hash['predecessor'].nil?      
       result['type'] = CodeableConcept.transform_json(json_hash['type']) unless json_hash['type'].nil?      

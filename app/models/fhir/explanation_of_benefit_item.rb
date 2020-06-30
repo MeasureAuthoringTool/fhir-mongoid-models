@@ -13,7 +13,7 @@ module FHIR
     embeds_one :productOrService, class_name: 'CodeableConcept'
     embeds_many :modifier, class_name: 'CodeableConcept'
     embeds_many :programCode, class_name: 'CodeableConcept'
-    embeds_one :serviceddate, class_name: 'PrimitiveDate'
+    embeds_one :servicedDate, class_name: 'PrimitiveDate'
     embeds_one :servicedPeriod, class_name: 'Period'
     embeds_one :locationCodeableConcept, class_name: 'CodeableConcept'
     embeds_one :locationAddress, class_name: 'Address'
@@ -30,8 +30,8 @@ module FHIR
     embeds_many :adjudication, class_name: 'ExplanationOfBenefitItemAdjudication'
     embeds_many :detail, class_name: 'ExplanationOfBenefitItemDetail'
 
-    def self.transform_json(json_hash)
-      result = ExplanationOfBenefitItem.new
+    def self.transform_json(json_hash, target=ExplanationOfBenefitItem.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['sequence'] = PrimitivePositiveInt.transform_json(json_hash['sequence'], json_hash['_sequence']) unless json_hash['sequence'].nil?      
       result['careTeamSequence'] = json_hash['careTeamSequence'].each_with_index.map do |var, i|
         extension_hash = json_hash['_careTeamSequence'] && json_hash['_careTeamSequence'][i]
@@ -54,7 +54,7 @@ module FHIR
       result['productOrService'] = CodeableConcept.transform_json(json_hash['productOrService']) unless json_hash['productOrService'].nil?      
       result['modifier'] = json_hash['modifier'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['modifier'].nil?
       result['programCode'] = json_hash['programCode'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['programCode'].nil?
-      result['serviceddate'] = PrimitiveDate.transform_json(json_hash['serviceddate'], json_hash['_serviceddate']) unless json_hash['serviceddate'].nil?      
+      result['servicedDate'] = PrimitiveDate.transform_json(json_hash['servicedDate'], json_hash['_servicedDate']) unless json_hash['servicedDate'].nil?      
       result['servicedPeriod'] = Period.transform_json(json_hash['servicedPeriod']) unless json_hash['servicedPeriod'].nil?      
       result['locationCodeableConcept'] = CodeableConcept.transform_json(json_hash['locationCodeableConcept']) unless json_hash['locationCodeableConcept'].nil?      
       result['locationAddress'] = Address.transform_json(json_hash['locationAddress']) unless json_hash['locationAddress'].nil?      

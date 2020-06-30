@@ -9,8 +9,8 @@ module FHIR
     embeds_many :filter, class_name: 'ValueSetComposeIncludeFilter'
     embeds_many :valueSet, class_name: 'PrimitiveCanonical'
 
-    def self.transform_json(json_hash)
-      result = ValueSetComposeInclude.new
+    def self.transform_json(json_hash, target=ValueSetComposeInclude.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['system'] = PrimitiveUri.transform_json(json_hash['system'], json_hash['_system']) unless json_hash['system'].nil?      
       result['version'] = PrimitiveString.transform_json(json_hash['version'], json_hash['_version']) unless json_hash['version'].nil?      
       result['concept'] = json_hash['concept'].map { |var| ValueSetComposeIncludeConcept.transform_json(var) } unless json_hash['concept'].nil?

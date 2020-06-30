@@ -8,8 +8,8 @@ module FHIR
     embeds_one :valueMoney, class_name: 'Money'
     embeds_many :exception, class_name: 'CoverageCostToBeneficiaryException'
 
-    def self.transform_json(json_hash)
-      result = CoverageCostToBeneficiary.new
+    def self.transform_json(json_hash, target=CoverageCostToBeneficiary.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['type'] = CodeableConcept.transform_json(json_hash['type']) unless json_hash['type'].nil?      
       result['valueSimpleQuantity'] = SimpleQuantity.transform_json(json_hash['valueSimpleQuantity']) unless json_hash['valueSimpleQuantity'].nil?      
       result['valueMoney'] = Money.transform_json(json_hash['valueMoney']) unless json_hash['valueMoney'].nil?      

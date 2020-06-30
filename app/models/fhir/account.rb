@@ -15,8 +15,8 @@ module FHIR
     embeds_many :guarantor, class_name: 'AccountGuarantor'
     embeds_one :partOf, class_name: 'Reference'
 
-    def self.transform_json(json_hash)
-      result = Account.new
+    def self.transform_json(json_hash, target=Account.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['status'] = AccountStatus.transform_json(json_hash['status']) unless json_hash['status'].nil?      
       result['type'] = CodeableConcept.transform_json(json_hash['type']) unless json_hash['type'].nil?      

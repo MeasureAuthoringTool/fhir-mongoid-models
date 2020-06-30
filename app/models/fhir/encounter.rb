@@ -27,8 +27,8 @@ module FHIR
     embeds_one :serviceProvider, class_name: 'Reference'
     embeds_one :partOf, class_name: 'Reference'
 
-    def self.transform_json(json_hash)
-      result = Encounter.new
+    def self.transform_json(json_hash, target=Encounter.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['status'] = EncounterStatus.transform_json(json_hash['status']) unless json_hash['status'].nil?      
       result['statusHistory'] = json_hash['statusHistory'].map { |var| EncounterStatusHistory.transform_json(var) } unless json_hash['statusHistory'].nil?

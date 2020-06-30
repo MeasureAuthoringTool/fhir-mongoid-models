@@ -17,8 +17,8 @@ module FHIR
     embeds_one :organism, class_name: 'SubstanceSourceMaterialOrganism'
     embeds_many :partDescription, class_name: 'SubstanceSourceMaterialPartDescription'
 
-    def self.transform_json(json_hash)
-      result = SubstanceSourceMaterial.new
+    def self.transform_json(json_hash, target=SubstanceSourceMaterial.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['sourceMaterialClass'] = CodeableConcept.transform_json(json_hash['sourceMaterialClass']) unless json_hash['sourceMaterialClass'].nil?      
       result['sourceMaterialType'] = CodeableConcept.transform_json(json_hash['sourceMaterialType']) unless json_hash['sourceMaterialType'].nil?      
       result['sourceMaterialState'] = CodeableConcept.transform_json(json_hash['sourceMaterialState']) unless json_hash['sourceMaterialState'].nil?      

@@ -10,8 +10,8 @@ module FHIR
     embeds_one :description, class_name: 'PrimitiveString'
     embeds_many :target, class_name: 'GraphDefinitionLinkTarget'
 
-    def self.transform_json(json_hash)
-      result = GraphDefinitionLink.new
+    def self.transform_json(json_hash, target=GraphDefinitionLink.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['path'] = PrimitiveString.transform_json(json_hash['path'], json_hash['_path']) unless json_hash['path'].nil?      
       result['sliceName'] = PrimitiveString.transform_json(json_hash['sliceName'], json_hash['_sliceName']) unless json_hash['sliceName'].nil?      
       result['min'] = PrimitiveInteger.transform_json(json_hash['min'], json_hash['_min']) unless json_hash['min'].nil?      

@@ -7,8 +7,8 @@ module FHIR
     embeds_one :time, class_name: 'PrimitiveDateTime'
     embeds_one :party, class_name: 'Reference'
 
-    def self.transform_json(json_hash)
-      result = CompositionAttester.new
+    def self.transform_json(json_hash, target=CompositionAttester.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['mode'] = CompositionAttestationMode.transform_json(json_hash['mode']) unless json_hash['mode'].nil?      
       result['time'] = PrimitiveDateTime.transform_json(json_hash['time'], json_hash['_time']) unless json_hash['time'].nil?      
       result['party'] = Reference.transform_json(json_hash['party']) unless json_hash['party'].nil?      

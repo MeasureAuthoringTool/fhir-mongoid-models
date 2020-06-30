@@ -14,7 +14,7 @@ module FHIR
     embeds_one :subject, class_name: 'Reference'
     embeds_one :context, class_name: 'Reference'
     embeds_many :supportingInformation, class_name: 'Reference'
-    embeds_one :effectivedateTime, class_name: 'PrimitiveDateTime'
+    embeds_one :effectiveDateTime, class_name: 'PrimitiveDateTime'
     embeds_one :effectivePeriod, class_name: 'Period'
     embeds_many :performer, class_name: 'MedicationAdministrationPerformer'
     embeds_many :reasonCode, class_name: 'CodeableConcept'
@@ -25,8 +25,8 @@ module FHIR
     embeds_one :dosage, class_name: 'MedicationAdministrationDosage'
     embeds_many :eventHistory, class_name: 'Reference'
 
-    def self.transform_json(json_hash)
-      result = MedicationAdministration.new
+    def self.transform_json(json_hash, target=MedicationAdministration.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['instantiates'] = json_hash['instantiates'].each_with_index.map do |var, i|
         extension_hash = json_hash['_instantiates'] && json_hash['_instantiates'][i]
@@ -41,7 +41,7 @@ module FHIR
       result['subject'] = Reference.transform_json(json_hash['subject']) unless json_hash['subject'].nil?      
       result['context'] = Reference.transform_json(json_hash['context']) unless json_hash['context'].nil?      
       result['supportingInformation'] = json_hash['supportingInformation'].map { |var| Reference.transform_json(var) } unless json_hash['supportingInformation'].nil?
-      result['effectivedateTime'] = PrimitiveDateTime.transform_json(json_hash['effectivedateTime'], json_hash['_effectivedateTime']) unless json_hash['effectivedateTime'].nil?      
+      result['effectiveDateTime'] = PrimitiveDateTime.transform_json(json_hash['effectiveDateTime'], json_hash['_effectiveDateTime']) unless json_hash['effectiveDateTime'].nil?      
       result['effectivePeriod'] = Period.transform_json(json_hash['effectivePeriod']) unless json_hash['effectivePeriod'].nil?      
       result['performer'] = json_hash['performer'].map { |var| MedicationAdministrationPerformer.transform_json(var) } unless json_hash['performer'].nil?
       result['reasonCode'] = json_hash['reasonCode'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['reasonCode'].nil?

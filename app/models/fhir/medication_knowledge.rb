@@ -26,8 +26,8 @@ module FHIR
     embeds_many :regulatory, class_name: 'MedicationKnowledgeRegulatory'
     embeds_many :kinetics, class_name: 'MedicationKnowledgeKinetics'
 
-    def self.transform_json(json_hash)
-      result = MedicationKnowledge.new
+    def self.transform_json(json_hash, target=MedicationKnowledge.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['code'] = CodeableConcept.transform_json(json_hash['code']) unless json_hash['code'].nil?      
       result['status'] = MedicationKnowledgeStatus.transform_json(json_hash['status']) unless json_hash['status'].nil?      
       result['manufacturer'] = Reference.transform_json(json_hash['manufacturer']) unless json_hash['manufacturer'].nil?      

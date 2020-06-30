@@ -9,8 +9,8 @@ module FHIR
     embeds_one :measurementPoint, class_name: 'PrimitiveString'
     embeds_many :country, class_name: 'CodeableConcept'
 
-    def self.transform_json(json_hash)
-      result = MedicinalProductIngredientSpecifiedSubstanceStrengthReferenceStrength.new
+    def self.transform_json(json_hash, target=MedicinalProductIngredientSpecifiedSubstanceStrengthReferenceStrength.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['substance'] = CodeableConcept.transform_json(json_hash['substance']) unless json_hash['substance'].nil?      
       result['strength'] = Ratio.transform_json(json_hash['strength']) unless json_hash['strength'].nil?      
       result['strengthLowLimit'] = Ratio.transform_json(json_hash['strengthLowLimit']) unless json_hash['strengthLowLimit'].nil?      

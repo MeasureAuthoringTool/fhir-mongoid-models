@@ -14,8 +14,8 @@ module FHIR
     embeds_one :active, class_name: 'PrimitiveBoolean'
     embeds_many :link, class_name: 'PersonLink'
 
-    def self.transform_json(json_hash)
-      result = Person.new
+    def self.transform_json(json_hash, target=Person.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['name'] = json_hash['name'].map { |var| HumanName.transform_json(var) } unless json_hash['name'].nil?
       result['telecom'] = json_hash['telecom'].map { |var| ContactPoint.transform_json(var) } unless json_hash['telecom'].nil?

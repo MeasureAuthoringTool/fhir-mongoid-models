@@ -23,8 +23,8 @@ module FHIR
     embeds_one :protein, class_name: 'Reference'
     embeds_one :sourceMaterial, class_name: 'Reference'
 
-    def self.transform_json(json_hash)
-      result = SubstanceSpecification.new
+    def self.transform_json(json_hash, target=SubstanceSpecification.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = Identifier.transform_json(json_hash['identifier']) unless json_hash['identifier'].nil?      
       result['type'] = CodeableConcept.transform_json(json_hash['type']) unless json_hash['type'].nil?      
       result['status'] = CodeableConcept.transform_json(json_hash['status']) unless json_hash['status'].nil?      

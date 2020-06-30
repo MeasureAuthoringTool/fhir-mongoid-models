@@ -8,8 +8,8 @@ module FHIR
     embeds_one :onBehalfOf, class_name: 'Reference'
     embeds_one :period, class_name: 'Period'
 
-    def self.transform_json(json_hash)
-      result = CareTeamParticipant.new
+    def self.transform_json(json_hash, target=CareTeamParticipant.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['role'] = json_hash['role'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['role'].nil?
       result['member'] = Reference.transform_json(json_hash['member']) unless json_hash['member'].nil?      
       result['onBehalfOf'] = Reference.transform_json(json_hash['onBehalfOf']) unless json_hash['onBehalfOf'].nil?      

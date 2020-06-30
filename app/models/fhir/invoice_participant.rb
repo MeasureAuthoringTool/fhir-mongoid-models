@@ -6,8 +6,8 @@ module FHIR
     embeds_one :role, class_name: 'CodeableConcept'
     embeds_one :actor, class_name: 'Reference'
 
-    def self.transform_json(json_hash)
-      result = InvoiceParticipant.new
+    def self.transform_json(json_hash, target=InvoiceParticipant.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['role'] = CodeableConcept.transform_json(json_hash['role']) unless json_hash['role'].nil?      
       result['actor'] = Reference.transform_json(json_hash['actor']) unless json_hash['actor'].nil?      
 

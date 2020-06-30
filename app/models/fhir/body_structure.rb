@@ -12,8 +12,8 @@ module FHIR
     embeds_many :image, class_name: 'Attachment'
     embeds_one :patient, class_name: 'Reference'
 
-    def self.transform_json(json_hash)
-      result = BodyStructure.new
+    def self.transform_json(json_hash, target=BodyStructure.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['active'] = PrimitiveBoolean.transform_json(json_hash['active'], json_hash['_active']) unless json_hash['active'].nil?      
       result['morphology'] = CodeableConcept.transform_json(json_hash['morphology']) unless json_hash['morphology'].nil?      

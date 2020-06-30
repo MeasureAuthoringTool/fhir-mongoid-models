@@ -12,8 +12,8 @@ module FHIR
     embeds_one :cTerminalModificationId, class_name: 'Identifier'
     embeds_one :cTerminalModification, class_name: 'PrimitiveString'
 
-    def self.transform_json(json_hash)
-      result = SubstanceProteinSubunit.new
+    def self.transform_json(json_hash, target=SubstanceProteinSubunit.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['subunit'] = PrimitiveInteger.transform_json(json_hash['subunit'], json_hash['_subunit']) unless json_hash['subunit'].nil?      
       result['sequence'] = PrimitiveString.transform_json(json_hash['sequence'], json_hash['_sequence']) unless json_hash['sequence'].nil?      
       result['length'] = PrimitiveInteger.transform_json(json_hash['length'], json_hash['_length']) unless json_hash['length'].nil?      

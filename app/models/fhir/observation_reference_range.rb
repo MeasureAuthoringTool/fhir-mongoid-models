@@ -10,8 +10,8 @@ module FHIR
     embeds_one :age, class_name: 'Range'
     embeds_one :text, class_name: 'PrimitiveString'
 
-    def self.transform_json(json_hash)
-      result = ObservationReferenceRange.new
+    def self.transform_json(json_hash, target=ObservationReferenceRange.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['low'] = SimpleQuantity.transform_json(json_hash['low']) unless json_hash['low'].nil?      
       result['high'] = SimpleQuantity.transform_json(json_hash['high']) unless json_hash['high'].nil?      
       result['type'] = CodeableConcept.transform_json(json_hash['type']) unless json_hash['type'].nil?      

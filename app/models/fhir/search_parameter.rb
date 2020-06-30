@@ -30,8 +30,8 @@ module FHIR
     embeds_many :chain, class_name: 'PrimitiveString'
     embeds_many :component, class_name: 'SearchParameterComponent'
 
-    def self.transform_json(json_hash)
-      result = SearchParameter.new
+    def self.transform_json(json_hash, target=SearchParameter.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['url'] = PrimitiveUri.transform_json(json_hash['url'], json_hash['_url']) unless json_hash['url'].nil?      
       result['version'] = PrimitiveString.transform_json(json_hash['version'], json_hash['_version']) unless json_hash['version'].nil?      
       result['name'] = PrimitiveString.transform_json(json_hash['name'], json_hash['_name']) unless json_hash['name'].nil?      

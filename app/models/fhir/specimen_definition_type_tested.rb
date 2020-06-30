@@ -12,8 +12,8 @@ module FHIR
     embeds_many :rejectionCriterion, class_name: 'CodeableConcept'
     embeds_many :handling, class_name: 'SpecimenDefinitionTypeTestedHandling'
 
-    def self.transform_json(json_hash)
-      result = SpecimenDefinitionTypeTested.new
+    def self.transform_json(json_hash, target=SpecimenDefinitionTypeTested.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['isDerived'] = PrimitiveBoolean.transform_json(json_hash['isDerived'], json_hash['_isDerived']) unless json_hash['isDerived'].nil?      
       result['type'] = CodeableConcept.transform_json(json_hash['type']) unless json_hash['type'].nil?      
       result['preference'] = SpecimenContainedPreference.transform_json(json_hash['preference']) unless json_hash['preference'].nil?      

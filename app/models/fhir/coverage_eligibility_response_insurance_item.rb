@@ -18,8 +18,8 @@ module FHIR
     embeds_many :authorizationSupporting, class_name: 'CodeableConcept'
     embeds_one :authorizationUrl, class_name: 'PrimitiveUri'
 
-    def self.transform_json(json_hash)
-      result = CoverageEligibilityResponseInsuranceItem.new
+    def self.transform_json(json_hash, target=CoverageEligibilityResponseInsuranceItem.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['category'] = CodeableConcept.transform_json(json_hash['category']) unless json_hash['category'].nil?      
       result['productOrService'] = CodeableConcept.transform_json(json_hash['productOrService']) unless json_hash['productOrService'].nil?      
       result['modifier'] = json_hash['modifier'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['modifier'].nil?

@@ -11,8 +11,8 @@ module FHIR
     embeds_one :xpath, class_name: 'PrimitiveString'
     embeds_one :source, class_name: 'PrimitiveCanonical'
 
-    def self.transform_json(json_hash)
-      result = ElementDefinitionConstraint.new
+    def self.transform_json(json_hash, target=ElementDefinitionConstraint.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['key'] = PrimitiveId.transform_json(json_hash['key'], json_hash['_key']) unless json_hash['key'].nil?      
       result['requirements'] = PrimitiveString.transform_json(json_hash['requirements'], json_hash['_requirements']) unless json_hash['requirements'].nil?      
       result['severity'] = ConstraintSeverity.transform_json(json_hash['severity']) unless json_hash['severity'].nil?      

@@ -9,8 +9,8 @@ module FHIR
     embeds_one :comment, class_name: 'PrimitiveString'
     embeds_one :period, class_name: 'Period'
 
-    def self.transform_json(json_hash)
-      result = NamingSystemUniqueId.new
+    def self.transform_json(json_hash, target=NamingSystemUniqueId.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['type'] = NamingSystemIdentifierType.transform_json(json_hash['type']) unless json_hash['type'].nil?      
       result['value'] = PrimitiveString.transform_json(json_hash['value'], json_hash['_value']) unless json_hash['value'].nil?      
       result['preferred'] = PrimitiveBoolean.transform_json(json_hash['preferred'], json_hash['_preferred']) unless json_hash['preferred'].nil?      

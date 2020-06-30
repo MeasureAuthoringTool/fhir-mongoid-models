@@ -12,7 +12,7 @@ module FHIR
     embeds_many :documentation, class_name: 'RelatedArtifact'
     embeds_many :condition, class_name: 'RequestGroupActionCondition'
     embeds_many :relatedAction, class_name: 'RequestGroupActionRelatedAction'
-    embeds_one :timingdateTime, class_name: 'PrimitiveDateTime'
+    embeds_one :timingDateTime, class_name: 'PrimitiveDateTime'
     embeds_one :timingAge, class_name: 'Age'
     embeds_one :timingPeriod, class_name: 'Period'
     embeds_one :timingDuration, class_name: 'Duration'
@@ -28,8 +28,8 @@ module FHIR
     embeds_one :resource, class_name: 'Reference'
     embeds_many :action, class_name: 'RequestGroupAction'
 
-    def self.transform_json(json_hash)
-      result = RequestGroupAction.new
+    def self.transform_json(json_hash, target=RequestGroupAction.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['prefix'] = PrimitiveString.transform_json(json_hash['prefix'], json_hash['_prefix']) unless json_hash['prefix'].nil?      
       result['title'] = PrimitiveString.transform_json(json_hash['title'], json_hash['_title']) unless json_hash['title'].nil?      
       result['description'] = PrimitiveString.transform_json(json_hash['description'], json_hash['_description']) unless json_hash['description'].nil?      
@@ -39,7 +39,7 @@ module FHIR
       result['documentation'] = json_hash['documentation'].map { |var| RelatedArtifact.transform_json(var) } unless json_hash['documentation'].nil?
       result['condition'] = json_hash['condition'].map { |var| RequestGroupActionCondition.transform_json(var) } unless json_hash['condition'].nil?
       result['relatedAction'] = json_hash['relatedAction'].map { |var| RequestGroupActionRelatedAction.transform_json(var) } unless json_hash['relatedAction'].nil?
-      result['timingdateTime'] = PrimitiveDateTime.transform_json(json_hash['timingdateTime'], json_hash['_timingdateTime']) unless json_hash['timingdateTime'].nil?      
+      result['timingDateTime'] = PrimitiveDateTime.transform_json(json_hash['timingDateTime'], json_hash['_timingDateTime']) unless json_hash['timingDateTime'].nil?      
       result['timingAge'] = Age.transform_json(json_hash['timingAge']) unless json_hash['timingAge'].nil?      
       result['timingPeriod'] = Period.transform_json(json_hash['timingPeriod']) unless json_hash['timingPeriod'].nil?      
       result['timingDuration'] = Duration.transform_json(json_hash['timingDuration']) unless json_hash['timingDuration'].nil?      

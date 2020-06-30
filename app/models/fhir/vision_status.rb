@@ -5,8 +5,8 @@ module FHIR
     field :typeName, type: String, default: 'VisionStatus'
     field :value, type: String
 
-    def self.transform_json(json_hash)
-      result = VisionStatus.new
+    def self.transform_json(json_hash, target=VisionStatus.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['value'] = json_hash['value'] unless json_hash['value'].nil?
 
       result

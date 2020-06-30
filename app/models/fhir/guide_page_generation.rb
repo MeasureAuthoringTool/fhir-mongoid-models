@@ -5,8 +5,8 @@ module FHIR
     field :typeName, type: String, default: 'GuidePageGeneration'
     field :value, type: String
 
-    def self.transform_json(json_hash)
-      result = GuidePageGeneration.new
+    def self.transform_json(json_hash, target=GuidePageGeneration.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['value'] = json_hash['value'] unless json_hash['value'].nil?
 
       result

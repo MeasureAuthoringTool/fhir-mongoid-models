@@ -15,7 +15,7 @@ module FHIR
     embeds_one :doNotPerform, class_name: 'PrimitiveBoolean'
     embeds_one :scheduledTiming, class_name: 'Timing'
     embeds_one :scheduledPeriod, class_name: 'Period'
-    embeds_one :scheduledstring, class_name: 'PrimitiveString'
+    embeds_one :scheduledString, class_name: 'PrimitiveString'
     embeds_one :location, class_name: 'Reference'
     embeds_many :performer, class_name: 'Reference'
     embeds_one :productCodeableConcept, class_name: 'CodeableConcept'
@@ -24,8 +24,8 @@ module FHIR
     embeds_one :quantity, class_name: 'SimpleQuantity'
     embeds_one :description, class_name: 'PrimitiveString'
 
-    def self.transform_json(json_hash)
-      result = CarePlanActivityDetail.new
+    def self.transform_json(json_hash, target=CarePlanActivityDetail.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['kind'] = CarePlanActivityKind.transform_json(json_hash['kind']) unless json_hash['kind'].nil?      
       result['instantiatesCanonical'] = json_hash['instantiatesCanonical'].each_with_index.map do |var, i|
         extension_hash = json_hash['_instantiatesCanonical'] && json_hash['_instantiatesCanonical'][i]
@@ -44,7 +44,7 @@ module FHIR
       result['doNotPerform'] = PrimitiveBoolean.transform_json(json_hash['doNotPerform'], json_hash['_doNotPerform']) unless json_hash['doNotPerform'].nil?      
       result['scheduledTiming'] = Timing.transform_json(json_hash['scheduledTiming']) unless json_hash['scheduledTiming'].nil?      
       result['scheduledPeriod'] = Period.transform_json(json_hash['scheduledPeriod']) unless json_hash['scheduledPeriod'].nil?      
-      result['scheduledstring'] = PrimitiveString.transform_json(json_hash['scheduledstring'], json_hash['_scheduledstring']) unless json_hash['scheduledstring'].nil?      
+      result['scheduledString'] = PrimitiveString.transform_json(json_hash['scheduledString'], json_hash['_scheduledString']) unless json_hash['scheduledString'].nil?      
       result['location'] = Reference.transform_json(json_hash['location']) unless json_hash['location'].nil?      
       result['performer'] = json_hash['performer'].map { |var| Reference.transform_json(var) } unless json_hash['performer'].nil?
       result['productCodeableConcept'] = CodeableConcept.transform_json(json_hash['productCodeableConcept']) unless json_hash['productCodeableConcept'].nil?      

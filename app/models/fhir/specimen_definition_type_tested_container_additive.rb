@@ -6,8 +6,8 @@ module FHIR
     embeds_one :additiveCodeableConcept, class_name: 'CodeableConcept'
     embeds_one :additiveReference, class_name: 'Reference'
 
-    def self.transform_json(json_hash)
-      result = SpecimenDefinitionTypeTestedContainerAdditive.new
+    def self.transform_json(json_hash, target=SpecimenDefinitionTypeTestedContainerAdditive.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['additiveCodeableConcept'] = CodeableConcept.transform_json(json_hash['additiveCodeableConcept']) unless json_hash['additiveCodeableConcept'].nil?      
       result['additiveReference'] = Reference.transform_json(json_hash['additiveReference']) unless json_hash['additiveReference'].nil?      
 

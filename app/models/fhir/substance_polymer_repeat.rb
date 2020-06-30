@@ -8,8 +8,8 @@ module FHIR
     embeds_one :repeatUnitAmountType, class_name: 'CodeableConcept'
     embeds_many :repeatUnit, class_name: 'SubstancePolymerRepeatRepeatUnit'
 
-    def self.transform_json(json_hash)
-      result = SubstancePolymerRepeat.new
+    def self.transform_json(json_hash, target=SubstancePolymerRepeat.new)
+      result = self.superclass.transform_json(json_hash, target)
       result['numberOfUnits'] = PrimitiveInteger.transform_json(json_hash['numberOfUnits'], json_hash['_numberOfUnits']) unless json_hash['numberOfUnits'].nil?      
       result['averageMolecularFormula'] = PrimitiveString.transform_json(json_hash['averageMolecularFormula'], json_hash['_averageMolecularFormula']) unless json_hash['averageMolecularFormula'].nil?      
       result['repeatUnitAmountType'] = CodeableConcept.transform_json(json_hash['repeatUnitAmountType']) unless json_hash['repeatUnitAmountType'].nil?      
