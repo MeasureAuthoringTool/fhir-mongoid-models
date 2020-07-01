@@ -2,7 +2,6 @@ module FHIR
   # fhir/task.rb
   class Task < DomainResource
     include Mongoid::Document
-    field :typeName, type: String, default: 'Task'
     embeds_many :identifier, class_name: 'Identifier'
     embeds_one :instantiatesCanonical, class_name: 'PrimitiveCanonical'
     embeds_one :instantiatesUri, class_name: 'PrimitiveUri'
@@ -35,7 +34,7 @@ module FHIR
     embeds_many :input, class_name: 'TaskInput'
     embeds_many :output, class_name: 'TaskOutput'
 
-    def self.transform_json(json_hash, target=Task.new)
+    def self.transform_json(json_hash, target = Task.new)
       result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['instantiatesCanonical'] = PrimitiveCanonical.transform_json(json_hash['instantiatesCanonical'], json_hash['_instantiatesCanonical']) unless json_hash['instantiatesCanonical'].nil?      

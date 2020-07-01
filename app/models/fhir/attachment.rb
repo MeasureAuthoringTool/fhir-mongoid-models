@@ -2,7 +2,6 @@ module FHIR
   # fhir/attachment.rb
   class Attachment < Element
     include Mongoid::Document
-    field :typeName, type: String, default: 'Attachment'
     embeds_one :contentType, class_name: 'MimeType'
     embeds_one :language, class_name: 'PrimitiveCode'
     embeds_one :data, class_name: 'PrimitiveBase64Binary'
@@ -12,7 +11,7 @@ module FHIR
     embeds_one :title, class_name: 'PrimitiveString'
     embeds_one :creation, class_name: 'PrimitiveDateTime'
 
-    def self.transform_json(json_hash, target=Attachment.new)
+    def self.transform_json(json_hash, target = Attachment.new)
       result = self.superclass.transform_json(json_hash, target)
       result['contentType'] = MimeType.transform_json(json_hash['contentType']) unless json_hash['contentType'].nil?      
       result['language'] = PrimitiveCode.transform_json(json_hash['language'], json_hash['_language']) unless json_hash['language'].nil?      

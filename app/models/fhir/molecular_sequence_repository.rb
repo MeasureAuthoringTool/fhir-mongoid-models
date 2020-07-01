@@ -2,7 +2,6 @@ module FHIR
   # fhir/molecular_sequence_repository.rb
   class MolecularSequenceRepository < BackboneElement
     include Mongoid::Document
-    field :typeName, type: String, default: 'MolecularSequenceRepository'
     embeds_one :type, class_name: 'RepositoryType'
     embeds_one :url, class_name: 'PrimitiveUri'
     embeds_one :name, class_name: 'PrimitiveString'
@@ -10,7 +9,7 @@ module FHIR
     embeds_one :variantsetId, class_name: 'PrimitiveString'
     embeds_one :readsetId, class_name: 'PrimitiveString'
 
-    def self.transform_json(json_hash, target=MolecularSequenceRepository.new)
+    def self.transform_json(json_hash, target = MolecularSequenceRepository.new)
       result = self.superclass.transform_json(json_hash, target)
       result['type'] = RepositoryType.transform_json(json_hash['type']) unless json_hash['type'].nil?      
       result['url'] = PrimitiveUri.transform_json(json_hash['url'], json_hash['_url']) unless json_hash['url'].nil?      

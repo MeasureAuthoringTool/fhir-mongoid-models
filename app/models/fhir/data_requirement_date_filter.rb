@@ -2,14 +2,13 @@ module FHIR
   # fhir/data_requirement_date_filter.rb
   class DataRequirementDateFilter < Element
     include Mongoid::Document
-    field :typeName, type: String, default: 'DataRequirementDateFilter'
     embeds_one :path, class_name: 'PrimitiveString'
     embeds_one :searchParam, class_name: 'PrimitiveString'
     embeds_one :valueDateTime, class_name: 'PrimitiveDateTime'
     embeds_one :valuePeriod, class_name: 'Period'
     embeds_one :valueDuration, class_name: 'Duration'
 
-    def self.transform_json(json_hash, target=DataRequirementDateFilter.new)
+    def self.transform_json(json_hash, target = DataRequirementDateFilter.new)
       result = self.superclass.transform_json(json_hash, target)
       result['path'] = PrimitiveString.transform_json(json_hash['path'], json_hash['_path']) unless json_hash['path'].nil?      
       result['searchParam'] = PrimitiveString.transform_json(json_hash['searchParam'], json_hash['_searchParam']) unless json_hash['searchParam'].nil?      

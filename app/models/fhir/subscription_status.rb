@@ -2,10 +2,9 @@ module FHIR
   # fhir/subscription_status.rb
   class SubscriptionStatus < Element
     include Mongoid::Document
-    field :typeName, type: String, default: 'SubscriptionStatus'
     field :value, type: String
 
-    def self.transform_json(json_hash, target=SubscriptionStatus.new)
+    def self.transform_json(json_hash, target = SubscriptionStatus.new)
       result = self.superclass.transform_json(json_hash, target)
       result['value'] = json_hash['value'] unless json_hash['value'].nil?
 

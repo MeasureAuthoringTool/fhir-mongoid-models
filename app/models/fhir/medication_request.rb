@@ -2,7 +2,6 @@ module FHIR
   # fhir/medication_request.rb
   class MedicationRequest < DomainResource
     include Mongoid::Document
-    field :typeName, type: String, default: 'MedicationRequest'
     embeds_many :identifier, class_name: 'Identifier'
     embeds_one :status, class_name: 'MedicationRequestStatus'
     embeds_one :statusReason, class_name: 'CodeableConcept'
@@ -38,7 +37,7 @@ module FHIR
     embeds_many :detectedIssue, class_name: 'Reference'
     embeds_many :eventHistory, class_name: 'Reference'
 
-    def self.transform_json(json_hash, target=MedicationRequest.new)
+    def self.transform_json(json_hash, target = MedicationRequest.new)
       result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['status'] = MedicationRequestStatus.transform_json(json_hash['status']) unless json_hash['status'].nil?      

@@ -2,7 +2,6 @@ module FHIR
   # fhir/medicinal_product_pharmaceutical_route_of_administration.rb
   class MedicinalProductPharmaceuticalRouteOfAdministration < BackboneElement
     include Mongoid::Document
-    field :typeName, type: String, default: 'MedicinalProductPharmaceuticalRouteOfAdministration'
     embeds_one :code, class_name: 'CodeableConcept'
     embeds_one :firstDose, class_name: 'Quantity'
     embeds_one :maxSingleDose, class_name: 'Quantity'
@@ -11,7 +10,7 @@ module FHIR
     embeds_one :maxTreatmentPeriod, class_name: 'Duration'
     embeds_many :targetSpecies, class_name: 'MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpecies'
 
-    def self.transform_json(json_hash, target=MedicinalProductPharmaceuticalRouteOfAdministration.new)
+    def self.transform_json(json_hash, target = MedicinalProductPharmaceuticalRouteOfAdministration.new)
       result = self.superclass.transform_json(json_hash, target)
       result['code'] = CodeableConcept.transform_json(json_hash['code']) unless json_hash['code'].nil?      
       result['firstDose'] = Quantity.transform_json(json_hash['firstDose']) unless json_hash['firstDose'].nil?      

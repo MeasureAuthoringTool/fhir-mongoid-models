@@ -2,7 +2,6 @@ module FHIR
   # fhir/device_definition.rb
   class DeviceDefinition < DomainResource
     include Mongoid::Document
-    field :typeName, type: String, default: 'DeviceDefinition'
     embeds_many :identifier, class_name: 'Identifier'
     embeds_many :udiDeviceIdentifier, class_name: 'DeviceDefinitionUdiDeviceIdentifier'
     embeds_one :manufacturerString, class_name: 'PrimitiveString'
@@ -27,7 +26,7 @@ module FHIR
     embeds_one :parentDevice, class_name: 'Reference'
     embeds_many :material, class_name: 'DeviceDefinitionMaterial'
 
-    def self.transform_json(json_hash, target=DeviceDefinition.new)
+    def self.transform_json(json_hash, target = DeviceDefinition.new)
       result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['udiDeviceIdentifier'] = json_hash['udiDeviceIdentifier'].map { |var| DeviceDefinitionUdiDeviceIdentifier.transform_json(var) } unless json_hash['udiDeviceIdentifier'].nil?

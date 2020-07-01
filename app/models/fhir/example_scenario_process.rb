@@ -2,14 +2,13 @@ module FHIR
   # fhir/example_scenario_process.rb
   class ExampleScenarioProcess < BackboneElement
     include Mongoid::Document
-    field :typeName, type: String, default: 'ExampleScenarioProcess'
     embeds_one :title, class_name: 'PrimitiveString'
     embeds_one :description, class_name: 'PrimitiveMarkdown'
     embeds_one :preConditions, class_name: 'PrimitiveMarkdown'
     embeds_one :postConditions, class_name: 'PrimitiveMarkdown'
     embeds_many :step, class_name: 'ExampleScenarioProcessStep'
 
-    def self.transform_json(json_hash, target=ExampleScenarioProcess.new)
+    def self.transform_json(json_hash, target = ExampleScenarioProcess.new)
       result = self.superclass.transform_json(json_hash, target)
       result['title'] = PrimitiveString.transform_json(json_hash['title'], json_hash['_title']) unless json_hash['title'].nil?      
       result['description'] = PrimitiveMarkdown.transform_json(json_hash['description'], json_hash['_description']) unless json_hash['description'].nil?      

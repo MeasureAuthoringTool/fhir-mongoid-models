@@ -2,7 +2,6 @@ module FHIR
   # fhir/evidence_variable_characteristic.rb
   class EvidenceVariableCharacteristic < BackboneElement
     include Mongoid::Document
-    field :typeName, type: String, default: 'EvidenceVariableCharacteristic'
     embeds_one :description, class_name: 'PrimitiveString'
     embeds_one :definitionReference, class_name: 'Reference'
     embeds_one :definitionCanonical, class_name: 'PrimitiveCanonical'
@@ -19,7 +18,7 @@ module FHIR
     embeds_one :timeFromStart, class_name: 'Duration'
     embeds_one :groupMeasure, class_name: 'GroupMeasure'
 
-    def self.transform_json(json_hash, target=EvidenceVariableCharacteristic.new)
+    def self.transform_json(json_hash, target = EvidenceVariableCharacteristic.new)
       result = self.superclass.transform_json(json_hash, target)
       result['description'] = PrimitiveString.transform_json(json_hash['description'], json_hash['_description']) unless json_hash['description'].nil?      
       result['definitionReference'] = Reference.transform_json(json_hash['definitionReference']) unless json_hash['definitionReference'].nil?      

@@ -2,7 +2,6 @@ module FHIR
   # fhir/procedure.rb
   class Procedure < DomainResource
     include Mongoid::Document
-    field :typeName, type: String, default: 'Procedure'
     embeds_many :identifier, class_name: 'Identifier'
     embeds_many :instantiatesCanonical, class_name: 'PrimitiveCanonical'
     embeds_many :instantiatesUri, class_name: 'PrimitiveUri'
@@ -36,7 +35,7 @@ module FHIR
     embeds_many :usedReference, class_name: 'Reference'
     embeds_many :usedCode, class_name: 'CodeableConcept'
 
-    def self.transform_json(json_hash, target=Procedure.new)
+    def self.transform_json(json_hash, target = Procedure.new)
       result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['instantiatesCanonical'] = json_hash['instantiatesCanonical'].each_with_index.map do |var, i|

@@ -2,10 +2,9 @@ module FHIR
   # fhir/resource_version_policy.rb
   class ResourceVersionPolicy < Element
     include Mongoid::Document
-    field :typeName, type: String, default: 'ResourceVersionPolicy'
     field :value, type: String
 
-    def self.transform_json(json_hash, target=ResourceVersionPolicy.new)
+    def self.transform_json(json_hash, target = ResourceVersionPolicy.new)
       result = self.superclass.transform_json(json_hash, target)
       result['value'] = json_hash['value'] unless json_hash['value'].nil?
 

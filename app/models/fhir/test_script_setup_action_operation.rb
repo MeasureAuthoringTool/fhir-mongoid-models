@@ -2,7 +2,6 @@ module FHIR
   # fhir/test_script_setup_action_operation.rb
   class TestScriptSetupActionOperation < BackboneElement
     include Mongoid::Document
-    field :typeName, type: String, default: 'TestScriptSetupActionOperation'
     embeds_one :type, class_name: 'Coding'
     embeds_one :resource, class_name: 'FHIRDefinedType'
     embeds_one :label, class_name: 'PrimitiveString'
@@ -21,7 +20,7 @@ module FHIR
     embeds_one :targetId, class_name: 'PrimitiveId'
     embeds_one :url, class_name: 'PrimitiveString'
 
-    def self.transform_json(json_hash, target=TestScriptSetupActionOperation.new)
+    def self.transform_json(json_hash, target = TestScriptSetupActionOperation.new)
       result = self.superclass.transform_json(json_hash, target)
       result['type'] = Coding.transform_json(json_hash['type']) unless json_hash['type'].nil?      
       result['resource'] = FHIRDefinedType.transform_json(json_hash['resource']) unless json_hash['resource'].nil?      

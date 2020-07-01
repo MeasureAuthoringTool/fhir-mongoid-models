@@ -2,7 +2,6 @@ module FHIR
   # fhir/human_name.rb
   class HumanName < Element
     include Mongoid::Document
-    field :typeName, type: String, default: 'HumanName'
     embeds_one :use, class_name: 'NameUse'
     embeds_one :text, class_name: 'PrimitiveString'
     embeds_one :family, class_name: 'PrimitiveString'
@@ -11,7 +10,7 @@ module FHIR
     embeds_many :suffix, class_name: 'PrimitiveString'
     embeds_one :period, class_name: 'Period'
 
-    def self.transform_json(json_hash, target=HumanName.new)
+    def self.transform_json(json_hash, target = HumanName.new)
       result = self.superclass.transform_json(json_hash, target)
       result['use'] = NameUse.transform_json(json_hash['use']) unless json_hash['use'].nil?      
       result['text'] = PrimitiveString.transform_json(json_hash['text'], json_hash['_text']) unless json_hash['text'].nil?      

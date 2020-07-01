@@ -2,7 +2,6 @@ module FHIR
   # fhir/structure_definition.rb
   class StructureDefinition < DomainResource
     include Mongoid::Document
-    field :typeName, type: String, default: 'StructureDefinition'
     embeds_one :url, class_name: 'PrimitiveUri'
     embeds_many :identifier, class_name: 'Identifier'
     embeds_one :version, class_name: 'PrimitiveString'
@@ -31,7 +30,7 @@ module FHIR
     embeds_one :snapshot, class_name: 'StructureDefinitionSnapshot'
     embeds_one :differential, class_name: 'StructureDefinitionDifferential'
 
-    def self.transform_json(json_hash, target=StructureDefinition.new)
+    def self.transform_json(json_hash, target = StructureDefinition.new)
       result = self.superclass.transform_json(json_hash, target)
       result['url'] = PrimitiveUri.transform_json(json_hash['url'], json_hash['_url']) unless json_hash['url'].nil?      
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?

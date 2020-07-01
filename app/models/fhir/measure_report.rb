@@ -2,7 +2,6 @@ module FHIR
   # fhir/measure_report.rb
   class MeasureReport < DomainResource
     include Mongoid::Document
-    field :typeName, type: String, default: 'MeasureReport'
     embeds_many :identifier, class_name: 'Identifier'
     embeds_one :status, class_name: 'MeasureReportStatus'
     embeds_one :type, class_name: 'MeasureReportType'
@@ -15,7 +14,7 @@ module FHIR
     embeds_many :group, class_name: 'MeasureReportGroup'
     embeds_many :evaluatedResource, class_name: 'Reference'
 
-    def self.transform_json(json_hash, target=MeasureReport.new)
+    def self.transform_json(json_hash, target = MeasureReport.new)
       result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['status'] = MeasureReportStatus.transform_json(json_hash['status']) unless json_hash['status'].nil?      

@@ -2,7 +2,6 @@ module FHIR
   # fhir/slot.rb
   class Slot < DomainResource
     include Mongoid::Document
-    field :typeName, type: String, default: 'Slot'
     embeds_many :identifier, class_name: 'Identifier'
     embeds_many :serviceCategory, class_name: 'CodeableConcept'
     embeds_many :serviceType, class_name: 'CodeableConcept'
@@ -15,7 +14,7 @@ module FHIR
     embeds_one :overbooked, class_name: 'PrimitiveBoolean'
     embeds_one :comment, class_name: 'PrimitiveString'
 
-    def self.transform_json(json_hash, target=Slot.new)
+    def self.transform_json(json_hash, target = Slot.new)
       result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['serviceCategory'] = json_hash['serviceCategory'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['serviceCategory'].nil?

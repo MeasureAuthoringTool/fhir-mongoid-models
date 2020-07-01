@@ -2,7 +2,6 @@ module FHIR
   # fhir/sampled_data.rb
   class SampledData < Element
     include Mongoid::Document
-    field :typeName, type: String, default: 'SampledData'
     embeds_one :origin, class_name: 'SimpleQuantity'
     embeds_one :period, class_name: 'PrimitiveDecimal'
     embeds_one :factor, class_name: 'PrimitiveDecimal'
@@ -11,7 +10,7 @@ module FHIR
     embeds_one :dimensions, class_name: 'PrimitivePositiveInt'
     embeds_one :data, class_name: 'PrimitiveString'
 
-    def self.transform_json(json_hash, target=SampledData.new)
+    def self.transform_json(json_hash, target = SampledData.new)
       result = self.superclass.transform_json(json_hash, target)
       result['origin'] = SimpleQuantity.transform_json(json_hash['origin']) unless json_hash['origin'].nil?      
       result['period'] = PrimitiveDecimal.transform_json(json_hash['period'], json_hash['_period']) unless json_hash['period'].nil?      

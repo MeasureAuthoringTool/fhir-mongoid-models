@@ -2,7 +2,6 @@ module FHIR
   # fhir/consent.rb
   class Consent < DomainResource
     include Mongoid::Document
-    field :typeName, type: String, default: 'Consent'
     embeds_many :identifier, class_name: 'Identifier'
     embeds_one :status, class_name: 'ConsentState'
     embeds_one :scope, class_name: 'CodeableConcept'
@@ -18,7 +17,7 @@ module FHIR
     embeds_many :verification, class_name: 'ConsentVerification'
     embeds_one :provision, class_name: 'ConsentProvision'
 
-    def self.transform_json(json_hash, target=Consent.new)
+    def self.transform_json(json_hash, target = Consent.new)
       result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['status'] = ConsentState.transform_json(json_hash['status']) unless json_hash['status'].nil?      

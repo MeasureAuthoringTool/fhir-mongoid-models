@@ -2,7 +2,6 @@ module FHIR
   # fhir/dosage.rb
   class Dosage < BackboneElement
     include Mongoid::Document
-    field :typeName, type: String, default: 'Dosage'
     embeds_one :sequence, class_name: 'PrimitiveInteger'
     embeds_one :text, class_name: 'PrimitiveString'
     embeds_many :additionalInstruction, class_name: 'CodeableConcept'
@@ -18,7 +17,7 @@ module FHIR
     embeds_one :maxDosePerAdministration, class_name: 'SimpleQuantity'
     embeds_one :maxDosePerLifetime, class_name: 'SimpleQuantity'
 
-    def self.transform_json(json_hash, target=Dosage.new)
+    def self.transform_json(json_hash, target = Dosage.new)
       result = self.superclass.transform_json(json_hash, target)
       result['sequence'] = PrimitiveInteger.transform_json(json_hash['sequence'], json_hash['_sequence']) unless json_hash['sequence'].nil?      
       result['text'] = PrimitiveString.transform_json(json_hash['text'], json_hash['_text']) unless json_hash['text'].nil?      

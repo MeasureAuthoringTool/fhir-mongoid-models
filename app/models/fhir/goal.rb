@@ -2,7 +2,6 @@ module FHIR
   # fhir/goal.rb
   class Goal < DomainResource
     include Mongoid::Document
-    field :typeName, type: String, default: 'Goal'
     embeds_many :identifier, class_name: 'Identifier'
     embeds_one :lifecycleStatus, class_name: 'GoalLifecycleStatus'
     embeds_one :achievementStatus, class_name: 'CodeableConcept'
@@ -21,7 +20,7 @@ module FHIR
     embeds_many :outcomeCode, class_name: 'CodeableConcept'
     embeds_many :outcomeReference, class_name: 'Reference'
 
-    def self.transform_json(json_hash, target=Goal.new)
+    def self.transform_json(json_hash, target = Goal.new)
       result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['lifecycleStatus'] = GoalLifecycleStatus.transform_json(json_hash['lifecycleStatus']) unless json_hash['lifecycleStatus'].nil?      

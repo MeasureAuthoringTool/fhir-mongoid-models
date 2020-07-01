@@ -2,7 +2,6 @@ module FHIR
   # fhir/contract_term_asset.rb
   class ContractTermAsset < BackboneElement
     include Mongoid::Document
-    field :typeName, type: String, default: 'ContractTermAsset'
     embeds_one :scope, class_name: 'CodeableConcept'
     embeds_many :type, class_name: 'CodeableConcept'
     embeds_many :typeReference, class_name: 'Reference'
@@ -19,7 +18,7 @@ module FHIR
     embeds_many :securityLabelNumber, class_name: 'PrimitiveUnsignedInt'
     embeds_many :valuedItem, class_name: 'ContractTermAssetValuedItem'
 
-    def self.transform_json(json_hash, target=ContractTermAsset.new)
+    def self.transform_json(json_hash, target = ContractTermAsset.new)
       result = self.superclass.transform_json(json_hash, target)
       result['scope'] = CodeableConcept.transform_json(json_hash['scope']) unless json_hash['scope'].nil?      
       result['type'] = json_hash['type'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['type'].nil?

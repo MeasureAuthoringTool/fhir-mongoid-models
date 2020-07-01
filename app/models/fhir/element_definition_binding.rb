@@ -2,12 +2,11 @@ module FHIR
   # fhir/element_definition_binding.rb
   class ElementDefinitionBinding < Element
     include Mongoid::Document
-    field :typeName, type: String, default: 'ElementDefinitionBinding'
     embeds_one :strength, class_name: 'BindingStrength'
     embeds_one :description, class_name: 'PrimitiveString'
     embeds_one :valueSet, class_name: 'PrimitiveCanonical'
 
-    def self.transform_json(json_hash, target=ElementDefinitionBinding.new)
+    def self.transform_json(json_hash, target = ElementDefinitionBinding.new)
       result = self.superclass.transform_json(json_hash, target)
       result['strength'] = BindingStrength.transform_json(json_hash['strength']) unless json_hash['strength'].nil?      
       result['description'] = PrimitiveString.transform_json(json_hash['description'], json_hash['_description']) unless json_hash['description'].nil?      

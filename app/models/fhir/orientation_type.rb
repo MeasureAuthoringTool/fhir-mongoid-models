@@ -2,10 +2,9 @@ module FHIR
   # fhir/orientation_type.rb
   class OrientationType < Element
     include Mongoid::Document
-    field :typeName, type: String, default: 'OrientationType'
     field :value, type: String
 
-    def self.transform_json(json_hash, target=OrientationType.new)
+    def self.transform_json(json_hash, target = OrientationType.new)
       result = self.superclass.transform_json(json_hash, target)
       result['value'] = json_hash['value'] unless json_hash['value'].nil?
 

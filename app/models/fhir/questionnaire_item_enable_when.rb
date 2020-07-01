@@ -2,7 +2,6 @@ module FHIR
   # fhir/questionnaire_item_enable_when.rb
   class QuestionnaireItemEnableWhen < BackboneElement
     include Mongoid::Document
-    field :typeName, type: String, default: 'QuestionnaireItemEnableWhen'
     embeds_one :question, class_name: 'PrimitiveString'
     embeds_one :operator, class_name: 'QuestionnaireItemOperator'
     embeds_one :answerBoolean, class_name: 'PrimitiveBoolean'
@@ -16,7 +15,7 @@ module FHIR
     embeds_one :answerQuantity, class_name: 'Quantity'
     embeds_one :answerReference, class_name: 'Reference'
 
-    def self.transform_json(json_hash, target=QuestionnaireItemEnableWhen.new)
+    def self.transform_json(json_hash, target = QuestionnaireItemEnableWhen.new)
       result = self.superclass.transform_json(json_hash, target)
       result['question'] = PrimitiveString.transform_json(json_hash['question'], json_hash['_question']) unless json_hash['question'].nil?      
       result['operator'] = QuestionnaireItemOperator.transform_json(json_hash['operator']) unless json_hash['operator'].nil?      

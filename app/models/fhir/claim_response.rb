@@ -2,7 +2,6 @@ module FHIR
   # fhir/claim_response.rb
   class ClaimResponse < DomainResource
     include Mongoid::Document
-    field :typeName, type: String, default: 'ClaimResponse'
     embeds_many :identifier, class_name: 'Identifier'
     embeds_one :status, class_name: 'ClaimResponseStatus'
     embeds_one :type, class_name: 'CodeableConcept'
@@ -31,7 +30,7 @@ module FHIR
     embeds_many :insurance, class_name: 'ClaimResponseInsurance'
     embeds_many :error, class_name: 'ClaimResponseError'
 
-    def self.transform_json(json_hash, target=ClaimResponse.new)
+    def self.transform_json(json_hash, target = ClaimResponse.new)
       result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['status'] = ClaimResponseStatus.transform_json(json_hash['status']) unless json_hash['status'].nil?      

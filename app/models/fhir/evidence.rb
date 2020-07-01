@@ -2,7 +2,6 @@ module FHIR
   # fhir/evidence.rb
   class Evidence < DomainResource
     include Mongoid::Document
-    field :typeName, type: String, default: 'Evidence'
     embeds_one :url, class_name: 'PrimitiveUri'
     embeds_many :identifier, class_name: 'Identifier'
     embeds_one :version, class_name: 'PrimitiveString'
@@ -32,7 +31,7 @@ module FHIR
     embeds_many :exposureVariant, class_name: 'Reference'
     embeds_many :outcome, class_name: 'Reference'
 
-    def self.transform_json(json_hash, target=Evidence.new)
+    def self.transform_json(json_hash, target = Evidence.new)
       result = self.superclass.transform_json(json_hash, target)
       result['url'] = PrimitiveUri.transform_json(json_hash['url'], json_hash['_url']) unless json_hash['url'].nil?      
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?

@@ -2,7 +2,6 @@ module FHIR
   # fhir/coverage_eligibility_request.rb
   class CoverageEligibilityRequest < DomainResource
     include Mongoid::Document
-    field :typeName, type: String, default: 'CoverageEligibilityRequest'
     embeds_many :identifier, class_name: 'Identifier'
     embeds_one :status, class_name: 'EligibilityRequestStatus'
     embeds_one :priority, class_name: 'CodeableConcept'
@@ -19,7 +18,7 @@ module FHIR
     embeds_many :insurance, class_name: 'CoverageEligibilityRequestInsurance'
     embeds_many :item, class_name: 'CoverageEligibilityRequestItem'
 
-    def self.transform_json(json_hash, target=CoverageEligibilityRequest.new)
+    def self.transform_json(json_hash, target = CoverageEligibilityRequest.new)
       result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['status'] = EligibilityRequestStatus.transform_json(json_hash['status']) unless json_hash['status'].nil?      

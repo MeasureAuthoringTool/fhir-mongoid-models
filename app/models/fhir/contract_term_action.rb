@@ -2,7 +2,6 @@ module FHIR
   # fhir/contract_term_action.rb
   class ContractTermAction < BackboneElement
     include Mongoid::Document
-    field :typeName, type: String, default: 'ContractTermAction'
     embeds_one :doNotPerform, class_name: 'PrimitiveBoolean'
     embeds_one :type, class_name: 'CodeableConcept'
     embeds_many :subject, class_name: 'ContractTermActionSubject'
@@ -27,7 +26,7 @@ module FHIR
     embeds_many :note, class_name: 'Annotation'
     embeds_many :securityLabelNumber, class_name: 'PrimitiveUnsignedInt'
 
-    def self.transform_json(json_hash, target=ContractTermAction.new)
+    def self.transform_json(json_hash, target = ContractTermAction.new)
       result = self.superclass.transform_json(json_hash, target)
       result['doNotPerform'] = PrimitiveBoolean.transform_json(json_hash['doNotPerform'], json_hash['_doNotPerform']) unless json_hash['doNotPerform'].nil?      
       result['type'] = CodeableConcept.transform_json(json_hash['type']) unless json_hash['type'].nil?      

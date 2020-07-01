@@ -2,7 +2,6 @@ module FHIR
   # fhir/data_requirement.rb
   class DataRequirement < Element
     include Mongoid::Document
-    field :typeName, type: String, default: 'DataRequirement'
     embeds_one :type, class_name: 'FHIRAllTypes'
     embeds_many :profile, class_name: 'PrimitiveCanonical'
     embeds_one :subjectCodeableConcept, class_name: 'CodeableConcept'
@@ -13,7 +12,7 @@ module FHIR
     embeds_one :limit, class_name: 'PrimitivePositiveInt'
     embeds_many :sort, class_name: 'DataRequirementSort'
 
-    def self.transform_json(json_hash, target=DataRequirement.new)
+    def self.transform_json(json_hash, target = DataRequirement.new)
       result = self.superclass.transform_json(json_hash, target)
       result['type'] = FHIRAllTypes.transform_json(json_hash['type']) unless json_hash['type'].nil?      
       result['profile'] = json_hash['profile'].each_with_index.map do |var, i|

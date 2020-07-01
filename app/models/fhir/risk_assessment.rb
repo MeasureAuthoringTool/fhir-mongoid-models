@@ -2,7 +2,6 @@ module FHIR
   # fhir/risk_assessment.rb
   class RiskAssessment < DomainResource
     include Mongoid::Document
-    field :typeName, type: String, default: 'RiskAssessment'
     embeds_many :identifier, class_name: 'Identifier'
     embeds_one :basedOn, class_name: 'Reference'
     embeds_one :parent, class_name: 'Reference'
@@ -22,7 +21,7 @@ module FHIR
     embeds_one :mitigation, class_name: 'PrimitiveString'
     embeds_many :note, class_name: 'Annotation'
 
-    def self.transform_json(json_hash, target=RiskAssessment.new)
+    def self.transform_json(json_hash, target = RiskAssessment.new)
       result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['basedOn'] = Reference.transform_json(json_hash['basedOn']) unless json_hash['basedOn'].nil?      

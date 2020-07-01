@@ -2,7 +2,6 @@ module FHIR
   # fhir/questionnaire_item_answer_option.rb
   class QuestionnaireItemAnswerOption < BackboneElement
     include Mongoid::Document
-    field :typeName, type: String, default: 'QuestionnaireItemAnswerOption'
     embeds_one :valueInteger, class_name: 'PrimitiveInteger'
     embeds_one :valueDate, class_name: 'PrimitiveDate'
     embeds_one :valueTime, class_name: 'PrimitiveTime'
@@ -11,7 +10,7 @@ module FHIR
     embeds_one :valueReference, class_name: 'Reference'
     embeds_one :initialSelected, class_name: 'PrimitiveBoolean'
 
-    def self.transform_json(json_hash, target=QuestionnaireItemAnswerOption.new)
+    def self.transform_json(json_hash, target = QuestionnaireItemAnswerOption.new)
       result = self.superclass.transform_json(json_hash, target)
       result['valueInteger'] = PrimitiveInteger.transform_json(json_hash['valueInteger'], json_hash['_valueInteger']) unless json_hash['valueInteger'].nil?      
       result['valueDate'] = PrimitiveDate.transform_json(json_hash['valueDate'], json_hash['_valueDate']) unless json_hash['valueDate'].nil?      

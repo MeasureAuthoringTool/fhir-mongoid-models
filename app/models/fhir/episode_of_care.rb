@@ -2,7 +2,6 @@ module FHIR
   # fhir/episode_of_care.rb
   class EpisodeOfCare < DomainResource
     include Mongoid::Document
-    field :typeName, type: String, default: 'EpisodeOfCare'
     embeds_many :identifier, class_name: 'Identifier'
     embeds_one :status, class_name: 'EpisodeOfCareStatus'
     embeds_many :statusHistory, class_name: 'EpisodeOfCareStatusHistory'
@@ -16,7 +15,7 @@ module FHIR
     embeds_many :team, class_name: 'Reference'
     embeds_many :account, class_name: 'Reference'
 
-    def self.transform_json(json_hash, target=EpisodeOfCare.new)
+    def self.transform_json(json_hash, target = EpisodeOfCare.new)
       result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['status'] = EpisodeOfCareStatus.transform_json(json_hash['status']) unless json_hash['status'].nil?      

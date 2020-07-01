@@ -2,7 +2,6 @@ module FHIR
   # fhir/substance_amount.rb
   class SubstanceAmount < BackboneElement
     include Mongoid::Document
-    field :typeName, type: String, default: 'SubstanceAmount'
     embeds_one :amountQuantity, class_name: 'Quantity'
     embeds_one :amountRange, class_name: 'Range'
     embeds_one :amountString, class_name: 'PrimitiveString'
@@ -10,7 +9,7 @@ module FHIR
     embeds_one :amountText, class_name: 'PrimitiveString'
     embeds_one :referenceRange, class_name: 'SubstanceAmountReferenceRange'
 
-    def self.transform_json(json_hash, target=SubstanceAmount.new)
+    def self.transform_json(json_hash, target = SubstanceAmount.new)
       result = self.superclass.transform_json(json_hash, target)
       result['amountQuantity'] = Quantity.transform_json(json_hash['amountQuantity']) unless json_hash['amountQuantity'].nil?      
       result['amountRange'] = Range.transform_json(json_hash['amountRange']) unless json_hash['amountRange'].nil?      

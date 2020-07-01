@@ -2,7 +2,6 @@ module FHIR
   # fhir/naming_system.rb
   class NamingSystem < DomainResource
     include Mongoid::Document
-    field :typeName, type: String, default: 'NamingSystem'
     embeds_one :name, class_name: 'PrimitiveString'
     embeds_one :status, class_name: 'PublicationStatus'
     embeds_one :kind, class_name: 'NamingSystemType'
@@ -17,7 +16,7 @@ module FHIR
     embeds_one :usage, class_name: 'PrimitiveString'
     embeds_many :uniqueId, class_name: 'NamingSystemUniqueId'
 
-    def self.transform_json(json_hash, target=NamingSystem.new)
+    def self.transform_json(json_hash, target = NamingSystem.new)
       result = self.superclass.transform_json(json_hash, target)
       result['name'] = PrimitiveString.transform_json(json_hash['name'], json_hash['_name']) unless json_hash['name'].nil?      
       result['status'] = PublicationStatus.transform_json(json_hash['status']) unless json_hash['status'].nil?      

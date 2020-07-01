@@ -2,7 +2,6 @@ module FHIR
   # fhir/test_script_metadata_capability.rb
   class TestScriptMetadataCapability < BackboneElement
     include Mongoid::Document
-    field :typeName, type: String, default: 'TestScriptMetadataCapability'
     embeds_one :required, class_name: 'PrimitiveBoolean'
     embeds_one :_validated, class_name: 'PrimitiveBoolean'
     embeds_one :description, class_name: 'PrimitiveString'
@@ -17,7 +16,7 @@ module FHIR
       res
     end
 
-    def self.transform_json(json_hash, target=TestScriptMetadataCapability.new)
+    def self.transform_json(json_hash, target = TestScriptMetadataCapability.new)
       result = self.superclass.transform_json(json_hash, target)
       result['required'] = PrimitiveBoolean.transform_json(json_hash['required'], json_hash['_required']) unless json_hash['required'].nil?      
       result['_validated'] = PrimitiveBoolean.transform_json(json_hash['validated'], json_hash['_validated']) unless json_hash['validated'].nil?      

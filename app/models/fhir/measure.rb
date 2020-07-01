@@ -2,7 +2,6 @@ module FHIR
   # fhir/measure.rb
   class Measure < DomainResource
     include Mongoid::Document
-    field :typeName, type: String, default: 'Measure'
     embeds_one :url, class_name: 'PrimitiveUri'
     embeds_many :identifier, class_name: 'Identifier'
     embeds_one :version, class_name: 'PrimitiveString'
@@ -48,7 +47,7 @@ module FHIR
     has_and_belongs_to_many :valueSets, class_name: 'ValueSet', inverse_of: nil
     has_and_belongs_to_many :patients, class_name: 'Patient', inverse_of: nil
 
-    def self.transform_json(json_hash, target=Measure.new)
+    def self.transform_json(json_hash, target = Measure.new)
       result = self.superclass.transform_json(json_hash, target)
       result['url'] = PrimitiveUri.transform_json(json_hash['url'], json_hash['_url']) unless json_hash['url'].nil?      
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?

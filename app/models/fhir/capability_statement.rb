@@ -2,7 +2,6 @@ module FHIR
   # fhir/capability_statement.rb
   class CapabilityStatement < DomainResource
     include Mongoid::Document
-    field :typeName, type: String, default: 'CapabilityStatement'
     embeds_one :url, class_name: 'PrimitiveUri'
     embeds_one :version, class_name: 'PrimitiveString'
     embeds_one :name, class_name: 'PrimitiveString'
@@ -30,7 +29,7 @@ module FHIR
     embeds_many :messaging, class_name: 'CapabilityStatementMessaging'
     embeds_many :document, class_name: 'CapabilityStatementDocument'
 
-    def self.transform_json(json_hash, target=CapabilityStatement.new)
+    def self.transform_json(json_hash, target = CapabilityStatement.new)
       result = self.superclass.transform_json(json_hash, target)
       result['url'] = PrimitiveUri.transform_json(json_hash['url'], json_hash['_url']) unless json_hash['url'].nil?      
       result['version'] = PrimitiveString.transform_json(json_hash['version'], json_hash['_version']) unless json_hash['version'].nil?      

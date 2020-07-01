@@ -2,7 +2,6 @@ module FHIR
   # fhir/appointment_response.rb
   class AppointmentResponse < DomainResource
     include Mongoid::Document
-    field :typeName, type: String, default: 'AppointmentResponse'
     embeds_many :identifier, class_name: 'Identifier'
     embeds_one :appointment, class_name: 'Reference'
     embeds_one :start, class_name: 'PrimitiveInstant'
@@ -12,7 +11,7 @@ module FHIR
     embeds_one :participantStatus, class_name: 'ParticipantStatus'
     embeds_one :comment, class_name: 'PrimitiveString'
 
-    def self.transform_json(json_hash, target=AppointmentResponse.new)
+    def self.transform_json(json_hash, target = AppointmentResponse.new)
       result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['appointment'] = Reference.transform_json(json_hash['appointment']) unless json_hash['appointment'].nil?      

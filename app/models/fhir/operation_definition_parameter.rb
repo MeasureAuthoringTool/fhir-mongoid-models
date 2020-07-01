@@ -2,7 +2,6 @@ module FHIR
   # fhir/operation_definition_parameter.rb
   class OperationDefinitionParameter < BackboneElement
     include Mongoid::Document
-    field :typeName, type: String, default: 'OperationDefinitionParameter'
     embeds_one :name, class_name: 'PrimitiveCode'
     embeds_one :use, class_name: 'OperationParameterUse'
     embeds_one :min, class_name: 'PrimitiveInteger'
@@ -15,7 +14,7 @@ module FHIR
     embeds_many :referencedFrom, class_name: 'OperationDefinitionParameterReferencedFrom'
     embeds_many :part, class_name: 'OperationDefinitionParameter'
 
-    def self.transform_json(json_hash, target=OperationDefinitionParameter.new)
+    def self.transform_json(json_hash, target = OperationDefinitionParameter.new)
       result = self.superclass.transform_json(json_hash, target)
       result['name'] = PrimitiveCode.transform_json(json_hash['name'], json_hash['_name']) unless json_hash['name'].nil?      
       result['use'] = OperationParameterUse.transform_json(json_hash['use']) unless json_hash['use'].nil?      

@@ -2,7 +2,6 @@ module FHIR
   # fhir/activity_definition.rb
   class ActivityDefinition < DomainResource
     include Mongoid::Document
-    field :typeName, type: String, default: 'ActivityDefinition'
     embeds_one :url, class_name: 'PrimitiveUri'
     embeds_many :identifier, class_name: 'Identifier'
     embeds_one :version, class_name: 'PrimitiveString'
@@ -57,7 +56,7 @@ module FHIR
     embeds_one :transform, class_name: 'PrimitiveCanonical'
     embeds_many :dynamicValue, class_name: 'ActivityDefinitionDynamicValue'
 
-    def self.transform_json(json_hash, target=ActivityDefinition.new)
+    def self.transform_json(json_hash, target = ActivityDefinition.new)
       result = self.superclass.transform_json(json_hash, target)
       result['url'] = PrimitiveUri.transform_json(json_hash['url'], json_hash['_url']) unless json_hash['url'].nil?      
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?

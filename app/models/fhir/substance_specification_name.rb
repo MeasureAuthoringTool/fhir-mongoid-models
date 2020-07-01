@@ -2,7 +2,6 @@ module FHIR
   # fhir/substance_specification_name.rb
   class SubstanceSpecificationName < BackboneElement
     include Mongoid::Document
-    field :typeName, type: String, default: 'SubstanceSpecificationName'
     embeds_one :name, class_name: 'PrimitiveString'
     embeds_one :type, class_name: 'CodeableConcept'
     embeds_one :status, class_name: 'CodeableConcept'
@@ -15,7 +14,7 @@ module FHIR
     embeds_many :official, class_name: 'SubstanceSpecificationNameOfficial'
     embeds_many :source, class_name: 'Reference'
 
-    def self.transform_json(json_hash, target=SubstanceSpecificationName.new)
+    def self.transform_json(json_hash, target = SubstanceSpecificationName.new)
       result = self.superclass.transform_json(json_hash, target)
       result['name'] = PrimitiveString.transform_json(json_hash['name'], json_hash['_name']) unless json_hash['name'].nil?      
       result['type'] = CodeableConcept.transform_json(json_hash['type']) unless json_hash['type'].nil?      

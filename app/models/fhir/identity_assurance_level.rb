@@ -2,10 +2,9 @@ module FHIR
   # fhir/identity_assurance_level.rb
   class IdentityAssuranceLevel < Element
     include Mongoid::Document
-    field :typeName, type: String, default: 'IdentityAssuranceLevel'
     field :value, type: String
 
-    def self.transform_json(json_hash, target=IdentityAssuranceLevel.new)
+    def self.transform_json(json_hash, target = IdentityAssuranceLevel.new)
       result = self.superclass.transform_json(json_hash, target)
       result['value'] = json_hash['value'] unless json_hash['value'].nil?
 

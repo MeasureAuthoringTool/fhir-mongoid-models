@@ -2,12 +2,11 @@ module FHIR
   # fhir/account_guarantor.rb
   class AccountGuarantor < BackboneElement
     include Mongoid::Document
-    field :typeName, type: String, default: 'AccountGuarantor'
     embeds_one :party, class_name: 'Reference'
     embeds_one :onHold, class_name: 'PrimitiveBoolean'
     embeds_one :period, class_name: 'Period'
 
-    def self.transform_json(json_hash, target=AccountGuarantor.new)
+    def self.transform_json(json_hash, target = AccountGuarantor.new)
       result = self.superclass.transform_json(json_hash, target)
       result['party'] = Reference.transform_json(json_hash['party']) unless json_hash['party'].nil?      
       result['onHold'] = PrimitiveBoolean.transform_json(json_hash['onHold'], json_hash['_onHold']) unless json_hash['onHold'].nil?      

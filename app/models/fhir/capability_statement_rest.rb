@@ -2,7 +2,6 @@ module FHIR
   # fhir/capability_statement_rest.rb
   class CapabilityStatementRest < BackboneElement
     include Mongoid::Document
-    field :typeName, type: String, default: 'CapabilityStatementRest'
     embeds_one :mode, class_name: 'RestfulCapabilityMode'
     embeds_one :documentation, class_name: 'PrimitiveMarkdown'
     embeds_one :security, class_name: 'CapabilityStatementRestSecurity'
@@ -12,7 +11,7 @@ module FHIR
     embeds_many :operation, class_name: 'CapabilityStatementRestResourceOperation'
     embeds_many :compartment, class_name: 'PrimitiveCanonical'
 
-    def self.transform_json(json_hash, target=CapabilityStatementRest.new)
+    def self.transform_json(json_hash, target = CapabilityStatementRest.new)
       result = self.superclass.transform_json(json_hash, target)
       result['mode'] = RestfulCapabilityMode.transform_json(json_hash['mode']) unless json_hash['mode'].nil?      
       result['documentation'] = PrimitiveMarkdown.transform_json(json_hash['documentation'], json_hash['_documentation']) unless json_hash['documentation'].nil?      

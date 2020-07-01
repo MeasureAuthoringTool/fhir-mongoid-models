@@ -2,7 +2,6 @@ module FHIR
   # fhir/verification_result_primary_source.rb
   class VerificationResultPrimarySource < BackboneElement
     include Mongoid::Document
-    field :typeName, type: String, default: 'VerificationResultPrimarySource'
     embeds_one :who, class_name: 'Reference'
     embeds_many :type, class_name: 'CodeableConcept'
     embeds_many :communicationMethod, class_name: 'CodeableConcept'
@@ -11,7 +10,7 @@ module FHIR
     embeds_one :canPushUpdates, class_name: 'CodeableConcept'
     embeds_many :pushTypeAvailable, class_name: 'CodeableConcept'
 
-    def self.transform_json(json_hash, target=VerificationResultPrimarySource.new)
+    def self.transform_json(json_hash, target = VerificationResultPrimarySource.new)
       result = self.superclass.transform_json(json_hash, target)
       result['who'] = Reference.transform_json(json_hash['who']) unless json_hash['who'].nil?      
       result['type'] = json_hash['type'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['type'].nil?

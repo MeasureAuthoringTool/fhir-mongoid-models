@@ -2,7 +2,6 @@ module FHIR
   # fhir/molecular_sequence_reference_seq.rb
   class MolecularSequenceReferenceSeq < BackboneElement
     include Mongoid::Document
-    field :typeName, type: String, default: 'MolecularSequenceReferenceSeq'
     embeds_one :chromosome, class_name: 'CodeableConcept'
     embeds_one :genomeBuild, class_name: 'PrimitiveString'
     embeds_one :orientation, class_name: 'OrientationType'
@@ -13,7 +12,7 @@ module FHIR
     embeds_one :windowStart, class_name: 'PrimitiveInteger'
     embeds_one :windowEnd, class_name: 'PrimitiveInteger'
 
-    def self.transform_json(json_hash, target=MolecularSequenceReferenceSeq.new)
+    def self.transform_json(json_hash, target = MolecularSequenceReferenceSeq.new)
       result = self.superclass.transform_json(json_hash, target)
       result['chromosome'] = CodeableConcept.transform_json(json_hash['chromosome']) unless json_hash['chromosome'].nil?      
       result['genomeBuild'] = PrimitiveString.transform_json(json_hash['genomeBuild'], json_hash['_genomeBuild']) unless json_hash['genomeBuild'].nil?      

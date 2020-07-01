@@ -2,7 +2,6 @@ module FHIR
   # fhir/care_plan_activity_detail.rb
   class CarePlanActivityDetail < BackboneElement
     include Mongoid::Document
-    field :typeName, type: String, default: 'CarePlanActivityDetail'
     embeds_one :kind, class_name: 'CarePlanActivityKind'
     embeds_many :instantiatesCanonical, class_name: 'PrimitiveCanonical'
     embeds_many :instantiatesUri, class_name: 'PrimitiveUri'
@@ -24,7 +23,7 @@ module FHIR
     embeds_one :quantity, class_name: 'SimpleQuantity'
     embeds_one :description, class_name: 'PrimitiveString'
 
-    def self.transform_json(json_hash, target=CarePlanActivityDetail.new)
+    def self.transform_json(json_hash, target = CarePlanActivityDetail.new)
       result = self.superclass.transform_json(json_hash, target)
       result['kind'] = CarePlanActivityKind.transform_json(json_hash['kind']) unless json_hash['kind'].nil?      
       result['instantiatesCanonical'] = json_hash['instantiatesCanonical'].each_with_index.map do |var, i|

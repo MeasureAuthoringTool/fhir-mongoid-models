@@ -2,10 +2,9 @@ module FHIR
   # fhir/immunization_status.rb
   class ImmunizationStatus < Element
     include Mongoid::Document
-    field :typeName, type: String, default: 'ImmunizationStatus'
     field :value, type: String
 
-    def self.transform_json(json_hash, target=ImmunizationStatus.new)
+    def self.transform_json(json_hash, target = ImmunizationStatus.new)
       result = self.superclass.transform_json(json_hash, target)
       result['value'] = json_hash['value'] unless json_hash['value'].nil?
 

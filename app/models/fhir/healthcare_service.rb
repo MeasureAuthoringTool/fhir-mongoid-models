@@ -2,7 +2,6 @@ module FHIR
   # fhir/healthcare_service.rb
   class HealthcareService < DomainResource
     include Mongoid::Document
-    field :typeName, type: String, default: 'HealthcareService'
     embeds_many :identifier, class_name: 'Identifier'
     embeds_one :active, class_name: 'PrimitiveBoolean'
     embeds_one :providedBy, class_name: 'Reference'
@@ -28,7 +27,7 @@ module FHIR
     embeds_one :availabilityExceptions, class_name: 'PrimitiveString'
     embeds_many :endpoint, class_name: 'Reference'
 
-    def self.transform_json(json_hash, target=HealthcareService.new)
+    def self.transform_json(json_hash, target = HealthcareService.new)
       result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['active'] = PrimitiveBoolean.transform_json(json_hash['active'], json_hash['_active']) unless json_hash['active'].nil?      

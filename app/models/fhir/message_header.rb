@@ -2,7 +2,6 @@ module FHIR
   # fhir/message_header.rb
   class MessageHeader < DomainResource
     include Mongoid::Document
-    field :typeName, type: String, default: 'MessageHeader'
     embeds_one :eventCoding, class_name: 'Coding'
     embeds_one :eventUri, class_name: 'PrimitiveUri'
     embeds_many :destination, class_name: 'MessageHeaderDestination'
@@ -16,7 +15,7 @@ module FHIR
     embeds_many :focus, class_name: 'Reference'
     embeds_one :definition, class_name: 'PrimitiveCanonical'
 
-    def self.transform_json(json_hash, target=MessageHeader.new)
+    def self.transform_json(json_hash, target = MessageHeader.new)
       result = self.superclass.transform_json(json_hash, target)
       result['eventCoding'] = Coding.transform_json(json_hash['eventCoding']) unless json_hash['eventCoding'].nil?      
       result['eventUri'] = PrimitiveUri.transform_json(json_hash['eventUri'], json_hash['_eventUri']) unless json_hash['eventUri'].nil?      

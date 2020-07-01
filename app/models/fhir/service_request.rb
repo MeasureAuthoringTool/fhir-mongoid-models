@@ -2,7 +2,6 @@ module FHIR
   # fhir/service_request.rb
   class ServiceRequest < DomainResource
     include Mongoid::Document
-    field :typeName, type: String, default: 'ServiceRequest'
     embeds_many :identifier, class_name: 'Identifier'
     embeds_many :instantiatesCanonical, class_name: 'PrimitiveCanonical'
     embeds_many :instantiatesUri, class_name: 'PrimitiveUri'
@@ -42,7 +41,7 @@ module FHIR
     embeds_one :patientInstruction, class_name: 'PrimitiveString'
     embeds_many :relevantHistory, class_name: 'Reference'
 
-    def self.transform_json(json_hash, target=ServiceRequest.new)
+    def self.transform_json(json_hash, target = ServiceRequest.new)
       result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['instantiatesCanonical'] = json_hash['instantiatesCanonical'].each_with_index.map do |var, i|

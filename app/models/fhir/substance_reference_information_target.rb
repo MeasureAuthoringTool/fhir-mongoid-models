@@ -2,7 +2,6 @@ module FHIR
   # fhir/substance_reference_information_target.rb
   class SubstanceReferenceInformationTarget < BackboneElement
     include Mongoid::Document
-    field :typeName, type: String, default: 'SubstanceReferenceInformationTarget'
     embeds_one :target, class_name: 'Identifier'
     embeds_one :type, class_name: 'CodeableConcept'
     embeds_one :interaction, class_name: 'CodeableConcept'
@@ -14,7 +13,7 @@ module FHIR
     embeds_one :amountType, class_name: 'CodeableConcept'
     embeds_many :source, class_name: 'Reference'
 
-    def self.transform_json(json_hash, target=SubstanceReferenceInformationTarget.new)
+    def self.transform_json(json_hash, target = SubstanceReferenceInformationTarget.new)
       result = self.superclass.transform_json(json_hash, target)
       result['target'] = Identifier.transform_json(json_hash['target']) unless json_hash['target'].nil?      
       result['type'] = CodeableConcept.transform_json(json_hash['type']) unless json_hash['type'].nil?      

@@ -2,7 +2,6 @@ module FHIR
   # fhir/questionnaire_item.rb
   class QuestionnaireItem < BackboneElement
     include Mongoid::Document
-    field :typeName, type: String, default: 'QuestionnaireItem'
     embeds_one :linkId, class_name: 'PrimitiveString'
     embeds_one :definition, class_name: 'PrimitiveUri'
     embeds_many :code, class_name: 'Coding'
@@ -20,7 +19,7 @@ module FHIR
     embeds_many :initial, class_name: 'QuestionnaireItemInitial'
     embeds_many :item, class_name: 'QuestionnaireItem'
 
-    def self.transform_json(json_hash, target=QuestionnaireItem.new)
+    def self.transform_json(json_hash, target = QuestionnaireItem.new)
       result = self.superclass.transform_json(json_hash, target)
       result['linkId'] = PrimitiveString.transform_json(json_hash['linkId'], json_hash['_linkId']) unless json_hash['linkId'].nil?      
       result['definition'] = PrimitiveUri.transform_json(json_hash['definition'], json_hash['_definition']) unless json_hash['definition'].nil?      

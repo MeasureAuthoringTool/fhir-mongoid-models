@@ -2,7 +2,6 @@ module FHIR
   # fhir/contract_term.rb
   class ContractTerm < BackboneElement
     include Mongoid::Document
-    field :typeName, type: String, default: 'ContractTerm'
     embeds_one :identifier, class_name: 'Identifier'
     embeds_one :issued, class_name: 'PrimitiveDateTime'
     embeds_one :applies, class_name: 'Period'
@@ -17,7 +16,7 @@ module FHIR
     embeds_many :action, class_name: 'ContractTermAction'
     embeds_many :group, class_name: 'ContractTerm'
 
-    def self.transform_json(json_hash, target=ContractTerm.new)
+    def self.transform_json(json_hash, target = ContractTerm.new)
       result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = Identifier.transform_json(json_hash['identifier']) unless json_hash['identifier'].nil?      
       result['issued'] = PrimitiveDateTime.transform_json(json_hash['issued'], json_hash['_issued']) unless json_hash['issued'].nil?      

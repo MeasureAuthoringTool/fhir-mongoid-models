@@ -2,14 +2,13 @@ module FHIR
   # fhir/implementation_guide_manifest.rb
   class ImplementationGuideManifest < BackboneElement
     include Mongoid::Document
-    field :typeName, type: String, default: 'ImplementationGuideManifest'
     embeds_one :rendering, class_name: 'PrimitiveUrl'
     embeds_many :resource, class_name: 'ImplementationGuideManifestResource'
     embeds_many :page, class_name: 'ImplementationGuideManifestPage'
     embeds_many :image, class_name: 'PrimitiveString'
     embeds_many :other, class_name: 'PrimitiveString'
 
-    def self.transform_json(json_hash, target=ImplementationGuideManifest.new)
+    def self.transform_json(json_hash, target = ImplementationGuideManifest.new)
       result = self.superclass.transform_json(json_hash, target)
       result['rendering'] = PrimitiveUrl.transform_json(json_hash['rendering'], json_hash['_rendering']) unless json_hash['rendering'].nil?      
       result['resource'] = json_hash['resource'].map { |var| ImplementationGuideManifestResource.transform_json(var) } unless json_hash['resource'].nil?

@@ -2,7 +2,6 @@ module FHIR
   # fhir/bundle_entry_request.rb
   class BundleEntryRequest < BackboneElement
     include Mongoid::Document
-    field :typeName, type: String, default: 'BundleEntryRequest'
     embeds_one :method, class_name: 'HTTPVerb'
     embeds_one :url, class_name: 'PrimitiveUri'
     embeds_one :ifNoneMatch, class_name: 'PrimitiveString'
@@ -10,7 +9,7 @@ module FHIR
     embeds_one :ifMatch, class_name: 'PrimitiveString'
     embeds_one :ifNoneExist, class_name: 'PrimitiveString'
 
-    def self.transform_json(json_hash, target=BundleEntryRequest.new)
+    def self.transform_json(json_hash, target = BundleEntryRequest.new)
       result = self.superclass.transform_json(json_hash, target)
       result['method'] = HTTPVerb.transform_json(json_hash['method']) unless json_hash['method'].nil?      
       result['url'] = PrimitiveUri.transform_json(json_hash['url'], json_hash['_url']) unless json_hash['url'].nil?      

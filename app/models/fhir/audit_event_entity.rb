@@ -2,7 +2,6 @@ module FHIR
   # fhir/audit_event_entity.rb
   class AuditEventEntity < BackboneElement
     include Mongoid::Document
-    field :typeName, type: String, default: 'AuditEventEntity'
     embeds_one :what, class_name: 'Reference'
     embeds_one :type, class_name: 'Coding'
     embeds_one :role, class_name: 'Coding'
@@ -13,7 +12,7 @@ module FHIR
     embeds_one :query, class_name: 'PrimitiveBase64Binary'
     embeds_many :detail, class_name: 'AuditEventEntityDetail'
 
-    def self.transform_json(json_hash, target=AuditEventEntity.new)
+    def self.transform_json(json_hash, target = AuditEventEntity.new)
       result = self.superclass.transform_json(json_hash, target)
       result['what'] = Reference.transform_json(json_hash['what']) unless json_hash['what'].nil?      
       result['type'] = Coding.transform_json(json_hash['type']) unless json_hash['type'].nil?      

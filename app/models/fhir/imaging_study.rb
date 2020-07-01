@@ -2,7 +2,6 @@ module FHIR
   # fhir/imaging_study.rb
   class ImagingStudy < DomainResource
     include Mongoid::Document
-    field :typeName, type: String, default: 'ImagingStudy'
     embeds_many :identifier, class_name: 'Identifier'
     embeds_one :status, class_name: 'ImagingStudyStatus'
     embeds_many :modality, class_name: 'Coding'
@@ -24,7 +23,7 @@ module FHIR
     embeds_one :description, class_name: 'PrimitiveString'
     embeds_many :series, class_name: 'ImagingStudySeries'
 
-    def self.transform_json(json_hash, target=ImagingStudy.new)
+    def self.transform_json(json_hash, target = ImagingStudy.new)
       result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['status'] = ImagingStudyStatus.transform_json(json_hash['status']) unless json_hash['status'].nil?      

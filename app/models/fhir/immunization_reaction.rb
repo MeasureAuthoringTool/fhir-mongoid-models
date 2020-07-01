@@ -2,12 +2,11 @@ module FHIR
   # fhir/immunization_reaction.rb
   class ImmunizationReaction < BackboneElement
     include Mongoid::Document
-    field :typeName, type: String, default: 'ImmunizationReaction'
     embeds_one :date, class_name: 'PrimitiveDateTime'
     embeds_one :detail, class_name: 'Reference'
     embeds_one :reported, class_name: 'PrimitiveBoolean'
 
-    def self.transform_json(json_hash, target=ImmunizationReaction.new)
+    def self.transform_json(json_hash, target = ImmunizationReaction.new)
       result = self.superclass.transform_json(json_hash, target)
       result['date'] = PrimitiveDateTime.transform_json(json_hash['date'], json_hash['_date']) unless json_hash['date'].nil?      
       result['detail'] = Reference.transform_json(json_hash['detail']) unless json_hash['detail'].nil?      

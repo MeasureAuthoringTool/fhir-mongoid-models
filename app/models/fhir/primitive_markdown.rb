@@ -2,9 +2,8 @@ module FHIR
   # fhir/primitive_markdown.rb
   class PrimitiveMarkdown < PrimitiveString
     include Mongoid::Document
-    field :typeName, type: String, default: 'PrimitiveMarkdown'
 
-    def self.transform_json(json_hash, extension_hash, target=PrimitiveMarkdown.new)
+    def self.transform_json(json_hash, extension_hash, target = PrimitiveMarkdown.new)
       result = target
       unless extension_hash.nil?
         result['id'] = extension_hash['id']

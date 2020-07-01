@@ -2,7 +2,6 @@ module FHIR
   # fhir/plan_definition_action.rb
   class PlanDefinitionAction < BackboneElement
     include Mongoid::Document
-    field :typeName, type: String, default: 'PlanDefinitionAction'
     embeds_one :prefix, class_name: 'PrimitiveString'
     embeds_one :title, class_name: 'PrimitiveString'
     embeds_one :description, class_name: 'PrimitiveString'
@@ -38,7 +37,7 @@ module FHIR
     embeds_many :dynamicValue, class_name: 'PlanDefinitionActionDynamicValue'
     embeds_many :action, class_name: 'PlanDefinitionAction'
 
-    def self.transform_json(json_hash, target=PlanDefinitionAction.new)
+    def self.transform_json(json_hash, target = PlanDefinitionAction.new)
       result = self.superclass.transform_json(json_hash, target)
       result['prefix'] = PrimitiveString.transform_json(json_hash['prefix'], json_hash['_prefix']) unless json_hash['prefix'].nil?      
       result['title'] = PrimitiveString.transform_json(json_hash['title'], json_hash['_title']) unless json_hash['title'].nil?      

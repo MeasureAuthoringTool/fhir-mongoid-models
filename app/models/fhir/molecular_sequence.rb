@@ -2,7 +2,6 @@ module FHIR
   # fhir/molecular_sequence.rb
   class MolecularSequence < DomainResource
     include Mongoid::Document
-    field :typeName, type: String, default: 'MolecularSequence'
     embeds_many :identifier, class_name: 'Identifier'
     embeds_one :type, class_name: 'SequenceType'
     embeds_one :coordinateSystem, class_name: 'PrimitiveInteger'
@@ -20,7 +19,7 @@ module FHIR
     embeds_many :pointer, class_name: 'Reference'
     embeds_many :structureVariant, class_name: 'MolecularSequenceStructureVariant'
 
-    def self.transform_json(json_hash, target=MolecularSequence.new)
+    def self.transform_json(json_hash, target = MolecularSequence.new)
       result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['type'] = SequenceType.transform_json(json_hash['type']) unless json_hash['type'].nil?      

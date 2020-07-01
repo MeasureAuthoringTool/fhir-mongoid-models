@@ -2,7 +2,6 @@ module FHIR
   # fhir/observation_component.rb
   class ObservationComponent < BackboneElement
     include Mongoid::Document
-    field :typeName, type: String, default: 'ObservationComponent'
     embeds_one :code, class_name: 'CodeableConcept'
     embeds_one :valueQuantity, class_name: 'Quantity'
     embeds_one :valueCodeableConcept, class_name: 'CodeableConcept'
@@ -19,7 +18,7 @@ module FHIR
     embeds_many :interpretation, class_name: 'CodeableConcept'
     embeds_many :referenceRange, class_name: 'ObservationReferenceRange'
 
-    def self.transform_json(json_hash, target=ObservationComponent.new)
+    def self.transform_json(json_hash, target = ObservationComponent.new)
       result = self.superclass.transform_json(json_hash, target)
       result['code'] = CodeableConcept.transform_json(json_hash['code']) unless json_hash['code'].nil?      
       result['valueQuantity'] = Quantity.transform_json(json_hash['valueQuantity']) unless json_hash['valueQuantity'].nil?      

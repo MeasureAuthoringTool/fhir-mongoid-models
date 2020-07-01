@@ -2,9 +2,8 @@ module FHIR
   # fhir/primitive_canonical.rb
   class PrimitiveCanonical < PrimitiveUri
     include Mongoid::Document
-    field :typeName, type: String, default: 'PrimitiveCanonical'
 
-    def self.transform_json(json_hash, extension_hash, target=PrimitiveCanonical.new)
+    def self.transform_json(json_hash, extension_hash, target = PrimitiveCanonical.new)
       result = target
       unless extension_hash.nil?
         result['id'] = extension_hash['id']

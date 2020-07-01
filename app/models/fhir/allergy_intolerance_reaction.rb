@@ -2,7 +2,6 @@ module FHIR
   # fhir/allergy_intolerance_reaction.rb
   class AllergyIntoleranceReaction < BackboneElement
     include Mongoid::Document
-    field :typeName, type: String, default: 'AllergyIntoleranceReaction'
     embeds_one :substance, class_name: 'CodeableConcept'
     embeds_many :manifestation, class_name: 'CodeableConcept'
     embeds_one :description, class_name: 'PrimitiveString'
@@ -11,7 +10,7 @@ module FHIR
     embeds_one :exposureRoute, class_name: 'CodeableConcept'
     embeds_many :note, class_name: 'Annotation'
 
-    def self.transform_json(json_hash, target=AllergyIntoleranceReaction.new)
+    def self.transform_json(json_hash, target = AllergyIntoleranceReaction.new)
       result = self.superclass.transform_json(json_hash, target)
       result['substance'] = CodeableConcept.transform_json(json_hash['substance']) unless json_hash['substance'].nil?      
       result['manifestation'] = json_hash['manifestation'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['manifestation'].nil?

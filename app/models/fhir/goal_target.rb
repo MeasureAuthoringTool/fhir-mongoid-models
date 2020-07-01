@@ -2,7 +2,6 @@ module FHIR
   # fhir/goal_target.rb
   class GoalTarget < BackboneElement
     include Mongoid::Document
-    field :typeName, type: String, default: 'GoalTarget'
     embeds_one :measure, class_name: 'CodeableConcept'
     embeds_one :detailQuantity, class_name: 'Quantity'
     embeds_one :detailRange, class_name: 'Range'
@@ -14,7 +13,7 @@ module FHIR
     embeds_one :dueDate, class_name: 'PrimitiveDate'
     embeds_one :dueDuration, class_name: 'Duration'
 
-    def self.transform_json(json_hash, target=GoalTarget.new)
+    def self.transform_json(json_hash, target = GoalTarget.new)
       result = self.superclass.transform_json(json_hash, target)
       result['measure'] = CodeableConcept.transform_json(json_hash['measure']) unless json_hash['measure'].nil?      
       result['detailQuantity'] = Quantity.transform_json(json_hash['detailQuantity']) unless json_hash['detailQuantity'].nil?      

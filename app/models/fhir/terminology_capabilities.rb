@@ -2,7 +2,6 @@ module FHIR
   # fhir/terminology_capabilities.rb
   class TerminologyCapabilities < DomainResource
     include Mongoid::Document
-    field :typeName, type: String, default: 'TerminologyCapabilities'
     embeds_one :url, class_name: 'PrimitiveUri'
     embeds_one :version, class_name: 'PrimitiveString'
     embeds_one :name, class_name: 'PrimitiveString'
@@ -28,7 +27,7 @@ module FHIR
     embeds_one :translation, class_name: 'TerminologyCapabilitiesTranslation'
     embeds_one :closure, class_name: 'TerminologyCapabilitiesClosure'
 
-    def self.transform_json(json_hash, target=TerminologyCapabilities.new)
+    def self.transform_json(json_hash, target = TerminologyCapabilities.new)
       result = self.superclass.transform_json(json_hash, target)
       result['url'] = PrimitiveUri.transform_json(json_hash['url'], json_hash['_url']) unless json_hash['url'].nil?      
       result['version'] = PrimitiveString.transform_json(json_hash['version'], json_hash['_version']) unless json_hash['version'].nil?      

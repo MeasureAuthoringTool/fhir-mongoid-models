@@ -2,7 +2,6 @@ module FHIR
   # fhir/substance_specification.rb
   class SubstanceSpecification < DomainResource
     include Mongoid::Document
-    field :typeName, type: String, default: 'SubstanceSpecification'
     embeds_one :identifier, class_name: 'Identifier'
     embeds_one :type, class_name: 'CodeableConcept'
     embeds_one :status, class_name: 'CodeableConcept'
@@ -23,7 +22,7 @@ module FHIR
     embeds_one :protein, class_name: 'Reference'
     embeds_one :sourceMaterial, class_name: 'Reference'
 
-    def self.transform_json(json_hash, target=SubstanceSpecification.new)
+    def self.transform_json(json_hash, target = SubstanceSpecification.new)
       result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = Identifier.transform_json(json_hash['identifier']) unless json_hash['identifier'].nil?      
       result['type'] = CodeableConcept.transform_json(json_hash['type']) unless json_hash['type'].nil?      

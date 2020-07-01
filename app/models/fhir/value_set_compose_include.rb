@@ -2,14 +2,13 @@ module FHIR
   # fhir/value_set_compose_include.rb
   class ValueSetComposeInclude < BackboneElement
     include Mongoid::Document
-    field :typeName, type: String, default: 'ValueSetComposeInclude'
     embeds_one :system, class_name: 'PrimitiveUri'
     embeds_one :version, class_name: 'PrimitiveString'
     embeds_many :concept, class_name: 'ValueSetComposeIncludeConcept'
     embeds_many :filter, class_name: 'ValueSetComposeIncludeFilter'
     embeds_many :valueSet, class_name: 'PrimitiveCanonical'
 
-    def self.transform_json(json_hash, target=ValueSetComposeInclude.new)
+    def self.transform_json(json_hash, target = ValueSetComposeInclude.new)
       result = self.superclass.transform_json(json_hash, target)
       result['system'] = PrimitiveUri.transform_json(json_hash['system'], json_hash['_system']) unless json_hash['system'].nil?      
       result['version'] = PrimitiveString.transform_json(json_hash['version'], json_hash['_version']) unless json_hash['version'].nil?      

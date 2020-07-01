@@ -2,7 +2,6 @@ module FHIR
   # fhir/claim_supporting_info.rb
   class ClaimSupportingInfo < BackboneElement
     include Mongoid::Document
-    field :typeName, type: String, default: 'ClaimSupportingInfo'
     embeds_one :sequence, class_name: 'PrimitivePositiveInt'
     embeds_one :category, class_name: 'CodeableConcept'
     embeds_one :code, class_name: 'CodeableConcept'
@@ -15,7 +14,7 @@ module FHIR
     embeds_one :valueReference, class_name: 'Reference'
     embeds_one :reason, class_name: 'CodeableConcept'
 
-    def self.transform_json(json_hash, target=ClaimSupportingInfo.new)
+    def self.transform_json(json_hash, target = ClaimSupportingInfo.new)
       result = self.superclass.transform_json(json_hash, target)
       result['sequence'] = PrimitivePositiveInt.transform_json(json_hash['sequence'], json_hash['_sequence']) unless json_hash['sequence'].nil?      
       result['category'] = CodeableConcept.transform_json(json_hash['category']) unless json_hash['category'].nil?      

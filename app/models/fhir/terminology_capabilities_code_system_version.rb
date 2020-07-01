@@ -2,7 +2,6 @@ module FHIR
   # fhir/terminology_capabilities_code_system_version.rb
   class TerminologyCapabilitiesCodeSystemVersion < BackboneElement
     include Mongoid::Document
-    field :typeName, type: String, default: 'TerminologyCapabilitiesCodeSystemVersion'
     embeds_one :code, class_name: 'PrimitiveString'
     embeds_one :isDefault, class_name: 'PrimitiveBoolean'
     embeds_one :compositional, class_name: 'PrimitiveBoolean'
@@ -10,7 +9,7 @@ module FHIR
     embeds_many :filter, class_name: 'TerminologyCapabilitiesCodeSystemVersionFilter'
     embeds_many :property, class_name: 'PrimitiveCode'
 
-    def self.transform_json(json_hash, target=TerminologyCapabilitiesCodeSystemVersion.new)
+    def self.transform_json(json_hash, target = TerminologyCapabilitiesCodeSystemVersion.new)
       result = self.superclass.transform_json(json_hash, target)
       result['code'] = PrimitiveString.transform_json(json_hash['code'], json_hash['_code']) unless json_hash['code'].nil?      
       result['isDefault'] = PrimitiveBoolean.transform_json(json_hash['isDefault'], json_hash['_isDefault']) unless json_hash['isDefault'].nil?      

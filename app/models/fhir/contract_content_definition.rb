@@ -2,7 +2,6 @@ module FHIR
   # fhir/contract_content_definition.rb
   class ContractContentDefinition < BackboneElement
     include Mongoid::Document
-    field :typeName, type: String, default: 'ContractContentDefinition'
     embeds_one :type, class_name: 'CodeableConcept'
     embeds_one :subType, class_name: 'CodeableConcept'
     embeds_one :publisher, class_name: 'Reference'
@@ -10,7 +9,7 @@ module FHIR
     embeds_one :publicationStatus, class_name: 'ContractPublicationStatus'
     embeds_one :copyright, class_name: 'PrimitiveMarkdown'
 
-    def self.transform_json(json_hash, target=ContractContentDefinition.new)
+    def self.transform_json(json_hash, target = ContractContentDefinition.new)
       result = self.superclass.transform_json(json_hash, target)
       result['type'] = CodeableConcept.transform_json(json_hash['type']) unless json_hash['type'].nil?      
       result['subType'] = CodeableConcept.transform_json(json_hash['subType']) unless json_hash['subType'].nil?      

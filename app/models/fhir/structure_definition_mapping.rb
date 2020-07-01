@@ -2,13 +2,12 @@ module FHIR
   # fhir/structure_definition_mapping.rb
   class StructureDefinitionMapping < BackboneElement
     include Mongoid::Document
-    field :typeName, type: String, default: 'StructureDefinitionMapping'
     embeds_one :identity, class_name: 'PrimitiveId'
     embeds_one :uri, class_name: 'PrimitiveUri'
     embeds_one :name, class_name: 'PrimitiveString'
     embeds_one :comment, class_name: 'PrimitiveString'
 
-    def self.transform_json(json_hash, target=StructureDefinitionMapping.new)
+    def self.transform_json(json_hash, target = StructureDefinitionMapping.new)
       result = self.superclass.transform_json(json_hash, target)
       result['identity'] = PrimitiveId.transform_json(json_hash['identity'], json_hash['_identity']) unless json_hash['identity'].nil?      
       result['uri'] = PrimitiveUri.transform_json(json_hash['uri'], json_hash['_uri']) unless json_hash['uri'].nil?      

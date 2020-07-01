@@ -2,7 +2,6 @@ module FHIR
   # fhir/vision_prescription.rb
   class VisionPrescription < DomainResource
     include Mongoid::Document
-    field :typeName, type: String, default: 'VisionPrescription'
     embeds_many :identifier, class_name: 'Identifier'
     embeds_one :status, class_name: 'VisionStatus'
     embeds_one :created, class_name: 'PrimitiveDateTime'
@@ -12,7 +11,7 @@ module FHIR
     embeds_one :prescriber, class_name: 'Reference'
     embeds_many :lensSpecification, class_name: 'VisionPrescriptionLensSpecification'
 
-    def self.transform_json(json_hash, target=VisionPrescription.new)
+    def self.transform_json(json_hash, target = VisionPrescription.new)
       result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['status'] = VisionStatus.transform_json(json_hash['status']) unless json_hash['status'].nil?      

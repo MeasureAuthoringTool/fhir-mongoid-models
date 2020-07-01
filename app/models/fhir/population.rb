@@ -2,14 +2,13 @@ module FHIR
   # fhir/population.rb
   class Population < BackboneElement
     include Mongoid::Document
-    field :typeName, type: String, default: 'Population'
     embeds_one :ageRange, class_name: 'Range'
     embeds_one :ageCodeableConcept, class_name: 'CodeableConcept'
     embeds_one :gender, class_name: 'CodeableConcept'
     embeds_one :race, class_name: 'CodeableConcept'
     embeds_one :physiologicalCondition, class_name: 'CodeableConcept'
 
-    def self.transform_json(json_hash, target=Population.new)
+    def self.transform_json(json_hash, target = Population.new)
       result = self.superclass.transform_json(json_hash, target)
       result['ageRange'] = Range.transform_json(json_hash['ageRange']) unless json_hash['ageRange'].nil?      
       result['ageCodeableConcept'] = CodeableConcept.transform_json(json_hash['ageCodeableConcept']) unless json_hash['ageCodeableConcept'].nil?      

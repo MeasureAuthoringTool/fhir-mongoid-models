@@ -2,7 +2,6 @@ module FHIR
   # fhir/plan_definition_goal.rb
   class PlanDefinitionGoal < BackboneElement
     include Mongoid::Document
-    field :typeName, type: String, default: 'PlanDefinitionGoal'
     embeds_one :category, class_name: 'CodeableConcept'
     embeds_one :description, class_name: 'CodeableConcept'
     embeds_one :priority, class_name: 'CodeableConcept'
@@ -11,7 +10,7 @@ module FHIR
     embeds_many :documentation, class_name: 'RelatedArtifact'
     embeds_many :target, class_name: 'PlanDefinitionGoalTarget'
 
-    def self.transform_json(json_hash, target=PlanDefinitionGoal.new)
+    def self.transform_json(json_hash, target = PlanDefinitionGoal.new)
       result = self.superclass.transform_json(json_hash, target)
       result['category'] = CodeableConcept.transform_json(json_hash['category']) unless json_hash['category'].nil?      
       result['description'] = CodeableConcept.transform_json(json_hash['description']) unless json_hash['description'].nil?      

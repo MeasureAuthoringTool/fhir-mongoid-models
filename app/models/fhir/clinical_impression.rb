@@ -2,7 +2,6 @@ module FHIR
   # fhir/clinical_impression.rb
   class ClinicalImpression < DomainResource
     include Mongoid::Document
-    field :typeName, type: String, default: 'ClinicalImpression'
     embeds_many :identifier, class_name: 'Identifier'
     embeds_one :status, class_name: 'ClinicalImpressionStatus'
     embeds_one :statusReason, class_name: 'CodeableConcept'
@@ -25,7 +24,7 @@ module FHIR
     embeds_many :supportingInfo, class_name: 'Reference'
     embeds_many :note, class_name: 'Annotation'
 
-    def self.transform_json(json_hash, target=ClinicalImpression.new)
+    def self.transform_json(json_hash, target = ClinicalImpression.new)
       result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['status'] = ClinicalImpressionStatus.transform_json(json_hash['status']) unless json_hash['status'].nil?      

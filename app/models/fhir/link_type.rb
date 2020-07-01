@@ -2,10 +2,9 @@ module FHIR
   # fhir/link_type.rb
   class LinkType < Element
     include Mongoid::Document
-    field :typeName, type: String, default: 'LinkType'
     field :value, type: String
 
-    def self.transform_json(json_hash, target=LinkType.new)
+    def self.transform_json(json_hash, target = LinkType.new)
       result = self.superclass.transform_json(json_hash, target)
       result['value'] = json_hash['value'] unless json_hash['value'].nil?
 

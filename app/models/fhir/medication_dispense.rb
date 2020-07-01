@@ -2,7 +2,6 @@ module FHIR
   # fhir/medication_dispense.rb
   class MedicationDispense < DomainResource
     include Mongoid::Document
-    field :typeName, type: String, default: 'MedicationDispense'
     embeds_many :identifier, class_name: 'Identifier'
     embeds_many :partOf, class_name: 'Reference'
     embeds_one :status, class_name: 'MedicationDispenseStatus'
@@ -30,7 +29,7 @@ module FHIR
     embeds_many :detectedIssue, class_name: 'Reference'
     embeds_many :eventHistory, class_name: 'Reference'
 
-    def self.transform_json(json_hash, target=MedicationDispense.new)
+    def self.transform_json(json_hash, target = MedicationDispense.new)
       result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['partOf'] = json_hash['partOf'].map { |var| Reference.transform_json(var) } unless json_hash['partOf'].nil?

@@ -2,7 +2,6 @@ module FHIR
   # fhir/payment_reconciliation.rb
   class PaymentReconciliation < DomainResource
     include Mongoid::Document
-    field :typeName, type: String, default: 'PaymentReconciliation'
     embeds_many :identifier, class_name: 'Identifier'
     embeds_one :status, class_name: 'PaymentReconciliationStatus'
     embeds_one :period, class_name: 'Period'
@@ -19,7 +18,7 @@ module FHIR
     embeds_one :formCode, class_name: 'CodeableConcept'
     embeds_many :processNote, class_name: 'PaymentReconciliationProcessNote'
 
-    def self.transform_json(json_hash, target=PaymentReconciliation.new)
+    def self.transform_json(json_hash, target = PaymentReconciliation.new)
       result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['status'] = PaymentReconciliationStatus.transform_json(json_hash['status']) unless json_hash['status'].nil?      

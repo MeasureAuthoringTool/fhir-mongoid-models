@@ -2,10 +2,9 @@ module FHIR
   # fhir/graph_compartment_use.rb
   class GraphCompartmentUse < Element
     include Mongoid::Document
-    field :typeName, type: String, default: 'GraphCompartmentUse'
     field :value, type: String
 
-    def self.transform_json(json_hash, target=GraphCompartmentUse.new)
+    def self.transform_json(json_hash, target = GraphCompartmentUse.new)
       result = self.superclass.transform_json(json_hash, target)
       result['value'] = json_hash['value'] unless json_hash['value'].nil?
 

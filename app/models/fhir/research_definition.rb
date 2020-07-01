@@ -2,7 +2,6 @@ module FHIR
   # fhir/research_definition.rb
   class ResearchDefinition < DomainResource
     include Mongoid::Document
-    field :typeName, type: String, default: 'ResearchDefinition'
     embeds_one :url, class_name: 'PrimitiveUri'
     embeds_many :identifier, class_name: 'Identifier'
     embeds_one :version, class_name: 'PrimitiveString'
@@ -39,7 +38,7 @@ module FHIR
     embeds_one :exposureAlternative, class_name: 'Reference'
     embeds_one :outcome, class_name: 'Reference'
 
-    def self.transform_json(json_hash, target=ResearchDefinition.new)
+    def self.transform_json(json_hash, target = ResearchDefinition.new)
       result = self.superclass.transform_json(json_hash, target)
       result['url'] = PrimitiveUri.transform_json(json_hash['url'], json_hash['_url']) unless json_hash['url'].nil?      
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?

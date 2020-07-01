@@ -2,12 +2,11 @@ module FHIR
   # fhir/measure_report_group_stratifier_stratum_population.rb
   class MeasureReportGroupStratifierStratumPopulation < BackboneElement
     include Mongoid::Document
-    field :typeName, type: String, default: 'MeasureReportGroupStratifierStratumPopulation'
     embeds_one :code, class_name: 'CodeableConcept'
     embeds_one :count, class_name: 'PrimitiveInteger'
     embeds_one :subjectResults, class_name: 'Reference'
 
-    def self.transform_json(json_hash, target=MeasureReportGroupStratifierStratumPopulation.new)
+    def self.transform_json(json_hash, target = MeasureReportGroupStratifierStratumPopulation.new)
       result = self.superclass.transform_json(json_hash, target)
       result['code'] = CodeableConcept.transform_json(json_hash['code']) unless json_hash['code'].nil?      
       result['count'] = PrimitiveInteger.transform_json(json_hash['count'], json_hash['_count']) unless json_hash['count'].nil?      

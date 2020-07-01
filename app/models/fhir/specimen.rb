@@ -2,7 +2,6 @@ module FHIR
   # fhir/specimen.rb
   class Specimen < DomainResource
     include Mongoid::Document
-    field :typeName, type: String, default: 'Specimen'
     embeds_many :identifier, class_name: 'Identifier'
     embeds_one :accessionIdentifier, class_name: 'Identifier'
     embeds_one :status, class_name: 'SpecimenStatus'
@@ -23,7 +22,7 @@ module FHIR
       res
     end
 
-    def self.transform_json(json_hash, target=Specimen.new)
+    def self.transform_json(json_hash, target = Specimen.new)
       result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['accessionIdentifier'] = Identifier.transform_json(json_hash['accessionIdentifier']) unless json_hash['accessionIdentifier'].nil?      

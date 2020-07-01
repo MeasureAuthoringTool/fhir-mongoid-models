@@ -2,7 +2,6 @@ module FHIR
   # fhir/test_script_setup_action_assert.rb
   class TestScriptSetupActionAssert < BackboneElement
     include Mongoid::Document
-    field :typeName, type: String, default: 'TestScriptSetupActionAssert'
     embeds_one :label, class_name: 'PrimitiveString'
     embeds_one :description, class_name: 'PrimitiveString'
     embeds_one :direction, class_name: 'AssertionDirectionType'
@@ -26,7 +25,7 @@ module FHIR
     embeds_one :value, class_name: 'PrimitiveString'
     embeds_one :warningOnly, class_name: 'PrimitiveBoolean'
 
-    def self.transform_json(json_hash, target=TestScriptSetupActionAssert.new)
+    def self.transform_json(json_hash, target = TestScriptSetupActionAssert.new)
       result = self.superclass.transform_json(json_hash, target)
       result['label'] = PrimitiveString.transform_json(json_hash['label'], json_hash['_label']) unless json_hash['label'].nil?      
       result['description'] = PrimitiveString.transform_json(json_hash['description'], json_hash['_description']) unless json_hash['description'].nil?      

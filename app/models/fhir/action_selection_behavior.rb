@@ -2,10 +2,9 @@ module FHIR
   # fhir/action_selection_behavior.rb
   class ActionSelectionBehavior < Element
     include Mongoid::Document
-    field :typeName, type: String, default: 'ActionSelectionBehavior'
     field :value, type: String
 
-    def self.transform_json(json_hash, target=ActionSelectionBehavior.new)
+    def self.transform_json(json_hash, target = ActionSelectionBehavior.new)
       result = self.superclass.transform_json(json_hash, target)
       result['value'] = json_hash['value'] unless json_hash['value'].nil?
 

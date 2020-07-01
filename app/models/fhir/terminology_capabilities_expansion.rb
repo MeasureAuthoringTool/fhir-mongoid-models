@@ -2,14 +2,13 @@ module FHIR
   # fhir/terminology_capabilities_expansion.rb
   class TerminologyCapabilitiesExpansion < BackboneElement
     include Mongoid::Document
-    field :typeName, type: String, default: 'TerminologyCapabilitiesExpansion'
     embeds_one :hierarchical, class_name: 'PrimitiveBoolean'
     embeds_one :paging, class_name: 'PrimitiveBoolean'
     embeds_one :incomplete, class_name: 'PrimitiveBoolean'
     embeds_many :parameter, class_name: 'TerminologyCapabilitiesExpansionParameter'
     embeds_one :textFilter, class_name: 'PrimitiveMarkdown'
 
-    def self.transform_json(json_hash, target=TerminologyCapabilitiesExpansion.new)
+    def self.transform_json(json_hash, target = TerminologyCapabilitiesExpansion.new)
       result = self.superclass.transform_json(json_hash, target)
       result['hierarchical'] = PrimitiveBoolean.transform_json(json_hash['hierarchical'], json_hash['_hierarchical']) unless json_hash['hierarchical'].nil?      
       result['paging'] = PrimitiveBoolean.transform_json(json_hash['paging'], json_hash['_paging']) unless json_hash['paging'].nil?      

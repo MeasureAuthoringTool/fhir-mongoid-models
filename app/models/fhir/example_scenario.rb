@@ -2,7 +2,6 @@ module FHIR
   # fhir/example_scenario.rb
   class ExampleScenario < DomainResource
     include Mongoid::Document
-    field :typeName, type: String, default: 'ExampleScenario'
     embeds_one :url, class_name: 'PrimitiveUri'
     embeds_many :identifier, class_name: 'Identifier'
     embeds_one :version, class_name: 'PrimitiveString'
@@ -21,7 +20,7 @@ module FHIR
     embeds_many :process, class_name: 'ExampleScenarioProcess'
     embeds_many :workflow, class_name: 'PrimitiveCanonical'
 
-    def self.transform_json(json_hash, target=ExampleScenario.new)
+    def self.transform_json(json_hash, target = ExampleScenario.new)
       result = self.superclass.transform_json(json_hash, target)
       result['url'] = PrimitiveUri.transform_json(json_hash['url'], json_hash['_url']) unless json_hash['url'].nil?      
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?

@@ -2,10 +2,9 @@ module FHIR
   # fhir/terminology_capabilities_validate_code.rb
   class TerminologyCapabilitiesValidateCode < BackboneElement
     include Mongoid::Document
-    field :typeName, type: String, default: 'TerminologyCapabilitiesValidateCode'
     embeds_one :translations, class_name: 'PrimitiveBoolean'
 
-    def self.transform_json(json_hash, target=TerminologyCapabilitiesValidateCode.new)
+    def self.transform_json(json_hash, target = TerminologyCapabilitiesValidateCode.new)
       result = self.superclass.transform_json(json_hash, target)
       result['translations'] = PrimitiveBoolean.transform_json(json_hash['translations'], json_hash['_translations']) unless json_hash['translations'].nil?      
 

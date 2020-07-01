@@ -2,7 +2,6 @@ module FHIR
   # fhir/adverse_event.rb
   class AdverseEvent < DomainResource
     include Mongoid::Document
-    field :typeName, type: String, default: 'AdverseEvent'
     embeds_one :identifier, class_name: 'Identifier'
     embeds_one :actuality, class_name: 'AdverseEventActuality'
     embeds_many :category, class_name: 'CodeableConcept'
@@ -24,7 +23,7 @@ module FHIR
     embeds_many :referenceDocument, class_name: 'Reference'
     embeds_many :study, class_name: 'Reference'
 
-    def self.transform_json(json_hash, target=AdverseEvent.new)
+    def self.transform_json(json_hash, target = AdverseEvent.new)
       result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = Identifier.transform_json(json_hash['identifier']) unless json_hash['identifier'].nil?      
       result['actuality'] = AdverseEventActuality.transform_json(json_hash['actuality']) unless json_hash['actuality'].nil?      

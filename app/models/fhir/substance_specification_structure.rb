@@ -2,7 +2,6 @@ module FHIR
   # fhir/substance_specification_structure.rb
   class SubstanceSpecificationStructure < BackboneElement
     include Mongoid::Document
-    field :typeName, type: String, default: 'SubstanceSpecificationStructure'
     embeds_one :stereochemistry, class_name: 'CodeableConcept'
     embeds_one :opticalActivity, class_name: 'CodeableConcept'
     embeds_one :molecularFormula, class_name: 'PrimitiveString'
@@ -12,7 +11,7 @@ module FHIR
     embeds_many :source, class_name: 'Reference'
     embeds_many :representation, class_name: 'SubstanceSpecificationStructureRepresentation'
 
-    def self.transform_json(json_hash, target=SubstanceSpecificationStructure.new)
+    def self.transform_json(json_hash, target = SubstanceSpecificationStructure.new)
       result = self.superclass.transform_json(json_hash, target)
       result['stereochemistry'] = CodeableConcept.transform_json(json_hash['stereochemistry']) unless json_hash['stereochemistry'].nil?      
       result['opticalActivity'] = CodeableConcept.transform_json(json_hash['opticalActivity']) unless json_hash['opticalActivity'].nil?      

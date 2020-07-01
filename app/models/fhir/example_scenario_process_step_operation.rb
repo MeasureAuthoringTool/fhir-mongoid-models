@@ -2,7 +2,6 @@ module FHIR
   # fhir/example_scenario_process_step_operation.rb
   class ExampleScenarioProcessStepOperation < BackboneElement
     include Mongoid::Document
-    field :typeName, type: String, default: 'ExampleScenarioProcessStepOperation'
     embeds_one :number, class_name: 'PrimitiveString'
     embeds_one :type, class_name: 'PrimitiveString'
     embeds_one :name, class_name: 'PrimitiveString'
@@ -14,7 +13,7 @@ module FHIR
     embeds_one :request, class_name: 'ExampleScenarioInstanceContainedInstance'
     embeds_one :response, class_name: 'ExampleScenarioInstanceContainedInstance'
 
-    def self.transform_json(json_hash, target=ExampleScenarioProcessStepOperation.new)
+    def self.transform_json(json_hash, target = ExampleScenarioProcessStepOperation.new)
       result = self.superclass.transform_json(json_hash, target)
       result['number'] = PrimitiveString.transform_json(json_hash['number'], json_hash['_number']) unless json_hash['number'].nil?      
       result['type'] = PrimitiveString.transform_json(json_hash['type'], json_hash['_type']) unless json_hash['type'].nil?      

@@ -2,7 +2,6 @@ module FHIR
   # fhir/nutrition_order_enteral_formula.rb
   class NutritionOrderEnteralFormula < BackboneElement
     include Mongoid::Document
-    field :typeName, type: String, default: 'NutritionOrderEnteralFormula'
     embeds_one :baseFormulaType, class_name: 'CodeableConcept'
     embeds_one :baseFormulaProductName, class_name: 'PrimitiveString'
     embeds_one :additiveType, class_name: 'CodeableConcept'
@@ -13,7 +12,7 @@ module FHIR
     embeds_one :maxVolumeToDeliver, class_name: 'SimpleQuantity'
     embeds_one :administrationInstruction, class_name: 'PrimitiveString'
 
-    def self.transform_json(json_hash, target=NutritionOrderEnteralFormula.new)
+    def self.transform_json(json_hash, target = NutritionOrderEnteralFormula.new)
       result = self.superclass.transform_json(json_hash, target)
       result['baseFormulaType'] = CodeableConcept.transform_json(json_hash['baseFormulaType']) unless json_hash['baseFormulaType'].nil?      
       result['baseFormulaProductName'] = PrimitiveString.transform_json(json_hash['baseFormulaProductName'], json_hash['_baseFormulaProductName']) unless json_hash['baseFormulaProductName'].nil?      

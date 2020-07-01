@@ -2,7 +2,6 @@ module FHIR
   # fhir/composition.rb
   class Composition < DomainResource
     include Mongoid::Document
-    field :typeName, type: String, default: 'Composition'
     embeds_one :identifier, class_name: 'Identifier'
     embeds_one :status, class_name: 'CompositionStatus'
     embeds_one :type, class_name: 'CodeableConcept'
@@ -19,7 +18,7 @@ module FHIR
     embeds_many :event, class_name: 'CompositionEvent'
     embeds_many :section, class_name: 'CompositionSection'
 
-    def self.transform_json(json_hash, target=Composition.new)
+    def self.transform_json(json_hash, target = Composition.new)
       result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = Identifier.transform_json(json_hash['identifier']) unless json_hash['identifier'].nil?      
       result['status'] = CompositionStatus.transform_json(json_hash['status']) unless json_hash['status'].nil?      

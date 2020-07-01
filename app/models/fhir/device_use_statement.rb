@@ -2,7 +2,6 @@ module FHIR
   # fhir/device_use_statement.rb
   class DeviceUseStatement < DomainResource
     include Mongoid::Document
-    field :typeName, type: String, default: 'DeviceUseStatement'
     embeds_many :identifier, class_name: 'Identifier'
     embeds_many :basedOn, class_name: 'Reference'
     embeds_one :status, class_name: 'DeviceUseStatementStatus'
@@ -19,7 +18,7 @@ module FHIR
     embeds_one :bodySite, class_name: 'CodeableConcept'
     embeds_many :note, class_name: 'Annotation'
 
-    def self.transform_json(json_hash, target=DeviceUseStatement.new)
+    def self.transform_json(json_hash, target = DeviceUseStatement.new)
       result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['basedOn'] = json_hash['basedOn'].map { |var| Reference.transform_json(var) } unless json_hash['basedOn'].nil?

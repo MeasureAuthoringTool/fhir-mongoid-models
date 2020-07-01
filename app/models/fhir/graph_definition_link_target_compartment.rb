@@ -2,14 +2,13 @@ module FHIR
   # fhir/graph_definition_link_target_compartment.rb
   class GraphDefinitionLinkTargetCompartment < BackboneElement
     include Mongoid::Document
-    field :typeName, type: String, default: 'GraphDefinitionLinkTargetCompartment'
     embeds_one :use, class_name: 'GraphCompartmentUse'
     embeds_one :code, class_name: 'CompartmentCode'
     embeds_one :rule, class_name: 'GraphCompartmentRule'
     embeds_one :expression, class_name: 'PrimitiveString'
     embeds_one :description, class_name: 'PrimitiveString'
 
-    def self.transform_json(json_hash, target=GraphDefinitionLinkTargetCompartment.new)
+    def self.transform_json(json_hash, target = GraphDefinitionLinkTargetCompartment.new)
       result = self.superclass.transform_json(json_hash, target)
       result['use'] = GraphCompartmentUse.transform_json(json_hash['use']) unless json_hash['use'].nil?      
       result['code'] = CompartmentCode.transform_json(json_hash['code']) unless json_hash['code'].nil?      

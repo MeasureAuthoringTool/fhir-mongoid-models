@@ -2,7 +2,6 @@ module FHIR
   # fhir/practitioner.rb
   class Practitioner < DomainResource
     include Mongoid::Document
-    field :typeName, type: String, default: 'Practitioner'
     embeds_many :identifier, class_name: 'Identifier'
     embeds_one :active, class_name: 'PrimitiveBoolean'
     embeds_many :name, class_name: 'HumanName'
@@ -14,7 +13,7 @@ module FHIR
     embeds_many :qualification, class_name: 'PractitionerQualification'
     embeds_many :communication, class_name: 'CodeableConcept'
 
-    def self.transform_json(json_hash, target=Practitioner.new)
+    def self.transform_json(json_hash, target = Practitioner.new)
       result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['active'] = PrimitiveBoolean.transform_json(json_hash['active'], json_hash['_active']) unless json_hash['active'].nil?      

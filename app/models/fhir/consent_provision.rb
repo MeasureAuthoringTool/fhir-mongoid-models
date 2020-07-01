@@ -2,7 +2,6 @@ module FHIR
   # fhir/consent_provision.rb
   class ConsentProvision < BackboneElement
     include Mongoid::Document
-    field :typeName, type: String, default: 'ConsentProvision'
     embeds_one :type, class_name: 'ConsentProvisionType'
     embeds_one :period, class_name: 'Period'
     embeds_many :actor, class_name: 'ConsentProvisionActor'
@@ -15,7 +14,7 @@ module FHIR
     embeds_many :data, class_name: 'ConsentProvisionData'
     embeds_many :provision, class_name: 'ConsentProvision'
 
-    def self.transform_json(json_hash, target=ConsentProvision.new)
+    def self.transform_json(json_hash, target = ConsentProvision.new)
       result = self.superclass.transform_json(json_hash, target)
       result['type'] = ConsentProvisionType.transform_json(json_hash['type']) unless json_hash['type'].nil?      
       result['period'] = Period.transform_json(json_hash['period']) unless json_hash['period'].nil?      

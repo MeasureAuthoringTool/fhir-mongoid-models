@@ -2,7 +2,6 @@ module FHIR
   # fhir/explanation_of_benefit_benefit_balance.rb
   class ExplanationOfBenefitBenefitBalance < BackboneElement
     include Mongoid::Document
-    field :typeName, type: String, default: 'ExplanationOfBenefitBenefitBalance'
     embeds_one :category, class_name: 'CodeableConcept'
     embeds_one :excluded, class_name: 'PrimitiveBoolean'
     embeds_one :name, class_name: 'PrimitiveString'
@@ -12,7 +11,7 @@ module FHIR
     embeds_one :term, class_name: 'CodeableConcept'
     embeds_many :financial, class_name: 'ExplanationOfBenefitBenefitBalanceFinancial'
 
-    def self.transform_json(json_hash, target=ExplanationOfBenefitBenefitBalance.new)
+    def self.transform_json(json_hash, target = ExplanationOfBenefitBenefitBalance.new)
       result = self.superclass.transform_json(json_hash, target)
       result['category'] = CodeableConcept.transform_json(json_hash['category']) unless json_hash['category'].nil?      
       result['excluded'] = PrimitiveBoolean.transform_json(json_hash['excluded'], json_hash['_excluded']) unless json_hash['excluded'].nil?      

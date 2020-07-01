@@ -2,7 +2,6 @@ module FHIR
   # fhir/immunization_recommendation_recommendation.rb
   class ImmunizationRecommendationRecommendation < BackboneElement
     include Mongoid::Document
-    field :typeName, type: String, default: 'ImmunizationRecommendationRecommendation'
     embeds_many :vaccineCode, class_name: 'CodeableConcept'
     embeds_one :targetDisease, class_name: 'CodeableConcept'
     embeds_many :contraindicatedVaccineCode, class_name: 'CodeableConcept'
@@ -18,7 +17,7 @@ module FHIR
     embeds_many :supportingImmunization, class_name: 'Reference'
     embeds_many :supportingPatientInformation, class_name: 'Reference'
 
-    def self.transform_json(json_hash, target=ImmunizationRecommendationRecommendation.new)
+    def self.transform_json(json_hash, target = ImmunizationRecommendationRecommendation.new)
       result = self.superclass.transform_json(json_hash, target)
       result['vaccineCode'] = json_hash['vaccineCode'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['vaccineCode'].nil?
       result['targetDisease'] = CodeableConcept.transform_json(json_hash['targetDisease']) unless json_hash['targetDisease'].nil?      

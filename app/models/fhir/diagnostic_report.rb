@@ -2,7 +2,6 @@ module FHIR
   # fhir/diagnostic_report.rb
   class DiagnosticReport < DomainResource
     include Mongoid::Document
-    field :typeName, type: String, default: 'DiagnosticReport'
     embeds_many :identifier, class_name: 'Identifier'
     embeds_many :basedOn, class_name: 'Reference'
     embeds_one :status, class_name: 'DiagnosticReportStatus'
@@ -23,7 +22,7 @@ module FHIR
     embeds_many :conclusionCode, class_name: 'CodeableConcept'
     embeds_many :presentedForm, class_name: 'Attachment'
 
-    def self.transform_json(json_hash, target=DiagnosticReport.new)
+    def self.transform_json(json_hash, target = DiagnosticReport.new)
       result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['basedOn'] = json_hash['basedOn'].map { |var| Reference.transform_json(var) } unless json_hash['basedOn'].nil?

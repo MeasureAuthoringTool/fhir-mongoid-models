@@ -2,13 +2,12 @@ module FHIR
   # fhir/measure_supplemental_data.rb
   class MeasureSupplementalData < BackboneElement
     include Mongoid::Document
-    field :typeName, type: String, default: 'MeasureSupplementalData'
     embeds_one :code, class_name: 'CodeableConcept'
     embeds_many :usage, class_name: 'CodeableConcept'
     embeds_one :description, class_name: 'PrimitiveString'
     embeds_one :criteria, class_name: 'Expression'
 
-    def self.transform_json(json_hash, target=MeasureSupplementalData.new)
+    def self.transform_json(json_hash, target = MeasureSupplementalData.new)
       result = self.superclass.transform_json(json_hash, target)
       result['code'] = CodeableConcept.transform_json(json_hash['code']) unless json_hash['code'].nil?      
       result['usage'] = json_hash['usage'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['usage'].nil?

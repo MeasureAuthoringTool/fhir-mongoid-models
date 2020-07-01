@@ -2,7 +2,6 @@ module FHIR
   # fhir/claim_response_add_item_detail_sub_detail.rb
   class ClaimResponseAddItemDetailSubDetail < BackboneElement
     include Mongoid::Document
-    field :typeName, type: String, default: 'ClaimResponseAddItemDetailSubDetail'
     embeds_one :productOrService, class_name: 'CodeableConcept'
     embeds_many :modifier, class_name: 'CodeableConcept'
     embeds_one :quantity, class_name: 'SimpleQuantity'
@@ -12,7 +11,7 @@ module FHIR
     embeds_many :noteNumber, class_name: 'PrimitivePositiveInt'
     embeds_many :adjudication, class_name: 'ClaimResponseItemAdjudication'
 
-    def self.transform_json(json_hash, target=ClaimResponseAddItemDetailSubDetail.new)
+    def self.transform_json(json_hash, target = ClaimResponseAddItemDetailSubDetail.new)
       result = self.superclass.transform_json(json_hash, target)
       result['productOrService'] = CodeableConcept.transform_json(json_hash['productOrService']) unless json_hash['productOrService'].nil?      
       result['modifier'] = json_hash['modifier'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['modifier'].nil?

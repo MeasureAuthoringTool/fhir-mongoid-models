@@ -2,7 +2,6 @@ module FHIR
   # fhir/immunization_protocol_applied.rb
   class ImmunizationProtocolApplied < BackboneElement
     include Mongoid::Document
-    field :typeName, type: String, default: 'ImmunizationProtocolApplied'
     embeds_one :series, class_name: 'PrimitiveString'
     embeds_one :authority, class_name: 'Reference'
     embeds_many :targetDisease, class_name: 'CodeableConcept'
@@ -11,7 +10,7 @@ module FHIR
     embeds_one :seriesDosesPositiveInt, class_name: 'PrimitivePositiveInt'
     embeds_one :seriesDosesString, class_name: 'PrimitiveString'
 
-    def self.transform_json(json_hash, target=ImmunizationProtocolApplied.new)
+    def self.transform_json(json_hash, target = ImmunizationProtocolApplied.new)
       result = self.superclass.transform_json(json_hash, target)
       result['series'] = PrimitiveString.transform_json(json_hash['series'], json_hash['_series']) unless json_hash['series'].nil?      
       result['authority'] = Reference.transform_json(json_hash['authority']) unless json_hash['authority'].nil?      
