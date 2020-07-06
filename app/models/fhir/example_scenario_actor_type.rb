@@ -2,10 +2,9 @@ module FHIR
   # fhir/example_scenario_actor_type.rb
   class ExampleScenarioActorType < Element
     include Mongoid::Document
-    field :typeName, type: String, default: 'ExampleScenarioActorType'
     field :value, type: String
 
-    def self.transform_json(json_hash, target=ExampleScenarioActorType.new)
+    def self.transform_json(json_hash, target = ExampleScenarioActorType.new)
       result = self.superclass.transform_json(json_hash, target)
       result['value'] = json_hash['value'] unless json_hash['value'].nil?
 

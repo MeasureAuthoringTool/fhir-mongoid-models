@@ -1,10 +1,9 @@
 lib = File.expand_path('lib', __dir__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'fhir/mongoid/models/version'
 
 Gem::Specification.new do |spec|
   spec.name = 'fhir-mongoid-models'
-  spec.version = Fhir::Mongoid::Models::VERSION
+  spec.version = '0.0.1'
   spec.authors = %w[Andrew Bird Ashok Dongare Joseph Kotanchik Rohit Kandimalla Serhii Ilin]
   spec.email = %w[andrew.bird@semanticbits.com ashok.dongare@semanticbits.com joseph.kotanchik@semanticbits.com rohit.kandimalla@semanticbits.com serhii.ilin@semanticbits.com]
 

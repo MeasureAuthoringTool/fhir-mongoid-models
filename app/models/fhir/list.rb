@@ -2,7 +2,6 @@ module FHIR
   # fhir/list.rb
   class List < DomainResource
     include Mongoid::Document
-    field :typeName, type: String, default: 'List'
     embeds_many :identifier, class_name: 'Identifier'
     embeds_one :status, class_name: 'ListStatus'
     embeds_one :mode, class_name: 'ListMode'
@@ -17,7 +16,7 @@ module FHIR
     embeds_many :entry, class_name: 'ListEntry'
     embeds_one :emptyReason, class_name: 'CodeableConcept'
 
-    def self.transform_json(json_hash, target=List.new)
+    def self.transform_json(json_hash, target = List.new)
       result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['status'] = ListStatus.transform_json(json_hash['status']) unless json_hash['status'].nil?      

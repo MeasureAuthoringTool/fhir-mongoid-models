@@ -2,7 +2,6 @@ module FHIR
   # fhir/condition.rb
   class Condition < DomainResource
     include Mongoid::Document
-    field :typeName, type: String, default: 'Condition'
     embeds_many :identifier, class_name: 'Identifier'
     embeds_one :clinicalStatus, class_name: 'CodeableConcept'
     embeds_one :verificationStatus, class_name: 'CodeableConcept'
@@ -29,7 +28,7 @@ module FHIR
     embeds_many :evidence, class_name: 'ConditionEvidence'
     embeds_many :note, class_name: 'Annotation'
 
-    def self.transform_json(json_hash, target=Condition.new)
+    def self.transform_json(json_hash, target = Condition.new)
       result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['clinicalStatus'] = CodeableConcept.transform_json(json_hash['clinicalStatus']) unless json_hash['clinicalStatus'].nil?      

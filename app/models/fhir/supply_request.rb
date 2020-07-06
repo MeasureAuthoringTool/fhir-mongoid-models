@@ -2,7 +2,6 @@ module FHIR
   # fhir/supply_request.rb
   class SupplyRequest < DomainResource
     include Mongoid::Document
-    field :typeName, type: String, default: 'SupplyRequest'
     embeds_many :identifier, class_name: 'Identifier'
     embeds_one :status, class_name: 'SupplyRequestStatus'
     embeds_one :category, class_name: 'CodeableConcept'
@@ -22,7 +21,7 @@ module FHIR
     embeds_one :deliverFrom, class_name: 'Reference'
     embeds_one :deliverTo, class_name: 'Reference'
 
-    def self.transform_json(json_hash, target=SupplyRequest.new)
+    def self.transform_json(json_hash, target = SupplyRequest.new)
       result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['status'] = SupplyRequestStatus.transform_json(json_hash['status']) unless json_hash['status'].nil?      

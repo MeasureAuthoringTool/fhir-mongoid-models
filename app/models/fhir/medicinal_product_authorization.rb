@@ -2,7 +2,6 @@ module FHIR
   # fhir/medicinal_product_authorization.rb
   class MedicinalProductAuthorization < DomainResource
     include Mongoid::Document
-    field :typeName, type: String, default: 'MedicinalProductAuthorization'
     embeds_many :identifier, class_name: 'Identifier'
     embeds_one :subject, class_name: 'Reference'
     embeds_many :country, class_name: 'CodeableConcept'
@@ -20,7 +19,7 @@ module FHIR
     embeds_one :regulator, class_name: 'Reference'
     embeds_one :procedure, class_name: 'MedicinalProductAuthorizationProcedure'
 
-    def self.transform_json(json_hash, target=MedicinalProductAuthorization.new)
+    def self.transform_json(json_hash, target = MedicinalProductAuthorization.new)
       result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['subject'] = Reference.transform_json(json_hash['subject']) unless json_hash['subject'].nil?      

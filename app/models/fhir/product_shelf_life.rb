@@ -2,13 +2,12 @@ module FHIR
   # fhir/product_shelf_life.rb
   class ProductShelfLife < BackboneElement
     include Mongoid::Document
-    field :typeName, type: String, default: 'ProductShelfLife'
     embeds_one :identifier, class_name: 'Identifier'
     embeds_one :type, class_name: 'CodeableConcept'
     embeds_one :period, class_name: 'Quantity'
     embeds_many :specialPrecautionsForStorage, class_name: 'CodeableConcept'
 
-    def self.transform_json(json_hash, target=ProductShelfLife.new)
+    def self.transform_json(json_hash, target = ProductShelfLife.new)
       result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = Identifier.transform_json(json_hash['identifier']) unless json_hash['identifier'].nil?      
       result['type'] = CodeableConcept.transform_json(json_hash['type']) unless json_hash['type'].nil?      

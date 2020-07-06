@@ -2,7 +2,6 @@ module FHIR
   # fhir/identifier.rb
   class Identifier < Element
     include Mongoid::Document
-    field :typeName, type: String, default: 'Identifier'
     embeds_one :use, class_name: 'IdentifierUse'
     embeds_one :type, class_name: 'CodeableConcept'
     embeds_one :system, class_name: 'PrimitiveUri'
@@ -10,7 +9,7 @@ module FHIR
     embeds_one :period, class_name: 'Period'
     embeds_one :assigner, class_name: 'Reference'
 
-    def self.transform_json(json_hash, target=Identifier.new)
+    def self.transform_json(json_hash, target = Identifier.new)
       result = self.superclass.transform_json(json_hash, target)
       result['use'] = IdentifierUse.transform_json(json_hash['use']) unless json_hash['use'].nil?      
       result['type'] = CodeableConcept.transform_json(json_hash['type']) unless json_hash['type'].nil?      

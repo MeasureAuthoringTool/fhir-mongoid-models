@@ -2,7 +2,6 @@ module FHIR
   # fhir/observation_reference_range.rb
   class ObservationReferenceRange < BackboneElement
     include Mongoid::Document
-    field :typeName, type: String, default: 'ObservationReferenceRange'
     embeds_one :low, class_name: 'SimpleQuantity'
     embeds_one :high, class_name: 'SimpleQuantity'
     embeds_one :type, class_name: 'CodeableConcept'
@@ -10,7 +9,7 @@ module FHIR
     embeds_one :age, class_name: 'Range'
     embeds_one :text, class_name: 'PrimitiveString'
 
-    def self.transform_json(json_hash, target=ObservationReferenceRange.new)
+    def self.transform_json(json_hash, target = ObservationReferenceRange.new)
       result = self.superclass.transform_json(json_hash, target)
       result['low'] = SimpleQuantity.transform_json(json_hash['low']) unless json_hash['low'].nil?      
       result['high'] = SimpleQuantity.transform_json(json_hash['high']) unless json_hash['high'].nil?      

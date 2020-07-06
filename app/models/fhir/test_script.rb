@@ -2,7 +2,6 @@ module FHIR
   # fhir/test_script.rb
   class TestScript < DomainResource
     include Mongoid::Document
-    field :typeName, type: String, default: 'TestScript'
     embeds_one :url, class_name: 'PrimitiveUri'
     embeds_one :identifier, class_name: 'Identifier'
     embeds_one :version, class_name: 'PrimitiveString'
@@ -28,7 +27,7 @@ module FHIR
     embeds_many :test, class_name: 'TestScriptTest'
     embeds_one :teardown, class_name: 'TestScriptTeardown'
 
-    def self.transform_json(json_hash, target=TestScript.new)
+    def self.transform_json(json_hash, target = TestScript.new)
       result = self.superclass.transform_json(json_hash, target)
       result['url'] = PrimitiveUri.transform_json(json_hash['url'], json_hash['_url']) unless json_hash['url'].nil?      
       result['identifier'] = Identifier.transform_json(json_hash['identifier']) unless json_hash['identifier'].nil?      

@@ -2,13 +2,12 @@ module FHIR
   # fhir/substance_nucleic_acid_subunit_linkage.rb
   class SubstanceNucleicAcidSubunitLinkage < BackboneElement
     include Mongoid::Document
-    field :typeName, type: String, default: 'SubstanceNucleicAcidSubunitLinkage'
     embeds_one :connectivity, class_name: 'PrimitiveString'
     embeds_one :identifier, class_name: 'Identifier'
     embeds_one :name, class_name: 'PrimitiveString'
     embeds_one :residueSite, class_name: 'PrimitiveString'
 
-    def self.transform_json(json_hash, target=SubstanceNucleicAcidSubunitLinkage.new)
+    def self.transform_json(json_hash, target = SubstanceNucleicAcidSubunitLinkage.new)
       result = self.superclass.transform_json(json_hash, target)
       result['connectivity'] = PrimitiveString.transform_json(json_hash['connectivity'], json_hash['_connectivity']) unless json_hash['connectivity'].nil?      
       result['identifier'] = Identifier.transform_json(json_hash['identifier']) unless json_hash['identifier'].nil?      

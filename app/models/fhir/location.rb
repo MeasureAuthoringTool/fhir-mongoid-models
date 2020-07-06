@@ -2,7 +2,6 @@ module FHIR
   # fhir/location.rb
   class Location < DomainResource
     include Mongoid::Document
-    field :typeName, type: String, default: 'Location'
     embeds_many :identifier, class_name: 'Identifier'
     embeds_one :status, class_name: 'LocationStatus'
     embeds_one :operationalStatus, class_name: 'Coding'
@@ -21,7 +20,7 @@ module FHIR
     embeds_one :availabilityExceptions, class_name: 'PrimitiveString'
     embeds_many :endpoint, class_name: 'Reference'
 
-    def self.transform_json(json_hash, target=Location.new)
+    def self.transform_json(json_hash, target = Location.new)
       result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['status'] = LocationStatus.transform_json(json_hash['status']) unless json_hash['status'].nil?      

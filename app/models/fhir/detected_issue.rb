@@ -2,7 +2,6 @@ module FHIR
   # fhir/detected_issue.rb
   class DetectedIssue < DomainResource
     include Mongoid::Document
-    field :typeName, type: String, default: 'DetectedIssue'
     embeds_many :identifier, class_name: 'Identifier'
     embeds_one :status, class_name: 'DetectedIssueStatus'
     embeds_one :code, class_name: 'CodeableConcept'
@@ -17,7 +16,7 @@ module FHIR
     embeds_one :reference, class_name: 'PrimitiveUri'
     embeds_many :mitigation, class_name: 'DetectedIssueMitigation'
 
-    def self.transform_json(json_hash, target=DetectedIssue.new)
+    def self.transform_json(json_hash, target = DetectedIssue.new)
       result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['status'] = DetectedIssueStatus.transform_json(json_hash['status']) unless json_hash['status'].nil?      

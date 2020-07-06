@@ -2,7 +2,6 @@ module FHIR
   # fhir/prod_characteristic.rb
   class ProdCharacteristic < BackboneElement
     include Mongoid::Document
-    field :typeName, type: String, default: 'ProdCharacteristic'
     embeds_one :height, class_name: 'Quantity'
     embeds_one :width, class_name: 'Quantity'
     embeds_one :depth, class_name: 'Quantity'
@@ -15,7 +14,7 @@ module FHIR
     embeds_many :image, class_name: 'Attachment'
     embeds_one :scoring, class_name: 'CodeableConcept'
 
-    def self.transform_json(json_hash, target=ProdCharacteristic.new)
+    def self.transform_json(json_hash, target = ProdCharacteristic.new)
       result = self.superclass.transform_json(json_hash, target)
       result['height'] = Quantity.transform_json(json_hash['height']) unless json_hash['height'].nil?      
       result['width'] = Quantity.transform_json(json_hash['width']) unless json_hash['width'].nil?      

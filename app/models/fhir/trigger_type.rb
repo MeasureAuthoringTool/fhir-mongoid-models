@@ -2,10 +2,9 @@ module FHIR
   # fhir/trigger_type.rb
   class TriggerType < Element
     include Mongoid::Document
-    field :typeName, type: String, default: 'TriggerType'
     field :value, type: String
 
-    def self.transform_json(json_hash, target=TriggerType.new)
+    def self.transform_json(json_hash, target = TriggerType.new)
       result = self.superclass.transform_json(json_hash, target)
       result['value'] = json_hash['value'] unless json_hash['value'].nil?
 

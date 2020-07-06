@@ -2,7 +2,6 @@ module FHIR
   # fhir/medicinal_product_special_designation.rb
   class MedicinalProductSpecialDesignation < BackboneElement
     include Mongoid::Document
-    field :typeName, type: String, default: 'MedicinalProductSpecialDesignation'
     embeds_many :identifier, class_name: 'Identifier'
     embeds_one :type, class_name: 'CodeableConcept'
     embeds_one :intendedUse, class_name: 'CodeableConcept'
@@ -12,7 +11,7 @@ module FHIR
     embeds_one :date, class_name: 'PrimitiveDateTime'
     embeds_one :species, class_name: 'CodeableConcept'
 
-    def self.transform_json(json_hash, target=MedicinalProductSpecialDesignation.new)
+    def self.transform_json(json_hash, target = MedicinalProductSpecialDesignation.new)
       result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['type'] = CodeableConcept.transform_json(json_hash['type']) unless json_hash['type'].nil?      

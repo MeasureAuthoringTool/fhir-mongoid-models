@@ -2,7 +2,6 @@ module FHIR
   # fhir/signature.rb
   class Signature < Element
     include Mongoid::Document
-    field :typeName, type: String, default: 'Signature'
     embeds_many :type, class_name: 'Coding'
     embeds_one :when, class_name: 'PrimitiveInstant'
     embeds_one :who, class_name: 'Reference'
@@ -11,7 +10,7 @@ module FHIR
     embeds_one :sigFormat, class_name: 'MimeType'
     embeds_one :data, class_name: 'PrimitiveBase64Binary'
 
-    def self.transform_json(json_hash, target=Signature.new)
+    def self.transform_json(json_hash, target = Signature.new)
       result = self.superclass.transform_json(json_hash, target)
       result['type'] = json_hash['type'].map { |var| Coding.transform_json(var) } unless json_hash['type'].nil?
       result['when'] = PrimitiveInstant.transform_json(json_hash['when'], json_hash['_when']) unless json_hash['when'].nil?      

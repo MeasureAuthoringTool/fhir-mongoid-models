@@ -2,7 +2,6 @@ module FHIR
   # fhir/biologically_derived_product.rb
   class BiologicallyDerivedProduct < DomainResource
     include Mongoid::Document
-    field :typeName, type: String, default: 'BiologicallyDerivedProduct'
     embeds_many :identifier, class_name: 'Identifier'
     embeds_one :productCategory, class_name: 'BiologicallyDerivedProductCategory'
     embeds_one :productCode, class_name: 'CodeableConcept'
@@ -21,7 +20,7 @@ module FHIR
       res
     end
 
-    def self.transform_json(json_hash, target=BiologicallyDerivedProduct.new)
+    def self.transform_json(json_hash, target = BiologicallyDerivedProduct.new)
       result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['productCategory'] = BiologicallyDerivedProductCategory.transform_json(json_hash['productCategory']) unless json_hash['productCategory'].nil?      

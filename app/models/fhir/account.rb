@@ -2,7 +2,6 @@ module FHIR
   # fhir/account.rb
   class Account < DomainResource
     include Mongoid::Document
-    field :typeName, type: String, default: 'Account'
     embeds_many :identifier, class_name: 'Identifier'
     embeds_one :status, class_name: 'AccountStatus'
     embeds_one :type, class_name: 'CodeableConcept'
@@ -15,7 +14,7 @@ module FHIR
     embeds_many :guarantor, class_name: 'AccountGuarantor'
     embeds_one :partOf, class_name: 'Reference'
 
-    def self.transform_json(json_hash, target=Account.new)
+    def self.transform_json(json_hash, target = Account.new)
       result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['status'] = AccountStatus.transform_json(json_hash['status']) unless json_hash['status'].nil?      

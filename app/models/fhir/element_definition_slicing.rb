@@ -2,13 +2,12 @@ module FHIR
   # fhir/element_definition_slicing.rb
   class ElementDefinitionSlicing < Element
     include Mongoid::Document
-    field :typeName, type: String, default: 'ElementDefinitionSlicing'
     embeds_many :discriminator, class_name: 'ElementDefinitionSlicingDiscriminator'
     embeds_one :description, class_name: 'PrimitiveString'
     embeds_one :ordered, class_name: 'PrimitiveBoolean'
     embeds_one :rules, class_name: 'SlicingRules'
 
-    def self.transform_json(json_hash, target=ElementDefinitionSlicing.new)
+    def self.transform_json(json_hash, target = ElementDefinitionSlicing.new)
       result = self.superclass.transform_json(json_hash, target)
       result['discriminator'] = json_hash['discriminator'].map { |var| ElementDefinitionSlicingDiscriminator.transform_json(var) } unless json_hash['discriminator'].nil?
       result['description'] = PrimitiveString.transform_json(json_hash['description'], json_hash['_description']) unless json_hash['description'].nil?      

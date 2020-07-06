@@ -2,7 +2,6 @@ module FHIR
   # fhir/group_characteristic.rb
   class GroupCharacteristic < BackboneElement
     include Mongoid::Document
-    field :typeName, type: String, default: 'GroupCharacteristic'
     embeds_one :code, class_name: 'CodeableConcept'
     embeds_one :valueCodeableConcept, class_name: 'CodeableConcept'
     embeds_one :valueBoolean, class_name: 'PrimitiveBoolean'
@@ -12,7 +11,7 @@ module FHIR
     embeds_one :exclude, class_name: 'PrimitiveBoolean'
     embeds_one :period, class_name: 'Period'
 
-    def self.transform_json(json_hash, target=GroupCharacteristic.new)
+    def self.transform_json(json_hash, target = GroupCharacteristic.new)
       result = self.superclass.transform_json(json_hash, target)
       result['code'] = CodeableConcept.transform_json(json_hash['code']) unless json_hash['code'].nil?      
       result['valueCodeableConcept'] = CodeableConcept.transform_json(json_hash['valueCodeableConcept']) unless json_hash['valueCodeableConcept'].nil?      

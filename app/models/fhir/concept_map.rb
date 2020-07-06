@@ -2,7 +2,6 @@ module FHIR
   # fhir/concept_map.rb
   class ConceptMap < DomainResource
     include Mongoid::Document
-    field :typeName, type: String, default: 'ConceptMap'
     embeds_one :url, class_name: 'PrimitiveUri'
     embeds_one :identifier, class_name: 'Identifier'
     embeds_one :version, class_name: 'PrimitiveString'
@@ -24,7 +23,7 @@ module FHIR
     embeds_one :targetCanonical, class_name: 'PrimitiveCanonical'
     embeds_many :group, class_name: 'ConceptMapGroup'
 
-    def self.transform_json(json_hash, target=ConceptMap.new)
+    def self.transform_json(json_hash, target = ConceptMap.new)
       result = self.superclass.transform_json(json_hash, target)
       result['url'] = PrimitiveUri.transform_json(json_hash['url'], json_hash['_url']) unless json_hash['url'].nil?      
       result['identifier'] = Identifier.transform_json(json_hash['identifier']) unless json_hash['identifier'].nil?      

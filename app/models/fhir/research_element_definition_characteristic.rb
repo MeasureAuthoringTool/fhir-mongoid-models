@@ -2,7 +2,6 @@ module FHIR
   # fhir/research_element_definition_characteristic.rb
   class ResearchElementDefinitionCharacteristic < BackboneElement
     include Mongoid::Document
-    field :typeName, type: String, default: 'ResearchElementDefinitionCharacteristic'
     embeds_one :definitionCodeableConcept, class_name: 'CodeableConcept'
     embeds_one :definitionCanonical, class_name: 'PrimitiveCanonical'
     embeds_one :definitionExpression, class_name: 'Expression'
@@ -25,7 +24,7 @@ module FHIR
     embeds_one :participantEffectiveTimeFromStart, class_name: 'Duration'
     embeds_one :participantEffectiveGroupMeasure, class_name: 'GroupMeasure'
 
-    def self.transform_json(json_hash, target=ResearchElementDefinitionCharacteristic.new)
+    def self.transform_json(json_hash, target = ResearchElementDefinitionCharacteristic.new)
       result = self.superclass.transform_json(json_hash, target)
       result['definitionCodeableConcept'] = CodeableConcept.transform_json(json_hash['definitionCodeableConcept']) unless json_hash['definitionCodeableConcept'].nil?      
       result['definitionCanonical'] = PrimitiveCanonical.transform_json(json_hash['definitionCanonical'], json_hash['_definitionCanonical']) unless json_hash['definitionCanonical'].nil?      

@@ -2,10 +2,9 @@ module FHIR
   # fhir/primitive_boolean.rb
   class PrimitiveBoolean < Element
     include Mongoid::Document
-    field :typeName, type: String, default: 'PrimitiveBoolean'
     field :value, type: Boolean
 
-    def self.transform_json(json_hash, extension_hash, target=PrimitiveBoolean.new)
+    def self.transform_json(json_hash, extension_hash, target = PrimitiveBoolean.new)
       result = target
       unless extension_hash.nil?
         result['id'] = extension_hash['id']

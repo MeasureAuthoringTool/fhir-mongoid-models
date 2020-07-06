@@ -2,7 +2,6 @@ module FHIR
   # fhir/allergy_intolerance.rb
   class AllergyIntolerance < DomainResource
     include Mongoid::Document
-    field :typeName, type: String, default: 'AllergyIntolerance'
     embeds_many :identifier, class_name: 'Identifier'
     embeds_one :clinicalStatus, class_name: 'CodeableConcept'
     embeds_one :verificationStatus, class_name: 'CodeableConcept'
@@ -24,7 +23,7 @@ module FHIR
     embeds_many :note, class_name: 'Annotation'
     embeds_many :reaction, class_name: 'AllergyIntoleranceReaction'
 
-    def self.transform_json(json_hash, target=AllergyIntolerance.new)
+    def self.transform_json(json_hash, target = AllergyIntolerance.new)
       result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['clinicalStatus'] = CodeableConcept.transform_json(json_hash['clinicalStatus']) unless json_hash['clinicalStatus'].nil?      

@@ -2,7 +2,6 @@ module FHIR
   # fhir/explanation_of_benefit.rb
   class ExplanationOfBenefit < DomainResource
     include Mongoid::Document
-    field :typeName, type: String, default: 'ExplanationOfBenefit'
     embeds_many :identifier, class_name: 'Identifier'
     embeds_one :status, class_name: 'ExplanationOfBenefitStatus'
     embeds_one :type, class_name: 'CodeableConcept'
@@ -47,7 +46,7 @@ module FHIR
     embeds_one :benefitPeriod, class_name: 'Period'
     embeds_many :benefitBalance, class_name: 'ExplanationOfBenefitBenefitBalance'
 
-    def self.transform_json(json_hash, target=ExplanationOfBenefit.new)
+    def self.transform_json(json_hash, target = ExplanationOfBenefit.new)
       result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['status'] = ExplanationOfBenefitStatus.transform_json(json_hash['status']) unless json_hash['status'].nil?      

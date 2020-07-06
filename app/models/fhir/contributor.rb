@@ -2,12 +2,11 @@ module FHIR
   # fhir/contributor.rb
   class Contributor < Element
     include Mongoid::Document
-    field :typeName, type: String, default: 'Contributor'
     embeds_one :type, class_name: 'ContributorType'
     embeds_one :name, class_name: 'PrimitiveString'
     embeds_many :contact, class_name: 'ContactDetail'
 
-    def self.transform_json(json_hash, target=Contributor.new)
+    def self.transform_json(json_hash, target = Contributor.new)
       result = self.superclass.transform_json(json_hash, target)
       result['type'] = ContributorType.transform_json(json_hash['type']) unless json_hash['type'].nil?      
       result['name'] = PrimitiveString.transform_json(json_hash['name'], json_hash['_name']) unless json_hash['name'].nil?      

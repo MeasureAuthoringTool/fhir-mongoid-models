@@ -2,7 +2,6 @@ module FHIR
   # fhir/medicinal_product_packaged.rb
   class MedicinalProductPackaged < DomainResource
     include Mongoid::Document
-    field :typeName, type: String, default: 'MedicinalProductPackaged'
     embeds_many :identifier, class_name: 'Identifier'
     embeds_many :subject, class_name: 'Reference'
     embeds_one :description, class_name: 'PrimitiveString'
@@ -13,7 +12,7 @@ module FHIR
     embeds_many :batchIdentifier, class_name: 'MedicinalProductPackagedBatchIdentifier'
     embeds_many :packageItem, class_name: 'MedicinalProductPackagedPackageItem'
 
-    def self.transform_json(json_hash, target=MedicinalProductPackaged.new)
+    def self.transform_json(json_hash, target = MedicinalProductPackaged.new)
       result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['subject'] = json_hash['subject'].map { |var| Reference.transform_json(var) } unless json_hash['subject'].nil?

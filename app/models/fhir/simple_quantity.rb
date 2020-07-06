@@ -2,13 +2,12 @@ module FHIR
   # fhir/simple_quantity.rb
   class SimpleQuantity < Quantity
     include Mongoid::Document
-    field :typeName, type: String, default: 'SimpleQuantity'
     embeds_one :value, class_name: 'PrimitiveDecimal'
     embeds_one :unit, class_name: 'PrimitiveString'
     embeds_one :system, class_name: 'PrimitiveUri'
     embeds_one :code, class_name: 'PrimitiveCode'
 
-    def self.transform_json(json_hash, target=SimpleQuantity.new)
+    def self.transform_json(json_hash, target = SimpleQuantity.new)
       result = self.superclass.transform_json(json_hash, target)
       result['value'] = PrimitiveDecimal.transform_json(json_hash['value'], json_hash['_value']) unless json_hash['value'].nil?      
       result['unit'] = PrimitiveString.transform_json(json_hash['unit'], json_hash['_unit']) unless json_hash['unit'].nil?      

@@ -2,7 +2,6 @@ module FHIR
   # fhir/medicinal_product_manufactured.rb
   class MedicinalProductManufactured < DomainResource
     include Mongoid::Document
-    field :typeName, type: String, default: 'MedicinalProductManufactured'
     embeds_one :manufacturedDoseForm, class_name: 'CodeableConcept'
     embeds_one :unitOfPresentation, class_name: 'CodeableConcept'
     embeds_one :quantity, class_name: 'Quantity'
@@ -11,7 +10,7 @@ module FHIR
     embeds_one :physicalCharacteristics, class_name: 'ProdCharacteristic'
     embeds_many :otherCharacteristics, class_name: 'CodeableConcept'
 
-    def self.transform_json(json_hash, target=MedicinalProductManufactured.new)
+    def self.transform_json(json_hash, target = MedicinalProductManufactured.new)
       result = self.superclass.transform_json(json_hash, target)
       result['manufacturedDoseForm'] = CodeableConcept.transform_json(json_hash['manufacturedDoseForm']) unless json_hash['manufacturedDoseForm'].nil?      
       result['unitOfPresentation'] = CodeableConcept.transform_json(json_hash['unitOfPresentation']) unless json_hash['unitOfPresentation'].nil?      

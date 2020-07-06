@@ -2,7 +2,6 @@ module FHIR
   # fhir/substance_specification_moiety.rb
   class SubstanceSpecificationMoiety < BackboneElement
     include Mongoid::Document
-    field :typeName, type: String, default: 'SubstanceSpecificationMoiety'
     embeds_one :role, class_name: 'CodeableConcept'
     embeds_one :identifier, class_name: 'Identifier'
     embeds_one :name, class_name: 'PrimitiveString'
@@ -12,7 +11,7 @@ module FHIR
     embeds_one :amountQuantity, class_name: 'Quantity'
     embeds_one :amountString, class_name: 'PrimitiveString'
 
-    def self.transform_json(json_hash, target=SubstanceSpecificationMoiety.new)
+    def self.transform_json(json_hash, target = SubstanceSpecificationMoiety.new)
       result = self.superclass.transform_json(json_hash, target)
       result['role'] = CodeableConcept.transform_json(json_hash['role']) unless json_hash['role'].nil?      
       result['identifier'] = Identifier.transform_json(json_hash['identifier']) unless json_hash['identifier'].nil?      

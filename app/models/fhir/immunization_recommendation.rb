@@ -2,14 +2,13 @@ module FHIR
   # fhir/immunization_recommendation.rb
   class ImmunizationRecommendation < DomainResource
     include Mongoid::Document
-    field :typeName, type: String, default: 'ImmunizationRecommendation'
     embeds_many :identifier, class_name: 'Identifier'
     embeds_one :patient, class_name: 'Reference'
     embeds_one :date, class_name: 'PrimitiveDateTime'
     embeds_one :authority, class_name: 'Reference'
     embeds_many :recommendation, class_name: 'ImmunizationRecommendationRecommendation'
 
-    def self.transform_json(json_hash, target=ImmunizationRecommendation.new)
+    def self.transform_json(json_hash, target = ImmunizationRecommendation.new)
       result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['patient'] = Reference.transform_json(json_hash['patient']) unless json_hash['patient'].nil?      

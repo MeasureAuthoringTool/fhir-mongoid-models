@@ -2,7 +2,6 @@ module FHIR
   # fhir/catalog_entry.rb
   class CatalogEntry < DomainResource
     include Mongoid::Document
-    field :typeName, type: String, default: 'CatalogEntry'
     embeds_many :identifier, class_name: 'Identifier'
     embeds_one :type, class_name: 'CodeableConcept'
     embeds_one :orderable, class_name: 'PrimitiveBoolean'
@@ -17,7 +16,7 @@ module FHIR
     embeds_many :additionalClassification, class_name: 'CodeableConcept'
     embeds_many :relatedEntry, class_name: 'CatalogEntryRelatedEntry'
 
-    def self.transform_json(json_hash, target=CatalogEntry.new)
+    def self.transform_json(json_hash, target = CatalogEntry.new)
       result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['type'] = CodeableConcept.transform_json(json_hash['type']) unless json_hash['type'].nil?      

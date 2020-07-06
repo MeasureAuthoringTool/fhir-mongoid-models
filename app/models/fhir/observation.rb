@@ -2,7 +2,6 @@ module FHIR
   # fhir/observation.rb
   class Observation < DomainResource
     include Mongoid::Document
-    field :typeName, type: String, default: 'Observation'
     embeds_many :identifier, class_name: 'Identifier'
     embeds_many :basedOn, class_name: 'Reference'
     embeds_many :partOf, class_name: 'Reference'
@@ -41,7 +40,7 @@ module FHIR
     embeds_many :derivedFrom, class_name: 'Reference'
     embeds_many :component, class_name: 'ObservationComponent'
 
-    def self.transform_json(json_hash, target=Observation.new)
+    def self.transform_json(json_hash, target = Observation.new)
       result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['basedOn'] = json_hash['basedOn'].map { |var| Reference.transform_json(var) } unless json_hash['basedOn'].nil?

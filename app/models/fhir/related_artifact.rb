@@ -2,7 +2,6 @@ module FHIR
   # fhir/related_artifact.rb
   class RelatedArtifact < Element
     include Mongoid::Document
-    field :typeName, type: String, default: 'RelatedArtifact'
     embeds_one :type, class_name: 'RelatedArtifactType'
     embeds_one :label, class_name: 'PrimitiveString'
     embeds_one :display, class_name: 'PrimitiveString'
@@ -11,7 +10,7 @@ module FHIR
     embeds_one :document, class_name: 'Attachment'
     embeds_one :resource, class_name: 'PrimitiveCanonical'
 
-    def self.transform_json(json_hash, target=RelatedArtifact.new)
+    def self.transform_json(json_hash, target = RelatedArtifact.new)
       result = self.superclass.transform_json(json_hash, target)
       result['type'] = RelatedArtifactType.transform_json(json_hash['type']) unless json_hash['type'].nil?      
       result['label'] = PrimitiveString.transform_json(json_hash['label'], json_hash['_label']) unless json_hash['label'].nil?      

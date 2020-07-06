@@ -2,7 +2,6 @@ module FHIR
   # fhir/explanation_of_benefit_item.rb
   class ExplanationOfBenefitItem < BackboneElement
     include Mongoid::Document
-    field :typeName, type: String, default: 'ExplanationOfBenefitItem'
     embeds_one :sequence, class_name: 'PrimitivePositiveInt'
     embeds_many :careTeamSequence, class_name: 'PrimitivePositiveInt'
     embeds_many :diagnosisSequence, class_name: 'PrimitivePositiveInt'
@@ -30,7 +29,7 @@ module FHIR
     embeds_many :adjudication, class_name: 'ExplanationOfBenefitItemAdjudication'
     embeds_many :detail, class_name: 'ExplanationOfBenefitItemDetail'
 
-    def self.transform_json(json_hash, target=ExplanationOfBenefitItem.new)
+    def self.transform_json(json_hash, target = ExplanationOfBenefitItem.new)
       result = self.superclass.transform_json(json_hash, target)
       result['sequence'] = PrimitivePositiveInt.transform_json(json_hash['sequence'], json_hash['_sequence']) unless json_hash['sequence'].nil?      
       result['careTeamSequence'] = json_hash['careTeamSequence'].each_with_index.map do |var, i|

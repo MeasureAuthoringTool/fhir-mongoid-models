@@ -2,7 +2,6 @@ module FHIR
   # fhir/audit_event.rb
   class AuditEvent < DomainResource
     include Mongoid::Document
-    field :typeName, type: String, default: 'AuditEvent'
     embeds_one :type, class_name: 'Coding'
     embeds_many :subtype, class_name: 'Coding'
     embeds_one :action, class_name: 'AuditEventAction'
@@ -15,7 +14,7 @@ module FHIR
     embeds_one :source, class_name: 'AuditEventSource'
     embeds_many :entity, class_name: 'AuditEventEntity'
 
-    def self.transform_json(json_hash, target=AuditEvent.new)
+    def self.transform_json(json_hash, target = AuditEvent.new)
       result = self.superclass.transform_json(json_hash, target)
       result['type'] = Coding.transform_json(json_hash['type']) unless json_hash['type'].nil?      
       result['subtype'] = json_hash['subtype'].map { |var| Coding.transform_json(var) } unless json_hash['subtype'].nil?

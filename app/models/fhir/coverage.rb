@@ -2,7 +2,6 @@ module FHIR
   # fhir/coverage.rb
   class Coverage < DomainResource
     include Mongoid::Document
-    field :typeName, type: String, default: 'Coverage'
     embeds_many :identifier, class_name: 'Identifier'
     embeds_one :status, class_name: 'CoverageStatus'
     embeds_one :type, class_name: 'CodeableConcept'
@@ -21,7 +20,7 @@ module FHIR
     embeds_one :subrogation, class_name: 'PrimitiveBoolean'
     embeds_many :contract, class_name: 'Reference'
 
-    def self.transform_json(json_hash, target=Coverage.new)
+    def self.transform_json(json_hash, target = Coverage.new)
       result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['status'] = CoverageStatus.transform_json(json_hash['status']) unless json_hash['status'].nil?      

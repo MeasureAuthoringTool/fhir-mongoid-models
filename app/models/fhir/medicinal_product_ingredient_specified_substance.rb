@@ -2,13 +2,12 @@ module FHIR
   # fhir/medicinal_product_ingredient_specified_substance.rb
   class MedicinalProductIngredientSpecifiedSubstance < BackboneElement
     include Mongoid::Document
-    field :typeName, type: String, default: 'MedicinalProductIngredientSpecifiedSubstance'
     embeds_one :code, class_name: 'CodeableConcept'
     embeds_one :group, class_name: 'CodeableConcept'
     embeds_one :confidentiality, class_name: 'CodeableConcept'
     embeds_many :strength, class_name: 'MedicinalProductIngredientSpecifiedSubstanceStrength'
 
-    def self.transform_json(json_hash, target=MedicinalProductIngredientSpecifiedSubstance.new)
+    def self.transform_json(json_hash, target = MedicinalProductIngredientSpecifiedSubstance.new)
       result = self.superclass.transform_json(json_hash, target)
       result['code'] = CodeableConcept.transform_json(json_hash['code']) unless json_hash['code'].nil?      
       result['group'] = CodeableConcept.transform_json(json_hash['group']) unless json_hash['group'].nil?      

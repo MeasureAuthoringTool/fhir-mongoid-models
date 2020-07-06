@@ -2,7 +2,6 @@ module FHIR
   # fhir/implementation_guide_definition_resource.rb
   class ImplementationGuideDefinitionResource < BackboneElement
     include Mongoid::Document
-    field :typeName, type: String, default: 'ImplementationGuideDefinitionResource'
     embeds_one :reference, class_name: 'Reference'
     embeds_many :fhirVersion, class_name: 'FHIRVersion'
     embeds_one :name, class_name: 'PrimitiveString'
@@ -11,7 +10,7 @@ module FHIR
     embeds_one :exampleCanonical, class_name: 'PrimitiveCanonical'
     embeds_one :groupingId, class_name: 'PrimitiveId'
 
-    def self.transform_json(json_hash, target=ImplementationGuideDefinitionResource.new)
+    def self.transform_json(json_hash, target = ImplementationGuideDefinitionResource.new)
       result = self.superclass.transform_json(json_hash, target)
       result['reference'] = Reference.transform_json(json_hash['reference']) unless json_hash['reference'].nil?      
       result['fhirVersion'] = json_hash['fhirVersion'].map { |var| FHIRVersion.transform_json(var) } unless json_hash['fhirVersion'].nil?

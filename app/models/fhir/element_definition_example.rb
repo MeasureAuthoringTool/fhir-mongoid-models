@@ -2,7 +2,6 @@ module FHIR
   # fhir/element_definition_example.rb
   class ElementDefinitionExample < Element
     include Mongoid::Document
-    field :typeName, type: String, default: 'ElementDefinitionExample'
     embeds_one :label, class_name: 'PrimitiveString'
     embeds_one :valueBase64Binary, class_name: 'PrimitiveBase64Binary'
     embeds_one :valueBoolean, class_name: 'PrimitiveBoolean'
@@ -55,7 +54,7 @@ module FHIR
     embeds_one :valueDosage, class_name: 'Dosage'
     embeds_one :valueMeta, class_name: 'Meta'
 
-    def self.transform_json(json_hash, target=ElementDefinitionExample.new)
+    def self.transform_json(json_hash, target = ElementDefinitionExample.new)
       result = self.superclass.transform_json(json_hash, target)
       result['label'] = PrimitiveString.transform_json(json_hash['label'], json_hash['_label']) unless json_hash['label'].nil?      
       result['valueBase64Binary'] = PrimitiveBase64Binary.transform_json(json_hash['valueBase64Binary'], json_hash['_valueBase64Binary']) unless json_hash['valueBase64Binary'].nil?      

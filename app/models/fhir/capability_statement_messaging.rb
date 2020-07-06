@@ -2,13 +2,12 @@ module FHIR
   # fhir/capability_statement_messaging.rb
   class CapabilityStatementMessaging < BackboneElement
     include Mongoid::Document
-    field :typeName, type: String, default: 'CapabilityStatementMessaging'
     embeds_many :endpoint, class_name: 'CapabilityStatementMessagingEndpoint'
     embeds_one :reliableCache, class_name: 'PrimitiveUnsignedInt'
     embeds_one :documentation, class_name: 'PrimitiveMarkdown'
     embeds_many :supportedMessage, class_name: 'CapabilityStatementMessagingSupportedMessage'
 
-    def self.transform_json(json_hash, target=CapabilityStatementMessaging.new)
+    def self.transform_json(json_hash, target = CapabilityStatementMessaging.new)
       result = self.superclass.transform_json(json_hash, target)
       result['endpoint'] = json_hash['endpoint'].map { |var| CapabilityStatementMessagingEndpoint.transform_json(var) } unless json_hash['endpoint'].nil?
       result['reliableCache'] = PrimitiveUnsignedInt.transform_json(json_hash['reliableCache'], json_hash['_reliableCache']) unless json_hash['reliableCache'].nil?      

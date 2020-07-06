@@ -2,7 +2,6 @@ module FHIR
   # fhir/element_definition.rb
   class ElementDefinition < BackboneElement
     include Mongoid::Document
-    field :typeName, type: String, default: 'ElementDefinition'
     embeds_one :path, class_name: 'PrimitiveString'
     embeds_many :representation, class_name: 'PropertyRepresentation'
     embeds_one :sliceName, class_name: 'PrimitiveString'
@@ -201,7 +200,7 @@ module FHIR
     embeds_one :binding, class_name: 'ElementDefinitionBinding'
     embeds_many :mapping, class_name: 'ElementDefinitionMapping'
 
-    def self.transform_json(json_hash, target=ElementDefinition.new)
+    def self.transform_json(json_hash, target = ElementDefinition.new)
       result = self.superclass.transform_json(json_hash, target)
       result['path'] = PrimitiveString.transform_json(json_hash['path'], json_hash['_path']) unless json_hash['path'].nil?      
       result['representation'] = json_hash['representation'].map { |var| PropertyRepresentation.transform_json(var) } unless json_hash['representation'].nil?

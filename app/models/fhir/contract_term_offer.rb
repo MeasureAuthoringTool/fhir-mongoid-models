@@ -2,7 +2,6 @@ module FHIR
   # fhir/contract_term_offer.rb
   class ContractTermOffer < BackboneElement
     include Mongoid::Document
-    field :typeName, type: String, default: 'ContractTermOffer'
     embeds_many :identifier, class_name: 'Identifier'
     embeds_many :party, class_name: 'ContractTermOfferParty'
     embeds_one :topic, class_name: 'Reference'
@@ -14,7 +13,7 @@ module FHIR
     embeds_many :linkId, class_name: 'PrimitiveString'
     embeds_many :securityLabelNumber, class_name: 'PrimitiveUnsignedInt'
 
-    def self.transform_json(json_hash, target=ContractTermOffer.new)
+    def self.transform_json(json_hash, target = ContractTermOffer.new)
       result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['party'] = json_hash['party'].map { |var| ContractTermOfferParty.transform_json(var) } unless json_hash['party'].nil?

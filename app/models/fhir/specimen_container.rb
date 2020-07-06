@@ -2,7 +2,6 @@ module FHIR
   # fhir/specimen_container.rb
   class SpecimenContainer < BackboneElement
     include Mongoid::Document
-    field :typeName, type: String, default: 'SpecimenContainer'
     embeds_many :identifier, class_name: 'Identifier'
     embeds_one :description, class_name: 'PrimitiveString'
     embeds_one :type, class_name: 'CodeableConcept'
@@ -11,7 +10,7 @@ module FHIR
     embeds_one :additiveCodeableConcept, class_name: 'CodeableConcept'
     embeds_one :additiveReference, class_name: 'Reference'
 
-    def self.transform_json(json_hash, target=SpecimenContainer.new)
+    def self.transform_json(json_hash, target = SpecimenContainer.new)
       result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['description'] = PrimitiveString.transform_json(json_hash['description'], json_hash['_description']) unless json_hash['description'].nil?      

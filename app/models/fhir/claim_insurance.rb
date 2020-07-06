@@ -2,7 +2,6 @@ module FHIR
   # fhir/claim_insurance.rb
   class ClaimInsurance < BackboneElement
     include Mongoid::Document
-    field :typeName, type: String, default: 'ClaimInsurance'
     embeds_one :sequence, class_name: 'PrimitivePositiveInt'
     embeds_one :focal, class_name: 'PrimitiveBoolean'
     embeds_one :identifier, class_name: 'Identifier'
@@ -11,7 +10,7 @@ module FHIR
     embeds_many :preAuthRef, class_name: 'PrimitiveString'
     embeds_one :claimResponse, class_name: 'Reference'
 
-    def self.transform_json(json_hash, target=ClaimInsurance.new)
+    def self.transform_json(json_hash, target = ClaimInsurance.new)
       result = self.superclass.transform_json(json_hash, target)
       result['sequence'] = PrimitivePositiveInt.transform_json(json_hash['sequence'], json_hash['_sequence']) unless json_hash['sequence'].nil?      
       result['focal'] = PrimitiveBoolean.transform_json(json_hash['focal'], json_hash['_focal']) unless json_hash['focal'].nil?      

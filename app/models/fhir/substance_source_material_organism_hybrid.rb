@@ -2,14 +2,13 @@ module FHIR
   # fhir/substance_source_material_organism_hybrid.rb
   class SubstanceSourceMaterialOrganismHybrid < BackboneElement
     include Mongoid::Document
-    field :typeName, type: String, default: 'SubstanceSourceMaterialOrganismHybrid'
     embeds_one :maternalOrganismId, class_name: 'PrimitiveString'
     embeds_one :maternalOrganismName, class_name: 'PrimitiveString'
     embeds_one :paternalOrganismId, class_name: 'PrimitiveString'
     embeds_one :paternalOrganismName, class_name: 'PrimitiveString'
     embeds_one :hybridType, class_name: 'CodeableConcept'
 
-    def self.transform_json(json_hash, target=SubstanceSourceMaterialOrganismHybrid.new)
+    def self.transform_json(json_hash, target = SubstanceSourceMaterialOrganismHybrid.new)
       result = self.superclass.transform_json(json_hash, target)
       result['maternalOrganismId'] = PrimitiveString.transform_json(json_hash['maternalOrganismId'], json_hash['_maternalOrganismId']) unless json_hash['maternalOrganismId'].nil?      
       result['maternalOrganismName'] = PrimitiveString.transform_json(json_hash['maternalOrganismName'], json_hash['_maternalOrganismName']) unless json_hash['maternalOrganismName'].nil?      

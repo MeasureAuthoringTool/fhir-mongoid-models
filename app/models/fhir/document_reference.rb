@@ -2,7 +2,6 @@ module FHIR
   # fhir/document_reference.rb
   class DocumentReference < DomainResource
     include Mongoid::Document
-    field :typeName, type: String, default: 'DocumentReference'
     embeds_one :masterIdentifier, class_name: 'Identifier'
     embeds_many :identifier, class_name: 'Identifier'
     embeds_one :status, class_name: 'DocumentReferenceStatus'
@@ -20,7 +19,7 @@ module FHIR
     embeds_many :content, class_name: 'DocumentReferenceContent'
     embeds_one :context, class_name: 'DocumentReferenceContext'
 
-    def self.transform_json(json_hash, target=DocumentReference.new)
+    def self.transform_json(json_hash, target = DocumentReference.new)
       result = self.superclass.transform_json(json_hash, target)
       result['masterIdentifier'] = Identifier.transform_json(json_hash['masterIdentifier']) unless json_hash['masterIdentifier'].nil?      
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?

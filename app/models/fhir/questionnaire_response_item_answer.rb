@@ -2,7 +2,6 @@ module FHIR
   # fhir/questionnaire_response_item_answer.rb
   class QuestionnaireResponseItemAnswer < BackboneElement
     include Mongoid::Document
-    field :typeName, type: String, default: 'QuestionnaireResponseItemAnswer'
     embeds_one :valueBoolean, class_name: 'PrimitiveBoolean'
     embeds_one :valueDecimal, class_name: 'PrimitiveDecimal'
     embeds_one :valueInteger, class_name: 'PrimitiveInteger'
@@ -17,7 +16,7 @@ module FHIR
     embeds_one :valueReference, class_name: 'Reference'
     embeds_many :item, class_name: 'QuestionnaireResponseItem'
 
-    def self.transform_json(json_hash, target=QuestionnaireResponseItemAnswer.new)
+    def self.transform_json(json_hash, target = QuestionnaireResponseItemAnswer.new)
       result = self.superclass.transform_json(json_hash, target)
       result['valueBoolean'] = PrimitiveBoolean.transform_json(json_hash['valueBoolean'], json_hash['_valueBoolean']) unless json_hash['valueBoolean'].nil?      
       result['valueDecimal'] = PrimitiveDecimal.transform_json(json_hash['valueDecimal'], json_hash['_valueDecimal']) unless json_hash['valueDecimal'].nil?      

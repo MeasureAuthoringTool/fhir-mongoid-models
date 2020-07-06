@@ -2,7 +2,6 @@ module FHIR
   # fhir/example_scenario_instance.rb
   class ExampleScenarioInstance < BackboneElement
     include Mongoid::Document
-    field :typeName, type: String, default: 'ExampleScenarioInstance'
     embeds_one :resourceId, class_name: 'PrimitiveString'
     embeds_one :resourceType, class_name: 'FHIRResourceType'
     embeds_one :name, class_name: 'PrimitiveString'
@@ -10,7 +9,7 @@ module FHIR
     embeds_many :version, class_name: 'ExampleScenarioInstanceVersion'
     embeds_many :containedInstance, class_name: 'ExampleScenarioInstanceContainedInstance'
 
-    def self.transform_json(json_hash, target=ExampleScenarioInstance.new)
+    def self.transform_json(json_hash, target = ExampleScenarioInstance.new)
       result = self.superclass.transform_json(json_hash, target)
       result['resourceId'] = PrimitiveString.transform_json(json_hash['resourceId'], json_hash['_resourceId']) unless json_hash['resourceId'].nil?      
       result['resourceType'] = FHIRResourceType.transform_json(json_hash['resourceType']) unless json_hash['resourceType'].nil?      

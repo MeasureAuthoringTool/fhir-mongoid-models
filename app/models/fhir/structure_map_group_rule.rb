@@ -2,7 +2,6 @@ module FHIR
   # fhir/structure_map_group_rule.rb
   class StructureMapGroupRule < BackboneElement
     include Mongoid::Document
-    field :typeName, type: String, default: 'StructureMapGroupRule'
     embeds_one :name, class_name: 'PrimitiveId'
     embeds_many :source, class_name: 'StructureMapGroupRuleSource'
     embeds_many :target, class_name: 'StructureMapGroupRuleTarget'
@@ -10,7 +9,7 @@ module FHIR
     embeds_many :dependent, class_name: 'StructureMapGroupRuleDependent'
     embeds_one :documentation, class_name: 'PrimitiveString'
 
-    def self.transform_json(json_hash, target=StructureMapGroupRule.new)
+    def self.transform_json(json_hash, target = StructureMapGroupRule.new)
       result = self.superclass.transform_json(json_hash, target)
       result['name'] = PrimitiveId.transform_json(json_hash['name'], json_hash['_name']) unless json_hash['name'].nil?      
       result['source'] = json_hash['source'].map { |var| StructureMapGroupRuleSource.transform_json(var) } unless json_hash['source'].nil?

@@ -2,7 +2,6 @@ module FHIR
   # fhir/person.rb
   class Person < DomainResource
     include Mongoid::Document
-    field :typeName, type: String, default: 'Person'
     embeds_many :identifier, class_name: 'Identifier'
     embeds_many :name, class_name: 'HumanName'
     embeds_many :telecom, class_name: 'ContactPoint'
@@ -14,7 +13,7 @@ module FHIR
     embeds_one :active, class_name: 'PrimitiveBoolean'
     embeds_many :link, class_name: 'PersonLink'
 
-    def self.transform_json(json_hash, target=Person.new)
+    def self.transform_json(json_hash, target = Person.new)
       result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['name'] = json_hash['name'].map { |var| HumanName.transform_json(var) } unless json_hash['name'].nil?

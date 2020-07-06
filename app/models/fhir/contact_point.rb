@@ -2,14 +2,13 @@ module FHIR
   # fhir/contact_point.rb
   class ContactPoint < Element
     include Mongoid::Document
-    field :typeName, type: String, default: 'ContactPoint'
     embeds_one :system, class_name: 'ContactPointSystem'
     embeds_one :value, class_name: 'PrimitiveString'
     embeds_one :use, class_name: 'ContactPointUse'
     embeds_one :rank, class_name: 'PrimitivePositiveInt'
     embeds_one :period, class_name: 'Period'
 
-    def self.transform_json(json_hash, target=ContactPoint.new)
+    def self.transform_json(json_hash, target = ContactPoint.new)
       result = self.superclass.transform_json(json_hash, target)
       result['system'] = ContactPointSystem.transform_json(json_hash['system']) unless json_hash['system'].nil?      
       result['value'] = PrimitiveString.transform_json(json_hash['value'], json_hash['_value']) unless json_hash['value'].nil?      

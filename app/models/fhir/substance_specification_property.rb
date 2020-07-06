@@ -2,7 +2,6 @@ module FHIR
   # fhir/substance_specification_property.rb
   class SubstanceSpecificationProperty < BackboneElement
     include Mongoid::Document
-    field :typeName, type: String, default: 'SubstanceSpecificationProperty'
     embeds_one :category, class_name: 'CodeableConcept'
     embeds_one :code, class_name: 'CodeableConcept'
     embeds_one :parameters, class_name: 'PrimitiveString'
@@ -11,7 +10,7 @@ module FHIR
     embeds_one :amountQuantity, class_name: 'Quantity'
     embeds_one :amountString, class_name: 'PrimitiveString'
 
-    def self.transform_json(json_hash, target=SubstanceSpecificationProperty.new)
+    def self.transform_json(json_hash, target = SubstanceSpecificationProperty.new)
       result = self.superclass.transform_json(json_hash, target)
       result['category'] = CodeableConcept.transform_json(json_hash['category']) unless json_hash['category'].nil?      
       result['code'] = CodeableConcept.transform_json(json_hash['code']) unless json_hash['code'].nil?      

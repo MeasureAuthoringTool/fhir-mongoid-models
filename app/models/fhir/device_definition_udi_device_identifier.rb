@@ -2,12 +2,11 @@ module FHIR
   # fhir/device_definition_udi_device_identifier.rb
   class DeviceDefinitionUdiDeviceIdentifier < BackboneElement
     include Mongoid::Document
-    field :typeName, type: String, default: 'DeviceDefinitionUdiDeviceIdentifier'
     embeds_one :deviceIdentifier, class_name: 'PrimitiveString'
     embeds_one :issuer, class_name: 'PrimitiveUri'
     embeds_one :jurisdiction, class_name: 'PrimitiveUri'
 
-    def self.transform_json(json_hash, target=DeviceDefinitionUdiDeviceIdentifier.new)
+    def self.transform_json(json_hash, target = DeviceDefinitionUdiDeviceIdentifier.new)
       result = self.superclass.transform_json(json_hash, target)
       result['deviceIdentifier'] = PrimitiveString.transform_json(json_hash['deviceIdentifier'], json_hash['_deviceIdentifier']) unless json_hash['deviceIdentifier'].nil?      
       result['issuer'] = PrimitiveUri.transform_json(json_hash['issuer'], json_hash['_issuer']) unless json_hash['issuer'].nil?      

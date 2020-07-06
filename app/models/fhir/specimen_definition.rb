@@ -2,7 +2,6 @@ module FHIR
   # fhir/specimen_definition.rb
   class SpecimenDefinition < DomainResource
     include Mongoid::Document
-    field :typeName, type: String, default: 'SpecimenDefinition'
     embeds_one :identifier, class_name: 'Identifier'
     embeds_one :typeCollected, class_name: 'CodeableConcept'
     embeds_many :patientPreparation, class_name: 'CodeableConcept'
@@ -16,7 +15,7 @@ module FHIR
       res
     end
 
-    def self.transform_json(json_hash, target=SpecimenDefinition.new)
+    def self.transform_json(json_hash, target = SpecimenDefinition.new)
       result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = Identifier.transform_json(json_hash['identifier']) unless json_hash['identifier'].nil?      
       result['typeCollected'] = CodeableConcept.transform_json(json_hash['typeCollected']) unless json_hash['typeCollected'].nil?      

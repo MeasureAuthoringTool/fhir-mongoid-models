@@ -2,7 +2,6 @@ module FHIR
   # fhir/document_reference_context.rb
   class DocumentReferenceContext < BackboneElement
     include Mongoid::Document
-    field :typeName, type: String, default: 'DocumentReferenceContext'
     embeds_many :encounter, class_name: 'Reference'
     embeds_many :event, class_name: 'CodeableConcept'
     embeds_one :period, class_name: 'Period'
@@ -11,7 +10,7 @@ module FHIR
     embeds_one :sourcePatientInfo, class_name: 'Reference'
     embeds_many :related, class_name: 'Reference'
 
-    def self.transform_json(json_hash, target=DocumentReferenceContext.new)
+    def self.transform_json(json_hash, target = DocumentReferenceContext.new)
       result = self.superclass.transform_json(json_hash, target)
       result['encounter'] = json_hash['encounter'].map { |var| Reference.transform_json(var) } unless json_hash['encounter'].nil?
       result['event'] = json_hash['event'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['event'].nil?

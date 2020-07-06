@@ -2,13 +2,12 @@ module FHIR
   # fhir/risk_evidence_synthesis_risk_estimate_precision_estimate.rb
   class RiskEvidenceSynthesisRiskEstimatePrecisionEstimate < BackboneElement
     include Mongoid::Document
-    field :typeName, type: String, default: 'RiskEvidenceSynthesisRiskEstimatePrecisionEstimate'
     embeds_one :type, class_name: 'CodeableConcept'
     embeds_one :level, class_name: 'PrimitiveDecimal'
     embeds_one :from, class_name: 'PrimitiveDecimal'
     embeds_one :to, class_name: 'PrimitiveDecimal'
 
-    def self.transform_json(json_hash, target=RiskEvidenceSynthesisRiskEstimatePrecisionEstimate.new)
+    def self.transform_json(json_hash, target = RiskEvidenceSynthesisRiskEstimatePrecisionEstimate.new)
       result = self.superclass.transform_json(json_hash, target)
       result['type'] = CodeableConcept.transform_json(json_hash['type']) unless json_hash['type'].nil?      
       result['level'] = PrimitiveDecimal.transform_json(json_hash['level'], json_hash['_level']) unless json_hash['level'].nil?      

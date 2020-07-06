@@ -2,7 +2,6 @@ module FHIR
   # fhir/structure_map.rb
   class StructureMap < DomainResource
     include Mongoid::Document
-    field :typeName, type: String, default: 'StructureMap'
     embeds_one :url, class_name: 'PrimitiveUri'
     embeds_many :identifier, class_name: 'Identifier'
     embeds_one :version, class_name: 'PrimitiveString'
@@ -22,7 +21,7 @@ module FHIR
     embeds_many :import, class_name: 'PrimitiveCanonical'
     embeds_many :group, class_name: 'StructureMapGroup'
 
-    def self.transform_json(json_hash, target=StructureMap.new)
+    def self.transform_json(json_hash, target = StructureMap.new)
       result = self.superclass.transform_json(json_hash, target)
       result['url'] = PrimitiveUri.transform_json(json_hash['url'], json_hash['_url']) unless json_hash['url'].nil?      
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?

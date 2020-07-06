@@ -2,7 +2,6 @@ module FHIR
   # fhir/code_system.rb
   class CodeSystem < DomainResource
     include Mongoid::Document
-    field :typeName, type: String, default: 'CodeSystem'
     embeds_one :url, class_name: 'PrimitiveUri'
     embeds_many :identifier, class_name: 'Identifier'
     embeds_one :version, class_name: 'PrimitiveString'
@@ -30,7 +29,7 @@ module FHIR
     embeds_many :property, class_name: 'CodeSystemProperty'
     embeds_many :concept, class_name: 'CodeSystemConcept'
 
-    def self.transform_json(json_hash, target=CodeSystem.new)
+    def self.transform_json(json_hash, target = CodeSystem.new)
       result = self.superclass.transform_json(json_hash, target)
       result['url'] = PrimitiveUri.transform_json(json_hash['url'], json_hash['_url']) unless json_hash['url'].nil?      
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?

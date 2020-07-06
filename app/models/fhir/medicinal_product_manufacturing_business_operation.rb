@@ -2,7 +2,6 @@ module FHIR
   # fhir/medicinal_product_manufacturing_business_operation.rb
   class MedicinalProductManufacturingBusinessOperation < BackboneElement
     include Mongoid::Document
-    field :typeName, type: String, default: 'MedicinalProductManufacturingBusinessOperation'
     embeds_one :operationType, class_name: 'CodeableConcept'
     embeds_one :authorisationReferenceNumber, class_name: 'Identifier'
     embeds_one :effectiveDate, class_name: 'PrimitiveDateTime'
@@ -10,7 +9,7 @@ module FHIR
     embeds_many :manufacturer, class_name: 'Reference'
     embeds_one :regulator, class_name: 'Reference'
 
-    def self.transform_json(json_hash, target=MedicinalProductManufacturingBusinessOperation.new)
+    def self.transform_json(json_hash, target = MedicinalProductManufacturingBusinessOperation.new)
       result = self.superclass.transform_json(json_hash, target)
       result['operationType'] = CodeableConcept.transform_json(json_hash['operationType']) unless json_hash['operationType'].nil?      
       result['authorisationReferenceNumber'] = Identifier.transform_json(json_hash['authorisationReferenceNumber']) unless json_hash['authorisationReferenceNumber'].nil?      

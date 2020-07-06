@@ -2,13 +2,12 @@ module FHIR
   # fhir/imaging_study_series_instance.rb
   class ImagingStudySeriesInstance < BackboneElement
     include Mongoid::Document
-    field :typeName, type: String, default: 'ImagingStudySeriesInstance'
     embeds_one :uid, class_name: 'PrimitiveId'
     embeds_one :sopClass, class_name: 'Coding'
     embeds_one :number, class_name: 'PrimitiveUnsignedInt'
     embeds_one :title, class_name: 'PrimitiveString'
 
-    def self.transform_json(json_hash, target=ImagingStudySeriesInstance.new)
+    def self.transform_json(json_hash, target = ImagingStudySeriesInstance.new)
       result = self.superclass.transform_json(json_hash, target)
       result['uid'] = PrimitiveId.transform_json(json_hash['uid'], json_hash['_uid']) unless json_hash['uid'].nil?      
       result['sopClass'] = Coding.transform_json(json_hash['sopClass']) unless json_hash['sopClass'].nil?      

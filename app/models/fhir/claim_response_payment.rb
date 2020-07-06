@@ -2,7 +2,6 @@ module FHIR
   # fhir/claim_response_payment.rb
   class ClaimResponsePayment < BackboneElement
     include Mongoid::Document
-    field :typeName, type: String, default: 'ClaimResponsePayment'
     embeds_one :type, class_name: 'CodeableConcept'
     embeds_one :adjustment, class_name: 'Money'
     embeds_one :adjustmentReason, class_name: 'CodeableConcept'
@@ -10,7 +9,7 @@ module FHIR
     embeds_one :amount, class_name: 'Money'
     embeds_one :identifier, class_name: 'Identifier'
 
-    def self.transform_json(json_hash, target=ClaimResponsePayment.new)
+    def self.transform_json(json_hash, target = ClaimResponsePayment.new)
       result = self.superclass.transform_json(json_hash, target)
       result['type'] = CodeableConcept.transform_json(json_hash['type']) unless json_hash['type'].nil?      
       result['adjustment'] = Money.transform_json(json_hash['adjustment']) unless json_hash['adjustment'].nil?      

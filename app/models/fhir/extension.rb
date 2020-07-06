@@ -2,7 +2,6 @@ module FHIR
   # fhir/extension.rb
   class Extension
     include Mongoid::Document
-    field :typeName, type: String, default: 'Extension'
     embeds_one :url, class_name: 'PrimitiveUri'
     embeds_one :valueBase64Binary, class_name: 'PrimitiveBase64Binary'
     embeds_one :valueBoolean, class_name: 'PrimitiveBoolean'
@@ -57,7 +56,7 @@ module FHIR
     field :id, type: String
     embeds_many :extension, class_name: 'Extension'
 
-    def self.transform_json(json_hash, target=Extension.new)
+    def self.transform_json(json_hash, target = Extension.new)
       result = target
       result['url'] = PrimitiveUri.transform_json(json_hash['url'], json_hash['_url']) unless json_hash['url'].nil?      
       result['valueBase64Binary'] = PrimitiveBase64Binary.transform_json(json_hash['valueBase64Binary'], json_hash['_valueBase64Binary']) unless json_hash['valueBase64Binary'].nil?      

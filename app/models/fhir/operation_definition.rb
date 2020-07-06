@@ -2,7 +2,6 @@ module FHIR
   # fhir/operation_definition.rb
   class OperationDefinition < DomainResource
     include Mongoid::Document
-    field :typeName, type: String, default: 'OperationDefinition'
     embeds_one :url, class_name: 'PrimitiveUri'
     embeds_one :version, class_name: 'PrimitiveString'
     embeds_one :name, class_name: 'PrimitiveString'
@@ -30,7 +29,7 @@ module FHIR
     embeds_many :parameter, class_name: 'OperationDefinitionParameter'
     embeds_many :overload, class_name: 'OperationDefinitionOverload'
 
-    def self.transform_json(json_hash, target=OperationDefinition.new)
+    def self.transform_json(json_hash, target = OperationDefinition.new)
       result = self.superclass.transform_json(json_hash, target)
       result['url'] = PrimitiveUri.transform_json(json_hash['url'], json_hash['_url']) unless json_hash['url'].nil?      
       result['version'] = PrimitiveString.transform_json(json_hash['version'], json_hash['_version']) unless json_hash['version'].nil?      

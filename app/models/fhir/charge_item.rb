@@ -2,7 +2,6 @@ module FHIR
   # fhir/charge_item.rb
   class ChargeItem < DomainResource
     include Mongoid::Document
-    field :typeName, type: String, default: 'ChargeItem'
     embeds_many :identifier, class_name: 'Identifier'
     embeds_many :definitionUri, class_name: 'PrimitiveUri'
     embeds_many :definitionCanonical, class_name: 'PrimitiveCanonical'
@@ -33,7 +32,7 @@ module FHIR
     embeds_many :note, class_name: 'Annotation'
     embeds_many :supportingInformation, class_name: 'Reference'
 
-    def self.transform_json(json_hash, target=ChargeItem.new)
+    def self.transform_json(json_hash, target = ChargeItem.new)
       result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['definitionUri'] = json_hash['definitionUri'].each_with_index.map do |var, i|

@@ -2,7 +2,6 @@ module FHIR
   # fhir/explanation_of_benefit_procedure.rb
   class ExplanationOfBenefitProcedure < BackboneElement
     include Mongoid::Document
-    field :typeName, type: String, default: 'ExplanationOfBenefitProcedure'
     embeds_one :sequence, class_name: 'PrimitivePositiveInt'
     embeds_many :type, class_name: 'CodeableConcept'
     embeds_one :date, class_name: 'PrimitiveDateTime'
@@ -10,7 +9,7 @@ module FHIR
     embeds_one :procedureReference, class_name: 'Reference'
     embeds_many :udi, class_name: 'Reference'
 
-    def self.transform_json(json_hash, target=ExplanationOfBenefitProcedure.new)
+    def self.transform_json(json_hash, target = ExplanationOfBenefitProcedure.new)
       result = self.superclass.transform_json(json_hash, target)
       result['sequence'] = PrimitivePositiveInt.transform_json(json_hash['sequence'], json_hash['_sequence']) unless json_hash['sequence'].nil?      
       result['type'] = json_hash['type'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['type'].nil?

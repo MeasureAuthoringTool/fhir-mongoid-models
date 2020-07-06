@@ -2,12 +2,11 @@ module FHIR
   # fhir/device_version.rb
   class DeviceVersion < BackboneElement
     include Mongoid::Document
-    field :typeName, type: String, default: 'DeviceVersion'
     embeds_one :type, class_name: 'CodeableConcept'
     embeds_one :component, class_name: 'Identifier'
     embeds_one :value, class_name: 'PrimitiveString'
 
-    def self.transform_json(json_hash, target=DeviceVersion.new)
+    def self.transform_json(json_hash, target = DeviceVersion.new)
       result = self.superclass.transform_json(json_hash, target)
       result['type'] = CodeableConcept.transform_json(json_hash['type']) unless json_hash['type'].nil?      
       result['component'] = Identifier.transform_json(json_hash['component']) unless json_hash['component'].nil?      

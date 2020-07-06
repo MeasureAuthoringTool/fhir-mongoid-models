@@ -2,12 +2,11 @@ module FHIR
   # fhir/group_member.rb
   class GroupMember < BackboneElement
     include Mongoid::Document
-    field :typeName, type: String, default: 'GroupMember'
     embeds_one :entity, class_name: 'Reference'
     embeds_one :period, class_name: 'Period'
     embeds_one :inactive, class_name: 'PrimitiveBoolean'
 
-    def self.transform_json(json_hash, target=GroupMember.new)
+    def self.transform_json(json_hash, target = GroupMember.new)
       result = self.superclass.transform_json(json_hash, target)
       result['entity'] = Reference.transform_json(json_hash['entity']) unless json_hash['entity'].nil?      
       result['period'] = Period.transform_json(json_hash['period']) unless json_hash['period'].nil?      

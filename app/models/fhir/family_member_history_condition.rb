@@ -2,7 +2,6 @@ module FHIR
   # fhir/family_member_history_condition.rb
   class FamilyMemberHistoryCondition < BackboneElement
     include Mongoid::Document
-    field :typeName, type: String, default: 'FamilyMemberHistoryCondition'
     embeds_one :code, class_name: 'CodeableConcept'
     embeds_one :outcome, class_name: 'CodeableConcept'
     embeds_one :contributedToDeath, class_name: 'PrimitiveBoolean'
@@ -12,7 +11,7 @@ module FHIR
     embeds_one :onsetString, class_name: 'PrimitiveString'
     embeds_many :note, class_name: 'Annotation'
 
-    def self.transform_json(json_hash, target=FamilyMemberHistoryCondition.new)
+    def self.transform_json(json_hash, target = FamilyMemberHistoryCondition.new)
       result = self.superclass.transform_json(json_hash, target)
       result['code'] = CodeableConcept.transform_json(json_hash['code']) unless json_hash['code'].nil?      
       result['outcome'] = CodeableConcept.transform_json(json_hash['outcome']) unless json_hash['outcome'].nil?      

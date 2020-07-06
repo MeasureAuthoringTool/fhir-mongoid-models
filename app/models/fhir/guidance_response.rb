@@ -2,7 +2,6 @@ module FHIR
   # fhir/guidance_response.rb
   class GuidanceResponse < DomainResource
     include Mongoid::Document
-    field :typeName, type: String, default: 'GuidanceResponse'
     embeds_one :requestIdentifier, class_name: 'Identifier'
     embeds_many :identifier, class_name: 'Identifier'
     embeds_one :moduleUri, class_name: 'PrimitiveUri'
@@ -21,7 +20,7 @@ module FHIR
     embeds_one :result, class_name: 'Reference'
     embeds_many :dataRequirement, class_name: 'DataRequirement'
 
-    def self.transform_json(json_hash, target=GuidanceResponse.new)
+    def self.transform_json(json_hash, target = GuidanceResponse.new)
       result = self.superclass.transform_json(json_hash, target)
       result['requestIdentifier'] = Identifier.transform_json(json_hash['requestIdentifier']) unless json_hash['requestIdentifier'].nil?      
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?

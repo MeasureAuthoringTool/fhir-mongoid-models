@@ -2,9 +2,8 @@ module FHIR
   # fhir/primitive_unsigned_int.rb
   class PrimitiveUnsignedInt < PrimitiveInteger
     include Mongoid::Document
-    field :typeName, type: String, default: 'PrimitiveUnsignedInt'
 
-    def self.transform_json(json_hash, extension_hash, target=PrimitiveUnsignedInt.new)
+    def self.transform_json(json_hash, extension_hash, target = PrimitiveUnsignedInt.new)
       result = target
       unless extension_hash.nil?
         result['id'] = extension_hash['id']

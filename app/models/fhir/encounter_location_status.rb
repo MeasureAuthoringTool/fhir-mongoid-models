@@ -2,10 +2,9 @@ module FHIR
   # fhir/encounter_location_status.rb
   class EncounterLocationStatus < Element
     include Mongoid::Document
-    field :typeName, type: String, default: 'EncounterLocationStatus'
     field :value, type: String
 
-    def self.transform_json(json_hash, target=EncounterLocationStatus.new)
+    def self.transform_json(json_hash, target = EncounterLocationStatus.new)
       result = self.superclass.transform_json(json_hash, target)
       result['value'] = json_hash['value'] unless json_hash['value'].nil?
 

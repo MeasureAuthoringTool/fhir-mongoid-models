@@ -2,7 +2,6 @@ module FHIR
   # fhir/research_subject.rb
   class ResearchSubject < DomainResource
     include Mongoid::Document
-    field :typeName, type: String, default: 'ResearchSubject'
     embeds_many :identifier, class_name: 'Identifier'
     embeds_one :status, class_name: 'ResearchSubjectStatus'
     embeds_one :period, class_name: 'Period'
@@ -12,7 +11,7 @@ module FHIR
     embeds_one :actualArm, class_name: 'PrimitiveString'
     embeds_one :consent, class_name: 'Reference'
 
-    def self.transform_json(json_hash, target=ResearchSubject.new)
+    def self.transform_json(json_hash, target = ResearchSubject.new)
       result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['status'] = ResearchSubjectStatus.transform_json(json_hash['status']) unless json_hash['status'].nil?      

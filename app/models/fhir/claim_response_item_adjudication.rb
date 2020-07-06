@@ -2,13 +2,12 @@ module FHIR
   # fhir/claim_response_item_adjudication.rb
   class ClaimResponseItemAdjudication < BackboneElement
     include Mongoid::Document
-    field :typeName, type: String, default: 'ClaimResponseItemAdjudication'
     embeds_one :category, class_name: 'CodeableConcept'
     embeds_one :reason, class_name: 'CodeableConcept'
     embeds_one :amount, class_name: 'Money'
     embeds_one :value, class_name: 'PrimitiveDecimal'
 
-    def self.transform_json(json_hash, target=ClaimResponseItemAdjudication.new)
+    def self.transform_json(json_hash, target = ClaimResponseItemAdjudication.new)
       result = self.superclass.transform_json(json_hash, target)
       result['category'] = CodeableConcept.transform_json(json_hash['category']) unless json_hash['category'].nil?      
       result['reason'] = CodeableConcept.transform_json(json_hash['reason']) unless json_hash['reason'].nil?      

@@ -2,7 +2,6 @@ module FHIR
   # fhir/medication_statement.rb
   class MedicationStatement < DomainResource
     include Mongoid::Document
-    field :typeName, type: String, default: 'MedicationStatement'
     embeds_many :identifier, class_name: 'Identifier'
     embeds_many :basedOn, class_name: 'Reference'
     embeds_many :partOf, class_name: 'Reference'
@@ -23,7 +22,7 @@ module FHIR
     embeds_many :note, class_name: 'Annotation'
     embeds_many :dosage, class_name: 'Dosage'
 
-    def self.transform_json(json_hash, target=MedicationStatement.new)
+    def self.transform_json(json_hash, target = MedicationStatement.new)
       result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['basedOn'] = json_hash['basedOn'].map { |var| Reference.transform_json(var) } unless json_hash['basedOn'].nil?

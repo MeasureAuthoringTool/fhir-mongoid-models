@@ -2,7 +2,6 @@ module FHIR
   # fhir/audit_event_agent.rb
   class AuditEventAgent < BackboneElement
     include Mongoid::Document
-    field :typeName, type: String, default: 'AuditEventAgent'
     embeds_one :type, class_name: 'CodeableConcept'
     embeds_many :role, class_name: 'CodeableConcept'
     embeds_one :who, class_name: 'Reference'
@@ -15,7 +14,7 @@ module FHIR
     embeds_one :network, class_name: 'AuditEventAgentNetwork'
     embeds_many :purposeOfUse, class_name: 'CodeableConcept'
 
-    def self.transform_json(json_hash, target=AuditEventAgent.new)
+    def self.transform_json(json_hash, target = AuditEventAgent.new)
       result = self.superclass.transform_json(json_hash, target)
       result['type'] = CodeableConcept.transform_json(json_hash['type']) unless json_hash['type'].nil?      
       result['role'] = json_hash['role'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['role'].nil?

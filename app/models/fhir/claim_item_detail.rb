@@ -2,7 +2,6 @@ module FHIR
   # fhir/claim_item_detail.rb
   class ClaimItemDetail < BackboneElement
     include Mongoid::Document
-    field :typeName, type: String, default: 'ClaimItemDetail'
     embeds_one :sequence, class_name: 'PrimitivePositiveInt'
     embeds_one :revenue, class_name: 'CodeableConcept'
     embeds_one :category, class_name: 'CodeableConcept'
@@ -16,7 +15,7 @@ module FHIR
     embeds_many :udi, class_name: 'Reference'
     embeds_many :subDetail, class_name: 'ClaimItemDetailSubDetail'
 
-    def self.transform_json(json_hash, target=ClaimItemDetail.new)
+    def self.transform_json(json_hash, target = ClaimItemDetail.new)
       result = self.superclass.transform_json(json_hash, target)
       result['sequence'] = PrimitivePositiveInt.transform_json(json_hash['sequence'], json_hash['_sequence']) unless json_hash['sequence'].nil?      
       result['revenue'] = CodeableConcept.transform_json(json_hash['revenue']) unless json_hash['revenue'].nil?      

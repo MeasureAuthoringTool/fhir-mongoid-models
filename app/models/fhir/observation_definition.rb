@@ -2,7 +2,6 @@ module FHIR
   # fhir/observation_definition.rb
   class ObservationDefinition < DomainResource
     include Mongoid::Document
-    field :typeName, type: String, default: 'ObservationDefinition'
     embeds_many :category, class_name: 'CodeableConcept'
     embeds_one :code, class_name: 'CodeableConcept'
     embeds_many :identifier, class_name: 'Identifier'
@@ -17,7 +16,7 @@ module FHIR
     embeds_one :abnormalCodedValueSet, class_name: 'Reference'
     embeds_one :criticalCodedValueSet, class_name: 'Reference'
 
-    def self.transform_json(json_hash, target=ObservationDefinition.new)
+    def self.transform_json(json_hash, target = ObservationDefinition.new)
       result = self.superclass.transform_json(json_hash, target)
       result['category'] = json_hash['category'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['category'].nil?
       result['code'] = CodeableConcept.transform_json(json_hash['code']) unless json_hash['code'].nil?      

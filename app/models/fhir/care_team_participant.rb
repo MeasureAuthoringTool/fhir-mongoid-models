@@ -2,13 +2,12 @@ module FHIR
   # fhir/care_team_participant.rb
   class CareTeamParticipant < BackboneElement
     include Mongoid::Document
-    field :typeName, type: String, default: 'CareTeamParticipant'
     embeds_many :role, class_name: 'CodeableConcept'
     embeds_one :member, class_name: 'Reference'
     embeds_one :onBehalfOf, class_name: 'Reference'
     embeds_one :period, class_name: 'Period'
 
-    def self.transform_json(json_hash, target=CareTeamParticipant.new)
+    def self.transform_json(json_hash, target = CareTeamParticipant.new)
       result = self.superclass.transform_json(json_hash, target)
       result['role'] = json_hash['role'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['role'].nil?
       result['member'] = Reference.transform_json(json_hash['member']) unless json_hash['member'].nil?      

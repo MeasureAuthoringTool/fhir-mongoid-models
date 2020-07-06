@@ -2,7 +2,6 @@ module FHIR
   # fhir/vision_prescription_lens_specification.rb
   class VisionPrescriptionLensSpecification < BackboneElement
     include Mongoid::Document
-    field :typeName, type: String, default: 'VisionPrescriptionLensSpecification'
     embeds_one :product, class_name: 'CodeableConcept'
     embeds_one :eye, class_name: 'VisionEyes'
     embeds_one :sphere, class_name: 'PrimitiveDecimal'
@@ -18,7 +17,7 @@ module FHIR
     embeds_one :brand, class_name: 'PrimitiveString'
     embeds_many :note, class_name: 'Annotation'
 
-    def self.transform_json(json_hash, target=VisionPrescriptionLensSpecification.new)
+    def self.transform_json(json_hash, target = VisionPrescriptionLensSpecification.new)
       result = self.superclass.transform_json(json_hash, target)
       result['product'] = CodeableConcept.transform_json(json_hash['product']) unless json_hash['product'].nil?      
       result['eye'] = VisionEyes.transform_json(json_hash['eye']) unless json_hash['eye'].nil?      

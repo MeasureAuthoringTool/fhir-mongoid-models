@@ -2,7 +2,6 @@ module FHIR
   # fhir/parameters_parameter.rb
   class ParametersParameter < BackboneElement
     include Mongoid::Document
-    field :typeName, type: String, default: 'ParametersParameter'
     embeds_one :name, class_name: 'PrimitiveString'
     embeds_one :valueBase64Binary, class_name: 'PrimitiveBase64Binary'
     embeds_one :valueBoolean, class_name: 'PrimitiveBoolean'
@@ -57,7 +56,7 @@ module FHIR
     embeds_one :resource, class_name: 'Resource'
     embeds_many :part, class_name: 'ParametersParameter'
 
-    def self.transform_json(json_hash, target=ParametersParameter.new)
+    def self.transform_json(json_hash, target = ParametersParameter.new)
       result = self.superclass.transform_json(json_hash, target)
       result['name'] = PrimitiveString.transform_json(json_hash['name'], json_hash['_name']) unless json_hash['name'].nil?      
       result['valueBase64Binary'] = PrimitiveBase64Binary.transform_json(json_hash['valueBase64Binary'], json_hash['_valueBase64Binary']) unless json_hash['valueBase64Binary'].nil?      

@@ -2,7 +2,6 @@ module FHIR
   # fhir/medication.rb
   class Medication < DomainResource
     include Mongoid::Document
-    field :typeName, type: String, default: 'Medication'
     embeds_many :identifier, class_name: 'Identifier'
     embeds_one :code, class_name: 'CodeableConcept'
     embeds_one :status, class_name: 'MedicationStatus'
@@ -12,7 +11,7 @@ module FHIR
     embeds_many :ingredient, class_name: 'MedicationIngredient'
     embeds_one :batch, class_name: 'MedicationBatch'
 
-    def self.transform_json(json_hash, target=Medication.new)
+    def self.transform_json(json_hash, target = Medication.new)
       result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['code'] = CodeableConcept.transform_json(json_hash['code']) unless json_hash['code'].nil?      

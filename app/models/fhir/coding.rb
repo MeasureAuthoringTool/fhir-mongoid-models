@@ -2,14 +2,13 @@ module FHIR
   # fhir/coding.rb
   class Coding < Element
     include Mongoid::Document
-    field :typeName, type: String, default: 'Coding'
     embeds_one :system, class_name: 'PrimitiveUri'
     embeds_one :version, class_name: 'PrimitiveString'
     embeds_one :code, class_name: 'PrimitiveCode'
     embeds_one :display, class_name: 'PrimitiveString'
     embeds_one :userSelected, class_name: 'PrimitiveBoolean'
 
-    def self.transform_json(json_hash, target=Coding.new)
+    def self.transform_json(json_hash, target = Coding.new)
       result = self.superclass.transform_json(json_hash, target)
       result['system'] = PrimitiveUri.transform_json(json_hash['system'], json_hash['_system']) unless json_hash['system'].nil?      
       result['version'] = PrimitiveString.transform_json(json_hash['version'], json_hash['_version']) unless json_hash['version'].nil?      

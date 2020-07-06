@@ -2,7 +2,6 @@ module FHIR
   # fhir/flag.rb
   class Flag < DomainResource
     include Mongoid::Document
-    field :typeName, type: String, default: 'Flag'
     embeds_many :identifier, class_name: 'Identifier'
     embeds_one :status, class_name: 'FlagStatus'
     embeds_many :category, class_name: 'CodeableConcept'
@@ -12,7 +11,7 @@ module FHIR
     embeds_one :encounter, class_name: 'Reference'
     embeds_one :author, class_name: 'Reference'
 
-    def self.transform_json(json_hash, target=Flag.new)
+    def self.transform_json(json_hash, target = Flag.new)
       result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['status'] = FlagStatus.transform_json(json_hash['status']) unless json_hash['status'].nil?      

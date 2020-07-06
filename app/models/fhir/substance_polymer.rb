@@ -2,7 +2,6 @@ module FHIR
   # fhir/substance_polymer.rb
   class SubstancePolymer < DomainResource
     include Mongoid::Document
-    field :typeName, type: String, default: 'SubstancePolymer'
     embeds_one :class, class_name: 'CodeableConcept'
     embeds_one :geometry, class_name: 'CodeableConcept'
     embeds_many :copolymerConnectivity, class_name: 'CodeableConcept'
@@ -10,7 +9,7 @@ module FHIR
     embeds_many :monomerSet, class_name: 'SubstancePolymerMonomerSet'
     embeds_many :repeat, class_name: 'SubstancePolymerRepeat'
 
-    def self.transform_json(json_hash, target=SubstancePolymer.new)
+    def self.transform_json(json_hash, target = SubstancePolymer.new)
       result = self.superclass.transform_json(json_hash, target)
       result['class'] = CodeableConcept.transform_json(json_hash['class']) unless json_hash['class'].nil?      
       result['geometry'] = CodeableConcept.transform_json(json_hash['geometry']) unless json_hash['geometry'].nil?      

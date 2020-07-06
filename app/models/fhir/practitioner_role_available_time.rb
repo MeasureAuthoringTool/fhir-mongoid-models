@@ -2,13 +2,12 @@ module FHIR
   # fhir/practitioner_role_available_time.rb
   class PractitionerRoleAvailableTime < BackboneElement
     include Mongoid::Document
-    field :typeName, type: String, default: 'PractitionerRoleAvailableTime'
     embeds_many :daysOfWeek, class_name: 'DaysOfWeek'
     embeds_one :allDay, class_name: 'PrimitiveBoolean'
     embeds_one :availableStartTime, class_name: 'PrimitiveTime'
     embeds_one :availableEndTime, class_name: 'PrimitiveTime'
 
-    def self.transform_json(json_hash, target=PractitionerRoleAvailableTime.new)
+    def self.transform_json(json_hash, target = PractitionerRoleAvailableTime.new)
       result = self.superclass.transform_json(json_hash, target)
       result['daysOfWeek'] = json_hash['daysOfWeek'].map { |var| DaysOfWeek.transform_json(var) } unless json_hash['daysOfWeek'].nil?
       result['allDay'] = PrimitiveBoolean.transform_json(json_hash['allDay'], json_hash['_allDay']) unless json_hash['allDay'].nil?      

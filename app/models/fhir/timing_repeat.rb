@@ -2,7 +2,6 @@ module FHIR
   # fhir/timing_repeat.rb
   class TimingRepeat < Element
     include Mongoid::Document
-    field :typeName, type: String, default: 'TimingRepeat'
     embeds_one :boundsDuration, class_name: 'Duration'
     embeds_one :boundsRange, class_name: 'Range'
     embeds_one :boundsPeriod, class_name: 'Period'
@@ -21,7 +20,7 @@ module FHIR
     embeds_many :when, class_name: 'EventTiming'
     embeds_one :offset, class_name: 'PrimitiveUnsignedInt'
 
-    def self.transform_json(json_hash, target=TimingRepeat.new)
+    def self.transform_json(json_hash, target = TimingRepeat.new)
       result = self.superclass.transform_json(json_hash, target)
       result['boundsDuration'] = Duration.transform_json(json_hash['boundsDuration']) unless json_hash['boundsDuration'].nil?      
       result['boundsRange'] = Range.transform_json(json_hash['boundsRange']) unless json_hash['boundsRange'].nil?      

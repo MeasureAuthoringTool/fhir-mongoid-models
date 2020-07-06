@@ -2,10 +2,9 @@ module FHIR
   # fhir/primitive_string.rb
   class PrimitiveString < Element
     include Mongoid::Document
-    field :typeName, type: String, default: 'PrimitiveString'
     field :value, type: String
 
-    def self.transform_json(json_hash, extension_hash, target=PrimitiveString.new)
+    def self.transform_json(json_hash, extension_hash, target = PrimitiveString.new)
       result = target
       unless extension_hash.nil?
         result['id'] = extension_hash['id']

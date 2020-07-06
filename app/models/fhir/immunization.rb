@@ -2,7 +2,6 @@ module FHIR
   # fhir/immunization.rb
   class Immunization < DomainResource
     include Mongoid::Document
-    field :typeName, type: String, default: 'Immunization'
     embeds_many :identifier, class_name: 'Identifier'
     embeds_one :status, class_name: 'ImmunizationStatus'
     embeds_one :statusReason, class_name: 'CodeableConcept'
@@ -33,7 +32,7 @@ module FHIR
     embeds_many :reaction, class_name: 'ImmunizationReaction'
     embeds_many :protocolApplied, class_name: 'ImmunizationProtocolApplied'
 
-    def self.transform_json(json_hash, target=Immunization.new)
+    def self.transform_json(json_hash, target = Immunization.new)
       result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['status'] = ImmunizationStatus.transform_json(json_hash['status']) unless json_hash['status'].nil?      

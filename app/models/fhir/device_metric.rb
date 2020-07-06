@@ -2,7 +2,6 @@ module FHIR
   # fhir/device_metric.rb
   class DeviceMetric < DomainResource
     include Mongoid::Document
-    field :typeName, type: String, default: 'DeviceMetric'
     embeds_many :identifier, class_name: 'Identifier'
     embeds_one :type, class_name: 'CodeableConcept'
     embeds_one :unit, class_name: 'CodeableConcept'
@@ -14,7 +13,7 @@ module FHIR
     embeds_one :measurementPeriod, class_name: 'Timing'
     embeds_many :calibration, class_name: 'DeviceMetricCalibration'
 
-    def self.transform_json(json_hash, target=DeviceMetric.new)
+    def self.transform_json(json_hash, target = DeviceMetric.new)
       result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['type'] = CodeableConcept.transform_json(json_hash['type']) unless json_hash['type'].nil?      

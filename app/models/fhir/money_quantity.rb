@@ -2,14 +2,13 @@ module FHIR
   # fhir/money_quantity.rb
   class MoneyQuantity < Quantity
     include Mongoid::Document
-    field :typeName, type: String, default: 'MoneyQuantity'
     embeds_one :value, class_name: 'PrimitiveDecimal'
     embeds_one :comparator, class_name: 'QuantityComparator'
     embeds_one :unit, class_name: 'PrimitiveString'
     embeds_one :system, class_name: 'PrimitiveUri'
     embeds_one :code, class_name: 'PrimitiveCode'
 
-    def self.transform_json(json_hash, target=MoneyQuantity.new)
+    def self.transform_json(json_hash, target = MoneyQuantity.new)
       result = self.superclass.transform_json(json_hash, target)
       result['value'] = PrimitiveDecimal.transform_json(json_hash['value'], json_hash['_value']) unless json_hash['value'].nil?      
       result['comparator'] = QuantityComparator.transform_json(json_hash['comparator']) unless json_hash['comparator'].nil?      

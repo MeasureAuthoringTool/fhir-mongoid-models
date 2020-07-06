@@ -2,7 +2,6 @@ module FHIR
   # fhir/address.rb
   class Address < Element
     include Mongoid::Document
-    field :typeName, type: String, default: 'Address'
     embeds_one :use, class_name: 'AddressUse'
     embeds_one :type, class_name: 'AddressType'
     embeds_one :text, class_name: 'PrimitiveString'
@@ -14,7 +13,7 @@ module FHIR
     embeds_one :country, class_name: 'PrimitiveString'
     embeds_one :period, class_name: 'Period'
 
-    def self.transform_json(json_hash, target=Address.new)
+    def self.transform_json(json_hash, target = Address.new)
       result = self.superclass.transform_json(json_hash, target)
       result['use'] = AddressUse.transform_json(json_hash['use']) unless json_hash['use'].nil?      
       result['type'] = AddressType.transform_json(json_hash['type']) unless json_hash['type'].nil?      

@@ -2,7 +2,6 @@ module FHIR
   # fhir/request_group_action.rb
   class RequestGroupAction < BackboneElement
     include Mongoid::Document
-    field :typeName, type: String, default: 'RequestGroupAction'
     embeds_one :prefix, class_name: 'PrimitiveString'
     embeds_one :title, class_name: 'PrimitiveString'
     embeds_one :description, class_name: 'PrimitiveString'
@@ -28,7 +27,7 @@ module FHIR
     embeds_one :resource, class_name: 'Reference'
     embeds_many :action, class_name: 'RequestGroupAction'
 
-    def self.transform_json(json_hash, target=RequestGroupAction.new)
+    def self.transform_json(json_hash, target = RequestGroupAction.new)
       result = self.superclass.transform_json(json_hash, target)
       result['prefix'] = PrimitiveString.transform_json(json_hash['prefix'], json_hash['_prefix']) unless json_hash['prefix'].nil?      
       result['title'] = PrimitiveString.transform_json(json_hash['title'], json_hash['_title']) unless json_hash['title'].nil?      

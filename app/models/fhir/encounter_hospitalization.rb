@@ -2,7 +2,6 @@ module FHIR
   # fhir/encounter_hospitalization.rb
   class EncounterHospitalization < BackboneElement
     include Mongoid::Document
-    field :typeName, type: String, default: 'EncounterHospitalization'
     embeds_one :preAdmissionIdentifier, class_name: 'Identifier'
     embeds_one :origin, class_name: 'Reference'
     embeds_one :admitSource, class_name: 'CodeableConcept'
@@ -13,7 +12,7 @@ module FHIR
     embeds_one :destination, class_name: 'Reference'
     embeds_one :dischargeDisposition, class_name: 'CodeableConcept'
 
-    def self.transform_json(json_hash, target=EncounterHospitalization.new)
+    def self.transform_json(json_hash, target = EncounterHospitalization.new)
       result = self.superclass.transform_json(json_hash, target)
       result['preAdmissionIdentifier'] = Identifier.transform_json(json_hash['preAdmissionIdentifier']) unless json_hash['preAdmissionIdentifier'].nil?      
       result['origin'] = Reference.transform_json(json_hash['origin']) unless json_hash['origin'].nil?      

@@ -2,7 +2,6 @@ module FHIR
   # fhir/substance_source_material.rb
   class SubstanceSourceMaterial < DomainResource
     include Mongoid::Document
-    field :typeName, type: String, default: 'SubstanceSourceMaterial'
     embeds_one :sourceMaterialClass, class_name: 'CodeableConcept'
     embeds_one :sourceMaterialType, class_name: 'CodeableConcept'
     embeds_one :sourceMaterialState, class_name: 'CodeableConcept'
@@ -17,7 +16,7 @@ module FHIR
     embeds_one :organism, class_name: 'SubstanceSourceMaterialOrganism'
     embeds_many :partDescription, class_name: 'SubstanceSourceMaterialPartDescription'
 
-    def self.transform_json(json_hash, target=SubstanceSourceMaterial.new)
+    def self.transform_json(json_hash, target = SubstanceSourceMaterial.new)
       result = self.superclass.transform_json(json_hash, target)
       result['sourceMaterialClass'] = CodeableConcept.transform_json(json_hash['sourceMaterialClass']) unless json_hash['sourceMaterialClass'].nil?      
       result['sourceMaterialType'] = CodeableConcept.transform_json(json_hash['sourceMaterialType']) unless json_hash['sourceMaterialType'].nil?      

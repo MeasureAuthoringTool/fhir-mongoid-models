@@ -2,7 +2,6 @@ module FHIR
   # fhir/coverage_eligibility_response_insurance_item_benefit.rb
   class CoverageEligibilityResponseInsuranceItemBenefit < BackboneElement
     include Mongoid::Document
-    field :typeName, type: String, default: 'CoverageEligibilityResponseInsuranceItemBenefit'
     embeds_one :type, class_name: 'CodeableConcept'
     embeds_one :allowedUnsignedInt, class_name: 'PrimitiveUnsignedInt'
     embeds_one :allowedString, class_name: 'PrimitiveString'
@@ -11,7 +10,7 @@ module FHIR
     embeds_one :usedString, class_name: 'PrimitiveString'
     embeds_one :usedMoney, class_name: 'Money'
 
-    def self.transform_json(json_hash, target=CoverageEligibilityResponseInsuranceItemBenefit.new)
+    def self.transform_json(json_hash, target = CoverageEligibilityResponseInsuranceItemBenefit.new)
       result = self.superclass.transform_json(json_hash, target)
       result['type'] = CodeableConcept.transform_json(json_hash['type']) unless json_hash['type'].nil?      
       result['allowedUnsignedInt'] = PrimitiveUnsignedInt.transform_json(json_hash['allowedUnsignedInt'], json_hash['_allowedUnsignedInt']) unless json_hash['allowedUnsignedInt'].nil?      

@@ -2,7 +2,6 @@ module FHIR
   # fhir/specimen_definition_type_tested_container.rb
   class SpecimenDefinitionTypeTestedContainer < BackboneElement
     include Mongoid::Document
-    field :typeName, type: String, default: 'SpecimenDefinitionTypeTestedContainer'
     embeds_one :material, class_name: 'CodeableConcept'
     embeds_one :type, class_name: 'CodeableConcept'
     embeds_one :cap, class_name: 'CodeableConcept'
@@ -13,7 +12,7 @@ module FHIR
     embeds_many :additive, class_name: 'SpecimenDefinitionTypeTestedContainerAdditive'
     embeds_one :preparation, class_name: 'PrimitiveString'
 
-    def self.transform_json(json_hash, target=SpecimenDefinitionTypeTestedContainer.new)
+    def self.transform_json(json_hash, target = SpecimenDefinitionTypeTestedContainer.new)
       result = self.superclass.transform_json(json_hash, target)
       result['material'] = CodeableConcept.transform_json(json_hash['material']) unless json_hash['material'].nil?      
       result['type'] = CodeableConcept.transform_json(json_hash['type']) unless json_hash['type'].nil?      

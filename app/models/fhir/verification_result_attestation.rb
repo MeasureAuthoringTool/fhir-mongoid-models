@@ -2,7 +2,6 @@ module FHIR
   # fhir/verification_result_attestation.rb
   class VerificationResultAttestation < BackboneElement
     include Mongoid::Document
-    field :typeName, type: String, default: 'VerificationResultAttestation'
     embeds_one :who, class_name: 'Reference'
     embeds_one :onBehalfOf, class_name: 'Reference'
     embeds_one :communicationMethod, class_name: 'CodeableConcept'
@@ -12,7 +11,7 @@ module FHIR
     embeds_one :proxySignature, class_name: 'Signature'
     embeds_one :sourceSignature, class_name: 'Signature'
 
-    def self.transform_json(json_hash, target=VerificationResultAttestation.new)
+    def self.transform_json(json_hash, target = VerificationResultAttestation.new)
       result = self.superclass.transform_json(json_hash, target)
       result['who'] = Reference.transform_json(json_hash['who']) unless json_hash['who'].nil?      
       result['onBehalfOf'] = Reference.transform_json(json_hash['onBehalfOf']) unless json_hash['onBehalfOf'].nil?      

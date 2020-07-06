@@ -2,7 +2,6 @@ module FHIR
   # fhir/task_output.rb
   class TaskOutput < BackboneElement
     include Mongoid::Document
-    field :typeName, type: String, default: 'TaskOutput'
     embeds_one :type, class_name: 'CodeableConcept'
     embeds_one :valueBase64Binary, class_name: 'PrimitiveBase64Binary'
     embeds_one :valueBoolean, class_name: 'PrimitiveBoolean'
@@ -55,7 +54,7 @@ module FHIR
     embeds_one :valueDosage, class_name: 'Dosage'
     embeds_one :valueMeta, class_name: 'Meta'
 
-    def self.transform_json(json_hash, target=TaskOutput.new)
+    def self.transform_json(json_hash, target = TaskOutput.new)
       result = self.superclass.transform_json(json_hash, target)
       result['type'] = CodeableConcept.transform_json(json_hash['type']) unless json_hash['type'].nil?      
       result['valueBase64Binary'] = PrimitiveBase64Binary.transform_json(json_hash['valueBase64Binary'], json_hash['_valueBase64Binary']) unless json_hash['valueBase64Binary'].nil?      

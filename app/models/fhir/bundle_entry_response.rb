@@ -2,14 +2,13 @@ module FHIR
   # fhir/bundle_entry_response.rb
   class BundleEntryResponse < BackboneElement
     include Mongoid::Document
-    field :typeName, type: String, default: 'BundleEntryResponse'
     embeds_one :status, class_name: 'PrimitiveString'
     embeds_one :location, class_name: 'PrimitiveUri'
     embeds_one :etag, class_name: 'PrimitiveString'
     embeds_one :lastModified, class_name: 'PrimitiveInstant'
     embeds_one :outcome, class_name: 'Resource'
 
-    def self.transform_json(json_hash, target=BundleEntryResponse.new)
+    def self.transform_json(json_hash, target = BundleEntryResponse.new)
       result = self.superclass.transform_json(json_hash, target)
       result['status'] = PrimitiveString.transform_json(json_hash['status'], json_hash['_status']) unless json_hash['status'].nil?      
       result['location'] = PrimitiveUri.transform_json(json_hash['location'], json_hash['_location']) unless json_hash['location'].nil?      
