@@ -21,7 +21,7 @@ module CQM
     CQL_SKIP_STATEMENTS = ['SDE Ethnicity', 'SDE Payer', 'SDE Race', 'SDE Sex'].freeze
 
     # A version-specific UUID for the measure
-    field :family_id, type: String
+    field :set_id, type: String
     field :calculation_method, type: String, default: 'PATIENT'
     field :calculate_sdes, type: Boolean
 
