@@ -2,8 +2,8 @@ module FHIR
   # fhir/healthcare_service_not_available.rb
   class HealthcareServiceNotAvailable < BackboneElement
     include Mongoid::Document
-    embeds_one :description, class_name: 'PrimitiveString'
-    embeds_one :during, class_name: 'Period'
+    embeds_one :description, class_name: 'FHIR::PrimitiveString'
+    embeds_one :during, class_name: 'FHIR::Period'
 
     def self.transform_json(json_hash, target = HealthcareServiceNotAvailable.new)
       result = self.superclass.transform_json(json_hash, target)

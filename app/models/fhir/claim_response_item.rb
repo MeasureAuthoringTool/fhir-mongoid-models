@@ -2,10 +2,10 @@ module FHIR
   # fhir/claim_response_item.rb
   class ClaimResponseItem < BackboneElement
     include Mongoid::Document
-    embeds_one :itemSequence, class_name: 'PrimitivePositiveInt'
-    embeds_many :noteNumber, class_name: 'PrimitivePositiveInt'
-    embeds_many :adjudication, class_name: 'ClaimResponseItemAdjudication'
-    embeds_many :detail, class_name: 'ClaimResponseItemDetail'
+    embeds_one :itemSequence, class_name: 'FHIR::PrimitivePositiveInt'
+    embeds_many :noteNumber, class_name: 'FHIR::PrimitivePositiveInt'
+    embeds_many :adjudication, class_name: 'FHIR::ClaimResponseItemAdjudication'
+    embeds_many :detail, class_name: 'FHIR::ClaimResponseItemDetail'
 
     def self.transform_json(json_hash, target = ClaimResponseItem.new)
       result = self.superclass.transform_json(json_hash, target)

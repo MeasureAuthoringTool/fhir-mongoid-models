@@ -2,14 +2,14 @@ module FHIR
   # fhir/specimen_definition_type_tested.rb
   class SpecimenDefinitionTypeTested < BackboneElement
     include Mongoid::Document
-    embeds_one :isDerived, class_name: 'PrimitiveBoolean'
-    embeds_one :type, class_name: 'CodeableConcept'
-    embeds_one :preference, class_name: 'SpecimenContainedPreference'
-    embeds_one :container, class_name: 'SpecimenDefinitionTypeTestedContainer'
-    embeds_one :requirement, class_name: 'PrimitiveString'
-    embeds_one :retentionTime, class_name: 'Duration'
-    embeds_many :rejectionCriterion, class_name: 'CodeableConcept'
-    embeds_many :handling, class_name: 'SpecimenDefinitionTypeTestedHandling'
+    embeds_one :isDerived, class_name: 'FHIR::PrimitiveBoolean'
+    embeds_one :type, class_name: 'FHIR::CodeableConcept'
+    embeds_one :preference, class_name: 'FHIR::SpecimenContainedPreference'
+    embeds_one :container, class_name: 'FHIR::SpecimenDefinitionTypeTestedContainer'
+    embeds_one :requirement, class_name: 'FHIR::PrimitiveString'
+    embeds_one :retentionTime, class_name: 'FHIR::Duration'
+    embeds_many :rejectionCriterion, class_name: 'FHIR::CodeableConcept'
+    embeds_many :handling, class_name: 'FHIR::SpecimenDefinitionTypeTestedHandling'
 
     def self.transform_json(json_hash, target = SpecimenDefinitionTypeTested.new)
       result = self.superclass.transform_json(json_hash, target)

@@ -2,17 +2,17 @@ module FHIR
   # fhir/substance_specification_relationship.rb
   class SubstanceSpecificationRelationship < BackboneElement
     include Mongoid::Document
-    embeds_one :substanceReference, class_name: 'Reference'
-    embeds_one :substanceCodeableConcept, class_name: 'CodeableConcept'
-    embeds_one :relationship, class_name: 'CodeableConcept'
-    embeds_one :isDefining, class_name: 'PrimitiveBoolean'
-    embeds_one :amountQuantity, class_name: 'Quantity'
-    embeds_one :amountRange, class_name: 'Range'
-    embeds_one :amountRatio, class_name: 'Ratio'
-    embeds_one :amountString, class_name: 'PrimitiveString'
-    embeds_one :amountRatioLowLimit, class_name: 'Ratio'
-    embeds_one :amountType, class_name: 'CodeableConcept'
-    embeds_many :source, class_name: 'Reference'
+    embeds_one :substanceReference, class_name: 'FHIR::Reference'
+    embeds_one :substanceCodeableConcept, class_name: 'FHIR::CodeableConcept'
+    embeds_one :relationship, class_name: 'FHIR::CodeableConcept'
+    embeds_one :isDefining, class_name: 'FHIR::PrimitiveBoolean'
+    embeds_one :amountQuantity, class_name: 'FHIR::Quantity'
+    embeds_one :amountRange, class_name: 'FHIR::Range'
+    embeds_one :amountRatio, class_name: 'FHIR::Ratio'
+    embeds_one :amountString, class_name: 'FHIR::PrimitiveString'
+    embeds_one :amountRatioLowLimit, class_name: 'FHIR::Ratio'
+    embeds_one :amountType, class_name: 'FHIR::CodeableConcept'
+    embeds_many :source, class_name: 'FHIR::Reference'
 
     def self.transform_json(json_hash, target = SubstanceSpecificationRelationship.new)
       result = self.superclass.transform_json(json_hash, target)

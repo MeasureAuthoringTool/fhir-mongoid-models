@@ -2,13 +2,13 @@ module FHIR
   # fhir/implementation_guide_definition_resource.rb
   class ImplementationGuideDefinitionResource < BackboneElement
     include Mongoid::Document
-    embeds_one :reference, class_name: 'Reference'
-    embeds_many :fhirVersion, class_name: 'FHIRVersion'
-    embeds_one :name, class_name: 'PrimitiveString'
-    embeds_one :description, class_name: 'PrimitiveString'
-    embeds_one :exampleBoolean, class_name: 'PrimitiveBoolean'
-    embeds_one :exampleCanonical, class_name: 'PrimitiveCanonical'
-    embeds_one :groupingId, class_name: 'PrimitiveId'
+    embeds_one :reference, class_name: 'FHIR::Reference'
+    embeds_many :fhirVersion, class_name: 'FHIR::FHIRVersion'
+    embeds_one :name, class_name: 'FHIR::PrimitiveString'
+    embeds_one :description, class_name: 'FHIR::PrimitiveString'
+    embeds_one :exampleBoolean, class_name: 'FHIR::PrimitiveBoolean'
+    embeds_one :exampleCanonical, class_name: 'FHIR::PrimitiveCanonical'
+    embeds_one :groupingId, class_name: 'FHIR::PrimitiveId'
 
     def self.transform_json(json_hash, target = ImplementationGuideDefinitionResource.new)
       result = self.superclass.transform_json(json_hash, target)

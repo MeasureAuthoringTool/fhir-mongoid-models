@@ -2,10 +2,10 @@ module FHIR
   # fhir/contract_term_security_label.rb
   class ContractTermSecurityLabel < BackboneElement
     include Mongoid::Document
-    embeds_many :number, class_name: 'PrimitiveUnsignedInt'
-    embeds_one :classification, class_name: 'Coding'
-    embeds_many :category, class_name: 'Coding'
-    embeds_many :control, class_name: 'Coding'
+    embeds_many :number, class_name: 'FHIR::PrimitiveUnsignedInt'
+    embeds_one :classification, class_name: 'FHIR::Coding'
+    embeds_many :category, class_name: 'FHIR::Coding'
+    embeds_many :control, class_name: 'FHIR::Coding'
 
     def self.transform_json(json_hash, target = ContractTermSecurityLabel.new)
       result = self.superclass.transform_json(json_hash, target)

@@ -2,8 +2,8 @@ module FHIR
   # fhir/terminology_capabilities_code_system_version_filter.rb
   class TerminologyCapabilitiesCodeSystemVersionFilter < BackboneElement
     include Mongoid::Document
-    embeds_one :code, class_name: 'PrimitiveCode'
-    embeds_many :op, class_name: 'PrimitiveCode'
+    embeds_one :code, class_name: 'FHIR::PrimitiveCode'
+    embeds_many :op, class_name: 'FHIR::PrimitiveCode'
 
     def self.transform_json(json_hash, target = TerminologyCapabilitiesCodeSystemVersionFilter.new)
       result = self.superclass.transform_json(json_hash, target)

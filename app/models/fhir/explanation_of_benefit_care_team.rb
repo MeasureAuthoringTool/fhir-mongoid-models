@@ -2,11 +2,11 @@ module FHIR
   # fhir/explanation_of_benefit_care_team.rb
   class ExplanationOfBenefitCareTeam < BackboneElement
     include Mongoid::Document
-    embeds_one :sequence, class_name: 'PrimitivePositiveInt'
-    embeds_one :provider, class_name: 'Reference'
-    embeds_one :responsible, class_name: 'PrimitiveBoolean'
-    embeds_one :role, class_name: 'CodeableConcept'
-    embeds_one :qualification, class_name: 'CodeableConcept'
+    embeds_one :sequence, class_name: 'FHIR::PrimitivePositiveInt'
+    embeds_one :provider, class_name: 'FHIR::Reference'
+    embeds_one :responsible, class_name: 'FHIR::PrimitiveBoolean'
+    embeds_one :role, class_name: 'FHIR::CodeableConcept'
+    embeds_one :qualification, class_name: 'FHIR::CodeableConcept'
 
     def self.transform_json(json_hash, target = ExplanationOfBenefitCareTeam.new)
       result = self.superclass.transform_json(json_hash, target)

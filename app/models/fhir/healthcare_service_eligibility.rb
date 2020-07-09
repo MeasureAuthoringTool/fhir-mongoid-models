@@ -2,8 +2,8 @@ module FHIR
   # fhir/healthcare_service_eligibility.rb
   class HealthcareServiceEligibility < BackboneElement
     include Mongoid::Document
-    embeds_one :code, class_name: 'CodeableConcept'
-    embeds_one :comment, class_name: 'PrimitiveMarkdown'
+    embeds_one :code, class_name: 'FHIR::CodeableConcept'
+    embeds_one :comment, class_name: 'FHIR::PrimitiveMarkdown'
 
     def self.transform_json(json_hash, target = HealthcareServiceEligibility.new)
       result = self.superclass.transform_json(json_hash, target)

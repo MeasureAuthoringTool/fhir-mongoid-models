@@ -2,11 +2,11 @@ module FHIR
   # fhir/value_set_compose_include.rb
   class ValueSetComposeInclude < BackboneElement
     include Mongoid::Document
-    embeds_one :system, class_name: 'PrimitiveUri'
-    embeds_one :version, class_name: 'PrimitiveString'
-    embeds_many :concept, class_name: 'ValueSetComposeIncludeConcept'
-    embeds_many :filter, class_name: 'ValueSetComposeIncludeFilter'
-    embeds_many :valueSet, class_name: 'PrimitiveCanonical'
+    embeds_one :system, class_name: 'FHIR::PrimitiveUri'
+    embeds_one :version, class_name: 'FHIR::PrimitiveString'
+    embeds_many :concept, class_name: 'FHIR::ValueSetComposeIncludeConcept'
+    embeds_many :filter, class_name: 'FHIR::ValueSetComposeIncludeFilter'
+    embeds_many :valueSet, class_name: 'FHIR::PrimitiveCanonical'
 
     def self.transform_json(json_hash, target = ValueSetComposeInclude.new)
       result = self.superclass.transform_json(json_hash, target)

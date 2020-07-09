@@ -2,12 +2,12 @@ module FHIR
   # fhir/bundle_entry_request.rb
   class BundleEntryRequest < BackboneElement
     include Mongoid::Document
-    embeds_one :method, class_name: 'HTTPVerb'
-    embeds_one :url, class_name: 'PrimitiveUri'
-    embeds_one :ifNoneMatch, class_name: 'PrimitiveString'
-    embeds_one :ifModifiedSince, class_name: 'PrimitiveInstant'
-    embeds_one :ifMatch, class_name: 'PrimitiveString'
-    embeds_one :ifNoneExist, class_name: 'PrimitiveString'
+    embeds_one :method, class_name: 'FHIR::HTTPVerb'
+    embeds_one :url, class_name: 'FHIR::PrimitiveUri'
+    embeds_one :ifNoneMatch, class_name: 'FHIR::PrimitiveString'
+    embeds_one :ifModifiedSince, class_name: 'FHIR::PrimitiveInstant'
+    embeds_one :ifMatch, class_name: 'FHIR::PrimitiveString'
+    embeds_one :ifNoneExist, class_name: 'FHIR::PrimitiveString'
 
     def self.transform_json(json_hash, target = BundleEntryRequest.new)
       result = self.superclass.transform_json(json_hash, target)

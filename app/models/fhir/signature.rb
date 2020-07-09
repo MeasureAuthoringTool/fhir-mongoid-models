@@ -2,13 +2,13 @@ module FHIR
   # fhir/signature.rb
   class Signature < Element
     include Mongoid::Document
-    embeds_many :type, class_name: 'Coding'
-    embeds_one :when, class_name: 'PrimitiveInstant'
-    embeds_one :who, class_name: 'Reference'
-    embeds_one :onBehalfOf, class_name: 'Reference'
-    embeds_one :targetFormat, class_name: 'MimeType'
-    embeds_one :sigFormat, class_name: 'MimeType'
-    embeds_one :data, class_name: 'PrimitiveBase64Binary'
+    embeds_many :type, class_name: 'FHIR::Coding'
+    embeds_one :when, class_name: 'FHIR::PrimitiveInstant'
+    embeds_one :who, class_name: 'FHIR::Reference'
+    embeds_one :onBehalfOf, class_name: 'FHIR::Reference'
+    embeds_one :targetFormat, class_name: 'FHIR::MimeType'
+    embeds_one :sigFormat, class_name: 'FHIR::MimeType'
+    embeds_one :data, class_name: 'FHIR::PrimitiveBase64Binary'
 
     def self.transform_json(json_hash, target = Signature.new)
       result = self.superclass.transform_json(json_hash, target)

@@ -2,10 +2,10 @@ module FHIR
   # fhir/reference.rb
   class Reference < Element
     include Mongoid::Document
-    embeds_one :reference, class_name: 'PrimitiveString'
-    embeds_one :type, class_name: 'PrimitiveUri'
-    embeds_one :identifier, class_name: 'Identifier'
-    embeds_one :display, class_name: 'PrimitiveString'
+    embeds_one :reference, class_name: 'FHIR::PrimitiveString'
+    embeds_one :type, class_name: 'FHIR::PrimitiveUri'
+    embeds_one :identifier, class_name: 'FHIR::Identifier'
+    embeds_one :display, class_name: 'FHIR::PrimitiveString'
 
     def self.transform_json(json_hash, target = Reference.new)
       result = self.superclass.transform_json(json_hash, target)

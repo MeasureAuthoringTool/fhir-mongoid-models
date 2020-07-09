@@ -2,11 +2,11 @@ module FHIR
   # fhir/device_request_parameter.rb
   class DeviceRequestParameter < BackboneElement
     include Mongoid::Document
-    embeds_one :code, class_name: 'CodeableConcept'
-    embeds_one :valueCodeableConcept, class_name: 'CodeableConcept'
-    embeds_one :valueQuantity, class_name: 'Quantity'
-    embeds_one :valueRange, class_name: 'Range'
-    embeds_one :valueBoolean, class_name: 'PrimitiveBoolean'
+    embeds_one :code, class_name: 'FHIR::CodeableConcept'
+    embeds_one :valueCodeableConcept, class_name: 'FHIR::CodeableConcept'
+    embeds_one :valueQuantity, class_name: 'FHIR::Quantity'
+    embeds_one :valueRange, class_name: 'FHIR::Range'
+    embeds_one :valueBoolean, class_name: 'FHIR::PrimitiveBoolean'
 
     def self.transform_json(json_hash, target = DeviceRequestParameter.new)
       result = self.superclass.transform_json(json_hash, target)

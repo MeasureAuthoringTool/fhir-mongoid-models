@@ -2,9 +2,9 @@ module FHIR
   # fhir/substance_specification_name_official.rb
   class SubstanceSpecificationNameOfficial < BackboneElement
     include Mongoid::Document
-    embeds_one :authority, class_name: 'CodeableConcept'
-    embeds_one :status, class_name: 'CodeableConcept'
-    embeds_one :date, class_name: 'PrimitiveDateTime'
+    embeds_one :authority, class_name: 'FHIR::CodeableConcept'
+    embeds_one :status, class_name: 'FHIR::CodeableConcept'
+    embeds_one :date, class_name: 'FHIR::PrimitiveDateTime'
 
     def self.transform_json(json_hash, target = SubstanceSpecificationNameOfficial.new)
       result = self.superclass.transform_json(json_hash, target)

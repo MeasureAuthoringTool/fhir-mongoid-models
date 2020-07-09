@@ -2,8 +2,8 @@ module FHIR
   # fhir/substance_polymer_repeat_repeat_unit_degree_of_polymerisation.rb
   class SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation < BackboneElement
     include Mongoid::Document
-    embeds_one :degree, class_name: 'CodeableConcept'
-    embeds_one :amount, class_name: 'SubstanceAmount'
+    embeds_one :degree, class_name: 'FHIR::CodeableConcept'
+    embeds_one :amount, class_name: 'FHIR::SubstanceAmount'
 
     def self.transform_json(json_hash, target = SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation.new)
       result = self.superclass.transform_json(json_hash, target)

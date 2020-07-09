@@ -2,8 +2,8 @@ module FHIR
   # fhir/operation_definition_parameter_binding.rb
   class OperationDefinitionParameterBinding < BackboneElement
     include Mongoid::Document
-    embeds_one :strength, class_name: 'BindingStrength'
-    embeds_one :valueSet, class_name: 'PrimitiveCanonical'
+    embeds_one :strength, class_name: 'FHIR::BindingStrength'
+    embeds_one :valueSet, class_name: 'FHIR::PrimitiveCanonical'
 
     def self.transform_json(json_hash, target = OperationDefinitionParameterBinding.new)
       result = self.superclass.transform_json(json_hash, target)

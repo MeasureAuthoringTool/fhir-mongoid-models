@@ -2,11 +2,11 @@ module FHIR
   # fhir/immunization_recommendation.rb
   class ImmunizationRecommendation < DomainResource
     include Mongoid::Document
-    embeds_many :identifier, class_name: 'Identifier'
-    embeds_one :patient, class_name: 'Reference'
-    embeds_one :date, class_name: 'PrimitiveDateTime'
-    embeds_one :authority, class_name: 'Reference'
-    embeds_many :recommendation, class_name: 'ImmunizationRecommendationRecommendation'
+    embeds_many :identifier, class_name: 'FHIR::Identifier'
+    embeds_one :patient, class_name: 'FHIR::Reference'
+    embeds_one :date, class_name: 'FHIR::PrimitiveDateTime'
+    embeds_one :authority, class_name: 'FHIR::Reference'
+    embeds_many :recommendation, class_name: 'FHIR::ImmunizationRecommendationRecommendation'
 
     def self.transform_json(json_hash, target = ImmunizationRecommendation.new)
       result = self.superclass.transform_json(json_hash, target)

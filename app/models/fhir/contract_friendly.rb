@@ -2,8 +2,8 @@ module FHIR
   # fhir/contract_friendly.rb
   class ContractFriendly < BackboneElement
     include Mongoid::Document
-    embeds_one :contentAttachment, class_name: 'Attachment'
-    embeds_one :contentReference, class_name: 'Reference'
+    embeds_one :contentAttachment, class_name: 'FHIR::Attachment'
+    embeds_one :contentReference, class_name: 'FHIR::Reference'
 
     def self.transform_json(json_hash, target = ContractFriendly.new)
       result = self.superclass.transform_json(json_hash, target)

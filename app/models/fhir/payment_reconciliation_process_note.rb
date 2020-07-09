@@ -2,8 +2,8 @@ module FHIR
   # fhir/payment_reconciliation_process_note.rb
   class PaymentReconciliationProcessNote < BackboneElement
     include Mongoid::Document
-    embeds_one :type, class_name: 'NoteType'
-    embeds_one :text, class_name: 'PrimitiveString'
+    embeds_one :type, class_name: 'FHIR::NoteType'
+    embeds_one :text, class_name: 'FHIR::PrimitiveString'
 
     def self.transform_json(json_hash, target = PaymentReconciliationProcessNote.new)
       result = self.superclass.transform_json(json_hash, target)

@@ -2,12 +2,12 @@ module FHIR
   # fhir/operation_outcome_issue.rb
   class OperationOutcomeIssue < BackboneElement
     include Mongoid::Document
-    embeds_one :severity, class_name: 'IssueSeverity'
-    embeds_one :code, class_name: 'IssueType'
-    embeds_one :details, class_name: 'CodeableConcept'
-    embeds_one :diagnostics, class_name: 'PrimitiveString'
-    embeds_many :location, class_name: 'PrimitiveString'
-    embeds_many :expression, class_name: 'PrimitiveString'
+    embeds_one :severity, class_name: 'FHIR::IssueSeverity'
+    embeds_one :code, class_name: 'FHIR::IssueType'
+    embeds_one :details, class_name: 'FHIR::CodeableConcept'
+    embeds_one :diagnostics, class_name: 'FHIR::PrimitiveString'
+    embeds_many :location, class_name: 'FHIR::PrimitiveString'
+    embeds_many :expression, class_name: 'FHIR::PrimitiveString'
 
     def self.transform_json(json_hash, target = OperationOutcomeIssue.new)
       result = self.superclass.transform_json(json_hash, target)

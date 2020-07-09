@@ -2,11 +2,11 @@ module FHIR
   # fhir/implementation_guide_definition.rb
   class ImplementationGuideDefinition < BackboneElement
     include Mongoid::Document
-    embeds_many :grouping, class_name: 'ImplementationGuideDefinitionGrouping'
-    embeds_many :resource, class_name: 'ImplementationGuideDefinitionResource'
-    embeds_one :page, class_name: 'ImplementationGuideDefinitionPage'
-    embeds_many :parameter, class_name: 'ImplementationGuideDefinitionParameter'
-    embeds_many :template, class_name: 'ImplementationGuideDefinitionTemplate'
+    embeds_many :grouping, class_name: 'FHIR::ImplementationGuideDefinitionGrouping'
+    embeds_many :resource, class_name: 'FHIR::ImplementationGuideDefinitionResource'
+    embeds_one :page, class_name: 'FHIR::ImplementationGuideDefinitionPage'
+    embeds_many :parameter, class_name: 'FHIR::ImplementationGuideDefinitionParameter'
+    embeds_many :template, class_name: 'FHIR::ImplementationGuideDefinitionTemplate'
 
     def self.transform_json(json_hash, target = ImplementationGuideDefinition.new)
       result = self.superclass.transform_json(json_hash, target)

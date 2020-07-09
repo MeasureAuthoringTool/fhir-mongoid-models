@@ -2,19 +2,19 @@ module FHIR
   # fhir/observation_definition.rb
   class ObservationDefinition < DomainResource
     include Mongoid::Document
-    embeds_many :category, class_name: 'CodeableConcept'
-    embeds_one :code, class_name: 'CodeableConcept'
-    embeds_many :identifier, class_name: 'Identifier'
-    embeds_many :permittedDataType, class_name: 'ObservationDataType'
-    embeds_one :multipleResultsAllowed, class_name: 'PrimitiveBoolean'
-    embeds_one :method, class_name: 'CodeableConcept'
-    embeds_one :preferredReportName, class_name: 'PrimitiveString'
-    embeds_one :quantitativeDetails, class_name: 'ObservationDefinitionQuantitativeDetails'
-    embeds_many :qualifiedInterval, class_name: 'ObservationDefinitionQualifiedInterval'
-    embeds_one :validCodedValueSet, class_name: 'Reference'
-    embeds_one :normalCodedValueSet, class_name: 'Reference'
-    embeds_one :abnormalCodedValueSet, class_name: 'Reference'
-    embeds_one :criticalCodedValueSet, class_name: 'Reference'
+    embeds_many :category, class_name: 'FHIR::CodeableConcept'
+    embeds_one :code, class_name: 'FHIR::CodeableConcept'
+    embeds_many :identifier, class_name: 'FHIR::Identifier'
+    embeds_many :permittedDataType, class_name: 'FHIR::ObservationDataType'
+    embeds_one :multipleResultsAllowed, class_name: 'FHIR::PrimitiveBoolean'
+    embeds_one :method, class_name: 'FHIR::CodeableConcept'
+    embeds_one :preferredReportName, class_name: 'FHIR::PrimitiveString'
+    embeds_one :quantitativeDetails, class_name: 'FHIR::ObservationDefinitionQuantitativeDetails'
+    embeds_many :qualifiedInterval, class_name: 'FHIR::ObservationDefinitionQualifiedInterval'
+    embeds_one :validCodedValueSet, class_name: 'FHIR::Reference'
+    embeds_one :normalCodedValueSet, class_name: 'FHIR::Reference'
+    embeds_one :abnormalCodedValueSet, class_name: 'FHIR::Reference'
+    embeds_one :criticalCodedValueSet, class_name: 'FHIR::Reference'
 
     def self.transform_json(json_hash, target = ObservationDefinition.new)
       result = self.superclass.transform_json(json_hash, target)

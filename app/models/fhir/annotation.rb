@@ -2,10 +2,10 @@ module FHIR
   # fhir/annotation.rb
   class Annotation < Element
     include Mongoid::Document
-    embeds_one :authorReference, class_name: 'Reference'
-    embeds_one :authorString, class_name: 'PrimitiveString'
-    embeds_one :time, class_name: 'PrimitiveDateTime'
-    embeds_one :text, class_name: 'PrimitiveMarkdown'
+    embeds_one :authorReference, class_name: 'FHIR::Reference'
+    embeds_one :authorString, class_name: 'FHIR::PrimitiveString'
+    embeds_one :time, class_name: 'FHIR::PrimitiveDateTime'
+    embeds_one :text, class_name: 'FHIR::PrimitiveMarkdown'
 
     def self.transform_json(json_hash, target = Annotation.new)
       result = self.superclass.transform_json(json_hash, target)

@@ -2,10 +2,10 @@ module FHIR
   # fhir/substance_protein.rb
   class SubstanceProtein < DomainResource
     include Mongoid::Document
-    embeds_one :sequenceType, class_name: 'CodeableConcept'
-    embeds_one :numberOfSubunits, class_name: 'PrimitiveInteger'
-    embeds_many :disulfideLinkage, class_name: 'PrimitiveString'
-    embeds_many :subunit, class_name: 'SubstanceProteinSubunit'
+    embeds_one :sequenceType, class_name: 'FHIR::CodeableConcept'
+    embeds_one :numberOfSubunits, class_name: 'FHIR::PrimitiveInteger'
+    embeds_many :disulfideLinkage, class_name: 'FHIR::PrimitiveString'
+    embeds_many :subunit, class_name: 'FHIR::SubstanceProteinSubunit'
 
     def self.transform_json(json_hash, target = SubstanceProtein.new)
       result = self.superclass.transform_json(json_hash, target)

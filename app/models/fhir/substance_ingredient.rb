@@ -2,9 +2,9 @@ module FHIR
   # fhir/substance_ingredient.rb
   class SubstanceIngredient < BackboneElement
     include Mongoid::Document
-    embeds_one :quantity, class_name: 'Ratio'
-    embeds_one :substanceCodeableConcept, class_name: 'CodeableConcept'
-    embeds_one :substanceReference, class_name: 'Reference'
+    embeds_one :quantity, class_name: 'FHIR::Ratio'
+    embeds_one :substanceCodeableConcept, class_name: 'FHIR::CodeableConcept'
+    embeds_one :substanceReference, class_name: 'FHIR::Reference'
 
     def self.transform_json(json_hash, target = SubstanceIngredient.new)
       result = self.superclass.transform_json(json_hash, target)

@@ -2,14 +2,14 @@ module FHIR
   # fhir/medication.rb
   class Medication < DomainResource
     include Mongoid::Document
-    embeds_many :identifier, class_name: 'Identifier'
-    embeds_one :code, class_name: 'CodeableConcept'
-    embeds_one :status, class_name: 'MedicationStatus'
-    embeds_one :manufacturer, class_name: 'Reference'
-    embeds_one :form, class_name: 'CodeableConcept'
-    embeds_one :amount, class_name: 'Ratio'
-    embeds_many :ingredient, class_name: 'MedicationIngredient'
-    embeds_one :batch, class_name: 'MedicationBatch'
+    embeds_many :identifier, class_name: 'FHIR::Identifier'
+    embeds_one :code, class_name: 'FHIR::CodeableConcept'
+    embeds_one :status, class_name: 'FHIR::MedicationStatus'
+    embeds_one :manufacturer, class_name: 'FHIR::Reference'
+    embeds_one :form, class_name: 'FHIR::CodeableConcept'
+    embeds_one :amount, class_name: 'FHIR::Ratio'
+    embeds_many :ingredient, class_name: 'FHIR::MedicationIngredient'
+    embeds_one :batch, class_name: 'FHIR::MedicationBatch'
 
     def self.transform_json(json_hash, target = Medication.new)
       result = self.superclass.transform_json(json_hash, target)

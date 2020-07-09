@@ -2,9 +2,9 @@ module FHIR
   # fhir/insurance_plan_coverage.rb
   class InsurancePlanCoverage < BackboneElement
     include Mongoid::Document
-    embeds_one :type, class_name: 'CodeableConcept'
-    embeds_many :network, class_name: 'Reference'
-    embeds_many :benefit, class_name: 'InsurancePlanCoverageBenefit'
+    embeds_one :type, class_name: 'FHIR::CodeableConcept'
+    embeds_many :network, class_name: 'FHIR::Reference'
+    embeds_many :benefit, class_name: 'FHIR::InsurancePlanCoverageBenefit'
 
     def self.transform_json(json_hash, target = InsurancePlanCoverage.new)
       result = self.superclass.transform_json(json_hash, target)

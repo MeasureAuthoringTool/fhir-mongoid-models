@@ -2,12 +2,12 @@ module FHIR
   # fhir/explanation_of_benefit_payment.rb
   class ExplanationOfBenefitPayment < BackboneElement
     include Mongoid::Document
-    embeds_one :type, class_name: 'CodeableConcept'
-    embeds_one :adjustment, class_name: 'Money'
-    embeds_one :adjustmentReason, class_name: 'CodeableConcept'
-    embeds_one :date, class_name: 'PrimitiveDate'
-    embeds_one :amount, class_name: 'Money'
-    embeds_one :identifier, class_name: 'Identifier'
+    embeds_one :type, class_name: 'FHIR::CodeableConcept'
+    embeds_one :adjustment, class_name: 'FHIR::Money'
+    embeds_one :adjustmentReason, class_name: 'FHIR::CodeableConcept'
+    embeds_one :date, class_name: 'FHIR::PrimitiveDate'
+    embeds_one :amount, class_name: 'FHIR::Money'
+    embeds_one :identifier, class_name: 'FHIR::Identifier'
 
     def self.transform_json(json_hash, target = ExplanationOfBenefitPayment.new)
       result = self.superclass.transform_json(json_hash, target)

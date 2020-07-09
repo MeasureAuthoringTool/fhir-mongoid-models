@@ -2,9 +2,9 @@ module FHIR
   # fhir/composition_event.rb
   class CompositionEvent < BackboneElement
     include Mongoid::Document
-    embeds_many :code, class_name: 'CodeableConcept'
-    embeds_one :period, class_name: 'Period'
-    embeds_many :detail, class_name: 'Reference'
+    embeds_many :code, class_name: 'FHIR::CodeableConcept'
+    embeds_one :period, class_name: 'FHIR::Period'
+    embeds_many :detail, class_name: 'FHIR::Reference'
 
     def self.transform_json(json_hash, target = CompositionEvent.new)
       result = self.superclass.transform_json(json_hash, target)

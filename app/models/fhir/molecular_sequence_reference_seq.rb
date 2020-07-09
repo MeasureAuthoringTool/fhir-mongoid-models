@@ -2,15 +2,15 @@ module FHIR
   # fhir/molecular_sequence_reference_seq.rb
   class MolecularSequenceReferenceSeq < BackboneElement
     include Mongoid::Document
-    embeds_one :chromosome, class_name: 'CodeableConcept'
-    embeds_one :genomeBuild, class_name: 'PrimitiveString'
-    embeds_one :orientation, class_name: 'OrientationType'
-    embeds_one :referenceSeqId, class_name: 'CodeableConcept'
-    embeds_one :referenceSeqPointer, class_name: 'Reference'
-    embeds_one :referenceSeqString, class_name: 'PrimitiveString'
-    embeds_one :strand, class_name: 'StrandType'
-    embeds_one :windowStart, class_name: 'PrimitiveInteger'
-    embeds_one :windowEnd, class_name: 'PrimitiveInteger'
+    embeds_one :chromosome, class_name: 'FHIR::CodeableConcept'
+    embeds_one :genomeBuild, class_name: 'FHIR::PrimitiveString'
+    embeds_one :orientation, class_name: 'FHIR::OrientationType'
+    embeds_one :referenceSeqId, class_name: 'FHIR::CodeableConcept'
+    embeds_one :referenceSeqPointer, class_name: 'FHIR::Reference'
+    embeds_one :referenceSeqString, class_name: 'FHIR::PrimitiveString'
+    embeds_one :strand, class_name: 'FHIR::StrandType'
+    embeds_one :windowStart, class_name: 'FHIR::PrimitiveInteger'
+    embeds_one :windowEnd, class_name: 'FHIR::PrimitiveInteger'
 
     def self.transform_json(json_hash, target = MolecularSequenceReferenceSeq.new)
       result = self.superclass.transform_json(json_hash, target)

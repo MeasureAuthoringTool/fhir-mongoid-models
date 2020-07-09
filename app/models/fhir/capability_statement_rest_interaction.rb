@@ -2,8 +2,8 @@ module FHIR
   # fhir/capability_statement_rest_interaction.rb
   class CapabilityStatementRestInteraction < BackboneElement
     include Mongoid::Document
-    embeds_one :code, class_name: 'SystemRestfulInteraction'
-    embeds_one :documentation, class_name: 'PrimitiveMarkdown'
+    embeds_one :code, class_name: 'FHIR::SystemRestfulInteraction'
+    embeds_one :documentation, class_name: 'FHIR::PrimitiveMarkdown'
 
     def self.transform_json(json_hash, target = CapabilityStatementRestInteraction.new)
       result = self.superclass.transform_json(json_hash, target)

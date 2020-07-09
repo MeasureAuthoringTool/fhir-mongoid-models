@@ -2,17 +2,17 @@ module FHIR
   # fhir/explanation_of_benefit_supporting_info.rb
   class ExplanationOfBenefitSupportingInfo < BackboneElement
     include Mongoid::Document
-    embeds_one :sequence, class_name: 'PrimitivePositiveInt'
-    embeds_one :category, class_name: 'CodeableConcept'
-    embeds_one :code, class_name: 'CodeableConcept'
-    embeds_one :timingDate, class_name: 'PrimitiveDate'
-    embeds_one :timingPeriod, class_name: 'Period'
-    embeds_one :valueBoolean, class_name: 'PrimitiveBoolean'
-    embeds_one :valueString, class_name: 'PrimitiveString'
-    embeds_one :valueQuantity, class_name: 'Quantity'
-    embeds_one :valueAttachment, class_name: 'Attachment'
-    embeds_one :valueReference, class_name: 'Reference'
-    embeds_one :reason, class_name: 'Coding'
+    embeds_one :sequence, class_name: 'FHIR::PrimitivePositiveInt'
+    embeds_one :category, class_name: 'FHIR::CodeableConcept'
+    embeds_one :code, class_name: 'FHIR::CodeableConcept'
+    embeds_one :timingDate, class_name: 'FHIR::PrimitiveDate'
+    embeds_one :timingPeriod, class_name: 'FHIR::Period'
+    embeds_one :valueBoolean, class_name: 'FHIR::PrimitiveBoolean'
+    embeds_one :valueString, class_name: 'FHIR::PrimitiveString'
+    embeds_one :valueQuantity, class_name: 'FHIR::Quantity'
+    embeds_one :valueAttachment, class_name: 'FHIR::Attachment'
+    embeds_one :valueReference, class_name: 'FHIR::Reference'
+    embeds_one :reason, class_name: 'FHIR::Coding'
 
     def self.transform_json(json_hash, target = ExplanationOfBenefitSupportingInfo.new)
       result = self.superclass.transform_json(json_hash, target)

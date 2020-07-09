@@ -3,7 +3,7 @@ module FHIR
   class Element
     include Mongoid::Document
     field :id, type: String
-    embeds_many :extension, class_name: 'Extension'
+    embeds_many :extension, class_name: 'FHIR::Extension'
 
     def self.transform_json(json_hash, target = Element.new)
       result = target

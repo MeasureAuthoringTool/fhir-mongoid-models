@@ -2,13 +2,13 @@ module FHIR
   # fhir/medicinal_product_manufactured.rb
   class MedicinalProductManufactured < DomainResource
     include Mongoid::Document
-    embeds_one :manufacturedDoseForm, class_name: 'CodeableConcept'
-    embeds_one :unitOfPresentation, class_name: 'CodeableConcept'
-    embeds_one :quantity, class_name: 'Quantity'
-    embeds_many :manufacturer, class_name: 'Reference'
-    embeds_many :ingredient, class_name: 'Reference'
-    embeds_one :physicalCharacteristics, class_name: 'ProdCharacteristic'
-    embeds_many :otherCharacteristics, class_name: 'CodeableConcept'
+    embeds_one :manufacturedDoseForm, class_name: 'FHIR::CodeableConcept'
+    embeds_one :unitOfPresentation, class_name: 'FHIR::CodeableConcept'
+    embeds_one :quantity, class_name: 'FHIR::Quantity'
+    embeds_many :manufacturer, class_name: 'FHIR::Reference'
+    embeds_many :ingredient, class_name: 'FHIR::Reference'
+    embeds_one :physicalCharacteristics, class_name: 'FHIR::ProdCharacteristic'
+    embeds_many :otherCharacteristics, class_name: 'FHIR::CodeableConcept'
 
     def self.transform_json(json_hash, target = MedicinalProductManufactured.new)
       result = self.superclass.transform_json(json_hash, target)

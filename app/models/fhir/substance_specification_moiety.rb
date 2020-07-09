@@ -2,14 +2,14 @@ module FHIR
   # fhir/substance_specification_moiety.rb
   class SubstanceSpecificationMoiety < BackboneElement
     include Mongoid::Document
-    embeds_one :role, class_name: 'CodeableConcept'
-    embeds_one :identifier, class_name: 'Identifier'
-    embeds_one :name, class_name: 'PrimitiveString'
-    embeds_one :stereochemistry, class_name: 'CodeableConcept'
-    embeds_one :opticalActivity, class_name: 'CodeableConcept'
-    embeds_one :molecularFormula, class_name: 'PrimitiveString'
-    embeds_one :amountQuantity, class_name: 'Quantity'
-    embeds_one :amountString, class_name: 'PrimitiveString'
+    embeds_one :role, class_name: 'FHIR::CodeableConcept'
+    embeds_one :identifier, class_name: 'FHIR::Identifier'
+    embeds_one :name, class_name: 'FHIR::PrimitiveString'
+    embeds_one :stereochemistry, class_name: 'FHIR::CodeableConcept'
+    embeds_one :opticalActivity, class_name: 'FHIR::CodeableConcept'
+    embeds_one :molecularFormula, class_name: 'FHIR::PrimitiveString'
+    embeds_one :amountQuantity, class_name: 'FHIR::Quantity'
+    embeds_one :amountString, class_name: 'FHIR::PrimitiveString'
 
     def self.transform_json(json_hash, target = SubstanceSpecificationMoiety.new)
       result = self.superclass.transform_json(json_hash, target)

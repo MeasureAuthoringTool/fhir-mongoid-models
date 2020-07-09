@@ -2,8 +2,8 @@ module FHIR
   # fhir/test_script_origin.rb
   class TestScriptOrigin < BackboneElement
     include Mongoid::Document
-    embeds_one :index, class_name: 'PrimitiveInteger'
-    embeds_one :profile, class_name: 'Coding'
+    embeds_one :index, class_name: 'FHIR::PrimitiveInteger'
+    embeds_one :profile, class_name: 'FHIR::Coding'
 
     def self.transform_json(json_hash, target = TestScriptOrigin.new)
       result = self.superclass.transform_json(json_hash, target)

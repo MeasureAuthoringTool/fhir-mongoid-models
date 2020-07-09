@@ -2,17 +2,17 @@ module FHIR
   # fhir/slot.rb
   class Slot < DomainResource
     include Mongoid::Document
-    embeds_many :identifier, class_name: 'Identifier'
-    embeds_many :serviceCategory, class_name: 'CodeableConcept'
-    embeds_many :serviceType, class_name: 'CodeableConcept'
-    embeds_many :specialty, class_name: 'CodeableConcept'
-    embeds_one :appointmentType, class_name: 'CodeableConcept'
-    embeds_one :schedule, class_name: 'Reference'
-    embeds_one :status, class_name: 'SlotStatus'
-    embeds_one :start, class_name: 'PrimitiveInstant'
-    embeds_one :end, class_name: 'PrimitiveInstant'
-    embeds_one :overbooked, class_name: 'PrimitiveBoolean'
-    embeds_one :comment, class_name: 'PrimitiveString'
+    embeds_many :identifier, class_name: 'FHIR::Identifier'
+    embeds_many :serviceCategory, class_name: 'FHIR::CodeableConcept'
+    embeds_many :serviceType, class_name: 'FHIR::CodeableConcept'
+    embeds_many :specialty, class_name: 'FHIR::CodeableConcept'
+    embeds_one :appointmentType, class_name: 'FHIR::CodeableConcept'
+    embeds_one :schedule, class_name: 'FHIR::Reference'
+    embeds_one :status, class_name: 'FHIR::SlotStatus'
+    embeds_one :start, class_name: 'FHIR::PrimitiveInstant'
+    embeds_one :end, class_name: 'FHIR::PrimitiveInstant'
+    embeds_one :overbooked, class_name: 'FHIR::PrimitiveBoolean'
+    embeds_one :comment, class_name: 'FHIR::PrimitiveString'
 
     def self.transform_json(json_hash, target = Slot.new)
       result = self.superclass.transform_json(json_hash, target)

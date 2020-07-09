@@ -2,8 +2,8 @@ module FHIR
   # fhir/medicinal_product_name_name_part.rb
   class MedicinalProductNameNamePart < BackboneElement
     include Mongoid::Document
-    embeds_one :part, class_name: 'PrimitiveString'
-    embeds_one :type, class_name: 'Coding'
+    embeds_one :part, class_name: 'FHIR::PrimitiveString'
+    embeds_one :type, class_name: 'FHIR::Coding'
 
     def self.transform_json(json_hash, target = MedicinalProductNameNamePart.new)
       result = self.superclass.transform_json(json_hash, target)

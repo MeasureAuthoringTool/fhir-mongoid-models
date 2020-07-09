@@ -2,13 +2,13 @@ module FHIR
   # fhir/test_script_metadata_capability.rb
   class TestScriptMetadataCapability < BackboneElement
     include Mongoid::Document
-    embeds_one :required, class_name: 'PrimitiveBoolean'
-    embeds_one :_validated, class_name: 'PrimitiveBoolean'
-    embeds_one :description, class_name: 'PrimitiveString'
-    embeds_many :origin, class_name: 'PrimitiveInteger'
-    embeds_one :destination, class_name: 'PrimitiveInteger'
-    embeds_many :link, class_name: 'PrimitiveUri'
-    embeds_one :capabilities, class_name: 'PrimitiveCanonical'
+    embeds_one :required, class_name: 'FHIR::PrimitiveBoolean'
+    embeds_one :_validated, class_name: 'FHIR::PrimitiveBoolean'
+    embeds_one :description, class_name: 'FHIR::PrimitiveString'
+    embeds_many :origin, class_name: 'FHIR::PrimitiveInteger'
+    embeds_one :destination, class_name: 'FHIR::PrimitiveInteger'
+    embeds_many :link, class_name: 'FHIR::PrimitiveUri'
+    embeds_one :capabilities, class_name: 'FHIR::PrimitiveCanonical'
     
     def as_json(*args)
       res = super

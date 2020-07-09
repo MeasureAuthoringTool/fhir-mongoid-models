@@ -2,22 +2,22 @@ module FHIR
   # fhir/molecular_sequence.rb
   class MolecularSequence < DomainResource
     include Mongoid::Document
-    embeds_many :identifier, class_name: 'Identifier'
-    embeds_one :type, class_name: 'SequenceType'
-    embeds_one :coordinateSystem, class_name: 'PrimitiveInteger'
-    embeds_one :patient, class_name: 'Reference'
-    embeds_one :specimen, class_name: 'Reference'
-    embeds_one :device, class_name: 'Reference'
-    embeds_one :performer, class_name: 'Reference'
-    embeds_one :quantity, class_name: 'Quantity'
-    embeds_one :referenceSeq, class_name: 'MolecularSequenceReferenceSeq'
-    embeds_many :variant, class_name: 'MolecularSequenceVariant'
-    embeds_one :observedSeq, class_name: 'PrimitiveString'
-    embeds_many :quality, class_name: 'MolecularSequenceQuality'
-    embeds_one :readCoverage, class_name: 'PrimitiveInteger'
-    embeds_many :repository, class_name: 'MolecularSequenceRepository'
-    embeds_many :pointer, class_name: 'Reference'
-    embeds_many :structureVariant, class_name: 'MolecularSequenceStructureVariant'
+    embeds_many :identifier, class_name: 'FHIR::Identifier'
+    embeds_one :type, class_name: 'FHIR::SequenceType'
+    embeds_one :coordinateSystem, class_name: 'FHIR::PrimitiveInteger'
+    embeds_one :patient, class_name: 'FHIR::Reference'
+    embeds_one :specimen, class_name: 'FHIR::Reference'
+    embeds_one :device, class_name: 'FHIR::Reference'
+    embeds_one :performer, class_name: 'FHIR::Reference'
+    embeds_one :quantity, class_name: 'FHIR::Quantity'
+    embeds_one :referenceSeq, class_name: 'FHIR::MolecularSequenceReferenceSeq'
+    embeds_many :variant, class_name: 'FHIR::MolecularSequenceVariant'
+    embeds_one :observedSeq, class_name: 'FHIR::PrimitiveString'
+    embeds_many :quality, class_name: 'FHIR::MolecularSequenceQuality'
+    embeds_one :readCoverage, class_name: 'FHIR::PrimitiveInteger'
+    embeds_many :repository, class_name: 'FHIR::MolecularSequenceRepository'
+    embeds_many :pointer, class_name: 'FHIR::Reference'
+    embeds_many :structureVariant, class_name: 'FHIR::MolecularSequenceStructureVariant'
 
     def self.transform_json(json_hash, target = MolecularSequence.new)
       result = self.superclass.transform_json(json_hash, target)

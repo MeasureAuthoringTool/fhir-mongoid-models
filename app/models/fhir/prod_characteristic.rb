@@ -2,17 +2,17 @@ module FHIR
   # fhir/prod_characteristic.rb
   class ProdCharacteristic < BackboneElement
     include Mongoid::Document
-    embeds_one :height, class_name: 'Quantity'
-    embeds_one :width, class_name: 'Quantity'
-    embeds_one :depth, class_name: 'Quantity'
-    embeds_one :weight, class_name: 'Quantity'
-    embeds_one :nominalVolume, class_name: 'Quantity'
-    embeds_one :externalDiameter, class_name: 'Quantity'
-    embeds_one :shape, class_name: 'PrimitiveString'
-    embeds_many :color, class_name: 'PrimitiveString'
-    embeds_many :imprint, class_name: 'PrimitiveString'
-    embeds_many :image, class_name: 'Attachment'
-    embeds_one :scoring, class_name: 'CodeableConcept'
+    embeds_one :height, class_name: 'FHIR::Quantity'
+    embeds_one :width, class_name: 'FHIR::Quantity'
+    embeds_one :depth, class_name: 'FHIR::Quantity'
+    embeds_one :weight, class_name: 'FHIR::Quantity'
+    embeds_one :nominalVolume, class_name: 'FHIR::Quantity'
+    embeds_one :externalDiameter, class_name: 'FHIR::Quantity'
+    embeds_one :shape, class_name: 'FHIR::PrimitiveString'
+    embeds_many :color, class_name: 'FHIR::PrimitiveString'
+    embeds_many :imprint, class_name: 'FHIR::PrimitiveString'
+    embeds_many :image, class_name: 'FHIR::Attachment'
+    embeds_one :scoring, class_name: 'FHIR::CodeableConcept'
 
     def self.transform_json(json_hash, target = ProdCharacteristic.new)
       result = self.superclass.transform_json(json_hash, target)

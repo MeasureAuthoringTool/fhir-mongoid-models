@@ -2,10 +2,10 @@ module FHIR
   # fhir/simple_quantity.rb
   class SimpleQuantity < Quantity
     include Mongoid::Document
-    embeds_one :value, class_name: 'PrimitiveDecimal'
-    embeds_one :unit, class_name: 'PrimitiveString'
-    embeds_one :system, class_name: 'PrimitiveUri'
-    embeds_one :code, class_name: 'PrimitiveCode'
+    embeds_one :value, class_name: 'FHIR::PrimitiveDecimal'
+    embeds_one :unit, class_name: 'FHIR::PrimitiveString'
+    embeds_one :system, class_name: 'FHIR::PrimitiveUri'
+    embeds_one :code, class_name: 'FHIR::PrimitiveCode'
 
     def self.transform_json(json_hash, target = SimpleQuantity.new)
       result = self.superclass.transform_json(json_hash, target)

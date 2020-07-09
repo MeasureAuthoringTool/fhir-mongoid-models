@@ -2,20 +2,20 @@ module FHIR
   # fhir/dosage.rb
   class Dosage < BackboneElement
     include Mongoid::Document
-    embeds_one :sequence, class_name: 'PrimitiveInteger'
-    embeds_one :text, class_name: 'PrimitiveString'
-    embeds_many :additionalInstruction, class_name: 'CodeableConcept'
-    embeds_one :patientInstruction, class_name: 'PrimitiveString'
-    embeds_one :timing, class_name: 'Timing'
-    embeds_one :asNeededBoolean, class_name: 'PrimitiveBoolean'
-    embeds_one :asNeededCodeableConcept, class_name: 'CodeableConcept'
-    embeds_one :site, class_name: 'CodeableConcept'
-    embeds_one :route, class_name: 'CodeableConcept'
-    embeds_one :method, class_name: 'CodeableConcept'
-    embeds_many :doseAndRate, class_name: 'DosageDoseAndRate'
-    embeds_one :maxDosePerPeriod, class_name: 'Ratio'
-    embeds_one :maxDosePerAdministration, class_name: 'SimpleQuantity'
-    embeds_one :maxDosePerLifetime, class_name: 'SimpleQuantity'
+    embeds_one :sequence, class_name: 'FHIR::PrimitiveInteger'
+    embeds_one :text, class_name: 'FHIR::PrimitiveString'
+    embeds_many :additionalInstruction, class_name: 'FHIR::CodeableConcept'
+    embeds_one :patientInstruction, class_name: 'FHIR::PrimitiveString'
+    embeds_one :timing, class_name: 'FHIR::Timing'
+    embeds_one :asNeededBoolean, class_name: 'FHIR::PrimitiveBoolean'
+    embeds_one :asNeededCodeableConcept, class_name: 'FHIR::CodeableConcept'
+    embeds_one :site, class_name: 'FHIR::CodeableConcept'
+    embeds_one :route, class_name: 'FHIR::CodeableConcept'
+    embeds_one :method, class_name: 'FHIR::CodeableConcept'
+    embeds_many :doseAndRate, class_name: 'FHIR::DosageDoseAndRate'
+    embeds_one :maxDosePerPeriod, class_name: 'FHIR::Ratio'
+    embeds_one :maxDosePerAdministration, class_name: 'FHIR::SimpleQuantity'
+    embeds_one :maxDosePerLifetime, class_name: 'FHIR::SimpleQuantity'
 
     def self.transform_json(json_hash, target = Dosage.new)
       result = self.superclass.transform_json(json_hash, target)

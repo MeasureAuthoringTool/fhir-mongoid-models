@@ -2,19 +2,19 @@ module FHIR
   # fhir/specimen.rb
   class Specimen < DomainResource
     include Mongoid::Document
-    embeds_many :identifier, class_name: 'Identifier'
-    embeds_one :accessionIdentifier, class_name: 'Identifier'
-    embeds_one :status, class_name: 'SpecimenStatus'
-    embeds_one :type, class_name: 'CodeableConcept'
-    embeds_one :subject, class_name: 'Reference'
-    embeds_one :receivedTime, class_name: 'PrimitiveDateTime'
-    embeds_many :parent, class_name: 'Reference'
-    embeds_many :request, class_name: 'Reference'
-    embeds_one :_collection, class_name: 'SpecimenCollection'
-    embeds_many :processing, class_name: 'SpecimenProcessing'
-    embeds_many :container, class_name: 'SpecimenContainer'
-    embeds_many :condition, class_name: 'CodeableConcept'
-    embeds_many :note, class_name: 'Annotation'
+    embeds_many :identifier, class_name: 'FHIR::Identifier'
+    embeds_one :accessionIdentifier, class_name: 'FHIR::Identifier'
+    embeds_one :status, class_name: 'FHIR::SpecimenStatus'
+    embeds_one :type, class_name: 'FHIR::CodeableConcept'
+    embeds_one :subject, class_name: 'FHIR::Reference'
+    embeds_one :receivedTime, class_name: 'FHIR::PrimitiveDateTime'
+    embeds_many :parent, class_name: 'FHIR::Reference'
+    embeds_many :request, class_name: 'FHIR::Reference'
+    embeds_one :_collection, class_name: 'FHIR::SpecimenCollection'
+    embeds_many :processing, class_name: 'FHIR::SpecimenProcessing'
+    embeds_many :container, class_name: 'FHIR::SpecimenContainer'
+    embeds_many :condition, class_name: 'FHIR::CodeableConcept'
+    embeds_many :note, class_name: 'FHIR::Annotation'
     
     def as_json(*args)
       res = super

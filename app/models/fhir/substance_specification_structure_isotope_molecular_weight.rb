@@ -2,9 +2,9 @@ module FHIR
   # fhir/substance_specification_structure_isotope_molecular_weight.rb
   class SubstanceSpecificationStructureIsotopeMolecularWeight < BackboneElement
     include Mongoid::Document
-    embeds_one :method, class_name: 'CodeableConcept'
-    embeds_one :type, class_name: 'CodeableConcept'
-    embeds_one :amount, class_name: 'Quantity'
+    embeds_one :method, class_name: 'FHIR::CodeableConcept'
+    embeds_one :type, class_name: 'FHIR::CodeableConcept'
+    embeds_one :amount, class_name: 'FHIR::Quantity'
 
     def self.transform_json(json_hash, target = SubstanceSpecificationStructureIsotopeMolecularWeight.new)
       result = self.superclass.transform_json(json_hash, target)

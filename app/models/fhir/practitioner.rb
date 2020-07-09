@@ -2,16 +2,16 @@ module FHIR
   # fhir/practitioner.rb
   class Practitioner < DomainResource
     include Mongoid::Document
-    embeds_many :identifier, class_name: 'Identifier'
-    embeds_one :active, class_name: 'PrimitiveBoolean'
-    embeds_many :name, class_name: 'HumanName'
-    embeds_many :telecom, class_name: 'ContactPoint'
-    embeds_many :address, class_name: 'Address'
-    embeds_one :gender, class_name: 'AdministrativeGender'
-    embeds_one :birthDate, class_name: 'PrimitiveDate'
-    embeds_many :photo, class_name: 'Attachment'
-    embeds_many :qualification, class_name: 'PractitionerQualification'
-    embeds_many :communication, class_name: 'CodeableConcept'
+    embeds_many :identifier, class_name: 'FHIR::Identifier'
+    embeds_one :active, class_name: 'FHIR::PrimitiveBoolean'
+    embeds_many :name, class_name: 'FHIR::HumanName'
+    embeds_many :telecom, class_name: 'FHIR::ContactPoint'
+    embeds_many :address, class_name: 'FHIR::Address'
+    embeds_one :gender, class_name: 'FHIR::AdministrativeGender'
+    embeds_one :birthDate, class_name: 'FHIR::PrimitiveDate'
+    embeds_many :photo, class_name: 'FHIR::Attachment'
+    embeds_many :qualification, class_name: 'FHIR::PractitionerQualification'
+    embeds_many :communication, class_name: 'FHIR::CodeableConcept'
 
     def self.transform_json(json_hash, target = Practitioner.new)
       result = self.superclass.transform_json(json_hash, target)

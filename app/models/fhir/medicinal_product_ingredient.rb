@@ -2,12 +2,12 @@ module FHIR
   # fhir/medicinal_product_ingredient.rb
   class MedicinalProductIngredient < DomainResource
     include Mongoid::Document
-    embeds_one :identifier, class_name: 'Identifier'
-    embeds_one :role, class_name: 'CodeableConcept'
-    embeds_one :allergenicIndicator, class_name: 'PrimitiveBoolean'
-    embeds_many :manufacturer, class_name: 'Reference'
-    embeds_many :specifiedSubstance, class_name: 'MedicinalProductIngredientSpecifiedSubstance'
-    embeds_one :substance, class_name: 'MedicinalProductIngredientSubstance'
+    embeds_one :identifier, class_name: 'FHIR::Identifier'
+    embeds_one :role, class_name: 'FHIR::CodeableConcept'
+    embeds_one :allergenicIndicator, class_name: 'FHIR::PrimitiveBoolean'
+    embeds_many :manufacturer, class_name: 'FHIR::Reference'
+    embeds_many :specifiedSubstance, class_name: 'FHIR::MedicinalProductIngredientSpecifiedSubstance'
+    embeds_one :substance, class_name: 'FHIR::MedicinalProductIngredientSubstance'
 
     def self.transform_json(json_hash, target = MedicinalProductIngredient.new)
       result = self.superclass.transform_json(json_hash, target)

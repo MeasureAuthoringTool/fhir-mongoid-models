@@ -2,9 +2,9 @@ module FHIR
   # fhir/medicinal_product_indication_other_therapy.rb
   class MedicinalProductIndicationOtherTherapy < BackboneElement
     include Mongoid::Document
-    embeds_one :therapyRelationshipType, class_name: 'CodeableConcept'
-    embeds_one :medicationCodeableConcept, class_name: 'CodeableConcept'
-    embeds_one :medicationReference, class_name: 'Reference'
+    embeds_one :therapyRelationshipType, class_name: 'FHIR::CodeableConcept'
+    embeds_one :medicationCodeableConcept, class_name: 'FHIR::CodeableConcept'
+    embeds_one :medicationReference, class_name: 'FHIR::Reference'
 
     def self.transform_json(json_hash, target = MedicinalProductIndicationOtherTherapy.new)
       result = self.superclass.transform_json(json_hash, target)

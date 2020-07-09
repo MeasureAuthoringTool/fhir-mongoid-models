@@ -2,22 +2,22 @@ module FHIR
   # fhir/document_reference.rb
   class DocumentReference < DomainResource
     include Mongoid::Document
-    embeds_one :masterIdentifier, class_name: 'Identifier'
-    embeds_many :identifier, class_name: 'Identifier'
-    embeds_one :status, class_name: 'DocumentReferenceStatus'
-    embeds_one :docStatus, class_name: 'ReferredDocumentStatus'
-    embeds_one :type, class_name: 'CodeableConcept'
-    embeds_many :category, class_name: 'CodeableConcept'
-    embeds_one :subject, class_name: 'Reference'
-    embeds_one :date, class_name: 'PrimitiveInstant'
-    embeds_many :author, class_name: 'Reference'
-    embeds_one :authenticator, class_name: 'Reference'
-    embeds_one :custodian, class_name: 'Reference'
-    embeds_many :relatesTo, class_name: 'DocumentReferenceRelatesTo'
-    embeds_one :description, class_name: 'PrimitiveString'
-    embeds_many :securityLabel, class_name: 'CodeableConcept'
-    embeds_many :content, class_name: 'DocumentReferenceContent'
-    embeds_one :context, class_name: 'DocumentReferenceContext'
+    embeds_one :masterIdentifier, class_name: 'FHIR::Identifier'
+    embeds_many :identifier, class_name: 'FHIR::Identifier'
+    embeds_one :status, class_name: 'FHIR::DocumentReferenceStatus'
+    embeds_one :docStatus, class_name: 'FHIR::ReferredDocumentStatus'
+    embeds_one :type, class_name: 'FHIR::CodeableConcept'
+    embeds_many :category, class_name: 'FHIR::CodeableConcept'
+    embeds_one :subject, class_name: 'FHIR::Reference'
+    embeds_one :date, class_name: 'FHIR::PrimitiveInstant'
+    embeds_many :author, class_name: 'FHIR::Reference'
+    embeds_one :authenticator, class_name: 'FHIR::Reference'
+    embeds_one :custodian, class_name: 'FHIR::Reference'
+    embeds_many :relatesTo, class_name: 'FHIR::DocumentReferenceRelatesTo'
+    embeds_one :description, class_name: 'FHIR::PrimitiveString'
+    embeds_many :securityLabel, class_name: 'FHIR::CodeableConcept'
+    embeds_many :content, class_name: 'FHIR::DocumentReferenceContent'
+    embeds_one :context, class_name: 'FHIR::DocumentReferenceContext'
 
     def self.transform_json(json_hash, target = DocumentReference.new)
       result = self.superclass.transform_json(json_hash, target)

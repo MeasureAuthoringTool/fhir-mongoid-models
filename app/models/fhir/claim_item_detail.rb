@@ -2,18 +2,18 @@ module FHIR
   # fhir/claim_item_detail.rb
   class ClaimItemDetail < BackboneElement
     include Mongoid::Document
-    embeds_one :sequence, class_name: 'PrimitivePositiveInt'
-    embeds_one :revenue, class_name: 'CodeableConcept'
-    embeds_one :category, class_name: 'CodeableConcept'
-    embeds_one :productOrService, class_name: 'CodeableConcept'
-    embeds_many :modifier, class_name: 'CodeableConcept'
-    embeds_many :programCode, class_name: 'CodeableConcept'
-    embeds_one :quantity, class_name: 'SimpleQuantity'
-    embeds_one :unitPrice, class_name: 'Money'
-    embeds_one :factor, class_name: 'PrimitiveDecimal'
-    embeds_one :net, class_name: 'Money'
-    embeds_many :udi, class_name: 'Reference'
-    embeds_many :subDetail, class_name: 'ClaimItemDetailSubDetail'
+    embeds_one :sequence, class_name: 'FHIR::PrimitivePositiveInt'
+    embeds_one :revenue, class_name: 'FHIR::CodeableConcept'
+    embeds_one :category, class_name: 'FHIR::CodeableConcept'
+    embeds_one :productOrService, class_name: 'FHIR::CodeableConcept'
+    embeds_many :modifier, class_name: 'FHIR::CodeableConcept'
+    embeds_many :programCode, class_name: 'FHIR::CodeableConcept'
+    embeds_one :quantity, class_name: 'FHIR::SimpleQuantity'
+    embeds_one :unitPrice, class_name: 'FHIR::Money'
+    embeds_one :factor, class_name: 'FHIR::PrimitiveDecimal'
+    embeds_one :net, class_name: 'FHIR::Money'
+    embeds_many :udi, class_name: 'FHIR::Reference'
+    embeds_many :subDetail, class_name: 'FHIR::ClaimItemDetailSubDetail'
 
     def self.transform_json(json_hash, target = ClaimItemDetail.new)
       result = self.superclass.transform_json(json_hash, target)

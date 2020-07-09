@@ -2,9 +2,9 @@ module FHIR
   # fhir/concept_map_group_element.rb
   class ConceptMapGroupElement < BackboneElement
     include Mongoid::Document
-    embeds_one :code, class_name: 'PrimitiveCode'
-    embeds_one :display, class_name: 'PrimitiveString'
-    embeds_many :target, class_name: 'ConceptMapGroupElementTarget'
+    embeds_one :code, class_name: 'FHIR::PrimitiveCode'
+    embeds_one :display, class_name: 'FHIR::PrimitiveString'
+    embeds_many :target, class_name: 'FHIR::ConceptMapGroupElementTarget'
 
     def self.transform_json(json_hash, target = ConceptMapGroupElement.new)
       result = self.superclass.transform_json(json_hash, target)

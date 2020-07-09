@@ -2,18 +2,18 @@ module FHIR
   # fhir/document_manifest.rb
   class DocumentManifest < DomainResource
     include Mongoid::Document
-    embeds_one :masterIdentifier, class_name: 'Identifier'
-    embeds_many :identifier, class_name: 'Identifier'
-    embeds_one :status, class_name: 'DocumentReferenceStatus'
-    embeds_one :type, class_name: 'CodeableConcept'
-    embeds_one :subject, class_name: 'Reference'
-    embeds_one :created, class_name: 'PrimitiveDateTime'
-    embeds_many :author, class_name: 'Reference'
-    embeds_many :recipient, class_name: 'Reference'
-    embeds_one :source, class_name: 'PrimitiveUri'
-    embeds_one :description, class_name: 'PrimitiveString'
-    embeds_many :content, class_name: 'Reference'
-    embeds_many :related, class_name: 'DocumentManifestRelated'
+    embeds_one :masterIdentifier, class_name: 'FHIR::Identifier'
+    embeds_many :identifier, class_name: 'FHIR::Identifier'
+    embeds_one :status, class_name: 'FHIR::DocumentReferenceStatus'
+    embeds_one :type, class_name: 'FHIR::CodeableConcept'
+    embeds_one :subject, class_name: 'FHIR::Reference'
+    embeds_one :created, class_name: 'FHIR::PrimitiveDateTime'
+    embeds_many :author, class_name: 'FHIR::Reference'
+    embeds_many :recipient, class_name: 'FHIR::Reference'
+    embeds_one :source, class_name: 'FHIR::PrimitiveUri'
+    embeds_one :description, class_name: 'FHIR::PrimitiveString'
+    embeds_many :content, class_name: 'FHIR::Reference'
+    embeds_many :related, class_name: 'FHIR::DocumentManifestRelated'
 
     def self.transform_json(json_hash, target = DocumentManifest.new)
       result = self.superclass.transform_json(json_hash, target)

@@ -2,8 +2,8 @@ module FHIR
   # fhir/research_study_objective.rb
   class ResearchStudyObjective < BackboneElement
     include Mongoid::Document
-    embeds_one :name, class_name: 'PrimitiveString'
-    embeds_one :type, class_name: 'CodeableConcept'
+    embeds_one :name, class_name: 'FHIR::PrimitiveString'
+    embeds_one :type, class_name: 'FHIR::CodeableConcept'
 
     def self.transform_json(json_hash, target = ResearchStudyObjective.new)
       result = self.superclass.transform_json(json_hash, target)

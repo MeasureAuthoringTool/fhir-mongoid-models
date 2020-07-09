@@ -2,8 +2,8 @@ module FHIR
   # fhir/adverse_event_suspect_entity.rb
   class AdverseEventSuspectEntity < BackboneElement
     include Mongoid::Document
-    embeds_one :instance, class_name: 'Reference'
-    embeds_many :causality, class_name: 'AdverseEventSuspectEntityCausality'
+    embeds_one :instance, class_name: 'FHIR::Reference'
+    embeds_many :causality, class_name: 'FHIR::AdverseEventSuspectEntityCausality'
 
     def self.transform_json(json_hash, target = AdverseEventSuspectEntity.new)
       result = self.superclass.transform_json(json_hash, target)

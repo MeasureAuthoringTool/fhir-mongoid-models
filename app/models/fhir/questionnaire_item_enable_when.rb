@@ -2,18 +2,18 @@ module FHIR
   # fhir/questionnaire_item_enable_when.rb
   class QuestionnaireItemEnableWhen < BackboneElement
     include Mongoid::Document
-    embeds_one :question, class_name: 'PrimitiveString'
-    embeds_one :operator, class_name: 'QuestionnaireItemOperator'
-    embeds_one :answerBoolean, class_name: 'PrimitiveBoolean'
-    embeds_one :answerDecimal, class_name: 'PrimitiveDecimal'
-    embeds_one :answerInteger, class_name: 'PrimitiveInteger'
-    embeds_one :answerDate, class_name: 'PrimitiveDate'
-    embeds_one :answerDateTime, class_name: 'PrimitiveDateTime'
-    embeds_one :answerTime, class_name: 'PrimitiveTime'
-    embeds_one :answerString, class_name: 'PrimitiveString'
-    embeds_one :answerCoding, class_name: 'Coding'
-    embeds_one :answerQuantity, class_name: 'Quantity'
-    embeds_one :answerReference, class_name: 'Reference'
+    embeds_one :question, class_name: 'FHIR::PrimitiveString'
+    embeds_one :operator, class_name: 'FHIR::QuestionnaireItemOperator'
+    embeds_one :answerBoolean, class_name: 'FHIR::PrimitiveBoolean'
+    embeds_one :answerDecimal, class_name: 'FHIR::PrimitiveDecimal'
+    embeds_one :answerInteger, class_name: 'FHIR::PrimitiveInteger'
+    embeds_one :answerDate, class_name: 'FHIR::PrimitiveDate'
+    embeds_one :answerDateTime, class_name: 'FHIR::PrimitiveDateTime'
+    embeds_one :answerTime, class_name: 'FHIR::PrimitiveTime'
+    embeds_one :answerString, class_name: 'FHIR::PrimitiveString'
+    embeds_one :answerCoding, class_name: 'FHIR::Coding'
+    embeds_one :answerQuantity, class_name: 'FHIR::Quantity'
+    embeds_one :answerReference, class_name: 'FHIR::Reference'
 
     def self.transform_json(json_hash, target = QuestionnaireItemEnableWhen.new)
       result = self.superclass.transform_json(json_hash, target)

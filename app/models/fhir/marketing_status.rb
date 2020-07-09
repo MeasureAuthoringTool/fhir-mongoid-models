@@ -2,11 +2,11 @@ module FHIR
   # fhir/marketing_status.rb
   class MarketingStatus < BackboneElement
     include Mongoid::Document
-    embeds_one :country, class_name: 'CodeableConcept'
-    embeds_one :jurisdiction, class_name: 'CodeableConcept'
-    embeds_one :status, class_name: 'CodeableConcept'
-    embeds_one :dateRange, class_name: 'Period'
-    embeds_one :restoreDate, class_name: 'PrimitiveDateTime'
+    embeds_one :country, class_name: 'FHIR::CodeableConcept'
+    embeds_one :jurisdiction, class_name: 'FHIR::CodeableConcept'
+    embeds_one :status, class_name: 'FHIR::CodeableConcept'
+    embeds_one :dateRange, class_name: 'FHIR::Period'
+    embeds_one :restoreDate, class_name: 'FHIR::PrimitiveDateTime'
 
     def self.transform_json(json_hash, target = MarketingStatus.new)
       result = self.superclass.transform_json(json_hash, target)

@@ -2,8 +2,8 @@ module FHIR
   # fhir/medicinal_product_interaction_interactant.rb
   class MedicinalProductInteractionInteractant < BackboneElement
     include Mongoid::Document
-    embeds_one :itemReference, class_name: 'Reference'
-    embeds_one :itemCodeableConcept, class_name: 'CodeableConcept'
+    embeds_one :itemReference, class_name: 'FHIR::Reference'
+    embeds_one :itemCodeableConcept, class_name: 'FHIR::CodeableConcept'
 
     def self.transform_json(json_hash, target = MedicinalProductInteractionInteractant.new)
       result = self.superclass.transform_json(json_hash, target)

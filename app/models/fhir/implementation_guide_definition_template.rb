@@ -2,9 +2,9 @@ module FHIR
   # fhir/implementation_guide_definition_template.rb
   class ImplementationGuideDefinitionTemplate < BackboneElement
     include Mongoid::Document
-    embeds_one :code, class_name: 'PrimitiveCode'
-    embeds_one :source, class_name: 'PrimitiveString'
-    embeds_one :scope, class_name: 'PrimitiveString'
+    embeds_one :code, class_name: 'FHIR::PrimitiveCode'
+    embeds_one :source, class_name: 'FHIR::PrimitiveString'
+    embeds_one :scope, class_name: 'FHIR::PrimitiveString'
 
     def self.transform_json(json_hash, target = ImplementationGuideDefinitionTemplate.new)
       result = self.superclass.transform_json(json_hash, target)

@@ -2,8 +2,8 @@ module FHIR
   # fhir/consent_policy.rb
   class ConsentPolicy < BackboneElement
     include Mongoid::Document
-    embeds_one :authority, class_name: 'PrimitiveUri'
-    embeds_one :uri, class_name: 'PrimitiveUri'
+    embeds_one :authority, class_name: 'FHIR::PrimitiveUri'
+    embeds_one :uri, class_name: 'FHIR::PrimitiveUri'
 
     def self.transform_json(json_hash, target = ConsentPolicy.new)
       result = self.superclass.transform_json(json_hash, target)

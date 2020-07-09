@@ -2,10 +2,10 @@ module FHIR
   # fhir/insurance_plan_plan_specific_cost_benefit_cost.rb
   class InsurancePlanPlanSpecificCostBenefitCost < BackboneElement
     include Mongoid::Document
-    embeds_one :type, class_name: 'CodeableConcept'
-    embeds_one :applicability, class_name: 'CodeableConcept'
-    embeds_many :qualifiers, class_name: 'CodeableConcept'
-    embeds_one :value, class_name: 'Quantity'
+    embeds_one :type, class_name: 'FHIR::CodeableConcept'
+    embeds_one :applicability, class_name: 'FHIR::CodeableConcept'
+    embeds_many :qualifiers, class_name: 'FHIR::CodeableConcept'
+    embeds_one :value, class_name: 'FHIR::Quantity'
 
     def self.transform_json(json_hash, target = InsurancePlanPlanSpecificCostBenefitCost.new)
       result = self.superclass.transform_json(json_hash, target)

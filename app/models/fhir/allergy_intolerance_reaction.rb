@@ -2,13 +2,13 @@ module FHIR
   # fhir/allergy_intolerance_reaction.rb
   class AllergyIntoleranceReaction < BackboneElement
     include Mongoid::Document
-    embeds_one :substance, class_name: 'CodeableConcept'
-    embeds_many :manifestation, class_name: 'CodeableConcept'
-    embeds_one :description, class_name: 'PrimitiveString'
-    embeds_one :onset, class_name: 'PrimitiveDateTime'
-    embeds_one :severity, class_name: 'AllergyIntoleranceSeverity'
-    embeds_one :exposureRoute, class_name: 'CodeableConcept'
-    embeds_many :note, class_name: 'Annotation'
+    embeds_one :substance, class_name: 'FHIR::CodeableConcept'
+    embeds_many :manifestation, class_name: 'FHIR::CodeableConcept'
+    embeds_one :description, class_name: 'FHIR::PrimitiveString'
+    embeds_one :onset, class_name: 'FHIR::PrimitiveDateTime'
+    embeds_one :severity, class_name: 'FHIR::AllergyIntoleranceSeverity'
+    embeds_one :exposureRoute, class_name: 'FHIR::CodeableConcept'
+    embeds_many :note, class_name: 'FHIR::Annotation'
 
     def self.transform_json(json_hash, target = AllergyIntoleranceReaction.new)
       result = self.superclass.transform_json(json_hash, target)

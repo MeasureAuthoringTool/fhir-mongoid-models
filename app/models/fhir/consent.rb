@@ -2,20 +2,20 @@ module FHIR
   # fhir/consent.rb
   class Consent < DomainResource
     include Mongoid::Document
-    embeds_many :identifier, class_name: 'Identifier'
-    embeds_one :status, class_name: 'ConsentState'
-    embeds_one :scope, class_name: 'CodeableConcept'
-    embeds_many :category, class_name: 'CodeableConcept'
-    embeds_one :patient, class_name: 'Reference'
-    embeds_one :dateTime, class_name: 'PrimitiveDateTime'
-    embeds_many :performer, class_name: 'Reference'
-    embeds_many :organization, class_name: 'Reference'
-    embeds_one :sourceAttachment, class_name: 'Attachment'
-    embeds_one :sourceReference, class_name: 'Reference'
-    embeds_many :policy, class_name: 'ConsentPolicy'
-    embeds_one :policyRule, class_name: 'CodeableConcept'
-    embeds_many :verification, class_name: 'ConsentVerification'
-    embeds_one :provision, class_name: 'ConsentProvision'
+    embeds_many :identifier, class_name: 'FHIR::Identifier'
+    embeds_one :status, class_name: 'FHIR::ConsentState'
+    embeds_one :scope, class_name: 'FHIR::CodeableConcept'
+    embeds_many :category, class_name: 'FHIR::CodeableConcept'
+    embeds_one :patient, class_name: 'FHIR::Reference'
+    embeds_one :dateTime, class_name: 'FHIR::PrimitiveDateTime'
+    embeds_many :performer, class_name: 'FHIR::Reference'
+    embeds_many :organization, class_name: 'FHIR::Reference'
+    embeds_one :sourceAttachment, class_name: 'FHIR::Attachment'
+    embeds_one :sourceReference, class_name: 'FHIR::Reference'
+    embeds_many :policy, class_name: 'FHIR::ConsentPolicy'
+    embeds_one :policyRule, class_name: 'FHIR::CodeableConcept'
+    embeds_many :verification, class_name: 'FHIR::ConsentVerification'
+    embeds_one :provision, class_name: 'FHIR::ConsentProvision'
 
     def self.transform_json(json_hash, target = Consent.new)
       result = self.superclass.transform_json(json_hash, target)

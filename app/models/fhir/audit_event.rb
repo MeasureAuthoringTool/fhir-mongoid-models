@@ -2,17 +2,17 @@ module FHIR
   # fhir/audit_event.rb
   class AuditEvent < DomainResource
     include Mongoid::Document
-    embeds_one :type, class_name: 'Coding'
-    embeds_many :subtype, class_name: 'Coding'
-    embeds_one :action, class_name: 'AuditEventAction'
-    embeds_one :period, class_name: 'Period'
-    embeds_one :recorded, class_name: 'PrimitiveInstant'
-    embeds_one :outcome, class_name: 'AuditEventOutcome'
-    embeds_one :outcomeDesc, class_name: 'PrimitiveString'
-    embeds_many :purposeOfEvent, class_name: 'CodeableConcept'
-    embeds_many :agent, class_name: 'AuditEventAgent'
-    embeds_one :source, class_name: 'AuditEventSource'
-    embeds_many :entity, class_name: 'AuditEventEntity'
+    embeds_one :type, class_name: 'FHIR::Coding'
+    embeds_many :subtype, class_name: 'FHIR::Coding'
+    embeds_one :action, class_name: 'FHIR::AuditEventAction'
+    embeds_one :period, class_name: 'FHIR::Period'
+    embeds_one :recorded, class_name: 'FHIR::PrimitiveInstant'
+    embeds_one :outcome, class_name: 'FHIR::AuditEventOutcome'
+    embeds_one :outcomeDesc, class_name: 'FHIR::PrimitiveString'
+    embeds_many :purposeOfEvent, class_name: 'FHIR::CodeableConcept'
+    embeds_many :agent, class_name: 'FHIR::AuditEventAgent'
+    embeds_one :source, class_name: 'FHIR::AuditEventSource'
+    embeds_many :entity, class_name: 'FHIR::AuditEventEntity'
 
     def self.transform_json(json_hash, target = AuditEvent.new)
       result = self.superclass.transform_json(json_hash, target)

@@ -2,14 +2,14 @@ module FHIR
   # fhir/substance_specification_structure.rb
   class SubstanceSpecificationStructure < BackboneElement
     include Mongoid::Document
-    embeds_one :stereochemistry, class_name: 'CodeableConcept'
-    embeds_one :opticalActivity, class_name: 'CodeableConcept'
-    embeds_one :molecularFormula, class_name: 'PrimitiveString'
-    embeds_one :molecularFormulaByMoiety, class_name: 'PrimitiveString'
-    embeds_many :isotope, class_name: 'SubstanceSpecificationStructureIsotope'
-    embeds_one :molecularWeight, class_name: 'SubstanceSpecificationStructureIsotopeMolecularWeight'
-    embeds_many :source, class_name: 'Reference'
-    embeds_many :representation, class_name: 'SubstanceSpecificationStructureRepresentation'
+    embeds_one :stereochemistry, class_name: 'FHIR::CodeableConcept'
+    embeds_one :opticalActivity, class_name: 'FHIR::CodeableConcept'
+    embeds_one :molecularFormula, class_name: 'FHIR::PrimitiveString'
+    embeds_one :molecularFormulaByMoiety, class_name: 'FHIR::PrimitiveString'
+    embeds_many :isotope, class_name: 'FHIR::SubstanceSpecificationStructureIsotope'
+    embeds_one :molecularWeight, class_name: 'FHIR::SubstanceSpecificationStructureIsotopeMolecularWeight'
+    embeds_many :source, class_name: 'FHIR::Reference'
+    embeds_many :representation, class_name: 'FHIR::SubstanceSpecificationStructureRepresentation'
 
     def self.transform_json(json_hash, target = SubstanceSpecificationStructure.new)
       result = self.superclass.transform_json(json_hash, target)

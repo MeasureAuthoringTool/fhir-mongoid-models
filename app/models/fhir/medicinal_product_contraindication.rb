@@ -2,13 +2,13 @@ module FHIR
   # fhir/medicinal_product_contraindication.rb
   class MedicinalProductContraindication < DomainResource
     include Mongoid::Document
-    embeds_many :subject, class_name: 'Reference'
-    embeds_one :disease, class_name: 'CodeableConcept'
-    embeds_one :diseaseStatus, class_name: 'CodeableConcept'
-    embeds_many :comorbidity, class_name: 'CodeableConcept'
-    embeds_many :therapeuticIndication, class_name: 'Reference'
-    embeds_many :otherTherapy, class_name: 'MedicinalProductContraindicationOtherTherapy'
-    embeds_many :population, class_name: 'Population'
+    embeds_many :subject, class_name: 'FHIR::Reference'
+    embeds_one :disease, class_name: 'FHIR::CodeableConcept'
+    embeds_one :diseaseStatus, class_name: 'FHIR::CodeableConcept'
+    embeds_many :comorbidity, class_name: 'FHIR::CodeableConcept'
+    embeds_many :therapeuticIndication, class_name: 'FHIR::Reference'
+    embeds_many :otherTherapy, class_name: 'FHIR::MedicinalProductContraindicationOtherTherapy'
+    embeds_many :population, class_name: 'FHIR::Population'
 
     def self.transform_json(json_hash, target = MedicinalProductContraindication.new)
       result = self.superclass.transform_json(json_hash, target)

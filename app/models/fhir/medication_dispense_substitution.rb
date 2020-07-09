@@ -2,10 +2,10 @@ module FHIR
   # fhir/medication_dispense_substitution.rb
   class MedicationDispenseSubstitution < BackboneElement
     include Mongoid::Document
-    embeds_one :wasSubstituted, class_name: 'PrimitiveBoolean'
-    embeds_one :type, class_name: 'CodeableConcept'
-    embeds_many :reason, class_name: 'CodeableConcept'
-    embeds_many :responsibleParty, class_name: 'Reference'
+    embeds_one :wasSubstituted, class_name: 'FHIR::PrimitiveBoolean'
+    embeds_one :type, class_name: 'FHIR::CodeableConcept'
+    embeds_many :reason, class_name: 'FHIR::CodeableConcept'
+    embeds_many :responsibleParty, class_name: 'FHIR::Reference'
 
     def self.transform_json(json_hash, target = MedicationDispenseSubstitution.new)
       result = self.superclass.transform_json(json_hash, target)

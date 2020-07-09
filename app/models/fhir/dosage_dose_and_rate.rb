@@ -2,12 +2,12 @@ module FHIR
   # fhir/dosage_dose_and_rate.rb
   class DosageDoseAndRate < Element
     include Mongoid::Document
-    embeds_one :type, class_name: 'CodeableConcept'
-    embeds_one :doseRange, class_name: 'Range'
-    embeds_one :doseSimpleQuantity, class_name: 'SimpleQuantity'
-    embeds_one :rateRatio, class_name: 'Ratio'
-    embeds_one :rateRange, class_name: 'Range'
-    embeds_one :rateSimpleQuantity, class_name: 'SimpleQuantity'
+    embeds_one :type, class_name: 'FHIR::CodeableConcept'
+    embeds_one :doseRange, class_name: 'FHIR::Range'
+    embeds_one :doseSimpleQuantity, class_name: 'FHIR::SimpleQuantity'
+    embeds_one :rateRatio, class_name: 'FHIR::Ratio'
+    embeds_one :rateRange, class_name: 'FHIR::Range'
+    embeds_one :rateSimpleQuantity, class_name: 'FHIR::SimpleQuantity'
 
     def self.transform_json(json_hash, target = DosageDoseAndRate.new)
       result = self.superclass.transform_json(json_hash, target)

@@ -2,8 +2,8 @@ module FHIR
   # fhir/account_coverage.rb
   class AccountCoverage < BackboneElement
     include Mongoid::Document
-    embeds_one :coverage, class_name: 'Reference'
-    embeds_one :priority, class_name: 'PrimitivePositiveInt'
+    embeds_one :coverage, class_name: 'FHIR::Reference'
+    embeds_one :priority, class_name: 'FHIR::PrimitivePositiveInt'
 
     def self.transform_json(json_hash, target = AccountCoverage.new)
       result = self.superclass.transform_json(json_hash, target)

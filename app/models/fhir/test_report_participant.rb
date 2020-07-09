@@ -2,9 +2,9 @@ module FHIR
   # fhir/test_report_participant.rb
   class TestReportParticipant < BackboneElement
     include Mongoid::Document
-    embeds_one :type, class_name: 'TestReportParticipantType'
-    embeds_one :uri, class_name: 'PrimitiveUri'
-    embeds_one :display, class_name: 'PrimitiveString'
+    embeds_one :type, class_name: 'FHIR::TestReportParticipantType'
+    embeds_one :uri, class_name: 'FHIR::PrimitiveUri'
+    embeds_one :display, class_name: 'FHIR::PrimitiveString'
 
     def self.transform_json(json_hash, target = TestReportParticipant.new)
       result = self.superclass.transform_json(json_hash, target)

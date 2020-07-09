@@ -2,11 +2,11 @@ module FHIR
   # fhir/medicinal_product_undesirable_effect.rb
   class MedicinalProductUndesirableEffect < DomainResource
     include Mongoid::Document
-    embeds_many :subject, class_name: 'Reference'
-    embeds_one :symptomConditionEffect, class_name: 'CodeableConcept'
-    embeds_one :classification, class_name: 'CodeableConcept'
-    embeds_one :frequencyOfOccurrence, class_name: 'CodeableConcept'
-    embeds_many :population, class_name: 'Population'
+    embeds_many :subject, class_name: 'FHIR::Reference'
+    embeds_one :symptomConditionEffect, class_name: 'FHIR::CodeableConcept'
+    embeds_one :classification, class_name: 'FHIR::CodeableConcept'
+    embeds_one :frequencyOfOccurrence, class_name: 'FHIR::CodeableConcept'
+    embeds_many :population, class_name: 'FHIR::Population'
 
     def self.transform_json(json_hash, target = MedicinalProductUndesirableEffect.new)
       result = self.superclass.transform_json(json_hash, target)

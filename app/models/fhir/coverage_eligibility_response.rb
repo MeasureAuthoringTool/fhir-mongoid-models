@@ -2,22 +2,22 @@ module FHIR
   # fhir/coverage_eligibility_response.rb
   class CoverageEligibilityResponse < DomainResource
     include Mongoid::Document
-    embeds_many :identifier, class_name: 'Identifier'
-    embeds_one :status, class_name: 'EligibilityResponseStatus'
-    embeds_many :purpose, class_name: 'EligibilityResponsePurpose'
-    embeds_one :patient, class_name: 'Reference'
-    embeds_one :servicedDate, class_name: 'PrimitiveDate'
-    embeds_one :servicedPeriod, class_name: 'Period'
-    embeds_one :created, class_name: 'PrimitiveDateTime'
-    embeds_one :requestor, class_name: 'Reference'
-    embeds_one :request, class_name: 'Reference'
-    embeds_one :outcome, class_name: 'RemittanceOutcome'
-    embeds_one :disposition, class_name: 'PrimitiveString'
-    embeds_one :insurer, class_name: 'Reference'
-    embeds_many :insurance, class_name: 'CoverageEligibilityResponseInsurance'
-    embeds_one :preAuthRef, class_name: 'PrimitiveString'
-    embeds_one :form, class_name: 'CodeableConcept'
-    embeds_many :error, class_name: 'CoverageEligibilityResponseError'
+    embeds_many :identifier, class_name: 'FHIR::Identifier'
+    embeds_one :status, class_name: 'FHIR::EligibilityResponseStatus'
+    embeds_many :purpose, class_name: 'FHIR::EligibilityResponsePurpose'
+    embeds_one :patient, class_name: 'FHIR::Reference'
+    embeds_one :servicedDate, class_name: 'FHIR::PrimitiveDate'
+    embeds_one :servicedPeriod, class_name: 'FHIR::Period'
+    embeds_one :created, class_name: 'FHIR::PrimitiveDateTime'
+    embeds_one :requestor, class_name: 'FHIR::Reference'
+    embeds_one :request, class_name: 'FHIR::Reference'
+    embeds_one :outcome, class_name: 'FHIR::RemittanceOutcome'
+    embeds_one :disposition, class_name: 'FHIR::PrimitiveString'
+    embeds_one :insurer, class_name: 'FHIR::Reference'
+    embeds_many :insurance, class_name: 'FHIR::CoverageEligibilityResponseInsurance'
+    embeds_one :preAuthRef, class_name: 'FHIR::PrimitiveString'
+    embeds_one :form, class_name: 'FHIR::CodeableConcept'
+    embeds_many :error, class_name: 'FHIR::CoverageEligibilityResponseError'
 
     def self.transform_json(json_hash, target = CoverageEligibilityResponse.new)
       result = self.superclass.transform_json(json_hash, target)

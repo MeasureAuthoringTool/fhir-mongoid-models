@@ -2,9 +2,9 @@ module FHIR
   # fhir/element_definition_type.rb
   class ElementDefinitionType < Element
     include Mongoid::Document
-    embeds_one :code, class_name: 'PrimitiveUri'
-    embeds_many :targetProfile, class_name: 'PrimitiveCanonical'
-    embeds_one :versioning, class_name: 'ReferenceVersionRules'
+    embeds_one :code, class_name: 'FHIR::PrimitiveUri'
+    embeds_many :targetProfile, class_name: 'FHIR::PrimitiveCanonical'
+    embeds_one :versioning, class_name: 'FHIR::ReferenceVersionRules'
 
     def self.transform_json(json_hash, target = ElementDefinitionType.new)
       result = self.superclass.transform_json(json_hash, target)

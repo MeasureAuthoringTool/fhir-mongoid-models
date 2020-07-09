@@ -2,12 +2,12 @@ module FHIR
   # fhir/observation_reference_range.rb
   class ObservationReferenceRange < BackboneElement
     include Mongoid::Document
-    embeds_one :low, class_name: 'SimpleQuantity'
-    embeds_one :high, class_name: 'SimpleQuantity'
-    embeds_one :type, class_name: 'CodeableConcept'
-    embeds_many :appliesTo, class_name: 'CodeableConcept'
-    embeds_one :age, class_name: 'Range'
-    embeds_one :text, class_name: 'PrimitiveString'
+    embeds_one :low, class_name: 'FHIR::SimpleQuantity'
+    embeds_one :high, class_name: 'FHIR::SimpleQuantity'
+    embeds_one :type, class_name: 'FHIR::CodeableConcept'
+    embeds_many :appliesTo, class_name: 'FHIR::CodeableConcept'
+    embeds_one :age, class_name: 'FHIR::Range'
+    embeds_one :text, class_name: 'FHIR::PrimitiveString'
 
     def self.transform_json(json_hash, target = ObservationReferenceRange.new)
       result = self.superclass.transform_json(json_hash, target)

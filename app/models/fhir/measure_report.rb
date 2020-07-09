@@ -2,17 +2,17 @@ module FHIR
   # fhir/measure_report.rb
   class MeasureReport < DomainResource
     include Mongoid::Document
-    embeds_many :identifier, class_name: 'Identifier'
-    embeds_one :status, class_name: 'MeasureReportStatus'
-    embeds_one :type, class_name: 'MeasureReportType'
-    embeds_one :measure, class_name: 'PrimitiveCanonical'
-    embeds_one :subject, class_name: 'Reference'
-    embeds_one :date, class_name: 'PrimitiveDateTime'
-    embeds_one :reporter, class_name: 'Reference'
-    embeds_one :period, class_name: 'Period'
-    embeds_one :improvementNotation, class_name: 'CodeableConcept'
-    embeds_many :group, class_name: 'MeasureReportGroup'
-    embeds_many :evaluatedResource, class_name: 'Reference'
+    embeds_many :identifier, class_name: 'FHIR::Identifier'
+    embeds_one :status, class_name: 'FHIR::MeasureReportStatus'
+    embeds_one :type, class_name: 'FHIR::MeasureReportType'
+    embeds_one :measure, class_name: 'FHIR::PrimitiveCanonical'
+    embeds_one :subject, class_name: 'FHIR::Reference'
+    embeds_one :date, class_name: 'FHIR::PrimitiveDateTime'
+    embeds_one :reporter, class_name: 'FHIR::Reference'
+    embeds_one :period, class_name: 'FHIR::Period'
+    embeds_one :improvementNotation, class_name: 'FHIR::CodeableConcept'
+    embeds_many :group, class_name: 'FHIR::MeasureReportGroup'
+    embeds_many :evaluatedResource, class_name: 'FHIR::Reference'
 
     def self.transform_json(json_hash, target = MeasureReport.new)
       result = self.superclass.transform_json(json_hash, target)

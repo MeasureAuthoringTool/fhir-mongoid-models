@@ -2,10 +2,10 @@ module FHIR
   # fhir/substance_reference_information_classification.rb
   class SubstanceReferenceInformationClassification < BackboneElement
     include Mongoid::Document
-    embeds_one :domain, class_name: 'CodeableConcept'
-    embeds_one :classification, class_name: 'CodeableConcept'
-    embeds_many :subtype, class_name: 'CodeableConcept'
-    embeds_many :source, class_name: 'Reference'
+    embeds_one :domain, class_name: 'FHIR::CodeableConcept'
+    embeds_one :classification, class_name: 'FHIR::CodeableConcept'
+    embeds_many :subtype, class_name: 'FHIR::CodeableConcept'
+    embeds_many :source, class_name: 'FHIR::Reference'
 
     def self.transform_json(json_hash, target = SubstanceReferenceInformationClassification.new)
       result = self.superclass.transform_json(json_hash, target)

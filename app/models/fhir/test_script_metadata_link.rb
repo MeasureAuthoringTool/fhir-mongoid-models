@@ -2,8 +2,8 @@ module FHIR
   # fhir/test_script_metadata_link.rb
   class TestScriptMetadataLink < BackboneElement
     include Mongoid::Document
-    embeds_one :url, class_name: 'PrimitiveUri'
-    embeds_one :description, class_name: 'PrimitiveString'
+    embeds_one :url, class_name: 'FHIR::PrimitiveUri'
+    embeds_one :description, class_name: 'FHIR::PrimitiveString'
 
     def self.transform_json(json_hash, target = TestScriptMetadataLink.new)
       result = self.superclass.transform_json(json_hash, target)

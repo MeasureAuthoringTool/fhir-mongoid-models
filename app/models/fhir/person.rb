@@ -2,16 +2,16 @@ module FHIR
   # fhir/person.rb
   class Person < DomainResource
     include Mongoid::Document
-    embeds_many :identifier, class_name: 'Identifier'
-    embeds_many :name, class_name: 'HumanName'
-    embeds_many :telecom, class_name: 'ContactPoint'
-    embeds_one :gender, class_name: 'AdministrativeGender'
-    embeds_one :birthDate, class_name: 'PrimitiveDate'
-    embeds_many :address, class_name: 'Address'
-    embeds_one :photo, class_name: 'Attachment'
-    embeds_one :managingOrganization, class_name: 'Reference'
-    embeds_one :active, class_name: 'PrimitiveBoolean'
-    embeds_many :link, class_name: 'PersonLink'
+    embeds_many :identifier, class_name: 'FHIR::Identifier'
+    embeds_many :name, class_name: 'FHIR::HumanName'
+    embeds_many :telecom, class_name: 'FHIR::ContactPoint'
+    embeds_one :gender, class_name: 'FHIR::AdministrativeGender'
+    embeds_one :birthDate, class_name: 'FHIR::PrimitiveDate'
+    embeds_many :address, class_name: 'FHIR::Address'
+    embeds_one :photo, class_name: 'FHIR::Attachment'
+    embeds_one :managingOrganization, class_name: 'FHIR::Reference'
+    embeds_one :active, class_name: 'FHIR::PrimitiveBoolean'
+    embeds_many :link, class_name: 'FHIR::PersonLink'
 
     def self.transform_json(json_hash, target = Person.new)
       result = self.superclass.transform_json(json_hash, target)

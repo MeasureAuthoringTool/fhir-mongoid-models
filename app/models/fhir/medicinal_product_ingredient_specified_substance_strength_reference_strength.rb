@@ -2,11 +2,11 @@ module FHIR
   # fhir/medicinal_product_ingredient_specified_substance_strength_reference_strength.rb
   class MedicinalProductIngredientSpecifiedSubstanceStrengthReferenceStrength < BackboneElement
     include Mongoid::Document
-    embeds_one :substance, class_name: 'CodeableConcept'
-    embeds_one :strength, class_name: 'Ratio'
-    embeds_one :strengthLowLimit, class_name: 'Ratio'
-    embeds_one :measurementPoint, class_name: 'PrimitiveString'
-    embeds_many :country, class_name: 'CodeableConcept'
+    embeds_one :substance, class_name: 'FHIR::CodeableConcept'
+    embeds_one :strength, class_name: 'FHIR::Ratio'
+    embeds_one :strengthLowLimit, class_name: 'FHIR::Ratio'
+    embeds_one :measurementPoint, class_name: 'FHIR::PrimitiveString'
+    embeds_many :country, class_name: 'FHIR::CodeableConcept'
 
     def self.transform_json(json_hash, target = MedicinalProductIngredientSpecifiedSubstanceStrengthReferenceStrength.new)
       result = self.superclass.transform_json(json_hash, target)

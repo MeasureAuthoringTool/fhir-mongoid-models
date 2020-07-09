@@ -2,9 +2,9 @@ module FHIR
   # fhir/account_guarantor.rb
   class AccountGuarantor < BackboneElement
     include Mongoid::Document
-    embeds_one :party, class_name: 'Reference'
-    embeds_one :onHold, class_name: 'PrimitiveBoolean'
-    embeds_one :period, class_name: 'Period'
+    embeds_one :party, class_name: 'FHIR::Reference'
+    embeds_one :onHold, class_name: 'FHIR::PrimitiveBoolean'
+    embeds_one :period, class_name: 'FHIR::Period'
 
     def self.transform_json(json_hash, target = AccountGuarantor.new)
       result = self.superclass.transform_json(json_hash, target)

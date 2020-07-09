@@ -2,19 +2,19 @@ module FHIR
   # fhir/contract_term.rb
   class ContractTerm < BackboneElement
     include Mongoid::Document
-    embeds_one :identifier, class_name: 'Identifier'
-    embeds_one :issued, class_name: 'PrimitiveDateTime'
-    embeds_one :applies, class_name: 'Period'
-    embeds_one :topicCodeableConcept, class_name: 'CodeableConcept'
-    embeds_one :topicReference, class_name: 'Reference'
-    embeds_one :type, class_name: 'CodeableConcept'
-    embeds_one :subType, class_name: 'CodeableConcept'
-    embeds_one :text, class_name: 'PrimitiveString'
-    embeds_many :securityLabel, class_name: 'ContractTermSecurityLabel'
-    embeds_one :offer, class_name: 'ContractTermOffer'
-    embeds_many :asset, class_name: 'ContractTermAsset'
-    embeds_many :action, class_name: 'ContractTermAction'
-    embeds_many :group, class_name: 'ContractTerm'
+    embeds_one :identifier, class_name: 'FHIR::Identifier'
+    embeds_one :issued, class_name: 'FHIR::PrimitiveDateTime'
+    embeds_one :applies, class_name: 'FHIR::Period'
+    embeds_one :topicCodeableConcept, class_name: 'FHIR::CodeableConcept'
+    embeds_one :topicReference, class_name: 'FHIR::Reference'
+    embeds_one :type, class_name: 'FHIR::CodeableConcept'
+    embeds_one :subType, class_name: 'FHIR::CodeableConcept'
+    embeds_one :text, class_name: 'FHIR::PrimitiveString'
+    embeds_many :securityLabel, class_name: 'FHIR::ContractTermSecurityLabel'
+    embeds_one :offer, class_name: 'FHIR::ContractTermOffer'
+    embeds_many :asset, class_name: 'FHIR::ContractTermAsset'
+    embeds_many :action, class_name: 'FHIR::ContractTermAction'
+    embeds_many :group, class_name: 'FHIR::ContractTerm'
 
     def self.transform_json(json_hash, target = ContractTerm.new)
       result = self.superclass.transform_json(json_hash, target)

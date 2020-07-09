@@ -2,16 +2,16 @@ module FHIR
   # fhir/payment_reconciliation_detail.rb
   class PaymentReconciliationDetail < BackboneElement
     include Mongoid::Document
-    embeds_one :identifier, class_name: 'Identifier'
-    embeds_one :predecessor, class_name: 'Identifier'
-    embeds_one :type, class_name: 'CodeableConcept'
-    embeds_one :request, class_name: 'Reference'
-    embeds_one :submitter, class_name: 'Reference'
-    embeds_one :response, class_name: 'Reference'
-    embeds_one :date, class_name: 'PrimitiveDate'
-    embeds_one :responsible, class_name: 'Reference'
-    embeds_one :payee, class_name: 'Reference'
-    embeds_one :amount, class_name: 'Money'
+    embeds_one :identifier, class_name: 'FHIR::Identifier'
+    embeds_one :predecessor, class_name: 'FHIR::Identifier'
+    embeds_one :type, class_name: 'FHIR::CodeableConcept'
+    embeds_one :request, class_name: 'FHIR::Reference'
+    embeds_one :submitter, class_name: 'FHIR::Reference'
+    embeds_one :response, class_name: 'FHIR::Reference'
+    embeds_one :date, class_name: 'FHIR::PrimitiveDate'
+    embeds_one :responsible, class_name: 'FHIR::Reference'
+    embeds_one :payee, class_name: 'FHIR::Reference'
+    embeds_one :amount, class_name: 'FHIR::Money'
 
     def self.transform_json(json_hash, target = PaymentReconciliationDetail.new)
       result = self.superclass.transform_json(json_hash, target)

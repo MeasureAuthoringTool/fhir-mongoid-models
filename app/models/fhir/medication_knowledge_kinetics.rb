@@ -2,9 +2,9 @@ module FHIR
   # fhir/medication_knowledge_kinetics.rb
   class MedicationKnowledgeKinetics < BackboneElement
     include Mongoid::Document
-    embeds_many :areaUnderCurve, class_name: 'SimpleQuantity'
-    embeds_many :lethalDose50, class_name: 'SimpleQuantity'
-    embeds_one :halfLifePeriod, class_name: 'Duration'
+    embeds_many :areaUnderCurve, class_name: 'FHIR::SimpleQuantity'
+    embeds_many :lethalDose50, class_name: 'FHIR::SimpleQuantity'
+    embeds_one :halfLifePeriod, class_name: 'FHIR::Duration'
 
     def self.transform_json(json_hash, target = MedicationKnowledgeKinetics.new)
       result = self.superclass.transform_json(json_hash, target)

@@ -2,11 +2,11 @@ module FHIR
   # fhir/naming_system_unique_id.rb
   class NamingSystemUniqueId < BackboneElement
     include Mongoid::Document
-    embeds_one :type, class_name: 'NamingSystemIdentifierType'
-    embeds_one :value, class_name: 'PrimitiveString'
-    embeds_one :preferred, class_name: 'PrimitiveBoolean'
-    embeds_one :comment, class_name: 'PrimitiveString'
-    embeds_one :period, class_name: 'Period'
+    embeds_one :type, class_name: 'FHIR::NamingSystemIdentifierType'
+    embeds_one :value, class_name: 'FHIR::PrimitiveString'
+    embeds_one :preferred, class_name: 'FHIR::PrimitiveBoolean'
+    embeds_one :comment, class_name: 'FHIR::PrimitiveString'
+    embeds_one :period, class_name: 'FHIR::Period'
 
     def self.transform_json(json_hash, target = NamingSystemUniqueId.new)
       result = self.superclass.transform_json(json_hash, target)

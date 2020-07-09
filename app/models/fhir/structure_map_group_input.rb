@@ -2,10 +2,10 @@ module FHIR
   # fhir/structure_map_group_input.rb
   class StructureMapGroupInput < BackboneElement
     include Mongoid::Document
-    embeds_one :name, class_name: 'PrimitiveId'
-    embeds_one :type, class_name: 'PrimitiveString'
-    embeds_one :mode, class_name: 'StructureMapInputMode'
-    embeds_one :documentation, class_name: 'PrimitiveString'
+    embeds_one :name, class_name: 'FHIR::PrimitiveId'
+    embeds_one :type, class_name: 'FHIR::PrimitiveString'
+    embeds_one :mode, class_name: 'FHIR::StructureMapInputMode'
+    embeds_one :documentation, class_name: 'FHIR::PrimitiveString'
 
     def self.transform_json(json_hash, target = StructureMapGroupInput.new)
       result = self.superclass.transform_json(json_hash, target)

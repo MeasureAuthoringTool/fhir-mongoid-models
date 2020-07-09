@@ -2,8 +2,8 @@ module FHIR
   # fhir/document_reference_relates_to.rb
   class DocumentReferenceRelatesTo < BackboneElement
     include Mongoid::Document
-    embeds_one :code, class_name: 'DocumentRelationshipType'
-    embeds_one :target, class_name: 'Reference'
+    embeds_one :code, class_name: 'FHIR::DocumentRelationshipType'
+    embeds_one :target, class_name: 'FHIR::Reference'
 
     def self.transform_json(json_hash, target = DocumentReferenceRelatesTo.new)
       result = self.superclass.transform_json(json_hash, target)

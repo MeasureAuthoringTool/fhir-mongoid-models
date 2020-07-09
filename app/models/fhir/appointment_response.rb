@@ -2,14 +2,14 @@ module FHIR
   # fhir/appointment_response.rb
   class AppointmentResponse < DomainResource
     include Mongoid::Document
-    embeds_many :identifier, class_name: 'Identifier'
-    embeds_one :appointment, class_name: 'Reference'
-    embeds_one :start, class_name: 'PrimitiveInstant'
-    embeds_one :end, class_name: 'PrimitiveInstant'
-    embeds_many :participantType, class_name: 'CodeableConcept'
-    embeds_one :actor, class_name: 'Reference'
-    embeds_one :participantStatus, class_name: 'ParticipantStatus'
-    embeds_one :comment, class_name: 'PrimitiveString'
+    embeds_many :identifier, class_name: 'FHIR::Identifier'
+    embeds_one :appointment, class_name: 'FHIR::Reference'
+    embeds_one :start, class_name: 'FHIR::PrimitiveInstant'
+    embeds_one :end, class_name: 'FHIR::PrimitiveInstant'
+    embeds_many :participantType, class_name: 'FHIR::CodeableConcept'
+    embeds_one :actor, class_name: 'FHIR::Reference'
+    embeds_one :participantStatus, class_name: 'FHIR::ParticipantStatus'
+    embeds_one :comment, class_name: 'FHIR::PrimitiveString'
 
     def self.transform_json(json_hash, target = AppointmentResponse.new)
       result = self.superclass.transform_json(json_hash, target)

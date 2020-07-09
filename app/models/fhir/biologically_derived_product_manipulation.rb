@@ -2,9 +2,9 @@ module FHIR
   # fhir/biologically_derived_product_manipulation.rb
   class BiologicallyDerivedProductManipulation < BackboneElement
     include Mongoid::Document
-    embeds_one :description, class_name: 'PrimitiveString'
-    embeds_one :timeDateTime, class_name: 'PrimitiveDateTime'
-    embeds_one :timePeriod, class_name: 'Period'
+    embeds_one :description, class_name: 'FHIR::PrimitiveString'
+    embeds_one :timeDateTime, class_name: 'FHIR::PrimitiveDateTime'
+    embeds_one :timePeriod, class_name: 'FHIR::Period'
 
     def self.transform_json(json_hash, target = BiologicallyDerivedProductManipulation.new)
       result = self.superclass.transform_json(json_hash, target)

@@ -2,17 +2,17 @@ module FHIR
   # fhir/audit_event_agent.rb
   class AuditEventAgent < BackboneElement
     include Mongoid::Document
-    embeds_one :type, class_name: 'CodeableConcept'
-    embeds_many :role, class_name: 'CodeableConcept'
-    embeds_one :who, class_name: 'Reference'
-    embeds_one :altId, class_name: 'PrimitiveString'
-    embeds_one :name, class_name: 'PrimitiveString'
-    embeds_one :requestor, class_name: 'PrimitiveBoolean'
-    embeds_one :location, class_name: 'Reference'
-    embeds_many :policy, class_name: 'PrimitiveUri'
-    embeds_one :media, class_name: 'Coding'
-    embeds_one :network, class_name: 'AuditEventAgentNetwork'
-    embeds_many :purposeOfUse, class_name: 'CodeableConcept'
+    embeds_one :type, class_name: 'FHIR::CodeableConcept'
+    embeds_many :role, class_name: 'FHIR::CodeableConcept'
+    embeds_one :who, class_name: 'FHIR::Reference'
+    embeds_one :altId, class_name: 'FHIR::PrimitiveString'
+    embeds_one :name, class_name: 'FHIR::PrimitiveString'
+    embeds_one :requestor, class_name: 'FHIR::PrimitiveBoolean'
+    embeds_one :location, class_name: 'FHIR::Reference'
+    embeds_many :policy, class_name: 'FHIR::PrimitiveUri'
+    embeds_one :media, class_name: 'FHIR::Coding'
+    embeds_one :network, class_name: 'FHIR::AuditEventAgentNetwork'
+    embeds_many :purposeOfUse, class_name: 'FHIR::CodeableConcept'
 
     def self.transform_json(json_hash, target = AuditEventAgent.new)
       result = self.superclass.transform_json(json_hash, target)

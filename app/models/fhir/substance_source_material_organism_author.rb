@@ -2,8 +2,8 @@ module FHIR
   # fhir/substance_source_material_organism_author.rb
   class SubstanceSourceMaterialOrganismAuthor < BackboneElement
     include Mongoid::Document
-    embeds_one :authorType, class_name: 'CodeableConcept'
-    embeds_one :authorDescription, class_name: 'PrimitiveString'
+    embeds_one :authorType, class_name: 'FHIR::CodeableConcept'
+    embeds_one :authorDescription, class_name: 'FHIR::PrimitiveString'
 
     def self.transform_json(json_hash, target = SubstanceSourceMaterialOrganismAuthor.new)
       result = self.superclass.transform_json(json_hash, target)

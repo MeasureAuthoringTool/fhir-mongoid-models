@@ -2,8 +2,8 @@ module FHIR
   # fhir/codeable_concept.rb
   class CodeableConcept < Element
     include Mongoid::Document
-    embeds_many :coding, class_name: 'Coding'
-    embeds_one :text, class_name: 'PrimitiveString'
+    embeds_many :coding, class_name: 'FHIR::Coding'
+    embeds_one :text, class_name: 'FHIR::PrimitiveString'
 
     def self.transform_json(json_hash, target = CodeableConcept.new)
       result = self.superclass.transform_json(json_hash, target)

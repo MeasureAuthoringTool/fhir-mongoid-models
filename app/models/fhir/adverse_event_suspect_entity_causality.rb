@@ -2,10 +2,10 @@ module FHIR
   # fhir/adverse_event_suspect_entity_causality.rb
   class AdverseEventSuspectEntityCausality < BackboneElement
     include Mongoid::Document
-    embeds_one :assessment, class_name: 'CodeableConcept'
-    embeds_one :productRelatedness, class_name: 'PrimitiveString'
-    embeds_one :author, class_name: 'Reference'
-    embeds_one :method, class_name: 'CodeableConcept'
+    embeds_one :assessment, class_name: 'FHIR::CodeableConcept'
+    embeds_one :productRelatedness, class_name: 'FHIR::PrimitiveString'
+    embeds_one :author, class_name: 'FHIR::Reference'
+    embeds_one :method, class_name: 'FHIR::CodeableConcept'
 
     def self.transform_json(json_hash, target = AdverseEventSuspectEntityCausality.new)
       result = self.superclass.transform_json(json_hash, target)

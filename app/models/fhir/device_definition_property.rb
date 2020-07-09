@@ -2,9 +2,9 @@ module FHIR
   # fhir/device_definition_property.rb
   class DeviceDefinitionProperty < BackboneElement
     include Mongoid::Document
-    embeds_one :type, class_name: 'CodeableConcept'
-    embeds_many :valueQuantity, class_name: 'Quantity'
-    embeds_many :valueCode, class_name: 'CodeableConcept'
+    embeds_one :type, class_name: 'FHIR::CodeableConcept'
+    embeds_many :valueQuantity, class_name: 'FHIR::Quantity'
+    embeds_many :valueCode, class_name: 'FHIR::CodeableConcept'
 
     def self.transform_json(json_hash, target = DeviceDefinitionProperty.new)
       result = self.superclass.transform_json(json_hash, target)

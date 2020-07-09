@@ -2,9 +2,9 @@ module FHIR
   # fhir/medicinal_product_pharmaceutical_route_of_administration_target_species_withdrawal_period.rb
   class MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdrawalPeriod < BackboneElement
     include Mongoid::Document
-    embeds_one :tissue, class_name: 'CodeableConcept'
-    embeds_one :value, class_name: 'Quantity'
-    embeds_one :supportingInformation, class_name: 'PrimitiveString'
+    embeds_one :tissue, class_name: 'FHIR::CodeableConcept'
+    embeds_one :value, class_name: 'FHIR::Quantity'
+    embeds_one :supportingInformation, class_name: 'FHIR::PrimitiveString'
 
     def self.transform_json(json_hash, target = MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdrawalPeriod.new)
       result = self.superclass.transform_json(json_hash, target)

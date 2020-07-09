@@ -2,14 +2,14 @@ module FHIR
   # fhir/flag.rb
   class Flag < DomainResource
     include Mongoid::Document
-    embeds_many :identifier, class_name: 'Identifier'
-    embeds_one :status, class_name: 'FlagStatus'
-    embeds_many :category, class_name: 'CodeableConcept'
-    embeds_one :code, class_name: 'CodeableConcept'
-    embeds_one :subject, class_name: 'Reference'
-    embeds_one :period, class_name: 'Period'
-    embeds_one :encounter, class_name: 'Reference'
-    embeds_one :author, class_name: 'Reference'
+    embeds_many :identifier, class_name: 'FHIR::Identifier'
+    embeds_one :status, class_name: 'FHIR::FlagStatus'
+    embeds_many :category, class_name: 'FHIR::CodeableConcept'
+    embeds_one :code, class_name: 'FHIR::CodeableConcept'
+    embeds_one :subject, class_name: 'FHIR::Reference'
+    embeds_one :period, class_name: 'FHIR::Period'
+    embeds_one :encounter, class_name: 'FHIR::Reference'
+    embeds_one :author, class_name: 'FHIR::Reference'
 
     def self.transform_json(json_hash, target = Flag.new)
       result = self.superclass.transform_json(json_hash, target)

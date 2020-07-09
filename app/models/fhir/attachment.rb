@@ -2,14 +2,14 @@ module FHIR
   # fhir/attachment.rb
   class Attachment < Element
     include Mongoid::Document
-    embeds_one :contentType, class_name: 'MimeType'
-    embeds_one :language, class_name: 'PrimitiveCode'
-    embeds_one :data, class_name: 'PrimitiveBase64Binary'
-    embeds_one :url, class_name: 'PrimitiveUrl'
-    embeds_one :size, class_name: 'PrimitiveUnsignedInt'
-    embeds_one :hash, class_name: 'PrimitiveBase64Binary'
-    embeds_one :title, class_name: 'PrimitiveString'
-    embeds_one :creation, class_name: 'PrimitiveDateTime'
+    embeds_one :contentType, class_name: 'FHIR::MimeType'
+    embeds_one :language, class_name: 'FHIR::PrimitiveCode'
+    embeds_one :data, class_name: 'FHIR::PrimitiveBase64Binary'
+    embeds_one :url, class_name: 'FHIR::PrimitiveUrl'
+    embeds_one :size, class_name: 'FHIR::PrimitiveUnsignedInt'
+    embeds_one :hash, class_name: 'FHIR::PrimitiveBase64Binary'
+    embeds_one :title, class_name: 'FHIR::PrimitiveString'
+    embeds_one :creation, class_name: 'FHIR::PrimitiveDateTime'
 
     def self.transform_json(json_hash, target = Attachment.new)
       result = self.superclass.transform_json(json_hash, target)

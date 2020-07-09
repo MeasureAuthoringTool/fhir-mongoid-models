@@ -2,10 +2,10 @@ module FHIR
   # fhir/provenance_agent.rb
   class ProvenanceAgent < BackboneElement
     include Mongoid::Document
-    embeds_one :type, class_name: 'CodeableConcept'
-    embeds_many :role, class_name: 'CodeableConcept'
-    embeds_one :who, class_name: 'Reference'
-    embeds_one :onBehalfOf, class_name: 'Reference'
+    embeds_one :type, class_name: 'FHIR::CodeableConcept'
+    embeds_many :role, class_name: 'FHIR::CodeableConcept'
+    embeds_one :who, class_name: 'FHIR::Reference'
+    embeds_one :onBehalfOf, class_name: 'FHIR::Reference'
 
     def self.transform_json(json_hash, target = ProvenanceAgent.new)
       result = self.superclass.transform_json(json_hash, target)

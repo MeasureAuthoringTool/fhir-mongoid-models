@@ -2,9 +2,9 @@ module FHIR
   # fhir/risk_evidence_synthesis_sample_size.rb
   class RiskEvidenceSynthesisSampleSize < BackboneElement
     include Mongoid::Document
-    embeds_one :description, class_name: 'PrimitiveString'
-    embeds_one :numberOfStudies, class_name: 'PrimitiveInteger'
-    embeds_one :numberOfParticipants, class_name: 'PrimitiveInteger'
+    embeds_one :description, class_name: 'FHIR::PrimitiveString'
+    embeds_one :numberOfStudies, class_name: 'FHIR::PrimitiveInteger'
+    embeds_one :numberOfParticipants, class_name: 'FHIR::PrimitiveInteger'
 
     def self.transform_json(json_hash, target = RiskEvidenceSynthesisSampleSize.new)
       result = self.superclass.transform_json(json_hash, target)

@@ -2,10 +2,10 @@ module FHIR
   # fhir/claim_response_error.rb
   class ClaimResponseError < BackboneElement
     include Mongoid::Document
-    embeds_one :itemSequence, class_name: 'PrimitivePositiveInt'
-    embeds_one :detailSequence, class_name: 'PrimitivePositiveInt'
-    embeds_one :subDetailSequence, class_name: 'PrimitivePositiveInt'
-    embeds_one :code, class_name: 'CodeableConcept'
+    embeds_one :itemSequence, class_name: 'FHIR::PrimitivePositiveInt'
+    embeds_one :detailSequence, class_name: 'FHIR::PrimitivePositiveInt'
+    embeds_one :subDetailSequence, class_name: 'FHIR::PrimitivePositiveInt'
+    embeds_one :code, class_name: 'FHIR::CodeableConcept'
 
     def self.transform_json(json_hash, target = ClaimResponseError.new)
       result = self.superclass.transform_json(json_hash, target)

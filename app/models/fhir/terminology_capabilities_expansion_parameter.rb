@@ -2,8 +2,8 @@ module FHIR
   # fhir/terminology_capabilities_expansion_parameter.rb
   class TerminologyCapabilitiesExpansionParameter < BackboneElement
     include Mongoid::Document
-    embeds_one :name, class_name: 'PrimitiveCode'
-    embeds_one :documentation, class_name: 'PrimitiveString'
+    embeds_one :name, class_name: 'FHIR::PrimitiveCode'
+    embeds_one :documentation, class_name: 'FHIR::PrimitiveString'
 
     def self.transform_json(json_hash, target = TerminologyCapabilitiesExpansionParameter.new)
       result = self.superclass.transform_json(json_hash, target)

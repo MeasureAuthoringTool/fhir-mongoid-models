@@ -2,10 +2,10 @@ module FHIR
   # fhir/substance_source_material_organism_organism_general.rb
   class SubstanceSourceMaterialOrganismOrganismGeneral < BackboneElement
     include Mongoid::Document
-    embeds_one :kingdom, class_name: 'CodeableConcept'
-    embeds_one :phylum, class_name: 'CodeableConcept'
-    embeds_one :class, class_name: 'CodeableConcept'
-    embeds_one :order, class_name: 'CodeableConcept'
+    embeds_one :kingdom, class_name: 'FHIR::CodeableConcept'
+    embeds_one :phylum, class_name: 'FHIR::CodeableConcept'
+    embeds_one :class, class_name: 'FHIR::CodeableConcept'
+    embeds_one :order, class_name: 'FHIR::CodeableConcept'
 
     def self.transform_json(json_hash, target = SubstanceSourceMaterialOrganismOrganismGeneral.new)
       result = self.superclass.transform_json(json_hash, target)

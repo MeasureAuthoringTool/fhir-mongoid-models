@@ -2,12 +2,12 @@ module FHIR
   # fhir/meta.rb
   class Meta < Element
     include Mongoid::Document
-    embeds_one :versionId, class_name: 'PrimitiveId'
-    embeds_one :lastUpdated, class_name: 'PrimitiveInstant'
-    embeds_one :source, class_name: 'PrimitiveUri'
-    embeds_many :profile, class_name: 'PrimitiveCanonical'
-    embeds_many :security, class_name: 'Coding'
-    embeds_many :tag, class_name: 'Coding'
+    embeds_one :versionId, class_name: 'FHIR::PrimitiveId'
+    embeds_one :lastUpdated, class_name: 'FHIR::PrimitiveInstant'
+    embeds_one :source, class_name: 'FHIR::PrimitiveUri'
+    embeds_many :profile, class_name: 'FHIR::PrimitiveCanonical'
+    embeds_many :security, class_name: 'FHIR::Coding'
+    embeds_many :tag, class_name: 'FHIR::Coding'
 
     def self.transform_json(json_hash, target = Meta.new)
       result = self.superclass.transform_json(json_hash, target)

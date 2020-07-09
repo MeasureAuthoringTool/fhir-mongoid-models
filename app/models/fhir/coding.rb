@@ -2,11 +2,11 @@ module FHIR
   # fhir/coding.rb
   class Coding < Element
     include Mongoid::Document
-    embeds_one :system, class_name: 'PrimitiveUri'
-    embeds_one :version, class_name: 'PrimitiveString'
-    embeds_one :code, class_name: 'PrimitiveCode'
-    embeds_one :display, class_name: 'PrimitiveString'
-    embeds_one :userSelected, class_name: 'PrimitiveBoolean'
+    embeds_one :system, class_name: 'FHIR::PrimitiveUri'
+    embeds_one :version, class_name: 'FHIR::PrimitiveString'
+    embeds_one :code, class_name: 'FHIR::PrimitiveCode'
+    embeds_one :display, class_name: 'FHIR::PrimitiveString'
+    embeds_one :userSelected, class_name: 'FHIR::PrimitiveBoolean'
 
     def self.transform_json(json_hash, target = Coding.new)
       result = self.superclass.transform_json(json_hash, target)

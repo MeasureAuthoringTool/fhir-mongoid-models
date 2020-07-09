@@ -2,9 +2,9 @@ module FHIR
   # fhir/composition_attester.rb
   class CompositionAttester < BackboneElement
     include Mongoid::Document
-    embeds_one :mode, class_name: 'CompositionAttestationMode'
-    embeds_one :time, class_name: 'PrimitiveDateTime'
-    embeds_one :party, class_name: 'Reference'
+    embeds_one :mode, class_name: 'FHIR::CompositionAttestationMode'
+    embeds_one :time, class_name: 'FHIR::PrimitiveDateTime'
+    embeds_one :party, class_name: 'FHIR::Reference'
 
     def self.transform_json(json_hash, target = CompositionAttester.new)
       result = self.superclass.transform_json(json_hash, target)

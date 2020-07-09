@@ -2,10 +2,10 @@ module FHIR
   # fhir/code_system_filter.rb
   class CodeSystemFilter < BackboneElement
     include Mongoid::Document
-    embeds_one :code, class_name: 'PrimitiveCode'
-    embeds_one :description, class_name: 'PrimitiveString'
-    embeds_many :operator, class_name: 'FilterOperator'
-    embeds_one :value, class_name: 'PrimitiveString'
+    embeds_one :code, class_name: 'FHIR::PrimitiveCode'
+    embeds_one :description, class_name: 'FHIR::PrimitiveString'
+    embeds_many :operator, class_name: 'FHIR::FilterOperator'
+    embeds_one :value, class_name: 'FHIR::PrimitiveString'
 
     def self.transform_json(json_hash, target = CodeSystemFilter.new)
       result = self.superclass.transform_json(json_hash, target)

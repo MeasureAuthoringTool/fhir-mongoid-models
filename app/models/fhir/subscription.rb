@@ -2,13 +2,13 @@ module FHIR
   # fhir/subscription.rb
   class Subscription < DomainResource
     include Mongoid::Document
-    embeds_one :status, class_name: 'SubscriptionStatus'
-    embeds_many :contact, class_name: 'ContactPoint'
-    embeds_one :end, class_name: 'PrimitiveInstant'
-    embeds_one :reason, class_name: 'PrimitiveString'
-    embeds_one :criteria, class_name: 'PrimitiveString'
-    embeds_one :error, class_name: 'PrimitiveString'
-    embeds_one :channel, class_name: 'SubscriptionChannel'
+    embeds_one :status, class_name: 'FHIR::SubscriptionStatus'
+    embeds_many :contact, class_name: 'FHIR::ContactPoint'
+    embeds_one :end, class_name: 'FHIR::PrimitiveInstant'
+    embeds_one :reason, class_name: 'FHIR::PrimitiveString'
+    embeds_one :criteria, class_name: 'FHIR::PrimitiveString'
+    embeds_one :error, class_name: 'FHIR::PrimitiveString'
+    embeds_one :channel, class_name: 'FHIR::SubscriptionChannel'
 
     def self.transform_json(json_hash, target = Subscription.new)
       result = self.superclass.transform_json(json_hash, target)

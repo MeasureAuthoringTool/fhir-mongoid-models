@@ -2,10 +2,10 @@ module FHIR
   # fhir/value_set_compose.rb
   class ValueSetCompose < BackboneElement
     include Mongoid::Document
-    embeds_one :lockedDate, class_name: 'PrimitiveDate'
-    embeds_one :inactive, class_name: 'PrimitiveBoolean'
-    embeds_many :include, class_name: 'ValueSetComposeInclude'
-    embeds_many :exclude, class_name: 'ValueSetComposeInclude'
+    embeds_one :lockedDate, class_name: 'FHIR::PrimitiveDate'
+    embeds_one :inactive, class_name: 'FHIR::PrimitiveBoolean'
+    embeds_many :include, class_name: 'FHIR::ValueSetComposeInclude'
+    embeds_many :exclude, class_name: 'FHIR::ValueSetComposeInclude'
 
     def self.transform_json(json_hash, target = ValueSetCompose.new)
       result = self.superclass.transform_json(json_hash, target)

@@ -2,16 +2,16 @@ module FHIR
   # fhir/substance_reference_information_target.rb
   class SubstanceReferenceInformationTarget < BackboneElement
     include Mongoid::Document
-    embeds_one :target, class_name: 'Identifier'
-    embeds_one :type, class_name: 'CodeableConcept'
-    embeds_one :interaction, class_name: 'CodeableConcept'
-    embeds_one :organism, class_name: 'CodeableConcept'
-    embeds_one :organismType, class_name: 'CodeableConcept'
-    embeds_one :amountQuantity, class_name: 'Quantity'
-    embeds_one :amountRange, class_name: 'Range'
-    embeds_one :amountString, class_name: 'PrimitiveString'
-    embeds_one :amountType, class_name: 'CodeableConcept'
-    embeds_many :source, class_name: 'Reference'
+    embeds_one :target, class_name: 'FHIR::Identifier'
+    embeds_one :type, class_name: 'FHIR::CodeableConcept'
+    embeds_one :interaction, class_name: 'FHIR::CodeableConcept'
+    embeds_one :organism, class_name: 'FHIR::CodeableConcept'
+    embeds_one :organismType, class_name: 'FHIR::CodeableConcept'
+    embeds_one :amountQuantity, class_name: 'FHIR::Quantity'
+    embeds_one :amountRange, class_name: 'FHIR::Range'
+    embeds_one :amountString, class_name: 'FHIR::PrimitiveString'
+    embeds_one :amountType, class_name: 'FHIR::CodeableConcept'
+    embeds_many :source, class_name: 'FHIR::Reference'
 
     def self.transform_json(json_hash, target = SubstanceReferenceInformationTarget.new)
       result = self.superclass.transform_json(json_hash, target)

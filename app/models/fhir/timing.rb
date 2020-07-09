@@ -2,9 +2,9 @@ module FHIR
   # fhir/timing.rb
   class Timing < BackboneElement
     include Mongoid::Document
-    embeds_many :event, class_name: 'PrimitiveDateTime'
-    embeds_one :repeat, class_name: 'TimingRepeat'
-    embeds_one :code, class_name: 'CodeableConcept'
+    embeds_many :event, class_name: 'FHIR::PrimitiveDateTime'
+    embeds_one :repeat, class_name: 'FHIR::TimingRepeat'
+    embeds_one :code, class_name: 'FHIR::CodeableConcept'
 
     def self.transform_json(json_hash, target = Timing.new)
       result = self.superclass.transform_json(json_hash, target)

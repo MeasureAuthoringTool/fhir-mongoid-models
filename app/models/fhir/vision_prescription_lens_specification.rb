@@ -2,20 +2,20 @@ module FHIR
   # fhir/vision_prescription_lens_specification.rb
   class VisionPrescriptionLensSpecification < BackboneElement
     include Mongoid::Document
-    embeds_one :product, class_name: 'CodeableConcept'
-    embeds_one :eye, class_name: 'VisionEyes'
-    embeds_one :sphere, class_name: 'PrimitiveDecimal'
-    embeds_one :cylinder, class_name: 'PrimitiveDecimal'
-    embeds_one :axis, class_name: 'PrimitiveInteger'
-    embeds_many :prism, class_name: 'VisionPrescriptionLensSpecificationPrism'
-    embeds_one :add, class_name: 'PrimitiveDecimal'
-    embeds_one :power, class_name: 'PrimitiveDecimal'
-    embeds_one :backCurve, class_name: 'PrimitiveDecimal'
-    embeds_one :diameter, class_name: 'PrimitiveDecimal'
-    embeds_one :duration, class_name: 'SimpleQuantity'
-    embeds_one :color, class_name: 'PrimitiveString'
-    embeds_one :brand, class_name: 'PrimitiveString'
-    embeds_many :note, class_name: 'Annotation'
+    embeds_one :product, class_name: 'FHIR::CodeableConcept'
+    embeds_one :eye, class_name: 'FHIR::VisionEyes'
+    embeds_one :sphere, class_name: 'FHIR::PrimitiveDecimal'
+    embeds_one :cylinder, class_name: 'FHIR::PrimitiveDecimal'
+    embeds_one :axis, class_name: 'FHIR::PrimitiveInteger'
+    embeds_many :prism, class_name: 'FHIR::VisionPrescriptionLensSpecificationPrism'
+    embeds_one :add, class_name: 'FHIR::PrimitiveDecimal'
+    embeds_one :power, class_name: 'FHIR::PrimitiveDecimal'
+    embeds_one :backCurve, class_name: 'FHIR::PrimitiveDecimal'
+    embeds_one :diameter, class_name: 'FHIR::PrimitiveDecimal'
+    embeds_one :duration, class_name: 'FHIR::SimpleQuantity'
+    embeds_one :color, class_name: 'FHIR::PrimitiveString'
+    embeds_one :brand, class_name: 'FHIR::PrimitiveString'
+    embeds_many :note, class_name: 'FHIR::Annotation'
 
     def self.transform_json(json_hash, target = VisionPrescriptionLensSpecification.new)
       result = self.superclass.transform_json(json_hash, target)

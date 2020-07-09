@@ -2,11 +2,11 @@ module FHIR
   # fhir/expression.rb
   class Expression < Element
     include Mongoid::Document
-    embeds_one :description, class_name: 'PrimitiveString'
-    embeds_one :name, class_name: 'PrimitiveId'
-    embeds_one :language, class_name: 'PrimitiveCode'
-    embeds_one :expression, class_name: 'PrimitiveString'
-    embeds_one :reference, class_name: 'PrimitiveUri'
+    embeds_one :description, class_name: 'FHIR::PrimitiveString'
+    embeds_one :name, class_name: 'FHIR::PrimitiveId'
+    embeds_one :language, class_name: 'FHIR::PrimitiveCode'
+    embeds_one :expression, class_name: 'FHIR::PrimitiveString'
+    embeds_one :reference, class_name: 'FHIR::PrimitiveUri'
 
     def self.transform_json(json_hash, target = Expression.new)
       result = self.superclass.transform_json(json_hash, target)

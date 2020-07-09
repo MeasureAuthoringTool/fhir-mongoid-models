@@ -2,13 +2,13 @@ module FHIR
   # fhir/molecular_sequence_quality_roc.rb
   class MolecularSequenceQualityRoc < BackboneElement
     include Mongoid::Document
-    embeds_many :score, class_name: 'PrimitiveInteger'
-    embeds_many :numTP, class_name: 'PrimitiveInteger'
-    embeds_many :numFP, class_name: 'PrimitiveInteger'
-    embeds_many :numFN, class_name: 'PrimitiveInteger'
-    embeds_many :precision, class_name: 'PrimitiveDecimal'
-    embeds_many :sensitivity, class_name: 'PrimitiveDecimal'
-    embeds_many :fMeasure, class_name: 'PrimitiveDecimal'
+    embeds_many :score, class_name: 'FHIR::PrimitiveInteger'
+    embeds_many :numTP, class_name: 'FHIR::PrimitiveInteger'
+    embeds_many :numFP, class_name: 'FHIR::PrimitiveInteger'
+    embeds_many :numFN, class_name: 'FHIR::PrimitiveInteger'
+    embeds_many :precision, class_name: 'FHIR::PrimitiveDecimal'
+    embeds_many :sensitivity, class_name: 'FHIR::PrimitiveDecimal'
+    embeds_many :fMeasure, class_name: 'FHIR::PrimitiveDecimal'
 
     def self.transform_json(json_hash, target = MolecularSequenceQualityRoc.new)
       result = self.superclass.transform_json(json_hash, target)

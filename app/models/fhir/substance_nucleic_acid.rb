@@ -2,11 +2,11 @@ module FHIR
   # fhir/substance_nucleic_acid.rb
   class SubstanceNucleicAcid < DomainResource
     include Mongoid::Document
-    embeds_one :sequenceType, class_name: 'CodeableConcept'
-    embeds_one :numberOfSubunits, class_name: 'PrimitiveInteger'
-    embeds_one :areaOfHybridisation, class_name: 'PrimitiveString'
-    embeds_one :oligoNucleotideType, class_name: 'CodeableConcept'
-    embeds_many :subunit, class_name: 'SubstanceNucleicAcidSubunit'
+    embeds_one :sequenceType, class_name: 'FHIR::CodeableConcept'
+    embeds_one :numberOfSubunits, class_name: 'FHIR::PrimitiveInteger'
+    embeds_one :areaOfHybridisation, class_name: 'FHIR::PrimitiveString'
+    embeds_one :oligoNucleotideType, class_name: 'FHIR::CodeableConcept'
+    embeds_many :subunit, class_name: 'FHIR::SubstanceNucleicAcidSubunit'
 
     def self.transform_json(json_hash, target = SubstanceNucleicAcid.new)
       result = self.superclass.transform_json(json_hash, target)

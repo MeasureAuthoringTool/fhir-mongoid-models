@@ -2,19 +2,19 @@ module FHIR
   # fhir/detected_issue.rb
   class DetectedIssue < DomainResource
     include Mongoid::Document
-    embeds_many :identifier, class_name: 'Identifier'
-    embeds_one :status, class_name: 'DetectedIssueStatus'
-    embeds_one :code, class_name: 'CodeableConcept'
-    embeds_one :severity, class_name: 'DetectedIssueSeverity'
-    embeds_one :patient, class_name: 'Reference'
-    embeds_one :identifiedDateTime, class_name: 'PrimitiveDateTime'
-    embeds_one :identifiedPeriod, class_name: 'Period'
-    embeds_one :author, class_name: 'Reference'
-    embeds_many :implicated, class_name: 'Reference'
-    embeds_many :evidence, class_name: 'DetectedIssueEvidence'
-    embeds_one :detail, class_name: 'PrimitiveString'
-    embeds_one :reference, class_name: 'PrimitiveUri'
-    embeds_many :mitigation, class_name: 'DetectedIssueMitigation'
+    embeds_many :identifier, class_name: 'FHIR::Identifier'
+    embeds_one :status, class_name: 'FHIR::DetectedIssueStatus'
+    embeds_one :code, class_name: 'FHIR::CodeableConcept'
+    embeds_one :severity, class_name: 'FHIR::DetectedIssueSeverity'
+    embeds_one :patient, class_name: 'FHIR::Reference'
+    embeds_one :identifiedDateTime, class_name: 'FHIR::PrimitiveDateTime'
+    embeds_one :identifiedPeriod, class_name: 'FHIR::Period'
+    embeds_one :author, class_name: 'FHIR::Reference'
+    embeds_many :implicated, class_name: 'FHIR::Reference'
+    embeds_many :evidence, class_name: 'FHIR::DetectedIssueEvidence'
+    embeds_one :detail, class_name: 'FHIR::PrimitiveString'
+    embeds_one :reference, class_name: 'FHIR::PrimitiveUri'
+    embeds_many :mitigation, class_name: 'FHIR::DetectedIssueMitigation'
 
     def self.transform_json(json_hash, target = DetectedIssue.new)
       result = self.superclass.transform_json(json_hash, target)

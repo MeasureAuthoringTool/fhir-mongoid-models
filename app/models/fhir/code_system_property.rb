@@ -2,10 +2,10 @@ module FHIR
   # fhir/code_system_property.rb
   class CodeSystemProperty < BackboneElement
     include Mongoid::Document
-    embeds_one :code, class_name: 'PrimitiveCode'
-    embeds_one :uri, class_name: 'PrimitiveUri'
-    embeds_one :description, class_name: 'PrimitiveString'
-    embeds_one :type, class_name: 'PropertyType'
+    embeds_one :code, class_name: 'FHIR::PrimitiveCode'
+    embeds_one :uri, class_name: 'FHIR::PrimitiveUri'
+    embeds_one :description, class_name: 'FHIR::PrimitiveString'
+    embeds_one :type, class_name: 'FHIR::PropertyType'
 
     def self.transform_json(json_hash, target = CodeSystemProperty.new)
       result = self.superclass.transform_json(json_hash, target)
