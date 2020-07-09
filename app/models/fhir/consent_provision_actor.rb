@@ -2,8 +2,8 @@ module FHIR
   # fhir/consent_provision_actor.rb
   class ConsentProvisionActor < BackboneElement
     include Mongoid::Document
-    embeds_one :role, class_name: 'CodeableConcept'
-    embeds_one :reference, class_name: 'Reference'
+    embeds_one :role, class_name: 'FHIR::CodeableConcept'
+    embeds_one :reference, class_name: 'FHIR::Reference'
 
     def self.transform_json(json_hash, target = ConsentProvisionActor.new)
       result = self.superclass.transform_json(json_hash, target)

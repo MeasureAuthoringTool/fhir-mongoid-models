@@ -2,9 +2,9 @@ module FHIR
   # fhir/value_set_compose_include_filter.rb
   class ValueSetComposeIncludeFilter < BackboneElement
     include Mongoid::Document
-    embeds_one :property, class_name: 'PrimitiveCode'
-    embeds_one :op, class_name: 'FilterOperator'
-    embeds_one :value, class_name: 'PrimitiveString'
+    embeds_one :property, class_name: 'FHIR::PrimitiveCode'
+    embeds_one :op, class_name: 'FHIR::FilterOperator'
+    embeds_one :value, class_name: 'FHIR::PrimitiveString'
 
     def self.transform_json(json_hash, target = ValueSetComposeIncludeFilter.new)
       result = self.superclass.transform_json(json_hash, target)

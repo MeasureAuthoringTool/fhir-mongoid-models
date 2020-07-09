@@ -2,8 +2,8 @@ module FHIR
   # fhir/medication_knowledge_regulatory_substitution.rb
   class MedicationKnowledgeRegulatorySubstitution < BackboneElement
     include Mongoid::Document
-    embeds_one :type, class_name: 'CodeableConcept'
-    embeds_one :allowed, class_name: 'PrimitiveBoolean'
+    embeds_one :type, class_name: 'FHIR::CodeableConcept'
+    embeds_one :allowed, class_name: 'FHIR::PrimitiveBoolean'
 
     def self.transform_json(json_hash, target = MedicationKnowledgeRegulatorySubstitution.new)
       result = self.superclass.transform_json(json_hash, target)

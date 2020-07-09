@@ -2,11 +2,11 @@ module FHIR
   # fhir/medicinal_product_authorization_jurisdictional_authorization.rb
   class MedicinalProductAuthorizationJurisdictionalAuthorization < BackboneElement
     include Mongoid::Document
-    embeds_many :identifier, class_name: 'Identifier'
-    embeds_one :country, class_name: 'CodeableConcept'
-    embeds_many :jurisdiction, class_name: 'CodeableConcept'
-    embeds_one :legalStatusOfSupply, class_name: 'CodeableConcept'
-    embeds_one :validityPeriod, class_name: 'Period'
+    embeds_many :identifier, class_name: 'FHIR::Identifier'
+    embeds_one :country, class_name: 'FHIR::CodeableConcept'
+    embeds_many :jurisdiction, class_name: 'FHIR::CodeableConcept'
+    embeds_one :legalStatusOfSupply, class_name: 'FHIR::CodeableConcept'
+    embeds_one :validityPeriod, class_name: 'FHIR::Period'
 
     def self.transform_json(json_hash, target = MedicinalProductAuthorizationJurisdictionalAuthorization.new)
       result = self.superclass.transform_json(json_hash, target)

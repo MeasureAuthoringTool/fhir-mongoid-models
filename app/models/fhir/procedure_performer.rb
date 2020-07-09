@@ -2,9 +2,9 @@ module FHIR
   # fhir/procedure_performer.rb
   class ProcedurePerformer < BackboneElement
     include Mongoid::Document
-    embeds_one :function, class_name: 'CodeableConcept'
-    embeds_one :actor, class_name: 'Reference'
-    embeds_one :onBehalfOf, class_name: 'Reference'
+    embeds_one :function, class_name: 'FHIR::CodeableConcept'
+    embeds_one :actor, class_name: 'FHIR::Reference'
+    embeds_one :onBehalfOf, class_name: 'FHIR::Reference'
 
     def self.transform_json(json_hash, target = ProcedurePerformer.new)
       result = self.superclass.transform_json(json_hash, target)

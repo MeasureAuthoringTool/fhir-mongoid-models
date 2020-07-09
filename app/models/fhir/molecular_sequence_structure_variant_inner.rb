@@ -2,8 +2,8 @@ module FHIR
   # fhir/molecular_sequence_structure_variant_inner.rb
   class MolecularSequenceStructureVariantInner < BackboneElement
     include Mongoid::Document
-    embeds_one :start, class_name: 'PrimitiveInteger'
-    embeds_one :end, class_name: 'PrimitiveInteger'
+    embeds_one :start, class_name: 'FHIR::PrimitiveInteger'
+    embeds_one :end, class_name: 'FHIR::PrimitiveInteger'
 
     def self.transform_json(json_hash, target = MolecularSequenceStructureVariantInner.new)
       result = self.superclass.transform_json(json_hash, target)

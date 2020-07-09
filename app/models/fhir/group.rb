@@ -2,16 +2,16 @@ module FHIR
   # fhir/group.rb
   class Group < DomainResource
     include Mongoid::Document
-    embeds_many :identifier, class_name: 'Identifier'
-    embeds_one :active, class_name: 'PrimitiveBoolean'
-    embeds_one :type, class_name: 'GroupType'
-    embeds_one :actual, class_name: 'PrimitiveBoolean'
-    embeds_one :code, class_name: 'CodeableConcept'
-    embeds_one :name, class_name: 'PrimitiveString'
-    embeds_one :quantity, class_name: 'PrimitiveUnsignedInt'
-    embeds_one :managingEntity, class_name: 'Reference'
-    embeds_many :characteristic, class_name: 'GroupCharacteristic'
-    embeds_many :member, class_name: 'GroupMember'
+    embeds_many :identifier, class_name: 'FHIR::Identifier'
+    embeds_one :active, class_name: 'FHIR::PrimitiveBoolean'
+    embeds_one :type, class_name: 'FHIR::GroupType'
+    embeds_one :actual, class_name: 'FHIR::PrimitiveBoolean'
+    embeds_one :code, class_name: 'FHIR::CodeableConcept'
+    embeds_one :name, class_name: 'FHIR::PrimitiveString'
+    embeds_one :quantity, class_name: 'FHIR::PrimitiveUnsignedInt'
+    embeds_one :managingEntity, class_name: 'FHIR::Reference'
+    embeds_many :characteristic, class_name: 'FHIR::GroupCharacteristic'
+    embeds_many :member, class_name: 'FHIR::GroupMember'
 
     def self.transform_json(json_hash, target = Group.new)
       result = self.superclass.transform_json(json_hash, target)

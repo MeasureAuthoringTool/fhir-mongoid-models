@@ -2,8 +2,8 @@ module FHIR
   # fhir/narrative.rb
   class Narrative < Element
     include Mongoid::Document
-    embeds_one :status, class_name: 'NarrativeStatus'
-    embeds_one :div, class_name: 'PrimitiveXhtml'
+    embeds_one :status, class_name: 'FHIR::NarrativeStatus'
+    embeds_one :div, class_name: 'FHIR::PrimitiveXhtml'
 
     def self.transform_json(json_hash, target = Narrative.new)
       result = self.superclass.transform_json(json_hash, target)

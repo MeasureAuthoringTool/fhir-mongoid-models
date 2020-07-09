@@ -2,14 +2,14 @@ module FHIR
   # fhir/explanation_of_benefit_benefit_balance.rb
   class ExplanationOfBenefitBenefitBalance < BackboneElement
     include Mongoid::Document
-    embeds_one :category, class_name: 'CodeableConcept'
-    embeds_one :excluded, class_name: 'PrimitiveBoolean'
-    embeds_one :name, class_name: 'PrimitiveString'
-    embeds_one :description, class_name: 'PrimitiveString'
-    embeds_one :network, class_name: 'CodeableConcept'
-    embeds_one :unit, class_name: 'CodeableConcept'
-    embeds_one :term, class_name: 'CodeableConcept'
-    embeds_many :financial, class_name: 'ExplanationOfBenefitBenefitBalanceFinancial'
+    embeds_one :category, class_name: 'FHIR::CodeableConcept'
+    embeds_one :excluded, class_name: 'FHIR::PrimitiveBoolean'
+    embeds_one :name, class_name: 'FHIR::PrimitiveString'
+    embeds_one :description, class_name: 'FHIR::PrimitiveString'
+    embeds_one :network, class_name: 'FHIR::CodeableConcept'
+    embeds_one :unit, class_name: 'FHIR::CodeableConcept'
+    embeds_one :term, class_name: 'FHIR::CodeableConcept'
+    embeds_many :financial, class_name: 'FHIR::ExplanationOfBenefitBenefitBalanceFinancial'
 
     def self.transform_json(json_hash, target = ExplanationOfBenefitBenefitBalance.new)
       result = self.superclass.transform_json(json_hash, target)

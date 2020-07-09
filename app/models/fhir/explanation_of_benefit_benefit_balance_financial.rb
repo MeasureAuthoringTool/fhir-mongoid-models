@@ -2,12 +2,12 @@ module FHIR
   # fhir/explanation_of_benefit_benefit_balance_financial.rb
   class ExplanationOfBenefitBenefitBalanceFinancial < BackboneElement
     include Mongoid::Document
-    embeds_one :type, class_name: 'CodeableConcept'
-    embeds_one :allowedUnsignedInt, class_name: 'PrimitiveUnsignedInt'
-    embeds_one :allowedString, class_name: 'PrimitiveString'
-    embeds_one :allowedMoney, class_name: 'Money'
-    embeds_one :usedUnsignedInt, class_name: 'PrimitiveUnsignedInt'
-    embeds_one :usedMoney, class_name: 'Money'
+    embeds_one :type, class_name: 'FHIR::CodeableConcept'
+    embeds_one :allowedUnsignedInt, class_name: 'FHIR::PrimitiveUnsignedInt'
+    embeds_one :allowedString, class_name: 'FHIR::PrimitiveString'
+    embeds_one :allowedMoney, class_name: 'FHIR::Money'
+    embeds_one :usedUnsignedInt, class_name: 'FHIR::PrimitiveUnsignedInt'
+    embeds_one :usedMoney, class_name: 'FHIR::Money'
 
     def self.transform_json(json_hash, target = ExplanationOfBenefitBenefitBalanceFinancial.new)
       result = self.superclass.transform_json(json_hash, target)

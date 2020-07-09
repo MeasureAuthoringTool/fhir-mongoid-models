@@ -2,8 +2,8 @@ module FHIR
   # fhir/claim_response_total.rb
   class ClaimResponseTotal < BackboneElement
     include Mongoid::Document
-    embeds_one :category, class_name: 'CodeableConcept'
-    embeds_one :amount, class_name: 'Money'
+    embeds_one :category, class_name: 'FHIR::CodeableConcept'
+    embeds_one :amount, class_name: 'FHIR::Money'
 
     def self.transform_json(json_hash, target = ClaimResponseTotal.new)
       result = self.superclass.transform_json(json_hash, target)

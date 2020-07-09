@@ -2,21 +2,21 @@ module FHIR
   # fhir/coverage_eligibility_request.rb
   class CoverageEligibilityRequest < DomainResource
     include Mongoid::Document
-    embeds_many :identifier, class_name: 'Identifier'
-    embeds_one :status, class_name: 'EligibilityRequestStatus'
-    embeds_one :priority, class_name: 'CodeableConcept'
-    embeds_many :purpose, class_name: 'EligibilityRequestPurpose'
-    embeds_one :patient, class_name: 'Reference'
-    embeds_one :servicedDate, class_name: 'PrimitiveDate'
-    embeds_one :servicedPeriod, class_name: 'Period'
-    embeds_one :created, class_name: 'PrimitiveDateTime'
-    embeds_one :enterer, class_name: 'Reference'
-    embeds_one :provider, class_name: 'Reference'
-    embeds_one :insurer, class_name: 'Reference'
-    embeds_one :facility, class_name: 'Reference'
-    embeds_many :supportingInfo, class_name: 'CoverageEligibilityRequestSupportingInfo'
-    embeds_many :insurance, class_name: 'CoverageEligibilityRequestInsurance'
-    embeds_many :item, class_name: 'CoverageEligibilityRequestItem'
+    embeds_many :identifier, class_name: 'FHIR::Identifier'
+    embeds_one :status, class_name: 'FHIR::EligibilityRequestStatus'
+    embeds_one :priority, class_name: 'FHIR::CodeableConcept'
+    embeds_many :purpose, class_name: 'FHIR::EligibilityRequestPurpose'
+    embeds_one :patient, class_name: 'FHIR::Reference'
+    embeds_one :servicedDate, class_name: 'FHIR::PrimitiveDate'
+    embeds_one :servicedPeriod, class_name: 'FHIR::Period'
+    embeds_one :created, class_name: 'FHIR::PrimitiveDateTime'
+    embeds_one :enterer, class_name: 'FHIR::Reference'
+    embeds_one :provider, class_name: 'FHIR::Reference'
+    embeds_one :insurer, class_name: 'FHIR::Reference'
+    embeds_one :facility, class_name: 'FHIR::Reference'
+    embeds_many :supportingInfo, class_name: 'FHIR::CoverageEligibilityRequestSupportingInfo'
+    embeds_many :insurance, class_name: 'FHIR::CoverageEligibilityRequestInsurance'
+    embeds_many :item, class_name: 'FHIR::CoverageEligibilityRequestItem'
 
     def self.transform_json(json_hash, target = CoverageEligibilityRequest.new)
       result = self.superclass.transform_json(json_hash, target)

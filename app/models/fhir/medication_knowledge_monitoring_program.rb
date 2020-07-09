@@ -2,8 +2,8 @@ module FHIR
   # fhir/medication_knowledge_monitoring_program.rb
   class MedicationKnowledgeMonitoringProgram < BackboneElement
     include Mongoid::Document
-    embeds_one :type, class_name: 'CodeableConcept'
-    embeds_one :name, class_name: 'PrimitiveString'
+    embeds_one :type, class_name: 'FHIR::CodeableConcept'
+    embeds_one :name, class_name: 'FHIR::PrimitiveString'
 
     def self.transform_json(json_hash, target = MedicationKnowledgeMonitoringProgram.new)
       result = self.superclass.transform_json(json_hash, target)

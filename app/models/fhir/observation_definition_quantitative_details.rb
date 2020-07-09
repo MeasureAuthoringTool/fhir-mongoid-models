@@ -2,10 +2,10 @@ module FHIR
   # fhir/observation_definition_quantitative_details.rb
   class ObservationDefinitionQuantitativeDetails < BackboneElement
     include Mongoid::Document
-    embeds_one :customaryUnit, class_name: 'CodeableConcept'
-    embeds_one :unit, class_name: 'CodeableConcept'
-    embeds_one :conversionFactor, class_name: 'PrimitiveDecimal'
-    embeds_one :decimalPrecision, class_name: 'PrimitiveInteger'
+    embeds_one :customaryUnit, class_name: 'FHIR::CodeableConcept'
+    embeds_one :unit, class_name: 'FHIR::CodeableConcept'
+    embeds_one :conversionFactor, class_name: 'FHIR::PrimitiveDecimal'
+    embeds_one :decimalPrecision, class_name: 'FHIR::PrimitiveInteger'
 
     def self.transform_json(json_hash, target = ObservationDefinitionQuantitativeDetails.new)
       result = self.superclass.transform_json(json_hash, target)

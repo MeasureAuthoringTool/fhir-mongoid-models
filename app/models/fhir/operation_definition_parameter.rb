@@ -2,17 +2,17 @@ module FHIR
   # fhir/operation_definition_parameter.rb
   class OperationDefinitionParameter < BackboneElement
     include Mongoid::Document
-    embeds_one :name, class_name: 'PrimitiveCode'
-    embeds_one :use, class_name: 'OperationParameterUse'
-    embeds_one :min, class_name: 'PrimitiveInteger'
-    embeds_one :max, class_name: 'PrimitiveString'
-    embeds_one :documentation, class_name: 'PrimitiveString'
-    embeds_one :type, class_name: 'FHIRAllTypes'
-    embeds_many :targetProfile, class_name: 'PrimitiveCanonical'
-    embeds_one :searchType, class_name: 'SearchParamType'
-    embeds_one :binding, class_name: 'OperationDefinitionParameterBinding'
-    embeds_many :referencedFrom, class_name: 'OperationDefinitionParameterReferencedFrom'
-    embeds_many :part, class_name: 'OperationDefinitionParameter'
+    embeds_one :name, class_name: 'FHIR::PrimitiveCode'
+    embeds_one :use, class_name: 'FHIR::OperationParameterUse'
+    embeds_one :min, class_name: 'FHIR::PrimitiveInteger'
+    embeds_one :max, class_name: 'FHIR::PrimitiveString'
+    embeds_one :documentation, class_name: 'FHIR::PrimitiveString'
+    embeds_one :type, class_name: 'FHIR::FHIRAllTypes'
+    embeds_many :targetProfile, class_name: 'FHIR::PrimitiveCanonical'
+    embeds_one :searchType, class_name: 'FHIR::SearchParamType'
+    embeds_one :binding, class_name: 'FHIR::OperationDefinitionParameterBinding'
+    embeds_many :referencedFrom, class_name: 'FHIR::OperationDefinitionParameterReferencedFrom'
+    embeds_many :part, class_name: 'FHIR::OperationDefinitionParameter'
 
     def self.transform_json(json_hash, target = OperationDefinitionParameter.new)
       result = self.superclass.transform_json(json_hash, target)

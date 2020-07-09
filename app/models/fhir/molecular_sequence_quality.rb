@@ -2,21 +2,21 @@ module FHIR
   # fhir/molecular_sequence_quality.rb
   class MolecularSequenceQuality < BackboneElement
     include Mongoid::Document
-    embeds_one :type, class_name: 'QualityType'
-    embeds_one :standardSequence, class_name: 'CodeableConcept'
-    embeds_one :start, class_name: 'PrimitiveInteger'
-    embeds_one :end, class_name: 'PrimitiveInteger'
-    embeds_one :score, class_name: 'Quantity'
-    embeds_one :method, class_name: 'CodeableConcept'
-    embeds_one :truthTP, class_name: 'PrimitiveDecimal'
-    embeds_one :queryTP, class_name: 'PrimitiveDecimal'
-    embeds_one :truthFN, class_name: 'PrimitiveDecimal'
-    embeds_one :queryFP, class_name: 'PrimitiveDecimal'
-    embeds_one :gtFP, class_name: 'PrimitiveDecimal'
-    embeds_one :precision, class_name: 'PrimitiveDecimal'
-    embeds_one :recall, class_name: 'PrimitiveDecimal'
-    embeds_one :fScore, class_name: 'PrimitiveDecimal'
-    embeds_one :roc, class_name: 'MolecularSequenceQualityRoc'
+    embeds_one :type, class_name: 'FHIR::QualityType'
+    embeds_one :standardSequence, class_name: 'FHIR::CodeableConcept'
+    embeds_one :start, class_name: 'FHIR::PrimitiveInteger'
+    embeds_one :end, class_name: 'FHIR::PrimitiveInteger'
+    embeds_one :score, class_name: 'FHIR::Quantity'
+    embeds_one :method, class_name: 'FHIR::CodeableConcept'
+    embeds_one :truthTP, class_name: 'FHIR::PrimitiveDecimal'
+    embeds_one :queryTP, class_name: 'FHIR::PrimitiveDecimal'
+    embeds_one :truthFN, class_name: 'FHIR::PrimitiveDecimal'
+    embeds_one :queryFP, class_name: 'FHIR::PrimitiveDecimal'
+    embeds_one :gtFP, class_name: 'FHIR::PrimitiveDecimal'
+    embeds_one :precision, class_name: 'FHIR::PrimitiveDecimal'
+    embeds_one :recall, class_name: 'FHIR::PrimitiveDecimal'
+    embeds_one :fScore, class_name: 'FHIR::PrimitiveDecimal'
+    embeds_one :roc, class_name: 'FHIR::MolecularSequenceQualityRoc'
 
     def self.transform_json(json_hash, target = MolecularSequenceQuality.new)
       result = self.superclass.transform_json(json_hash, target)

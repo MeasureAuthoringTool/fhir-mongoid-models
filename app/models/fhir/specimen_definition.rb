@@ -2,12 +2,12 @@ module FHIR
   # fhir/specimen_definition.rb
   class SpecimenDefinition < DomainResource
     include Mongoid::Document
-    embeds_one :identifier, class_name: 'Identifier'
-    embeds_one :typeCollected, class_name: 'CodeableConcept'
-    embeds_many :patientPreparation, class_name: 'CodeableConcept'
-    embeds_one :timeAspect, class_name: 'PrimitiveString'
-    embeds_many :_collection, class_name: 'CodeableConcept'
-    embeds_many :typeTested, class_name: 'SpecimenDefinitionTypeTested'
+    embeds_one :identifier, class_name: 'FHIR::Identifier'
+    embeds_one :typeCollected, class_name: 'FHIR::CodeableConcept'
+    embeds_many :patientPreparation, class_name: 'FHIR::CodeableConcept'
+    embeds_one :timeAspect, class_name: 'FHIR::PrimitiveString'
+    embeds_many :_collection, class_name: 'FHIR::CodeableConcept'
+    embeds_many :typeTested, class_name: 'FHIR::SpecimenDefinitionTypeTested'
     
     def as_json(*args)
       res = super

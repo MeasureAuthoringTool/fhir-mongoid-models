@@ -2,9 +2,9 @@ module FHIR
   # fhir/capability_statement_rest_security.rb
   class CapabilityStatementRestSecurity < BackboneElement
     include Mongoid::Document
-    embeds_one :cors, class_name: 'PrimitiveBoolean'
-    embeds_many :service, class_name: 'CodeableConcept'
-    embeds_one :description, class_name: 'PrimitiveMarkdown'
+    embeds_one :cors, class_name: 'FHIR::PrimitiveBoolean'
+    embeds_many :service, class_name: 'FHIR::CodeableConcept'
+    embeds_one :description, class_name: 'FHIR::PrimitiveMarkdown'
 
     def self.transform_json(json_hash, target = CapabilityStatementRestSecurity.new)
       result = self.superclass.transform_json(json_hash, target)

@@ -2,19 +2,19 @@ module FHIR
   # fhir/care_team.rb
   class CareTeam < DomainResource
     include Mongoid::Document
-    embeds_many :identifier, class_name: 'Identifier'
-    embeds_one :status, class_name: 'CareTeamStatus'
-    embeds_many :category, class_name: 'CodeableConcept'
-    embeds_one :name, class_name: 'PrimitiveString'
-    embeds_one :subject, class_name: 'Reference'
-    embeds_one :encounter, class_name: 'Reference'
-    embeds_one :period, class_name: 'Period'
-    embeds_many :participant, class_name: 'CareTeamParticipant'
-    embeds_many :reasonCode, class_name: 'CodeableConcept'
-    embeds_many :reasonReference, class_name: 'Reference'
-    embeds_many :managingOrganization, class_name: 'Reference'
-    embeds_many :telecom, class_name: 'ContactPoint'
-    embeds_many :note, class_name: 'Annotation'
+    embeds_many :identifier, class_name: 'FHIR::Identifier'
+    embeds_one :status, class_name: 'FHIR::CareTeamStatus'
+    embeds_many :category, class_name: 'FHIR::CodeableConcept'
+    embeds_one :name, class_name: 'FHIR::PrimitiveString'
+    embeds_one :subject, class_name: 'FHIR::Reference'
+    embeds_one :encounter, class_name: 'FHIR::Reference'
+    embeds_one :period, class_name: 'FHIR::Period'
+    embeds_many :participant, class_name: 'FHIR::CareTeamParticipant'
+    embeds_many :reasonCode, class_name: 'FHIR::CodeableConcept'
+    embeds_many :reasonReference, class_name: 'FHIR::Reference'
+    embeds_many :managingOrganization, class_name: 'FHIR::Reference'
+    embeds_many :telecom, class_name: 'FHIR::ContactPoint'
+    embeds_many :note, class_name: 'FHIR::Annotation'
 
     def self.transform_json(json_hash, target = CareTeam.new)
       result = self.superclass.transform_json(json_hash, target)

@@ -2,14 +2,14 @@ module FHIR
   # fhir/capability_statement_rest.rb
   class CapabilityStatementRest < BackboneElement
     include Mongoid::Document
-    embeds_one :mode, class_name: 'RestfulCapabilityMode'
-    embeds_one :documentation, class_name: 'PrimitiveMarkdown'
-    embeds_one :security, class_name: 'CapabilityStatementRestSecurity'
-    embeds_many :resource, class_name: 'CapabilityStatementRestResource'
-    embeds_many :interaction, class_name: 'CapabilityStatementRestInteraction'
-    embeds_many :searchParam, class_name: 'CapabilityStatementRestResourceSearchParam'
-    embeds_many :operation, class_name: 'CapabilityStatementRestResourceOperation'
-    embeds_many :compartment, class_name: 'PrimitiveCanonical'
+    embeds_one :mode, class_name: 'FHIR::RestfulCapabilityMode'
+    embeds_one :documentation, class_name: 'FHIR::PrimitiveMarkdown'
+    embeds_one :security, class_name: 'FHIR::CapabilityStatementRestSecurity'
+    embeds_many :resource, class_name: 'FHIR::CapabilityStatementRestResource'
+    embeds_many :interaction, class_name: 'FHIR::CapabilityStatementRestInteraction'
+    embeds_many :searchParam, class_name: 'FHIR::CapabilityStatementRestResourceSearchParam'
+    embeds_many :operation, class_name: 'FHIR::CapabilityStatementRestResourceOperation'
+    embeds_many :compartment, class_name: 'FHIR::PrimitiveCanonical'
 
     def self.transform_json(json_hash, target = CapabilityStatementRest.new)
       result = self.superclass.transform_json(json_hash, target)

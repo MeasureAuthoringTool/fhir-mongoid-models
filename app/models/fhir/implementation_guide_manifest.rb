@@ -2,11 +2,11 @@ module FHIR
   # fhir/implementation_guide_manifest.rb
   class ImplementationGuideManifest < BackboneElement
     include Mongoid::Document
-    embeds_one :rendering, class_name: 'PrimitiveUrl'
-    embeds_many :resource, class_name: 'ImplementationGuideManifestResource'
-    embeds_many :page, class_name: 'ImplementationGuideManifestPage'
-    embeds_many :image, class_name: 'PrimitiveString'
-    embeds_many :other, class_name: 'PrimitiveString'
+    embeds_one :rendering, class_name: 'FHIR::PrimitiveUrl'
+    embeds_many :resource, class_name: 'FHIR::ImplementationGuideManifestResource'
+    embeds_many :page, class_name: 'FHIR::ImplementationGuideManifestPage'
+    embeds_many :image, class_name: 'FHIR::PrimitiveString'
+    embeds_many :other, class_name: 'FHIR::PrimitiveString'
 
     def self.transform_json(json_hash, target = ImplementationGuideManifest.new)
       result = self.superclass.transform_json(json_hash, target)

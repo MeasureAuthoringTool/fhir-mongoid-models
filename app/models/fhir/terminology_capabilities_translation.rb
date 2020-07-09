@@ -2,7 +2,7 @@ module FHIR
   # fhir/terminology_capabilities_translation.rb
   class TerminologyCapabilitiesTranslation < BackboneElement
     include Mongoid::Document
-    embeds_one :needsMap, class_name: 'PrimitiveBoolean'
+    embeds_one :needsMap, class_name: 'FHIR::PrimitiveBoolean'
 
     def self.transform_json(json_hash, target = TerminologyCapabilitiesTranslation.new)
       result = self.superclass.transform_json(json_hash, target)

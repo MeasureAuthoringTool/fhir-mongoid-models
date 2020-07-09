@@ -2,14 +2,14 @@ module FHIR
   # fhir/substance_protein_subunit.rb
   class SubstanceProteinSubunit < BackboneElement
     include Mongoid::Document
-    embeds_one :subunit, class_name: 'PrimitiveInteger'
-    embeds_one :sequence, class_name: 'PrimitiveString'
-    embeds_one :length, class_name: 'PrimitiveInteger'
-    embeds_one :sequenceAttachment, class_name: 'Attachment'
-    embeds_one :nTerminalModificationId, class_name: 'Identifier'
-    embeds_one :nTerminalModification, class_name: 'PrimitiveString'
-    embeds_one :cTerminalModificationId, class_name: 'Identifier'
-    embeds_one :cTerminalModification, class_name: 'PrimitiveString'
+    embeds_one :subunit, class_name: 'FHIR::PrimitiveInteger'
+    embeds_one :sequence, class_name: 'FHIR::PrimitiveString'
+    embeds_one :length, class_name: 'FHIR::PrimitiveInteger'
+    embeds_one :sequenceAttachment, class_name: 'FHIR::Attachment'
+    embeds_one :nTerminalModificationId, class_name: 'FHIR::Identifier'
+    embeds_one :nTerminalModification, class_name: 'FHIR::PrimitiveString'
+    embeds_one :cTerminalModificationId, class_name: 'FHIR::Identifier'
+    embeds_one :cTerminalModification, class_name: 'FHIR::PrimitiveString'
 
     def self.transform_json(json_hash, target = SubstanceProteinSubunit.new)
       result = self.superclass.transform_json(json_hash, target)

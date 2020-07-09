@@ -2,12 +2,12 @@ module FHIR
   # fhir/contract_content_definition.rb
   class ContractContentDefinition < BackboneElement
     include Mongoid::Document
-    embeds_one :type, class_name: 'CodeableConcept'
-    embeds_one :subType, class_name: 'CodeableConcept'
-    embeds_one :publisher, class_name: 'Reference'
-    embeds_one :publicationDate, class_name: 'PrimitiveDateTime'
-    embeds_one :publicationStatus, class_name: 'ContractPublicationStatus'
-    embeds_one :copyright, class_name: 'PrimitiveMarkdown'
+    embeds_one :type, class_name: 'FHIR::CodeableConcept'
+    embeds_one :subType, class_name: 'FHIR::CodeableConcept'
+    embeds_one :publisher, class_name: 'FHIR::Reference'
+    embeds_one :publicationDate, class_name: 'FHIR::PrimitiveDateTime'
+    embeds_one :publicationStatus, class_name: 'FHIR::ContractPublicationStatus'
+    embeds_one :copyright, class_name: 'FHIR::PrimitiveMarkdown'
 
     def self.transform_json(json_hash, target = ContractContentDefinition.new)
       result = self.superclass.transform_json(json_hash, target)

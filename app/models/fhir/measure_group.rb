@@ -2,10 +2,10 @@ module FHIR
   # fhir/measure_group.rb
   class MeasureGroup < BackboneElement
     include Mongoid::Document
-    embeds_one :code, class_name: 'CodeableConcept'
-    embeds_one :description, class_name: 'PrimitiveString'
-    embeds_many :population, class_name: 'MeasureGroupPopulation'
-    embeds_many :stratifier, class_name: 'MeasureGroupStratifier'
+    embeds_one :code, class_name: 'FHIR::CodeableConcept'
+    embeds_one :description, class_name: 'FHIR::PrimitiveString'
+    embeds_many :population, class_name: 'FHIR::MeasureGroupPopulation'
+    embeds_many :stratifier, class_name: 'FHIR::MeasureGroupStratifier'
 
     def self.transform_json(json_hash, target = MeasureGroup.new)
       result = self.superclass.transform_json(json_hash, target)

@@ -2,8 +2,8 @@ module FHIR
   # fhir/activity_definition_participant.rb
   class ActivityDefinitionParticipant < BackboneElement
     include Mongoid::Document
-    embeds_one :type, class_name: 'ActivityParticipantType'
-    embeds_one :role, class_name: 'CodeableConcept'
+    embeds_one :type, class_name: 'FHIR::ActivityParticipantType'
+    embeds_one :role, class_name: 'FHIR::CodeableConcept'
 
     def self.transform_json(json_hash, target = ActivityDefinitionParticipant.new)
       result = self.superclass.transform_json(json_hash, target)

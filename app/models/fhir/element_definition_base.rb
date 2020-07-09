@@ -2,9 +2,9 @@ module FHIR
   # fhir/element_definition_base.rb
   class ElementDefinitionBase < Element
     include Mongoid::Document
-    embeds_one :path, class_name: 'PrimitiveString'
-    embeds_one :min, class_name: 'PrimitiveUnsignedInt'
-    embeds_one :max, class_name: 'PrimitiveString'
+    embeds_one :path, class_name: 'FHIR::PrimitiveString'
+    embeds_one :min, class_name: 'FHIR::PrimitiveUnsignedInt'
+    embeds_one :max, class_name: 'FHIR::PrimitiveString'
 
     def self.transform_json(json_hash, target = ElementDefinitionBase.new)
       result = self.superclass.transform_json(json_hash, target)

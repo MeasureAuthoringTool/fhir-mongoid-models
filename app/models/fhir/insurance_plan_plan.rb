@@ -2,12 +2,12 @@ module FHIR
   # fhir/insurance_plan_plan.rb
   class InsurancePlanPlan < BackboneElement
     include Mongoid::Document
-    embeds_many :identifier, class_name: 'Identifier'
-    embeds_one :type, class_name: 'CodeableConcept'
-    embeds_many :coverageArea, class_name: 'Reference'
-    embeds_many :network, class_name: 'Reference'
-    embeds_many :generalCost, class_name: 'InsurancePlanPlanGeneralCost'
-    embeds_many :specificCost, class_name: 'InsurancePlanPlanSpecificCost'
+    embeds_many :identifier, class_name: 'FHIR::Identifier'
+    embeds_one :type, class_name: 'FHIR::CodeableConcept'
+    embeds_many :coverageArea, class_name: 'FHIR::Reference'
+    embeds_many :network, class_name: 'FHIR::Reference'
+    embeds_many :generalCost, class_name: 'FHIR::InsurancePlanPlanGeneralCost'
+    embeds_many :specificCost, class_name: 'FHIR::InsurancePlanPlanSpecificCost'
 
     def self.transform_json(json_hash, target = InsurancePlanPlan.new)
       result = self.superclass.transform_json(json_hash, target)

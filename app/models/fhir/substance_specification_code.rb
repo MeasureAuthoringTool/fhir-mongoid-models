@@ -2,11 +2,11 @@ module FHIR
   # fhir/substance_specification_code.rb
   class SubstanceSpecificationCode < BackboneElement
     include Mongoid::Document
-    embeds_one :code, class_name: 'CodeableConcept'
-    embeds_one :status, class_name: 'CodeableConcept'
-    embeds_one :statusDate, class_name: 'PrimitiveDateTime'
-    embeds_one :comment, class_name: 'PrimitiveString'
-    embeds_many :source, class_name: 'Reference'
+    embeds_one :code, class_name: 'FHIR::CodeableConcept'
+    embeds_one :status, class_name: 'FHIR::CodeableConcept'
+    embeds_one :statusDate, class_name: 'FHIR::PrimitiveDateTime'
+    embeds_one :comment, class_name: 'FHIR::PrimitiveString'
+    embeds_many :source, class_name: 'FHIR::Reference'
 
     def self.transform_json(json_hash, target = SubstanceSpecificationCode.new)
       result = self.superclass.transform_json(json_hash, target)

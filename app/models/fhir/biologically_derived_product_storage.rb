@@ -2,10 +2,10 @@ module FHIR
   # fhir/biologically_derived_product_storage.rb
   class BiologicallyDerivedProductStorage < BackboneElement
     include Mongoid::Document
-    embeds_one :description, class_name: 'PrimitiveString'
-    embeds_one :temperature, class_name: 'PrimitiveDecimal'
-    embeds_one :scale, class_name: 'BiologicallyDerivedProductStorageScale'
-    embeds_one :duration, class_name: 'Period'
+    embeds_one :description, class_name: 'FHIR::PrimitiveString'
+    embeds_one :temperature, class_name: 'FHIR::PrimitiveDecimal'
+    embeds_one :scale, class_name: 'FHIR::BiologicallyDerivedProductStorageScale'
+    embeds_one :duration, class_name: 'FHIR::Period'
 
     def self.transform_json(json_hash, target = BiologicallyDerivedProductStorage.new)
       result = self.superclass.transform_json(json_hash, target)

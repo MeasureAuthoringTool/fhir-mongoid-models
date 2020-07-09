@@ -2,8 +2,8 @@ module FHIR
   # fhir/catalog_entry_related_entry.rb
   class CatalogEntryRelatedEntry < BackboneElement
     include Mongoid::Document
-    embeds_one :relationtype, class_name: 'CatalogEntryRelationType'
-    embeds_one :item, class_name: 'Reference'
+    embeds_one :relationtype, class_name: 'FHIR::CatalogEntryRelationType'
+    embeds_one :item, class_name: 'FHIR::Reference'
 
     def self.transform_json(json_hash, target = CatalogEntryRelatedEntry.new)
       result = self.superclass.transform_json(json_hash, target)

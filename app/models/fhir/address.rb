@@ -2,16 +2,16 @@ module FHIR
   # fhir/address.rb
   class Address < Element
     include Mongoid::Document
-    embeds_one :use, class_name: 'AddressUse'
-    embeds_one :type, class_name: 'AddressType'
-    embeds_one :text, class_name: 'PrimitiveString'
-    embeds_many :line, class_name: 'PrimitiveString'
-    embeds_one :city, class_name: 'PrimitiveString'
-    embeds_one :district, class_name: 'PrimitiveString'
-    embeds_one :state, class_name: 'PrimitiveString'
-    embeds_one :postalCode, class_name: 'PrimitiveString'
-    embeds_one :country, class_name: 'PrimitiveString'
-    embeds_one :period, class_name: 'Period'
+    embeds_one :use, class_name: 'FHIR::AddressUse'
+    embeds_one :type, class_name: 'FHIR::AddressType'
+    embeds_one :text, class_name: 'FHIR::PrimitiveString'
+    embeds_many :line, class_name: 'FHIR::PrimitiveString'
+    embeds_one :city, class_name: 'FHIR::PrimitiveString'
+    embeds_one :district, class_name: 'FHIR::PrimitiveString'
+    embeds_one :state, class_name: 'FHIR::PrimitiveString'
+    embeds_one :postalCode, class_name: 'FHIR::PrimitiveString'
+    embeds_one :country, class_name: 'FHIR::PrimitiveString'
+    embeds_one :period, class_name: 'FHIR::Period'
 
     def self.transform_json(json_hash, target = Address.new)
       result = self.superclass.transform_json(json_hash, target)

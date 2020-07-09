@@ -2,9 +2,9 @@ module FHIR
   # fhir/capability_statement_implementation.rb
   class CapabilityStatementImplementation < BackboneElement
     include Mongoid::Document
-    embeds_one :description, class_name: 'PrimitiveString'
-    embeds_one :url, class_name: 'PrimitiveUrl'
-    embeds_one :custodian, class_name: 'Reference'
+    embeds_one :description, class_name: 'FHIR::PrimitiveString'
+    embeds_one :url, class_name: 'FHIR::PrimitiveUrl'
+    embeds_one :custodian, class_name: 'FHIR::Reference'
 
     def self.transform_json(json_hash, target = CapabilityStatementImplementation.new)
       result = self.superclass.transform_json(json_hash, target)

@@ -2,9 +2,9 @@ module FHIR
   # fhir/capability_statement_software.rb
   class CapabilityStatementSoftware < BackboneElement
     include Mongoid::Document
-    embeds_one :name, class_name: 'PrimitiveString'
-    embeds_one :version, class_name: 'PrimitiveString'
-    embeds_one :releaseDate, class_name: 'PrimitiveDateTime'
+    embeds_one :name, class_name: 'FHIR::PrimitiveString'
+    embeds_one :version, class_name: 'FHIR::PrimitiveString'
+    embeds_one :releaseDate, class_name: 'FHIR::PrimitiveDateTime'
 
     def self.transform_json(json_hash, target = CapabilityStatementSoftware.new)
       result = self.superclass.transform_json(json_hash, target)

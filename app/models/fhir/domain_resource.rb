@@ -2,10 +2,10 @@ module FHIR
   # fhir/domain_resource.rb
   class DomainResource < Resource
     include Mongoid::Document
-    embeds_one :text, class_name: 'Narrative'
-    embeds_many :contained, class_name: 'Resource'
-    embeds_many :extension, class_name: 'Extension'
-    embeds_many :modifierExtension, class_name: 'Extension'
+    embeds_one :text, class_name: 'FHIR::Narrative'
+    embeds_many :contained, class_name: 'FHIR::Resource'
+    embeds_many :extension, class_name: 'FHIR::Extension'
+    embeds_many :modifierExtension, class_name: 'FHIR::Extension'
 
     def self.transform_json(json_hash, target = DomainResource.new)
       result = self.superclass.transform_json(json_hash, target)

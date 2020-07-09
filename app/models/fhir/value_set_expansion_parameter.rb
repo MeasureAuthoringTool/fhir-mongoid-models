@@ -2,14 +2,14 @@ module FHIR
   # fhir/value_set_expansion_parameter.rb
   class ValueSetExpansionParameter < BackboneElement
     include Mongoid::Document
-    embeds_one :name, class_name: 'PrimitiveString'
-    embeds_one :valueString, class_name: 'PrimitiveString'
-    embeds_one :valueBoolean, class_name: 'PrimitiveBoolean'
-    embeds_one :valueInteger, class_name: 'PrimitiveInteger'
-    embeds_one :valueDecimal, class_name: 'PrimitiveDecimal'
-    embeds_one :valueUri, class_name: 'PrimitiveUri'
-    embeds_one :valueCode, class_name: 'PrimitiveCode'
-    embeds_one :valueDateTime, class_name: 'PrimitiveDateTime'
+    embeds_one :name, class_name: 'FHIR::PrimitiveString'
+    embeds_one :valueString, class_name: 'FHIR::PrimitiveString'
+    embeds_one :valueBoolean, class_name: 'FHIR::PrimitiveBoolean'
+    embeds_one :valueInteger, class_name: 'FHIR::PrimitiveInteger'
+    embeds_one :valueDecimal, class_name: 'FHIR::PrimitiveDecimal'
+    embeds_one :valueUri, class_name: 'FHIR::PrimitiveUri'
+    embeds_one :valueCode, class_name: 'FHIR::PrimitiveCode'
+    embeds_one :valueDateTime, class_name: 'FHIR::PrimitiveDateTime'
 
     def self.transform_json(json_hash, target = ValueSetExpansionParameter.new)
       result = self.superclass.transform_json(json_hash, target)

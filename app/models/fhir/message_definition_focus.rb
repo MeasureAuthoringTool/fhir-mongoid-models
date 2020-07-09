@@ -2,10 +2,10 @@ module FHIR
   # fhir/message_definition_focus.rb
   class MessageDefinitionFocus < BackboneElement
     include Mongoid::Document
-    embeds_one :code, class_name: 'ResourceType'
-    embeds_one :profile, class_name: 'PrimitiveCanonical'
-    embeds_one :min, class_name: 'PrimitiveUnsignedInt'
-    embeds_one :max, class_name: 'PrimitiveString'
+    embeds_one :code, class_name: 'FHIR::ResourceType'
+    embeds_one :profile, class_name: 'FHIR::PrimitiveCanonical'
+    embeds_one :min, class_name: 'FHIR::PrimitiveUnsignedInt'
+    embeds_one :max, class_name: 'FHIR::PrimitiveString'
 
     def self.transform_json(json_hash, target = MessageDefinitionFocus.new)
       result = self.superclass.transform_json(json_hash, target)

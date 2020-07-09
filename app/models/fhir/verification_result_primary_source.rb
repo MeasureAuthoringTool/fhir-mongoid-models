@@ -2,13 +2,13 @@ module FHIR
   # fhir/verification_result_primary_source.rb
   class VerificationResultPrimarySource < BackboneElement
     include Mongoid::Document
-    embeds_one :who, class_name: 'Reference'
-    embeds_many :type, class_name: 'CodeableConcept'
-    embeds_many :communicationMethod, class_name: 'CodeableConcept'
-    embeds_one :validationStatus, class_name: 'CodeableConcept'
-    embeds_one :validationDate, class_name: 'PrimitiveDateTime'
-    embeds_one :canPushUpdates, class_name: 'CodeableConcept'
-    embeds_many :pushTypeAvailable, class_name: 'CodeableConcept'
+    embeds_one :who, class_name: 'FHIR::Reference'
+    embeds_many :type, class_name: 'FHIR::CodeableConcept'
+    embeds_many :communicationMethod, class_name: 'FHIR::CodeableConcept'
+    embeds_one :validationStatus, class_name: 'FHIR::CodeableConcept'
+    embeds_one :validationDate, class_name: 'FHIR::PrimitiveDateTime'
+    embeds_one :canPushUpdates, class_name: 'FHIR::CodeableConcept'
+    embeds_many :pushTypeAvailable, class_name: 'FHIR::CodeableConcept'
 
     def self.transform_json(json_hash, target = VerificationResultPrimarySource.new)
       result = self.superclass.transform_json(json_hash, target)

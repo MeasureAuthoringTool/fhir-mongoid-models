@@ -2,9 +2,9 @@ module FHIR
   # fhir/test_script_fixture.rb
   class TestScriptFixture < BackboneElement
     include Mongoid::Document
-    embeds_one :autocreate, class_name: 'PrimitiveBoolean'
-    embeds_one :autodelete, class_name: 'PrimitiveBoolean'
-    embeds_one :resource, class_name: 'Reference'
+    embeds_one :autocreate, class_name: 'FHIR::PrimitiveBoolean'
+    embeds_one :autodelete, class_name: 'FHIR::PrimitiveBoolean'
+    embeds_one :resource, class_name: 'FHIR::Reference'
 
     def self.transform_json(json_hash, target = TestScriptFixture.new)
       result = self.superclass.transform_json(json_hash, target)

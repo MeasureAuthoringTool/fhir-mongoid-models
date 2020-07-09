@@ -2,8 +2,8 @@ module FHIR
   # fhir/medication_knowledge_related_medication_knowledge.rb
   class MedicationKnowledgeRelatedMedicationKnowledge < BackboneElement
     include Mongoid::Document
-    embeds_one :type, class_name: 'CodeableConcept'
-    embeds_many :reference, class_name: 'Reference'
+    embeds_one :type, class_name: 'FHIR::CodeableConcept'
+    embeds_many :reference, class_name: 'FHIR::Reference'
 
     def self.transform_json(json_hash, target = MedicationKnowledgeRelatedMedicationKnowledge.new)
       result = self.superclass.transform_json(json_hash, target)

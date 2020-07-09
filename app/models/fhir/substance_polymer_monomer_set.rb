@@ -2,8 +2,8 @@ module FHIR
   # fhir/substance_polymer_monomer_set.rb
   class SubstancePolymerMonomerSet < BackboneElement
     include Mongoid::Document
-    embeds_one :ratioType, class_name: 'CodeableConcept'
-    embeds_many :startingMaterial, class_name: 'SubstancePolymerMonomerSetStartingMaterial'
+    embeds_one :ratioType, class_name: 'FHIR::CodeableConcept'
+    embeds_many :startingMaterial, class_name: 'FHIR::SubstancePolymerMonomerSetStartingMaterial'
 
     def self.transform_json(json_hash, target = SubstancePolymerMonomerSet.new)
       result = self.superclass.transform_json(json_hash, target)

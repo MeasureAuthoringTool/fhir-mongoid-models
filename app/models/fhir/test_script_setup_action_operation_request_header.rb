@@ -2,8 +2,8 @@ module FHIR
   # fhir/test_script_setup_action_operation_request_header.rb
   class TestScriptSetupActionOperationRequestHeader < BackboneElement
     include Mongoid::Document
-    embeds_one :field, class_name: 'PrimitiveString'
-    embeds_one :value, class_name: 'PrimitiveString'
+    embeds_one :field, class_name: 'FHIR::PrimitiveString'
+    embeds_one :value, class_name: 'FHIR::PrimitiveString'
 
     def self.transform_json(json_hash, target = TestScriptSetupActionOperationRequestHeader.new)
       result = self.superclass.transform_json(json_hash, target)

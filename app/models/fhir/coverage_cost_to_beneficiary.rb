@@ -2,10 +2,10 @@ module FHIR
   # fhir/coverage_cost_to_beneficiary.rb
   class CoverageCostToBeneficiary < BackboneElement
     include Mongoid::Document
-    embeds_one :type, class_name: 'CodeableConcept'
-    embeds_one :valueSimpleQuantity, class_name: 'SimpleQuantity'
-    embeds_one :valueMoney, class_name: 'Money'
-    embeds_many :exception, class_name: 'CoverageCostToBeneficiaryException'
+    embeds_one :type, class_name: 'FHIR::CodeableConcept'
+    embeds_one :valueSimpleQuantity, class_name: 'FHIR::SimpleQuantity'
+    embeds_one :valueMoney, class_name: 'FHIR::Money'
+    embeds_many :exception, class_name: 'FHIR::CoverageCostToBeneficiaryException'
 
     def self.transform_json(json_hash, target = CoverageCostToBeneficiary.new)
       result = self.superclass.transform_json(json_hash, target)

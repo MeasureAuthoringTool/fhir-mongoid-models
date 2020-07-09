@@ -2,12 +2,12 @@ module FHIR
   # fhir/substance_polymer.rb
   class SubstancePolymer < DomainResource
     include Mongoid::Document
-    embeds_one :class, class_name: 'CodeableConcept'
-    embeds_one :geometry, class_name: 'CodeableConcept'
-    embeds_many :copolymerConnectivity, class_name: 'CodeableConcept'
-    embeds_many :modification, class_name: 'PrimitiveString'
-    embeds_many :monomerSet, class_name: 'SubstancePolymerMonomerSet'
-    embeds_many :repeat, class_name: 'SubstancePolymerRepeat'
+    embeds_one :class, class_name: 'FHIR::CodeableConcept'
+    embeds_one :geometry, class_name: 'FHIR::CodeableConcept'
+    embeds_many :copolymerConnectivity, class_name: 'FHIR::CodeableConcept'
+    embeds_many :modification, class_name: 'FHIR::PrimitiveString'
+    embeds_many :monomerSet, class_name: 'FHIR::SubstancePolymerMonomerSet'
+    embeds_many :repeat, class_name: 'FHIR::SubstancePolymerRepeat'
 
     def self.transform_json(json_hash, target = SubstancePolymer.new)
       result = self.superclass.transform_json(json_hash, target)

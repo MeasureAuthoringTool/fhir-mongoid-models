@@ -2,8 +2,8 @@ module FHIR
   # fhir/medication_batch.rb
   class MedicationBatch < BackboneElement
     include Mongoid::Document
-    embeds_one :lotNumber, class_name: 'PrimitiveString'
-    embeds_one :expirationDate, class_name: 'PrimitiveDateTime'
+    embeds_one :lotNumber, class_name: 'FHIR::PrimitiveString'
+    embeds_one :expirationDate, class_name: 'FHIR::PrimitiveDateTime'
 
     def self.transform_json(json_hash, target = MedicationBatch.new)
       result = self.superclass.transform_json(json_hash, target)

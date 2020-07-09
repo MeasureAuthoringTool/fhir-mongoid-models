@@ -2,9 +2,9 @@ module FHIR
   # fhir/explanation_of_benefit_related.rb
   class ExplanationOfBenefitRelated < BackboneElement
     include Mongoid::Document
-    embeds_one :claim, class_name: 'Reference'
-    embeds_one :relationship, class_name: 'CodeableConcept'
-    embeds_one :reference, class_name: 'Identifier'
+    embeds_one :claim, class_name: 'FHIR::Reference'
+    embeds_one :relationship, class_name: 'FHIR::CodeableConcept'
+    embeds_one :reference, class_name: 'FHIR::Identifier'
 
     def self.transform_json(json_hash, target = ExplanationOfBenefitRelated.new)
       result = self.superclass.transform_json(json_hash, target)

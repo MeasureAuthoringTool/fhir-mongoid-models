@@ -2,10 +2,10 @@ module FHIR
   # fhir/explanation_of_benefit_process_note.rb
   class ExplanationOfBenefitProcessNote < BackboneElement
     include Mongoid::Document
-    embeds_one :number, class_name: 'PrimitivePositiveInt'
-    embeds_one :type, class_name: 'NoteType'
-    embeds_one :text, class_name: 'PrimitiveString'
-    embeds_one :language, class_name: 'CodeableConcept'
+    embeds_one :number, class_name: 'FHIR::PrimitivePositiveInt'
+    embeds_one :type, class_name: 'FHIR::NoteType'
+    embeds_one :text, class_name: 'FHIR::PrimitiveString'
+    embeds_one :language, class_name: 'FHIR::CodeableConcept'
 
     def self.transform_json(json_hash, target = ExplanationOfBenefitProcessNote.new)
       result = self.superclass.transform_json(json_hash, target)

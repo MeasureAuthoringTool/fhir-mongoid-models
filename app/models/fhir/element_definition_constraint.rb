@@ -2,13 +2,13 @@ module FHIR
   # fhir/element_definition_constraint.rb
   class ElementDefinitionConstraint < Element
     include Mongoid::Document
-    embeds_one :key, class_name: 'PrimitiveId'
-    embeds_one :requirements, class_name: 'PrimitiveString'
-    embeds_one :severity, class_name: 'ConstraintSeverity'
-    embeds_one :human, class_name: 'PrimitiveString'
-    embeds_one :expression, class_name: 'PrimitiveString'
-    embeds_one :xpath, class_name: 'PrimitiveString'
-    embeds_one :source, class_name: 'PrimitiveCanonical'
+    embeds_one :key, class_name: 'FHIR::PrimitiveId'
+    embeds_one :requirements, class_name: 'FHIR::PrimitiveString'
+    embeds_one :severity, class_name: 'FHIR::ConstraintSeverity'
+    embeds_one :human, class_name: 'FHIR::PrimitiveString'
+    embeds_one :expression, class_name: 'FHIR::PrimitiveString'
+    embeds_one :xpath, class_name: 'FHIR::PrimitiveString'
+    embeds_one :source, class_name: 'FHIR::PrimitiveCanonical'
 
     def self.transform_json(json_hash, target = ElementDefinitionConstraint.new)
       result = self.superclass.transform_json(json_hash, target)

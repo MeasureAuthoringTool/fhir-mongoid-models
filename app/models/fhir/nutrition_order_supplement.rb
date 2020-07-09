@@ -2,11 +2,11 @@ module FHIR
   # fhir/nutrition_order_supplement.rb
   class NutritionOrderSupplement < BackboneElement
     include Mongoid::Document
-    embeds_one :type, class_name: 'CodeableConcept'
-    embeds_one :productName, class_name: 'PrimitiveString'
-    embeds_many :schedule, class_name: 'Timing'
-    embeds_one :quantity, class_name: 'SimpleQuantity'
-    embeds_one :instruction, class_name: 'PrimitiveString'
+    embeds_one :type, class_name: 'FHIR::CodeableConcept'
+    embeds_one :productName, class_name: 'FHIR::PrimitiveString'
+    embeds_many :schedule, class_name: 'FHIR::Timing'
+    embeds_one :quantity, class_name: 'FHIR::SimpleQuantity'
+    embeds_one :instruction, class_name: 'FHIR::PrimitiveString'
 
     def self.transform_json(json_hash, target = NutritionOrderSupplement.new)
       result = self.superclass.transform_json(json_hash, target)

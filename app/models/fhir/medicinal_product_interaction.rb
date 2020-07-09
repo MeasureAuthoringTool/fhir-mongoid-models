@@ -2,13 +2,13 @@ module FHIR
   # fhir/medicinal_product_interaction.rb
   class MedicinalProductInteraction < DomainResource
     include Mongoid::Document
-    embeds_many :subject, class_name: 'Reference'
-    embeds_one :description, class_name: 'PrimitiveString'
-    embeds_many :interactant, class_name: 'MedicinalProductInteractionInteractant'
-    embeds_one :type, class_name: 'CodeableConcept'
-    embeds_one :effect, class_name: 'CodeableConcept'
-    embeds_one :incidence, class_name: 'CodeableConcept'
-    embeds_one :management, class_name: 'CodeableConcept'
+    embeds_many :subject, class_name: 'FHIR::Reference'
+    embeds_one :description, class_name: 'FHIR::PrimitiveString'
+    embeds_many :interactant, class_name: 'FHIR::MedicinalProductInteractionInteractant'
+    embeds_one :type, class_name: 'FHIR::CodeableConcept'
+    embeds_one :effect, class_name: 'FHIR::CodeableConcept'
+    embeds_one :incidence, class_name: 'FHIR::CodeableConcept'
+    embeds_one :management, class_name: 'FHIR::CodeableConcept'
 
     def self.transform_json(json_hash, target = MedicinalProductInteraction.new)
       result = self.superclass.transform_json(json_hash, target)

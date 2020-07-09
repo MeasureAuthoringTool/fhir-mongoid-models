@@ -2,9 +2,9 @@ module FHIR
   # fhir/consent_verification.rb
   class ConsentVerification < BackboneElement
     include Mongoid::Document
-    embeds_one :verified, class_name: 'PrimitiveBoolean'
-    embeds_one :verifiedWith, class_name: 'Reference'
-    embeds_one :verificationDate, class_name: 'PrimitiveDateTime'
+    embeds_one :verified, class_name: 'FHIR::PrimitiveBoolean'
+    embeds_one :verifiedWith, class_name: 'FHIR::Reference'
+    embeds_one :verificationDate, class_name: 'FHIR::PrimitiveDateTime'
 
     def self.transform_json(json_hash, target = ConsentVerification.new)
       result = self.superclass.transform_json(json_hash, target)

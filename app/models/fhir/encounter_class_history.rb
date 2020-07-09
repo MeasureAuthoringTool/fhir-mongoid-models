@@ -2,8 +2,8 @@ module FHIR
   # fhir/encounter_class_history.rb
   class EncounterClassHistory < BackboneElement
     include Mongoid::Document
-    embeds_one :class, class_name: 'Coding'
-    embeds_one :period, class_name: 'Period'
+    embeds_one :class, class_name: 'FHIR::Coding'
+    embeds_one :period, class_name: 'FHIR::Period'
 
     def self.transform_json(json_hash, target = EncounterClassHistory.new)
       result = self.superclass.transform_json(json_hash, target)

@@ -2,12 +2,12 @@ module FHIR
   # fhir/claim_procedure.rb
   class ClaimProcedure < BackboneElement
     include Mongoid::Document
-    embeds_one :sequence, class_name: 'PrimitivePositiveInt'
-    embeds_many :type, class_name: 'CodeableConcept'
-    embeds_one :date, class_name: 'PrimitiveDateTime'
-    embeds_one :procedureCodeableConcept, class_name: 'CodeableConcept'
-    embeds_one :procedureReference, class_name: 'Reference'
-    embeds_many :udi, class_name: 'Reference'
+    embeds_one :sequence, class_name: 'FHIR::PrimitivePositiveInt'
+    embeds_many :type, class_name: 'FHIR::CodeableConcept'
+    embeds_one :date, class_name: 'FHIR::PrimitiveDateTime'
+    embeds_one :procedureCodeableConcept, class_name: 'FHIR::CodeableConcept'
+    embeds_one :procedureReference, class_name: 'FHIR::Reference'
+    embeds_many :udi, class_name: 'FHIR::Reference'
 
     def self.transform_json(json_hash, target = ClaimProcedure.new)
       result = self.superclass.transform_json(json_hash, target)

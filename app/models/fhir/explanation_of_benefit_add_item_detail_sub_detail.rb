@@ -2,14 +2,14 @@ module FHIR
   # fhir/explanation_of_benefit_add_item_detail_sub_detail.rb
   class ExplanationOfBenefitAddItemDetailSubDetail < BackboneElement
     include Mongoid::Document
-    embeds_one :productOrService, class_name: 'CodeableConcept'
-    embeds_many :modifier, class_name: 'CodeableConcept'
-    embeds_one :quantity, class_name: 'SimpleQuantity'
-    embeds_one :unitPrice, class_name: 'Money'
-    embeds_one :factor, class_name: 'PrimitiveDecimal'
-    embeds_one :net, class_name: 'Money'
-    embeds_many :noteNumber, class_name: 'PrimitivePositiveInt'
-    embeds_many :adjudication, class_name: 'ExplanationOfBenefitItemAdjudication'
+    embeds_one :productOrService, class_name: 'FHIR::CodeableConcept'
+    embeds_many :modifier, class_name: 'FHIR::CodeableConcept'
+    embeds_one :quantity, class_name: 'FHIR::SimpleQuantity'
+    embeds_one :unitPrice, class_name: 'FHIR::Money'
+    embeds_one :factor, class_name: 'FHIR::PrimitiveDecimal'
+    embeds_one :net, class_name: 'FHIR::Money'
+    embeds_many :noteNumber, class_name: 'FHIR::PrimitivePositiveInt'
+    embeds_many :adjudication, class_name: 'FHIR::ExplanationOfBenefitItemAdjudication'
 
     def self.transform_json(json_hash, target = ExplanationOfBenefitAddItemDetailSubDetail.new)
       result = self.superclass.transform_json(json_hash, target)

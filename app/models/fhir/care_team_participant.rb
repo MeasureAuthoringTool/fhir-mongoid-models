@@ -2,10 +2,10 @@ module FHIR
   # fhir/care_team_participant.rb
   class CareTeamParticipant < BackboneElement
     include Mongoid::Document
-    embeds_many :role, class_name: 'CodeableConcept'
-    embeds_one :member, class_name: 'Reference'
-    embeds_one :onBehalfOf, class_name: 'Reference'
-    embeds_one :period, class_name: 'Period'
+    embeds_many :role, class_name: 'FHIR::CodeableConcept'
+    embeds_one :member, class_name: 'FHIR::Reference'
+    embeds_one :onBehalfOf, class_name: 'FHIR::Reference'
+    embeds_one :period, class_name: 'FHIR::Period'
 
     def self.transform_json(json_hash, target = CareTeamParticipant.new)
       result = self.superclass.transform_json(json_hash, target)

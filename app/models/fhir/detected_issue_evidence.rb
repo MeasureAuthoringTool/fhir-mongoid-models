@@ -2,8 +2,8 @@ module FHIR
   # fhir/detected_issue_evidence.rb
   class DetectedIssueEvidence < BackboneElement
     include Mongoid::Document
-    embeds_many :code, class_name: 'CodeableConcept'
-    embeds_many :detail, class_name: 'Reference'
+    embeds_many :code, class_name: 'FHIR::CodeableConcept'
+    embeds_many :detail, class_name: 'FHIR::Reference'
 
     def self.transform_json(json_hash, target = DetectedIssueEvidence.new)
       result = self.superclass.transform_json(json_hash, target)

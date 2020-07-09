@@ -2,8 +2,8 @@ module FHIR
   # fhir/operation_definition_overload.rb
   class OperationDefinitionOverload < BackboneElement
     include Mongoid::Document
-    embeds_many :parameterName, class_name: 'PrimitiveString'
-    embeds_one :comment, class_name: 'PrimitiveString'
+    embeds_many :parameterName, class_name: 'FHIR::PrimitiveString'
+    embeds_one :comment, class_name: 'FHIR::PrimitiveString'
 
     def self.transform_json(json_hash, target = OperationDefinitionOverload.new)
       result = self.superclass.transform_json(json_hash, target)

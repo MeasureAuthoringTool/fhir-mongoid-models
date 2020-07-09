@@ -2,10 +2,10 @@ module FHIR
   # fhir/invoice_line_item.rb
   class InvoiceLineItem < BackboneElement
     include Mongoid::Document
-    embeds_one :sequence, class_name: 'PrimitivePositiveInt'
-    embeds_one :chargeItemReference, class_name: 'Reference'
-    embeds_one :chargeItemCodeableConcept, class_name: 'CodeableConcept'
-    embeds_many :priceComponent, class_name: 'InvoiceLineItemPriceComponent'
+    embeds_one :sequence, class_name: 'FHIR::PrimitivePositiveInt'
+    embeds_one :chargeItemReference, class_name: 'FHIR::Reference'
+    embeds_one :chargeItemCodeableConcept, class_name: 'FHIR::CodeableConcept'
+    embeds_many :priceComponent, class_name: 'FHIR::InvoiceLineItemPriceComponent'
 
     def self.transform_json(json_hash, target = InvoiceLineItem.new)
       result = self.superclass.transform_json(json_hash, target)

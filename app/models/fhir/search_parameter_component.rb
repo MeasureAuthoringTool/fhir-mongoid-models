@@ -2,8 +2,8 @@ module FHIR
   # fhir/search_parameter_component.rb
   class SearchParameterComponent < BackboneElement
     include Mongoid::Document
-    embeds_one :definition, class_name: 'PrimitiveCanonical'
-    embeds_one :expression, class_name: 'PrimitiveString'
+    embeds_one :definition, class_name: 'FHIR::PrimitiveCanonical'
+    embeds_one :expression, class_name: 'FHIR::PrimitiveString'
 
     def self.transform_json(json_hash, target = SearchParameterComponent.new)
       result = self.superclass.transform_json(json_hash, target)

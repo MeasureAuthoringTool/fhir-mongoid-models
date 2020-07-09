@@ -2,9 +2,9 @@ module FHIR
   # fhir/insurance_plan_coverage_benefit.rb
   class InsurancePlanCoverageBenefit < BackboneElement
     include Mongoid::Document
-    embeds_one :type, class_name: 'CodeableConcept'
-    embeds_one :requirement, class_name: 'PrimitiveString'
-    embeds_many :limit, class_name: 'InsurancePlanCoverageBenefitLimit'
+    embeds_one :type, class_name: 'FHIR::CodeableConcept'
+    embeds_one :requirement, class_name: 'FHIR::PrimitiveString'
+    embeds_many :limit, class_name: 'FHIR::InsurancePlanCoverageBenefitLimit'
 
     def self.transform_json(json_hash, target = InsurancePlanCoverageBenefit.new)
       result = self.superclass.transform_json(json_hash, target)

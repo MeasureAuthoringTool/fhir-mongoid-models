@@ -2,13 +2,13 @@ module FHIR
   # fhir/human_name.rb
   class HumanName < Element
     include Mongoid::Document
-    embeds_one :use, class_name: 'NameUse'
-    embeds_one :text, class_name: 'PrimitiveString'
-    embeds_one :family, class_name: 'PrimitiveString'
-    embeds_many :given, class_name: 'PrimitiveString'
-    embeds_many :prefix, class_name: 'PrimitiveString'
-    embeds_many :suffix, class_name: 'PrimitiveString'
-    embeds_one :period, class_name: 'Period'
+    embeds_one :use, class_name: 'FHIR::NameUse'
+    embeds_one :text, class_name: 'FHIR::PrimitiveString'
+    embeds_one :family, class_name: 'FHIR::PrimitiveString'
+    embeds_many :given, class_name: 'FHIR::PrimitiveString'
+    embeds_many :prefix, class_name: 'FHIR::PrimitiveString'
+    embeds_many :suffix, class_name: 'FHIR::PrimitiveString'
+    embeds_one :period, class_name: 'FHIR::Period'
 
     def self.transform_json(json_hash, target = HumanName.new)
       result = self.superclass.transform_json(json_hash, target)

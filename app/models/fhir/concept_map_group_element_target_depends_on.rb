@@ -2,10 +2,10 @@ module FHIR
   # fhir/concept_map_group_element_target_depends_on.rb
   class ConceptMapGroupElementTargetDependsOn < BackboneElement
     include Mongoid::Document
-    embeds_one :property, class_name: 'PrimitiveUri'
-    embeds_one :system, class_name: 'PrimitiveCanonical'
-    embeds_one :value, class_name: 'PrimitiveString'
-    embeds_one :display, class_name: 'PrimitiveString'
+    embeds_one :property, class_name: 'FHIR::PrimitiveUri'
+    embeds_one :system, class_name: 'FHIR::PrimitiveCanonical'
+    embeds_one :value, class_name: 'FHIR::PrimitiveString'
+    embeds_one :display, class_name: 'FHIR::PrimitiveString'
 
     def self.transform_json(json_hash, target = ConceptMapGroupElementTargetDependsOn.new)
       result = self.superclass.transform_json(json_hash, target)

@@ -2,10 +2,10 @@ module FHIR
   # fhir/medication_knowledge_ingredient.rb
   class MedicationKnowledgeIngredient < BackboneElement
     include Mongoid::Document
-    embeds_one :itemCodeableConcept, class_name: 'CodeableConcept'
-    embeds_one :itemReference, class_name: 'Reference'
-    embeds_one :isActive, class_name: 'PrimitiveBoolean'
-    embeds_one :strength, class_name: 'Ratio'
+    embeds_one :itemCodeableConcept, class_name: 'FHIR::CodeableConcept'
+    embeds_one :itemReference, class_name: 'FHIR::Reference'
+    embeds_one :isActive, class_name: 'FHIR::PrimitiveBoolean'
+    embeds_one :strength, class_name: 'FHIR::Ratio'
 
     def self.transform_json(json_hash, target = MedicationKnowledgeIngredient.new)
       result = self.superclass.transform_json(json_hash, target)

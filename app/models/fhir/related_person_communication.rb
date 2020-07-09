@@ -2,8 +2,8 @@ module FHIR
   # fhir/related_person_communication.rb
   class RelatedPersonCommunication < BackboneElement
     include Mongoid::Document
-    embeds_one :language, class_name: 'CodeableConcept'
-    embeds_one :preferred, class_name: 'PrimitiveBoolean'
+    embeds_one :language, class_name: 'FHIR::CodeableConcept'
+    embeds_one :preferred, class_name: 'FHIR::PrimitiveBoolean'
 
     def self.transform_json(json_hash, target = RelatedPersonCommunication.new)
       result = self.superclass.transform_json(json_hash, target)

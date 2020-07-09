@@ -2,15 +2,15 @@ module FHIR
   # fhir/audit_event_entity.rb
   class AuditEventEntity < BackboneElement
     include Mongoid::Document
-    embeds_one :what, class_name: 'Reference'
-    embeds_one :type, class_name: 'Coding'
-    embeds_one :role, class_name: 'Coding'
-    embeds_one :lifecycle, class_name: 'Coding'
-    embeds_many :securityLabel, class_name: 'Coding'
-    embeds_one :name, class_name: 'PrimitiveString'
-    embeds_one :description, class_name: 'PrimitiveString'
-    embeds_one :query, class_name: 'PrimitiveBase64Binary'
-    embeds_many :detail, class_name: 'AuditEventEntityDetail'
+    embeds_one :what, class_name: 'FHIR::Reference'
+    embeds_one :type, class_name: 'FHIR::Coding'
+    embeds_one :role, class_name: 'FHIR::Coding'
+    embeds_one :lifecycle, class_name: 'FHIR::Coding'
+    embeds_many :securityLabel, class_name: 'FHIR::Coding'
+    embeds_one :name, class_name: 'FHIR::PrimitiveString'
+    embeds_one :description, class_name: 'FHIR::PrimitiveString'
+    embeds_one :query, class_name: 'FHIR::PrimitiveBase64Binary'
+    embeds_many :detail, class_name: 'FHIR::AuditEventEntityDetail'
 
     def self.transform_json(json_hash, target = AuditEventEntity.new)
       result = self.superclass.transform_json(json_hash, target)

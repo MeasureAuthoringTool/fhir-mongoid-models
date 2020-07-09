@@ -2,13 +2,13 @@ module FHIR
   # fhir/medication_request_dispense_request.rb
   class MedicationRequestDispenseRequest < BackboneElement
     include Mongoid::Document
-    embeds_one :initialFill, class_name: 'MedicationRequestDispenseRequestInitialFill'
-    embeds_one :dispenseInterval, class_name: 'Duration'
-    embeds_one :validityPeriod, class_name: 'Period'
-    embeds_one :numberOfRepeatsAllowed, class_name: 'PrimitiveUnsignedInt'
-    embeds_one :quantity, class_name: 'SimpleQuantity'
-    embeds_one :expectedSupplyDuration, class_name: 'Duration'
-    embeds_one :performer, class_name: 'Reference'
+    embeds_one :initialFill, class_name: 'FHIR::MedicationRequestDispenseRequestInitialFill'
+    embeds_one :dispenseInterval, class_name: 'FHIR::Duration'
+    embeds_one :validityPeriod, class_name: 'FHIR::Period'
+    embeds_one :numberOfRepeatsAllowed, class_name: 'FHIR::PrimitiveUnsignedInt'
+    embeds_one :quantity, class_name: 'FHIR::SimpleQuantity'
+    embeds_one :expectedSupplyDuration, class_name: 'FHIR::Duration'
+    embeds_one :performer, class_name: 'FHIR::Reference'
 
     def self.transform_json(json_hash, target = MedicationRequestDispenseRequest.new)
       result = self.superclass.transform_json(json_hash, target)

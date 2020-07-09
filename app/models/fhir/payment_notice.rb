@@ -2,18 +2,18 @@ module FHIR
   # fhir/payment_notice.rb
   class PaymentNotice < DomainResource
     include Mongoid::Document
-    embeds_many :identifier, class_name: 'Identifier'
-    embeds_one :status, class_name: 'PaymentNoticeStatus'
-    embeds_one :request, class_name: 'Reference'
-    embeds_one :response, class_name: 'Reference'
-    embeds_one :created, class_name: 'PrimitiveDateTime'
-    embeds_one :provider, class_name: 'Reference'
-    embeds_one :payment, class_name: 'Reference'
-    embeds_one :paymentDate, class_name: 'PrimitiveDate'
-    embeds_one :payee, class_name: 'Reference'
-    embeds_one :recipient, class_name: 'Reference'
-    embeds_one :amount, class_name: 'Money'
-    embeds_one :paymentStatus, class_name: 'CodeableConcept'
+    embeds_many :identifier, class_name: 'FHIR::Identifier'
+    embeds_one :status, class_name: 'FHIR::PaymentNoticeStatus'
+    embeds_one :request, class_name: 'FHIR::Reference'
+    embeds_one :response, class_name: 'FHIR::Reference'
+    embeds_one :created, class_name: 'FHIR::PrimitiveDateTime'
+    embeds_one :provider, class_name: 'FHIR::Reference'
+    embeds_one :payment, class_name: 'FHIR::Reference'
+    embeds_one :paymentDate, class_name: 'FHIR::PrimitiveDate'
+    embeds_one :payee, class_name: 'FHIR::Reference'
+    embeds_one :recipient, class_name: 'FHIR::Reference'
+    embeds_one :amount, class_name: 'FHIR::Money'
+    embeds_one :paymentStatus, class_name: 'FHIR::CodeableConcept'
 
     def self.transform_json(json_hash, target = PaymentNotice.new)
       result = self.superclass.transform_json(json_hash, target)

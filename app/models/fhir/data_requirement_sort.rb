@@ -2,8 +2,8 @@ module FHIR
   # fhir/data_requirement_sort.rb
   class DataRequirementSort < Element
     include Mongoid::Document
-    embeds_one :path, class_name: 'PrimitiveString'
-    embeds_one :direction, class_name: 'SortDirection'
+    embeds_one :path, class_name: 'FHIR::PrimitiveString'
+    embeds_one :direction, class_name: 'FHIR::SortDirection'
 
     def self.transform_json(json_hash, target = DataRequirementSort.new)
       result = self.superclass.transform_json(json_hash, target)

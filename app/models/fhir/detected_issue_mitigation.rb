@@ -2,9 +2,9 @@ module FHIR
   # fhir/detected_issue_mitigation.rb
   class DetectedIssueMitigation < BackboneElement
     include Mongoid::Document
-    embeds_one :action, class_name: 'CodeableConcept'
-    embeds_one :date, class_name: 'PrimitiveDateTime'
-    embeds_one :author, class_name: 'Reference'
+    embeds_one :action, class_name: 'FHIR::CodeableConcept'
+    embeds_one :date, class_name: 'FHIR::PrimitiveDateTime'
+    embeds_one :author, class_name: 'FHIR::Reference'
 
     def self.transform_json(json_hash, target = DetectedIssueMitigation.new)
       result = self.superclass.transform_json(json_hash, target)

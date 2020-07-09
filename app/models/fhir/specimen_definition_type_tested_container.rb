@@ -2,15 +2,15 @@ module FHIR
   # fhir/specimen_definition_type_tested_container.rb
   class SpecimenDefinitionTypeTestedContainer < BackboneElement
     include Mongoid::Document
-    embeds_one :material, class_name: 'CodeableConcept'
-    embeds_one :type, class_name: 'CodeableConcept'
-    embeds_one :cap, class_name: 'CodeableConcept'
-    embeds_one :description, class_name: 'PrimitiveString'
-    embeds_one :capacity, class_name: 'SimpleQuantity'
-    embeds_one :minimumVolumeSimpleQuantity, class_name: 'SimpleQuantity'
-    embeds_one :minimumVolumeString, class_name: 'PrimitiveString'
-    embeds_many :additive, class_name: 'SpecimenDefinitionTypeTestedContainerAdditive'
-    embeds_one :preparation, class_name: 'PrimitiveString'
+    embeds_one :material, class_name: 'FHIR::CodeableConcept'
+    embeds_one :type, class_name: 'FHIR::CodeableConcept'
+    embeds_one :cap, class_name: 'FHIR::CodeableConcept'
+    embeds_one :description, class_name: 'FHIR::PrimitiveString'
+    embeds_one :capacity, class_name: 'FHIR::SimpleQuantity'
+    embeds_one :minimumVolumeSimpleQuantity, class_name: 'FHIR::SimpleQuantity'
+    embeds_one :minimumVolumeString, class_name: 'FHIR::PrimitiveString'
+    embeds_many :additive, class_name: 'FHIR::SpecimenDefinitionTypeTestedContainerAdditive'
+    embeds_one :preparation, class_name: 'FHIR::PrimitiveString'
 
     def self.transform_json(json_hash, target = SpecimenDefinitionTypeTestedContainer.new)
       result = self.superclass.transform_json(json_hash, target)

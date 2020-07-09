@@ -2,8 +2,8 @@ module FHIR
   # fhir/nutrition_order_oral_diet_texture.rb
   class NutritionOrderOralDietTexture < BackboneElement
     include Mongoid::Document
-    embeds_one :modifier, class_name: 'CodeableConcept'
-    embeds_one :foodType, class_name: 'CodeableConcept'
+    embeds_one :modifier, class_name: 'FHIR::CodeableConcept'
+    embeds_one :foodType, class_name: 'FHIR::CodeableConcept'
 
     def self.transform_json(json_hash, target = NutritionOrderOralDietTexture.new)
       result = self.superclass.transform_json(json_hash, target)

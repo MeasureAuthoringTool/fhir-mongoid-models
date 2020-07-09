@@ -2,11 +2,11 @@ module FHIR
   # fhir/appointment_participant.rb
   class AppointmentParticipant < BackboneElement
     include Mongoid::Document
-    embeds_many :type, class_name: 'CodeableConcept'
-    embeds_one :actor, class_name: 'Reference'
-    embeds_one :required, class_name: 'ParticipantRequired'
-    embeds_one :status, class_name: 'ParticipationStatus'
-    embeds_one :period, class_name: 'Period'
+    embeds_many :type, class_name: 'FHIR::CodeableConcept'
+    embeds_one :actor, class_name: 'FHIR::Reference'
+    embeds_one :required, class_name: 'FHIR::ParticipantRequired'
+    embeds_one :status, class_name: 'FHIR::ParticipationStatus'
+    embeds_one :period, class_name: 'FHIR::Period'
 
     def self.transform_json(json_hash, target = AppointmentParticipant.new)
       result = self.superclass.transform_json(json_hash, target)

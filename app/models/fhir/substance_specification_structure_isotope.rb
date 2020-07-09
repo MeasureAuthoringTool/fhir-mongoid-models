@@ -2,11 +2,11 @@ module FHIR
   # fhir/substance_specification_structure_isotope.rb
   class SubstanceSpecificationStructureIsotope < BackboneElement
     include Mongoid::Document
-    embeds_one :identifier, class_name: 'Identifier'
-    embeds_one :name, class_name: 'CodeableConcept'
-    embeds_one :substitution, class_name: 'CodeableConcept'
-    embeds_one :halfLife, class_name: 'Quantity'
-    embeds_one :molecularWeight, class_name: 'SubstanceSpecificationStructureIsotopeMolecularWeight'
+    embeds_one :identifier, class_name: 'FHIR::Identifier'
+    embeds_one :name, class_name: 'FHIR::CodeableConcept'
+    embeds_one :substitution, class_name: 'FHIR::CodeableConcept'
+    embeds_one :halfLife, class_name: 'FHIR::Quantity'
+    embeds_one :molecularWeight, class_name: 'FHIR::SubstanceSpecificationStructureIsotopeMolecularWeight'
 
     def self.transform_json(json_hash, target = SubstanceSpecificationStructureIsotope.new)
       result = self.superclass.transform_json(json_hash, target)

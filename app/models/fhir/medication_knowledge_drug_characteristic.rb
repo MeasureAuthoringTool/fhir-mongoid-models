@@ -2,11 +2,11 @@ module FHIR
   # fhir/medication_knowledge_drug_characteristic.rb
   class MedicationKnowledgeDrugCharacteristic < BackboneElement
     include Mongoid::Document
-    embeds_one :type, class_name: 'CodeableConcept'
-    embeds_one :valueCodeableConcept, class_name: 'CodeableConcept'
-    embeds_one :valueString, class_name: 'PrimitiveString'
-    embeds_one :valueSimpleQuantity, class_name: 'SimpleQuantity'
-    embeds_one :valueBase64Binary, class_name: 'PrimitiveBase64Binary'
+    embeds_one :type, class_name: 'FHIR::CodeableConcept'
+    embeds_one :valueCodeableConcept, class_name: 'FHIR::CodeableConcept'
+    embeds_one :valueString, class_name: 'FHIR::PrimitiveString'
+    embeds_one :valueSimpleQuantity, class_name: 'FHIR::SimpleQuantity'
+    embeds_one :valueBase64Binary, class_name: 'FHIR::PrimitiveBase64Binary'
 
     def self.transform_json(json_hash, target = MedicationKnowledgeDrugCharacteristic.new)
       result = self.superclass.transform_json(json_hash, target)

@@ -2,9 +2,9 @@ module FHIR
   # fhir/provenance_entity.rb
   class ProvenanceEntity < BackboneElement
     include Mongoid::Document
-    embeds_one :role, class_name: 'ProvenanceEntityRole'
-    embeds_one :what, class_name: 'Reference'
-    embeds_many :agent, class_name: 'ProvenanceAgent'
+    embeds_one :role, class_name: 'FHIR::ProvenanceEntityRole'
+    embeds_one :what, class_name: 'FHIR::Reference'
+    embeds_many :agent, class_name: 'FHIR::ProvenanceAgent'
 
     def self.transform_json(json_hash, target = ProvenanceEntity.new)
       result = self.superclass.transform_json(json_hash, target)

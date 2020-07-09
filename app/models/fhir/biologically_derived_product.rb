@@ -2,17 +2,17 @@ module FHIR
   # fhir/biologically_derived_product.rb
   class BiologicallyDerivedProduct < DomainResource
     include Mongoid::Document
-    embeds_many :identifier, class_name: 'Identifier'
-    embeds_one :productCategory, class_name: 'BiologicallyDerivedProductCategory'
-    embeds_one :productCode, class_name: 'CodeableConcept'
-    embeds_one :status, class_name: 'BiologicallyDerivedProductStatus'
-    embeds_many :request, class_name: 'Reference'
-    embeds_one :quantity, class_name: 'PrimitiveInteger'
-    embeds_many :parent, class_name: 'Reference'
-    embeds_one :_collection, class_name: 'BiologicallyDerivedProductCollection'
-    embeds_many :processing, class_name: 'BiologicallyDerivedProductProcessing'
-    embeds_one :manipulation, class_name: 'BiologicallyDerivedProductManipulation'
-    embeds_many :storage, class_name: 'BiologicallyDerivedProductStorage'
+    embeds_many :identifier, class_name: 'FHIR::Identifier'
+    embeds_one :productCategory, class_name: 'FHIR::BiologicallyDerivedProductCategory'
+    embeds_one :productCode, class_name: 'FHIR::CodeableConcept'
+    embeds_one :status, class_name: 'FHIR::BiologicallyDerivedProductStatus'
+    embeds_many :request, class_name: 'FHIR::Reference'
+    embeds_one :quantity, class_name: 'FHIR::PrimitiveInteger'
+    embeds_many :parent, class_name: 'FHIR::Reference'
+    embeds_one :_collection, class_name: 'FHIR::BiologicallyDerivedProductCollection'
+    embeds_many :processing, class_name: 'FHIR::BiologicallyDerivedProductProcessing'
+    embeds_one :manipulation, class_name: 'FHIR::BiologicallyDerivedProductManipulation'
+    embeds_many :storage, class_name: 'FHIR::BiologicallyDerivedProductStorage'
     
     def as_json(*args)
       res = super

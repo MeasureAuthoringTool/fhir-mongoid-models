@@ -2,18 +2,18 @@ module FHIR
   # fhir/message_header.rb
   class MessageHeader < DomainResource
     include Mongoid::Document
-    embeds_one :eventCoding, class_name: 'Coding'
-    embeds_one :eventUri, class_name: 'PrimitiveUri'
-    embeds_many :destination, class_name: 'MessageHeaderDestination'
-    embeds_one :sender, class_name: 'Reference'
-    embeds_one :enterer, class_name: 'Reference'
-    embeds_one :author, class_name: 'Reference'
-    embeds_one :source, class_name: 'MessageHeaderSource'
-    embeds_one :responsible, class_name: 'Reference'
-    embeds_one :reason, class_name: 'CodeableConcept'
-    embeds_one :response, class_name: 'MessageHeaderResponse'
-    embeds_many :focus, class_name: 'Reference'
-    embeds_one :definition, class_name: 'PrimitiveCanonical'
+    embeds_one :eventCoding, class_name: 'FHIR::Coding'
+    embeds_one :eventUri, class_name: 'FHIR::PrimitiveUri'
+    embeds_many :destination, class_name: 'FHIR::MessageHeaderDestination'
+    embeds_one :sender, class_name: 'FHIR::Reference'
+    embeds_one :enterer, class_name: 'FHIR::Reference'
+    embeds_one :author, class_name: 'FHIR::Reference'
+    embeds_one :source, class_name: 'FHIR::MessageHeaderSource'
+    embeds_one :responsible, class_name: 'FHIR::Reference'
+    embeds_one :reason, class_name: 'FHIR::CodeableConcept'
+    embeds_one :response, class_name: 'FHIR::MessageHeaderResponse'
+    embeds_many :focus, class_name: 'FHIR::Reference'
+    embeds_one :definition, class_name: 'FHIR::PrimitiveCanonical'
 
     def self.transform_json(json_hash, target = MessageHeader.new)
       result = self.superclass.transform_json(json_hash, target)

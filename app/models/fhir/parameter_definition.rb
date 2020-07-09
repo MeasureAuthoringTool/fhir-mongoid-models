@@ -2,13 +2,13 @@ module FHIR
   # fhir/parameter_definition.rb
   class ParameterDefinition < Element
     include Mongoid::Document
-    embeds_one :name, class_name: 'PrimitiveCode'
-    embeds_one :use, class_name: 'ParameterUse'
-    embeds_one :min, class_name: 'PrimitiveInteger'
-    embeds_one :max, class_name: 'PrimitiveString'
-    embeds_one :documentation, class_name: 'PrimitiveString'
-    embeds_one :type, class_name: 'FHIRAllTypes'
-    embeds_one :profile, class_name: 'PrimitiveCanonical'
+    embeds_one :name, class_name: 'FHIR::PrimitiveCode'
+    embeds_one :use, class_name: 'FHIR::ParameterUse'
+    embeds_one :min, class_name: 'FHIR::PrimitiveInteger'
+    embeds_one :max, class_name: 'FHIR::PrimitiveString'
+    embeds_one :documentation, class_name: 'FHIR::PrimitiveString'
+    embeds_one :type, class_name: 'FHIR::FHIRAllTypes'
+    embeds_one :profile, class_name: 'FHIR::PrimitiveCanonical'
 
     def self.transform_json(json_hash, target = ParameterDefinition.new)
       result = self.superclass.transform_json(json_hash, target)

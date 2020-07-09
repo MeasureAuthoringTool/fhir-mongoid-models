@@ -2,9 +2,9 @@ module FHIR
   # fhir/composition_relates_to.rb
   class CompositionRelatesTo < BackboneElement
     include Mongoid::Document
-    embeds_one :code, class_name: 'DocumentRelationshipType'
-    embeds_one :targetIdentifier, class_name: 'Identifier'
-    embeds_one :targetReference, class_name: 'Reference'
+    embeds_one :code, class_name: 'FHIR::DocumentRelationshipType'
+    embeds_one :targetIdentifier, class_name: 'FHIR::Identifier'
+    embeds_one :targetReference, class_name: 'FHIR::Reference'
 
     def self.transform_json(json_hash, target = CompositionRelatesTo.new)
       result = self.superclass.transform_json(json_hash, target)

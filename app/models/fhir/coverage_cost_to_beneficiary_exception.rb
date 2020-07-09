@@ -2,8 +2,8 @@ module FHIR
   # fhir/coverage_cost_to_beneficiary_exception.rb
   class CoverageCostToBeneficiaryException < BackboneElement
     include Mongoid::Document
-    embeds_one :type, class_name: 'CodeableConcept'
-    embeds_one :period, class_name: 'Period'
+    embeds_one :type, class_name: 'FHIR::CodeableConcept'
+    embeds_one :period, class_name: 'FHIR::Period'
 
     def self.transform_json(json_hash, target = CoverageCostToBeneficiaryException.new)
       result = self.superclass.transform_json(json_hash, target)

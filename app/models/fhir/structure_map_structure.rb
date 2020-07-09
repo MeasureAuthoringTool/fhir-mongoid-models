@@ -2,10 +2,10 @@ module FHIR
   # fhir/structure_map_structure.rb
   class StructureMapStructure < BackboneElement
     include Mongoid::Document
-    embeds_one :url, class_name: 'PrimitiveCanonical'
-    embeds_one :mode, class_name: 'StructureMapModelMode'
-    embeds_one :alias, class_name: 'PrimitiveString'
-    embeds_one :documentation, class_name: 'PrimitiveString'
+    embeds_one :url, class_name: 'FHIR::PrimitiveCanonical'
+    embeds_one :mode, class_name: 'FHIR::StructureMapModelMode'
+    embeds_one :alias, class_name: 'FHIR::PrimitiveString'
+    embeds_one :documentation, class_name: 'FHIR::PrimitiveString'
 
     def self.transform_json(json_hash, target = StructureMapStructure.new)
       result = self.superclass.transform_json(json_hash, target)

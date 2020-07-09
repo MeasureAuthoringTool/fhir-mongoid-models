@@ -2,20 +2,20 @@ module FHIR
   # fhir/insurance_plan.rb
   class InsurancePlan < DomainResource
     include Mongoid::Document
-    embeds_many :identifier, class_name: 'Identifier'
-    embeds_one :status, class_name: 'PublicationStatus'
-    embeds_many :type, class_name: 'CodeableConcept'
-    embeds_one :name, class_name: 'PrimitiveString'
-    embeds_many :alias, class_name: 'PrimitiveString'
-    embeds_one :period, class_name: 'Period'
-    embeds_one :ownedBy, class_name: 'Reference'
-    embeds_one :administeredBy, class_name: 'Reference'
-    embeds_many :coverageArea, class_name: 'Reference'
-    embeds_many :contact, class_name: 'InsurancePlanContact'
-    embeds_many :endpoint, class_name: 'Reference'
-    embeds_many :network, class_name: 'Reference'
-    embeds_many :coverage, class_name: 'InsurancePlanCoverage'
-    embeds_many :plan, class_name: 'InsurancePlanPlan'
+    embeds_many :identifier, class_name: 'FHIR::Identifier'
+    embeds_one :status, class_name: 'FHIR::PublicationStatus'
+    embeds_many :type, class_name: 'FHIR::CodeableConcept'
+    embeds_one :name, class_name: 'FHIR::PrimitiveString'
+    embeds_many :alias, class_name: 'FHIR::PrimitiveString'
+    embeds_one :period, class_name: 'FHIR::Period'
+    embeds_one :ownedBy, class_name: 'FHIR::Reference'
+    embeds_one :administeredBy, class_name: 'FHIR::Reference'
+    embeds_many :coverageArea, class_name: 'FHIR::Reference'
+    embeds_many :contact, class_name: 'FHIR::InsurancePlanContact'
+    embeds_many :endpoint, class_name: 'FHIR::Reference'
+    embeds_many :network, class_name: 'FHIR::Reference'
+    embeds_many :coverage, class_name: 'FHIR::InsurancePlanCoverage'
+    embeds_many :plan, class_name: 'FHIR::InsurancePlanPlan'
 
     def self.transform_json(json_hash, target = InsurancePlan.new)
       result = self.superclass.transform_json(json_hash, target)

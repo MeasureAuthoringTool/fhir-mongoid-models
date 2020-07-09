@@ -2,14 +2,14 @@ module FHIR
   # fhir/substance_nucleic_acid_subunit.rb
   class SubstanceNucleicAcidSubunit < BackboneElement
     include Mongoid::Document
-    embeds_one :subunit, class_name: 'PrimitiveInteger'
-    embeds_one :sequence, class_name: 'PrimitiveString'
-    embeds_one :length, class_name: 'PrimitiveInteger'
-    embeds_one :sequenceAttachment, class_name: 'Attachment'
-    embeds_one :fivePrime, class_name: 'CodeableConcept'
-    embeds_one :threePrime, class_name: 'CodeableConcept'
-    embeds_many :linkage, class_name: 'SubstanceNucleicAcidSubunitLinkage'
-    embeds_many :sugar, class_name: 'SubstanceNucleicAcidSubunitSugar'
+    embeds_one :subunit, class_name: 'FHIR::PrimitiveInteger'
+    embeds_one :sequence, class_name: 'FHIR::PrimitiveString'
+    embeds_one :length, class_name: 'FHIR::PrimitiveInteger'
+    embeds_one :sequenceAttachment, class_name: 'FHIR::Attachment'
+    embeds_one :fivePrime, class_name: 'FHIR::CodeableConcept'
+    embeds_one :threePrime, class_name: 'FHIR::CodeableConcept'
+    embeds_many :linkage, class_name: 'FHIR::SubstanceNucleicAcidSubunitLinkage'
+    embeds_many :sugar, class_name: 'FHIR::SubstanceNucleicAcidSubunitSugar'
 
     def self.transform_json(json_hash, target = SubstanceNucleicAcidSubunit.new)
       result = self.superclass.transform_json(json_hash, target)

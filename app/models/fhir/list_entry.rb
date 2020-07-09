@@ -2,10 +2,10 @@ module FHIR
   # fhir/list_entry.rb
   class ListEntry < BackboneElement
     include Mongoid::Document
-    embeds_one :flag, class_name: 'CodeableConcept'
-    embeds_one :deleted, class_name: 'PrimitiveBoolean'
-    embeds_one :date, class_name: 'PrimitiveDateTime'
-    embeds_one :item, class_name: 'Reference'
+    embeds_one :flag, class_name: 'FHIR::CodeableConcept'
+    embeds_one :deleted, class_name: 'FHIR::PrimitiveBoolean'
+    embeds_one :date, class_name: 'FHIR::PrimitiveDateTime'
+    embeds_one :item, class_name: 'FHIR::Reference'
 
     def self.transform_json(json_hash, target = ListEntry.new)
       result = self.superclass.transform_json(json_hash, target)

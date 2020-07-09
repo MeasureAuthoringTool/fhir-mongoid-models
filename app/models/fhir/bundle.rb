@@ -2,13 +2,13 @@ module FHIR
   # fhir/bundle.rb
   class Bundle < Resource
     include Mongoid::Document
-    embeds_one :identifier, class_name: 'Identifier'
-    embeds_one :type, class_name: 'BundleType'
-    embeds_one :timestamp, class_name: 'PrimitiveInstant'
-    embeds_one :total, class_name: 'PrimitiveUnsignedInt'
-    embeds_many :link, class_name: 'BundleLink'
-    embeds_many :entry, class_name: 'BundleEntry'
-    embeds_one :signature, class_name: 'Signature'
+    embeds_one :identifier, class_name: 'FHIR::Identifier'
+    embeds_one :type, class_name: 'FHIR::BundleType'
+    embeds_one :timestamp, class_name: 'FHIR::PrimitiveInstant'
+    embeds_one :total, class_name: 'FHIR::PrimitiveUnsignedInt'
+    embeds_many :link, class_name: 'FHIR::BundleLink'
+    embeds_many :entry, class_name: 'FHIR::BundleEntry'
+    embeds_one :signature, class_name: 'FHIR::Signature'
 
     def self.transform_json(json_hash, target = Bundle.new)
       result = self.superclass.transform_json(json_hash, target)

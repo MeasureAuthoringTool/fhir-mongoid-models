@@ -2,10 +2,10 @@ module FHIR
   # fhir/data_requirement_code_filter.rb
   class DataRequirementCodeFilter < Element
     include Mongoid::Document
-    embeds_one :path, class_name: 'PrimitiveString'
-    embeds_one :searchParam, class_name: 'PrimitiveString'
-    embeds_one :valueSet, class_name: 'PrimitiveCanonical'
-    embeds_many :code, class_name: 'Coding'
+    embeds_one :path, class_name: 'FHIR::PrimitiveString'
+    embeds_one :searchParam, class_name: 'FHIR::PrimitiveString'
+    embeds_one :valueSet, class_name: 'FHIR::PrimitiveCanonical'
+    embeds_many :code, class_name: 'FHIR::Coding'
 
     def self.transform_json(json_hash, target = DataRequirementCodeFilter.new)
       result = self.superclass.transform_json(json_hash, target)

@@ -2,18 +2,18 @@ module FHIR
   # fhir/medicinal_product_packaged_package_item.rb
   class MedicinalProductPackagedPackageItem < BackboneElement
     include Mongoid::Document
-    embeds_many :identifier, class_name: 'Identifier'
-    embeds_one :type, class_name: 'CodeableConcept'
-    embeds_one :quantity, class_name: 'Quantity'
-    embeds_many :material, class_name: 'CodeableConcept'
-    embeds_many :alternateMaterial, class_name: 'CodeableConcept'
-    embeds_many :device, class_name: 'Reference'
-    embeds_many :manufacturedItem, class_name: 'Reference'
-    embeds_many :packageItem, class_name: 'MedicinalProductPackagedPackageItem'
-    embeds_one :physicalCharacteristics, class_name: 'ProdCharacteristic'
-    embeds_many :otherCharacteristics, class_name: 'CodeableConcept'
-    embeds_many :shelfLifeStorage, class_name: 'ProductShelfLife'
-    embeds_many :manufacturer, class_name: 'Reference'
+    embeds_many :identifier, class_name: 'FHIR::Identifier'
+    embeds_one :type, class_name: 'FHIR::CodeableConcept'
+    embeds_one :quantity, class_name: 'FHIR::Quantity'
+    embeds_many :material, class_name: 'FHIR::CodeableConcept'
+    embeds_many :alternateMaterial, class_name: 'FHIR::CodeableConcept'
+    embeds_many :device, class_name: 'FHIR::Reference'
+    embeds_many :manufacturedItem, class_name: 'FHIR::Reference'
+    embeds_many :packageItem, class_name: 'FHIR::MedicinalProductPackagedPackageItem'
+    embeds_one :physicalCharacteristics, class_name: 'FHIR::ProdCharacteristic'
+    embeds_many :otherCharacteristics, class_name: 'FHIR::CodeableConcept'
+    embeds_many :shelfLifeStorage, class_name: 'FHIR::ProductShelfLife'
+    embeds_many :manufacturer, class_name: 'FHIR::Reference'
 
     def self.transform_json(json_hash, target = MedicinalProductPackagedPackageItem.new)
       result = self.superclass.transform_json(json_hash, target)

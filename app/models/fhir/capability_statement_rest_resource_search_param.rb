@@ -2,10 +2,10 @@ module FHIR
   # fhir/capability_statement_rest_resource_search_param.rb
   class CapabilityStatementRestResourceSearchParam < BackboneElement
     include Mongoid::Document
-    embeds_one :name, class_name: 'PrimitiveString'
-    embeds_one :definition, class_name: 'PrimitiveCanonical'
-    embeds_one :type, class_name: 'SearchParamType'
-    embeds_one :documentation, class_name: 'PrimitiveMarkdown'
+    embeds_one :name, class_name: 'FHIR::PrimitiveString'
+    embeds_one :definition, class_name: 'FHIR::PrimitiveCanonical'
+    embeds_one :type, class_name: 'FHIR::SearchParamType'
+    embeds_one :documentation, class_name: 'FHIR::PrimitiveMarkdown'
 
     def self.transform_json(json_hash, target = CapabilityStatementRestResourceSearchParam.new)
       result = self.superclass.transform_json(json_hash, target)

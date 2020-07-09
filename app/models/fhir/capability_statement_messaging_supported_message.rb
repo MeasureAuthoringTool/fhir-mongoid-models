@@ -2,8 +2,8 @@ module FHIR
   # fhir/capability_statement_messaging_supported_message.rb
   class CapabilityStatementMessagingSupportedMessage < BackboneElement
     include Mongoid::Document
-    embeds_one :mode, class_name: 'EventCapabilityMode'
-    embeds_one :definition, class_name: 'PrimitiveCanonical'
+    embeds_one :mode, class_name: 'FHIR::EventCapabilityMode'
+    embeds_one :definition, class_name: 'FHIR::PrimitiveCanonical'
 
     def self.transform_json(json_hash, target = CapabilityStatementMessagingSupportedMessage.new)
       result = self.superclass.transform_json(json_hash, target)

@@ -2,13 +2,13 @@ module FHIR
   # fhir/substance.rb
   class Substance < DomainResource
     include Mongoid::Document
-    embeds_many :identifier, class_name: 'Identifier'
-    embeds_one :status, class_name: 'FHIRSubstanceStatus'
-    embeds_many :category, class_name: 'CodeableConcept'
-    embeds_one :code, class_name: 'CodeableConcept'
-    embeds_one :description, class_name: 'PrimitiveString'
-    embeds_many :instance, class_name: 'SubstanceInstance'
-    embeds_many :ingredient, class_name: 'SubstanceIngredient'
+    embeds_many :identifier, class_name: 'FHIR::Identifier'
+    embeds_one :status, class_name: 'FHIR::FHIRSubstanceStatus'
+    embeds_many :category, class_name: 'FHIR::CodeableConcept'
+    embeds_one :code, class_name: 'FHIR::CodeableConcept'
+    embeds_one :description, class_name: 'FHIR::PrimitiveString'
+    embeds_many :instance, class_name: 'FHIR::SubstanceInstance'
+    embeds_many :ingredient, class_name: 'FHIR::SubstanceIngredient'
 
     def self.transform_json(json_hash, target = Substance.new)
       result = self.superclass.transform_json(json_hash, target)

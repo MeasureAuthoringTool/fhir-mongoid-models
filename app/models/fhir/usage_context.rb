@@ -2,11 +2,11 @@ module FHIR
   # fhir/usage_context.rb
   class UsageContext < Element
     include Mongoid::Document
-    embeds_one :code, class_name: 'Coding'
-    embeds_one :valueCodeableConcept, class_name: 'CodeableConcept'
-    embeds_one :valueQuantity, class_name: 'Quantity'
-    embeds_one :valueRange, class_name: 'Range'
-    embeds_one :valueReference, class_name: 'Reference'
+    embeds_one :code, class_name: 'FHIR::Coding'
+    embeds_one :valueCodeableConcept, class_name: 'FHIR::CodeableConcept'
+    embeds_one :valueQuantity, class_name: 'FHIR::Quantity'
+    embeds_one :valueRange, class_name: 'FHIR::Range'
+    embeds_one :valueReference, class_name: 'FHIR::Reference'
 
     def self.transform_json(json_hash, target = UsageContext.new)
       result = self.superclass.transform_json(json_hash, target)

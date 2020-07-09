@@ -2,11 +2,11 @@ module FHIR
   # fhir/plan_definition_goal_target.rb
   class PlanDefinitionGoalTarget < BackboneElement
     include Mongoid::Document
-    embeds_one :measure, class_name: 'CodeableConcept'
-    embeds_one :detailQuantity, class_name: 'Quantity'
-    embeds_one :detailRange, class_name: 'Range'
-    embeds_one :detailCodeableConcept, class_name: 'CodeableConcept'
-    embeds_one :due, class_name: 'Duration'
+    embeds_one :measure, class_name: 'FHIR::CodeableConcept'
+    embeds_one :detailQuantity, class_name: 'FHIR::Quantity'
+    embeds_one :detailRange, class_name: 'FHIR::Range'
+    embeds_one :detailCodeableConcept, class_name: 'FHIR::CodeableConcept'
+    embeds_one :due, class_name: 'FHIR::Duration'
 
     def self.transform_json(json_hash, target = PlanDefinitionGoalTarget.new)
       result = self.superclass.transform_json(json_hash, target)

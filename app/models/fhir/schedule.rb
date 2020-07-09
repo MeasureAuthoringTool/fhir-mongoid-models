@@ -2,14 +2,14 @@ module FHIR
   # fhir/schedule.rb
   class Schedule < DomainResource
     include Mongoid::Document
-    embeds_many :identifier, class_name: 'Identifier'
-    embeds_one :active, class_name: 'PrimitiveBoolean'
-    embeds_many :serviceCategory, class_name: 'CodeableConcept'
-    embeds_many :serviceType, class_name: 'CodeableConcept'
-    embeds_many :specialty, class_name: 'CodeableConcept'
-    embeds_many :actor, class_name: 'Reference'
-    embeds_one :planningHorizon, class_name: 'Period'
-    embeds_one :comment, class_name: 'PrimitiveString'
+    embeds_many :identifier, class_name: 'FHIR::Identifier'
+    embeds_one :active, class_name: 'FHIR::PrimitiveBoolean'
+    embeds_many :serviceCategory, class_name: 'FHIR::CodeableConcept'
+    embeds_many :serviceType, class_name: 'FHIR::CodeableConcept'
+    embeds_many :specialty, class_name: 'FHIR::CodeableConcept'
+    embeds_many :actor, class_name: 'FHIR::Reference'
+    embeds_one :planningHorizon, class_name: 'FHIR::Period'
+    embeds_one :comment, class_name: 'FHIR::PrimitiveString'
 
     def self.transform_json(json_hash, target = Schedule.new)
       result = self.superclass.transform_json(json_hash, target)

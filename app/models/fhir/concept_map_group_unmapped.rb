@@ -2,10 +2,10 @@ module FHIR
   # fhir/concept_map_group_unmapped.rb
   class ConceptMapGroupUnmapped < BackboneElement
     include Mongoid::Document
-    embeds_one :mode, class_name: 'ConceptMapGroupUnmappedMode'
-    embeds_one :code, class_name: 'PrimitiveCode'
-    embeds_one :display, class_name: 'PrimitiveString'
-    embeds_one :url, class_name: 'PrimitiveCanonical'
+    embeds_one :mode, class_name: 'FHIR::ConceptMapGroupUnmappedMode'
+    embeds_one :code, class_name: 'FHIR::PrimitiveCode'
+    embeds_one :display, class_name: 'FHIR::PrimitiveString'
+    embeds_one :url, class_name: 'FHIR::PrimitiveCanonical'
 
     def self.transform_json(json_hash, target = ConceptMapGroupUnmapped.new)
       result = self.superclass.transform_json(json_hash, target)

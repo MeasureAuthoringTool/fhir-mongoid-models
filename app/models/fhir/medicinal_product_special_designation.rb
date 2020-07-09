@@ -2,14 +2,14 @@ module FHIR
   # fhir/medicinal_product_special_designation.rb
   class MedicinalProductSpecialDesignation < BackboneElement
     include Mongoid::Document
-    embeds_many :identifier, class_name: 'Identifier'
-    embeds_one :type, class_name: 'CodeableConcept'
-    embeds_one :intendedUse, class_name: 'CodeableConcept'
-    embeds_one :indicationCodeableConcept, class_name: 'CodeableConcept'
-    embeds_one :indicationReference, class_name: 'Reference'
-    embeds_one :status, class_name: 'CodeableConcept'
-    embeds_one :date, class_name: 'PrimitiveDateTime'
-    embeds_one :species, class_name: 'CodeableConcept'
+    embeds_many :identifier, class_name: 'FHIR::Identifier'
+    embeds_one :type, class_name: 'FHIR::CodeableConcept'
+    embeds_one :intendedUse, class_name: 'FHIR::CodeableConcept'
+    embeds_one :indicationCodeableConcept, class_name: 'FHIR::CodeableConcept'
+    embeds_one :indicationReference, class_name: 'FHIR::Reference'
+    embeds_one :status, class_name: 'FHIR::CodeableConcept'
+    embeds_one :date, class_name: 'FHIR::PrimitiveDateTime'
+    embeds_one :species, class_name: 'FHIR::CodeableConcept'
 
     def self.transform_json(json_hash, target = MedicinalProductSpecialDesignation.new)
       result = self.superclass.transform_json(json_hash, target)

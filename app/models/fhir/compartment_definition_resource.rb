@@ -2,9 +2,9 @@ module FHIR
   # fhir/compartment_definition_resource.rb
   class CompartmentDefinitionResource < BackboneElement
     include Mongoid::Document
-    embeds_one :code, class_name: 'ResourceType'
-    embeds_many :param, class_name: 'PrimitiveString'
-    embeds_one :documentation, class_name: 'PrimitiveString'
+    embeds_one :code, class_name: 'FHIR::ResourceType'
+    embeds_many :param, class_name: 'FHIR::PrimitiveString'
+    embeds_one :documentation, class_name: 'FHIR::PrimitiveString'
 
     def self.transform_json(json_hash, target = CompartmentDefinitionResource.new)
       result = self.superclass.transform_json(json_hash, target)

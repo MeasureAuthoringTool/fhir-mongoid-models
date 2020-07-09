@@ -2,9 +2,9 @@ module FHIR
   # fhir/substance_nucleic_acid_subunit_sugar.rb
   class SubstanceNucleicAcidSubunitSugar < BackboneElement
     include Mongoid::Document
-    embeds_one :identifier, class_name: 'Identifier'
-    embeds_one :name, class_name: 'PrimitiveString'
-    embeds_one :residueSite, class_name: 'PrimitiveString'
+    embeds_one :identifier, class_name: 'FHIR::Identifier'
+    embeds_one :name, class_name: 'FHIR::PrimitiveString'
+    embeds_one :residueSite, class_name: 'FHIR::PrimitiveString'
 
     def self.transform_json(json_hash, target = SubstanceNucleicAcidSubunitSugar.new)
       result = self.superclass.transform_json(json_hash, target)

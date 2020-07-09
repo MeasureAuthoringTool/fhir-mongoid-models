@@ -2,8 +2,8 @@ module FHIR
   # fhir/activity_definition_dynamic_value.rb
   class ActivityDefinitionDynamicValue < BackboneElement
     include Mongoid::Document
-    embeds_one :path, class_name: 'PrimitiveString'
-    embeds_one :expression, class_name: 'Expression'
+    embeds_one :path, class_name: 'FHIR::PrimitiveString'
+    embeds_one :expression, class_name: 'FHIR::Expression'
 
     def self.transform_json(json_hash, target = ActivityDefinitionDynamicValue.new)
       result = self.superclass.transform_json(json_hash, target)

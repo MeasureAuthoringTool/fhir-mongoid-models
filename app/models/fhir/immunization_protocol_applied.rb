@@ -2,13 +2,13 @@ module FHIR
   # fhir/immunization_protocol_applied.rb
   class ImmunizationProtocolApplied < BackboneElement
     include Mongoid::Document
-    embeds_one :series, class_name: 'PrimitiveString'
-    embeds_one :authority, class_name: 'Reference'
-    embeds_many :targetDisease, class_name: 'CodeableConcept'
-    embeds_one :doseNumberPositiveInt, class_name: 'PrimitivePositiveInt'
-    embeds_one :doseNumberString, class_name: 'PrimitiveString'
-    embeds_one :seriesDosesPositiveInt, class_name: 'PrimitivePositiveInt'
-    embeds_one :seriesDosesString, class_name: 'PrimitiveString'
+    embeds_one :series, class_name: 'FHIR::PrimitiveString'
+    embeds_one :authority, class_name: 'FHIR::Reference'
+    embeds_many :targetDisease, class_name: 'FHIR::CodeableConcept'
+    embeds_one :doseNumberPositiveInt, class_name: 'FHIR::PrimitivePositiveInt'
+    embeds_one :doseNumberString, class_name: 'FHIR::PrimitiveString'
+    embeds_one :seriesDosesPositiveInt, class_name: 'FHIR::PrimitivePositiveInt'
+    embeds_one :seriesDosesString, class_name: 'FHIR::PrimitiveString'
 
     def self.transform_json(json_hash, target = ImmunizationProtocolApplied.new)
       result = self.superclass.transform_json(json_hash, target)

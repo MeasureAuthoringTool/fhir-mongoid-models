@@ -2,8 +2,8 @@ module FHIR
   # fhir/charge_item_definition_property_group.rb
   class ChargeItemDefinitionPropertyGroup < BackboneElement
     include Mongoid::Document
-    embeds_many :applicability, class_name: 'ChargeItemDefinitionApplicability'
-    embeds_many :priceComponent, class_name: 'ChargeItemDefinitionPropertyGroupPriceComponent'
+    embeds_many :applicability, class_name: 'FHIR::ChargeItemDefinitionApplicability'
+    embeds_many :priceComponent, class_name: 'FHIR::ChargeItemDefinitionPropertyGroupPriceComponent'
 
     def self.transform_json(json_hash, target = ChargeItemDefinitionPropertyGroup.new)
       result = self.superclass.transform_json(json_hash, target)

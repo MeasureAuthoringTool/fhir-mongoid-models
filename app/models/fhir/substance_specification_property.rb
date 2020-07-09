@@ -2,13 +2,13 @@ module FHIR
   # fhir/substance_specification_property.rb
   class SubstanceSpecificationProperty < BackboneElement
     include Mongoid::Document
-    embeds_one :category, class_name: 'CodeableConcept'
-    embeds_one :code, class_name: 'CodeableConcept'
-    embeds_one :parameters, class_name: 'PrimitiveString'
-    embeds_one :definingSubstanceReference, class_name: 'Reference'
-    embeds_one :definingSubstanceCodeableConcept, class_name: 'CodeableConcept'
-    embeds_one :amountQuantity, class_name: 'Quantity'
-    embeds_one :amountString, class_name: 'PrimitiveString'
+    embeds_one :category, class_name: 'FHIR::CodeableConcept'
+    embeds_one :code, class_name: 'FHIR::CodeableConcept'
+    embeds_one :parameters, class_name: 'FHIR::PrimitiveString'
+    embeds_one :definingSubstanceReference, class_name: 'FHIR::Reference'
+    embeds_one :definingSubstanceCodeableConcept, class_name: 'FHIR::CodeableConcept'
+    embeds_one :amountQuantity, class_name: 'FHIR::Quantity'
+    embeds_one :amountString, class_name: 'FHIR::PrimitiveString'
 
     def self.transform_json(json_hash, target = SubstanceSpecificationProperty.new)
       result = self.superclass.transform_json(json_hash, target)

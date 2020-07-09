@@ -2,20 +2,20 @@ module FHIR
   # fhir/coverage_eligibility_response_insurance_item.rb
   class CoverageEligibilityResponseInsuranceItem < BackboneElement
     include Mongoid::Document
-    embeds_one :category, class_name: 'CodeableConcept'
-    embeds_one :productOrService, class_name: 'CodeableConcept'
-    embeds_many :modifier, class_name: 'CodeableConcept'
-    embeds_one :provider, class_name: 'Reference'
-    embeds_one :excluded, class_name: 'PrimitiveBoolean'
-    embeds_one :name, class_name: 'PrimitiveString'
-    embeds_one :description, class_name: 'PrimitiveString'
-    embeds_one :network, class_name: 'CodeableConcept'
-    embeds_one :unit, class_name: 'CodeableConcept'
-    embeds_one :term, class_name: 'CodeableConcept'
-    embeds_many :benefit, class_name: 'CoverageEligibilityResponseInsuranceItemBenefit'
-    embeds_one :authorizationRequired, class_name: 'PrimitiveBoolean'
-    embeds_many :authorizationSupporting, class_name: 'CodeableConcept'
-    embeds_one :authorizationUrl, class_name: 'PrimitiveUri'
+    embeds_one :category, class_name: 'FHIR::CodeableConcept'
+    embeds_one :productOrService, class_name: 'FHIR::CodeableConcept'
+    embeds_many :modifier, class_name: 'FHIR::CodeableConcept'
+    embeds_one :provider, class_name: 'FHIR::Reference'
+    embeds_one :excluded, class_name: 'FHIR::PrimitiveBoolean'
+    embeds_one :name, class_name: 'FHIR::PrimitiveString'
+    embeds_one :description, class_name: 'FHIR::PrimitiveString'
+    embeds_one :network, class_name: 'FHIR::CodeableConcept'
+    embeds_one :unit, class_name: 'FHIR::CodeableConcept'
+    embeds_one :term, class_name: 'FHIR::CodeableConcept'
+    embeds_many :benefit, class_name: 'FHIR::CoverageEligibilityResponseInsuranceItemBenefit'
+    embeds_one :authorizationRequired, class_name: 'FHIR::PrimitiveBoolean'
+    embeds_many :authorizationSupporting, class_name: 'FHIR::CodeableConcept'
+    embeds_one :authorizationUrl, class_name: 'FHIR::PrimitiveUri'
 
     def self.transform_json(json_hash, target = CoverageEligibilityResponseInsuranceItem.new)
       result = self.superclass.transform_json(json_hash, target)

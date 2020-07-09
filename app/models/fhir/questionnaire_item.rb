@@ -2,22 +2,22 @@ module FHIR
   # fhir/questionnaire_item.rb
   class QuestionnaireItem < BackboneElement
     include Mongoid::Document
-    embeds_one :linkId, class_name: 'PrimitiveString'
-    embeds_one :definition, class_name: 'PrimitiveUri'
-    embeds_many :code, class_name: 'Coding'
-    embeds_one :prefix, class_name: 'PrimitiveString'
-    embeds_one :text, class_name: 'PrimitiveString'
-    embeds_one :type, class_name: 'QuestionnaireItemType'
-    embeds_many :enableWhen, class_name: 'QuestionnaireItemEnableWhen'
-    embeds_one :enableBehavior, class_name: 'EnableWhenBehavior'
-    embeds_one :required, class_name: 'PrimitiveBoolean'
-    embeds_one :repeats, class_name: 'PrimitiveBoolean'
-    embeds_one :readOnly, class_name: 'PrimitiveBoolean'
-    embeds_one :maxLength, class_name: 'PrimitiveInteger'
-    embeds_one :answerValueSet, class_name: 'PrimitiveCanonical'
-    embeds_many :answerOption, class_name: 'QuestionnaireItemAnswerOption'
-    embeds_many :initial, class_name: 'QuestionnaireItemInitial'
-    embeds_many :item, class_name: 'QuestionnaireItem'
+    embeds_one :linkId, class_name: 'FHIR::PrimitiveString'
+    embeds_one :definition, class_name: 'FHIR::PrimitiveUri'
+    embeds_many :code, class_name: 'FHIR::Coding'
+    embeds_one :prefix, class_name: 'FHIR::PrimitiveString'
+    embeds_one :text, class_name: 'FHIR::PrimitiveString'
+    embeds_one :type, class_name: 'FHIR::QuestionnaireItemType'
+    embeds_many :enableWhen, class_name: 'FHIR::QuestionnaireItemEnableWhen'
+    embeds_one :enableBehavior, class_name: 'FHIR::EnableWhenBehavior'
+    embeds_one :required, class_name: 'FHIR::PrimitiveBoolean'
+    embeds_one :repeats, class_name: 'FHIR::PrimitiveBoolean'
+    embeds_one :readOnly, class_name: 'FHIR::PrimitiveBoolean'
+    embeds_one :maxLength, class_name: 'FHIR::PrimitiveInteger'
+    embeds_one :answerValueSet, class_name: 'FHIR::PrimitiveCanonical'
+    embeds_many :answerOption, class_name: 'FHIR::QuestionnaireItemAnswerOption'
+    embeds_many :initial, class_name: 'FHIR::QuestionnaireItemInitial'
+    embeds_many :item, class_name: 'FHIR::QuestionnaireItem'
 
     def self.transform_json(json_hash, target = QuestionnaireItem.new)
       result = self.superclass.transform_json(json_hash, target)

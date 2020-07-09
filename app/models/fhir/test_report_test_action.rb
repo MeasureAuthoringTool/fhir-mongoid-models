@@ -2,8 +2,8 @@ module FHIR
   # fhir/test_report_test_action.rb
   class TestReportTestAction < BackboneElement
     include Mongoid::Document
-    embeds_one :operation, class_name: 'TestReportSetupActionOperation'
-    embeds_one :assert, class_name: 'TestReportSetupActionAssert'
+    embeds_one :operation, class_name: 'FHIR::TestReportSetupActionOperation'
+    embeds_one :assert, class_name: 'FHIR::TestReportSetupActionAssert'
 
     def self.transform_json(json_hash, target = TestReportTestAction.new)
       result = self.superclass.transform_json(json_hash, target)

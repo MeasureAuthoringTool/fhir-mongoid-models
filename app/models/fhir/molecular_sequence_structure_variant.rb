@@ -2,11 +2,11 @@ module FHIR
   # fhir/molecular_sequence_structure_variant.rb
   class MolecularSequenceStructureVariant < BackboneElement
     include Mongoid::Document
-    embeds_one :variantType, class_name: 'CodeableConcept'
-    embeds_one :exact, class_name: 'PrimitiveBoolean'
-    embeds_one :length, class_name: 'PrimitiveInteger'
-    embeds_one :outer, class_name: 'MolecularSequenceStructureVariantOuter'
-    embeds_one :inner, class_name: 'MolecularSequenceStructureVariantInner'
+    embeds_one :variantType, class_name: 'FHIR::CodeableConcept'
+    embeds_one :exact, class_name: 'FHIR::PrimitiveBoolean'
+    embeds_one :length, class_name: 'FHIR::PrimitiveInteger'
+    embeds_one :outer, class_name: 'FHIR::MolecularSequenceStructureVariantOuter'
+    embeds_one :inner, class_name: 'FHIR::MolecularSequenceStructureVariantInner'
 
     def self.transform_json(json_hash, target = MolecularSequenceStructureVariant.new)
       result = self.superclass.transform_json(json_hash, target)

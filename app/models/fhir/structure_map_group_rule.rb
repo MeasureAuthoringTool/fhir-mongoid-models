@@ -2,12 +2,12 @@ module FHIR
   # fhir/structure_map_group_rule.rb
   class StructureMapGroupRule < BackboneElement
     include Mongoid::Document
-    embeds_one :name, class_name: 'PrimitiveId'
-    embeds_many :source, class_name: 'StructureMapGroupRuleSource'
-    embeds_many :target, class_name: 'StructureMapGroupRuleTarget'
-    embeds_many :rule, class_name: 'StructureMapGroupRule'
-    embeds_many :dependent, class_name: 'StructureMapGroupRuleDependent'
-    embeds_one :documentation, class_name: 'PrimitiveString'
+    embeds_one :name, class_name: 'FHIR::PrimitiveId'
+    embeds_many :source, class_name: 'FHIR::StructureMapGroupRuleSource'
+    embeds_many :target, class_name: 'FHIR::StructureMapGroupRuleTarget'
+    embeds_many :rule, class_name: 'FHIR::StructureMapGroupRule'
+    embeds_many :dependent, class_name: 'FHIR::StructureMapGroupRuleDependent'
+    embeds_one :documentation, class_name: 'FHIR::PrimitiveString'
 
     def self.transform_json(json_hash, target = StructureMapGroupRule.new)
       result = self.superclass.transform_json(json_hash, target)

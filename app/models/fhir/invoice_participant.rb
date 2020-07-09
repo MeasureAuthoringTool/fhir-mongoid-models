@@ -2,8 +2,8 @@ module FHIR
   # fhir/invoice_participant.rb
   class InvoiceParticipant < BackboneElement
     include Mongoid::Document
-    embeds_one :role, class_name: 'CodeableConcept'
-    embeds_one :actor, class_name: 'Reference'
+    embeds_one :role, class_name: 'FHIR::CodeableConcept'
+    embeds_one :actor, class_name: 'FHIR::Reference'
 
     def self.transform_json(json_hash, target = InvoiceParticipant.new)
       result = self.superclass.transform_json(json_hash, target)

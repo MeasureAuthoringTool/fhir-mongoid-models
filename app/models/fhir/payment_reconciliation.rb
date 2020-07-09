@@ -2,21 +2,21 @@ module FHIR
   # fhir/payment_reconciliation.rb
   class PaymentReconciliation < DomainResource
     include Mongoid::Document
-    embeds_many :identifier, class_name: 'Identifier'
-    embeds_one :status, class_name: 'PaymentReconciliationStatus'
-    embeds_one :period, class_name: 'Period'
-    embeds_one :created, class_name: 'PrimitiveDateTime'
-    embeds_one :paymentIssuer, class_name: 'Reference'
-    embeds_one :request, class_name: 'Reference'
-    embeds_one :requestor, class_name: 'Reference'
-    embeds_one :outcome, class_name: 'RemittanceOutcome'
-    embeds_one :disposition, class_name: 'PrimitiveString'
-    embeds_one :paymentDate, class_name: 'PrimitiveDate'
-    embeds_one :paymentAmount, class_name: 'Money'
-    embeds_one :paymentIdentifier, class_name: 'Identifier'
-    embeds_many :detail, class_name: 'PaymentReconciliationDetail'
-    embeds_one :formCode, class_name: 'CodeableConcept'
-    embeds_many :processNote, class_name: 'PaymentReconciliationProcessNote'
+    embeds_many :identifier, class_name: 'FHIR::Identifier'
+    embeds_one :status, class_name: 'FHIR::PaymentReconciliationStatus'
+    embeds_one :period, class_name: 'FHIR::Period'
+    embeds_one :created, class_name: 'FHIR::PrimitiveDateTime'
+    embeds_one :paymentIssuer, class_name: 'FHIR::Reference'
+    embeds_one :request, class_name: 'FHIR::Reference'
+    embeds_one :requestor, class_name: 'FHIR::Reference'
+    embeds_one :outcome, class_name: 'FHIR::RemittanceOutcome'
+    embeds_one :disposition, class_name: 'FHIR::PrimitiveString'
+    embeds_one :paymentDate, class_name: 'FHIR::PrimitiveDate'
+    embeds_one :paymentAmount, class_name: 'FHIR::Money'
+    embeds_one :paymentIdentifier, class_name: 'FHIR::Identifier'
+    embeds_many :detail, class_name: 'FHIR::PaymentReconciliationDetail'
+    embeds_one :formCode, class_name: 'FHIR::CodeableConcept'
+    embeds_many :processNote, class_name: 'FHIR::PaymentReconciliationProcessNote'
 
     def self.transform_json(json_hash, target = PaymentReconciliation.new)
       result = self.superclass.transform_json(json_hash, target)

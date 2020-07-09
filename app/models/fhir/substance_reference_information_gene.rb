@@ -2,9 +2,9 @@ module FHIR
   # fhir/substance_reference_information_gene.rb
   class SubstanceReferenceInformationGene < BackboneElement
     include Mongoid::Document
-    embeds_one :geneSequenceOrigin, class_name: 'CodeableConcept'
-    embeds_one :gene, class_name: 'CodeableConcept'
-    embeds_many :source, class_name: 'Reference'
+    embeds_one :geneSequenceOrigin, class_name: 'FHIR::CodeableConcept'
+    embeds_one :gene, class_name: 'FHIR::CodeableConcept'
+    embeds_many :source, class_name: 'FHIR::Reference'
 
     def self.transform_json(json_hash, target = SubstanceReferenceInformationGene.new)
       result = self.superclass.transform_json(json_hash, target)

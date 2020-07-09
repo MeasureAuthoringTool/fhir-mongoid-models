@@ -2,14 +2,14 @@ module FHIR
   # fhir/verification_result_attestation.rb
   class VerificationResultAttestation < BackboneElement
     include Mongoid::Document
-    embeds_one :who, class_name: 'Reference'
-    embeds_one :onBehalfOf, class_name: 'Reference'
-    embeds_one :communicationMethod, class_name: 'CodeableConcept'
-    embeds_one :date, class_name: 'PrimitiveDate'
-    embeds_one :sourceIdentityCertificate, class_name: 'PrimitiveString'
-    embeds_one :proxyIdentityCertificate, class_name: 'PrimitiveString'
-    embeds_one :proxySignature, class_name: 'Signature'
-    embeds_one :sourceSignature, class_name: 'Signature'
+    embeds_one :who, class_name: 'FHIR::Reference'
+    embeds_one :onBehalfOf, class_name: 'FHIR::Reference'
+    embeds_one :communicationMethod, class_name: 'FHIR::CodeableConcept'
+    embeds_one :date, class_name: 'FHIR::PrimitiveDate'
+    embeds_one :sourceIdentityCertificate, class_name: 'FHIR::PrimitiveString'
+    embeds_one :proxyIdentityCertificate, class_name: 'FHIR::PrimitiveString'
+    embeds_one :proxySignature, class_name: 'FHIR::Signature'
+    embeds_one :sourceSignature, class_name: 'FHIR::Signature'
 
     def self.transform_json(json_hash, target = VerificationResultAttestation.new)
       result = self.superclass.transform_json(json_hash, target)

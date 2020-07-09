@@ -2,16 +2,16 @@ module FHIR
   # fhir/coverage_eligibility_request_item.rb
   class CoverageEligibilityRequestItem < BackboneElement
     include Mongoid::Document
-    embeds_many :supportingInfoSequence, class_name: 'PrimitivePositiveInt'
-    embeds_one :category, class_name: 'CodeableConcept'
-    embeds_one :productOrService, class_name: 'CodeableConcept'
-    embeds_many :modifier, class_name: 'CodeableConcept'
-    embeds_one :provider, class_name: 'Reference'
-    embeds_one :quantity, class_name: 'SimpleQuantity'
-    embeds_one :unitPrice, class_name: 'Money'
-    embeds_one :facility, class_name: 'Reference'
-    embeds_many :diagnosis, class_name: 'CoverageEligibilityRequestItemDiagnosis'
-    embeds_many :detail, class_name: 'Reference'
+    embeds_many :supportingInfoSequence, class_name: 'FHIR::PrimitivePositiveInt'
+    embeds_one :category, class_name: 'FHIR::CodeableConcept'
+    embeds_one :productOrService, class_name: 'FHIR::CodeableConcept'
+    embeds_many :modifier, class_name: 'FHIR::CodeableConcept'
+    embeds_one :provider, class_name: 'FHIR::Reference'
+    embeds_one :quantity, class_name: 'FHIR::SimpleQuantity'
+    embeds_one :unitPrice, class_name: 'FHIR::Money'
+    embeds_one :facility, class_name: 'FHIR::Reference'
+    embeds_many :diagnosis, class_name: 'FHIR::CoverageEligibilityRequestItemDiagnosis'
+    embeds_many :detail, class_name: 'FHIR::Reference'
 
     def self.transform_json(json_hash, target = CoverageEligibilityRequestItem.new)
       result = self.superclass.transform_json(json_hash, target)

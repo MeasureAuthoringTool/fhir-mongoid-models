@@ -2,11 +2,11 @@ module FHIR
   # fhir/message_header_source.rb
   class MessageHeaderSource < BackboneElement
     include Mongoid::Document
-    embeds_one :name, class_name: 'PrimitiveString'
-    embeds_one :software, class_name: 'PrimitiveString'
-    embeds_one :version, class_name: 'PrimitiveString'
-    embeds_one :contact, class_name: 'ContactPoint'
-    embeds_one :endpoint, class_name: 'PrimitiveUrl'
+    embeds_one :name, class_name: 'FHIR::PrimitiveString'
+    embeds_one :software, class_name: 'FHIR::PrimitiveString'
+    embeds_one :version, class_name: 'FHIR::PrimitiveString'
+    embeds_one :contact, class_name: 'FHIR::ContactPoint'
+    embeds_one :endpoint, class_name: 'FHIR::PrimitiveUrl'
 
     def self.transform_json(json_hash, target = MessageHeaderSource.new)
       result = self.superclass.transform_json(json_hash, target)

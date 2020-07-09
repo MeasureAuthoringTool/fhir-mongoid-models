@@ -2,21 +2,21 @@ module FHIR
   # fhir/evidence_variable_characteristic.rb
   class EvidenceVariableCharacteristic < BackboneElement
     include Mongoid::Document
-    embeds_one :description, class_name: 'PrimitiveString'
-    embeds_one :definitionReference, class_name: 'Reference'
-    embeds_one :definitionCanonical, class_name: 'PrimitiveCanonical'
-    embeds_one :definitionCodeableConcept, class_name: 'CodeableConcept'
-    embeds_one :definitionExpression, class_name: 'Expression'
-    embeds_one :definitionDataRequirement, class_name: 'DataRequirement'
-    embeds_one :definitionTriggerDefinition, class_name: 'TriggerDefinition'
-    embeds_many :usageContext, class_name: 'UsageContext'
-    embeds_one :exclude, class_name: 'PrimitiveBoolean'
-    embeds_one :participantEffectiveDateTime, class_name: 'PrimitiveDateTime'
-    embeds_one :participantEffectivePeriod, class_name: 'Period'
-    embeds_one :participantEffectiveDuration, class_name: 'Duration'
-    embeds_one :participantEffectiveTiming, class_name: 'Timing'
-    embeds_one :timeFromStart, class_name: 'Duration'
-    embeds_one :groupMeasure, class_name: 'GroupMeasure'
+    embeds_one :description, class_name: 'FHIR::PrimitiveString'
+    embeds_one :definitionReference, class_name: 'FHIR::Reference'
+    embeds_one :definitionCanonical, class_name: 'FHIR::PrimitiveCanonical'
+    embeds_one :definitionCodeableConcept, class_name: 'FHIR::CodeableConcept'
+    embeds_one :definitionExpression, class_name: 'FHIR::Expression'
+    embeds_one :definitionDataRequirement, class_name: 'FHIR::DataRequirement'
+    embeds_one :definitionTriggerDefinition, class_name: 'FHIR::TriggerDefinition'
+    embeds_many :usageContext, class_name: 'FHIR::UsageContext'
+    embeds_one :exclude, class_name: 'FHIR::PrimitiveBoolean'
+    embeds_one :participantEffectiveDateTime, class_name: 'FHIR::PrimitiveDateTime'
+    embeds_one :participantEffectivePeriod, class_name: 'FHIR::Period'
+    embeds_one :participantEffectiveDuration, class_name: 'FHIR::Duration'
+    embeds_one :participantEffectiveTiming, class_name: 'FHIR::Timing'
+    embeds_one :timeFromStart, class_name: 'FHIR::Duration'
+    embeds_one :groupMeasure, class_name: 'FHIR::GroupMeasure'
 
     def self.transform_json(json_hash, target = EvidenceVariableCharacteristic.new)
       result = self.superclass.transform_json(json_hash, target)

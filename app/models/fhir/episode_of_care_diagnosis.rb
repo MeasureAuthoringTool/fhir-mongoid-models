@@ -2,9 +2,9 @@ module FHIR
   # fhir/episode_of_care_diagnosis.rb
   class EpisodeOfCareDiagnosis < BackboneElement
     include Mongoid::Document
-    embeds_one :condition, class_name: 'Reference'
-    embeds_one :role, class_name: 'CodeableConcept'
-    embeds_one :rank, class_name: 'PrimitivePositiveInt'
+    embeds_one :condition, class_name: 'FHIR::Reference'
+    embeds_one :role, class_name: 'FHIR::CodeableConcept'
+    embeds_one :rank, class_name: 'FHIR::PrimitivePositiveInt'
 
     def self.transform_json(json_hash, target = EpisodeOfCareDiagnosis.new)
       result = self.superclass.transform_json(json_hash, target)

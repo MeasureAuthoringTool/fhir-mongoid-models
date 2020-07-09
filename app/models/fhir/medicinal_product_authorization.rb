@@ -2,22 +2,22 @@ module FHIR
   # fhir/medicinal_product_authorization.rb
   class MedicinalProductAuthorization < DomainResource
     include Mongoid::Document
-    embeds_many :identifier, class_name: 'Identifier'
-    embeds_one :subject, class_name: 'Reference'
-    embeds_many :country, class_name: 'CodeableConcept'
-    embeds_many :jurisdiction, class_name: 'CodeableConcept'
-    embeds_one :status, class_name: 'CodeableConcept'
-    embeds_one :statusDate, class_name: 'PrimitiveDateTime'
-    embeds_one :restoreDate, class_name: 'PrimitiveDateTime'
-    embeds_one :validityPeriod, class_name: 'Period'
-    embeds_one :dataExclusivityPeriod, class_name: 'Period'
-    embeds_one :dateOfFirstAuthorization, class_name: 'PrimitiveDateTime'
-    embeds_one :internationalBirthDate, class_name: 'PrimitiveDateTime'
-    embeds_one :legalBasis, class_name: 'CodeableConcept'
-    embeds_many :jurisdictionalAuthorization, class_name: 'MedicinalProductAuthorizationJurisdictionalAuthorization'
-    embeds_one :holder, class_name: 'Reference'
-    embeds_one :regulator, class_name: 'Reference'
-    embeds_one :procedure, class_name: 'MedicinalProductAuthorizationProcedure'
+    embeds_many :identifier, class_name: 'FHIR::Identifier'
+    embeds_one :subject, class_name: 'FHIR::Reference'
+    embeds_many :country, class_name: 'FHIR::CodeableConcept'
+    embeds_many :jurisdiction, class_name: 'FHIR::CodeableConcept'
+    embeds_one :status, class_name: 'FHIR::CodeableConcept'
+    embeds_one :statusDate, class_name: 'FHIR::PrimitiveDateTime'
+    embeds_one :restoreDate, class_name: 'FHIR::PrimitiveDateTime'
+    embeds_one :validityPeriod, class_name: 'FHIR::Period'
+    embeds_one :dataExclusivityPeriod, class_name: 'FHIR::Period'
+    embeds_one :dateOfFirstAuthorization, class_name: 'FHIR::PrimitiveDateTime'
+    embeds_one :internationalBirthDate, class_name: 'FHIR::PrimitiveDateTime'
+    embeds_one :legalBasis, class_name: 'FHIR::CodeableConcept'
+    embeds_many :jurisdictionalAuthorization, class_name: 'FHIR::MedicinalProductAuthorizationJurisdictionalAuthorization'
+    embeds_one :holder, class_name: 'FHIR::Reference'
+    embeds_one :regulator, class_name: 'FHIR::Reference'
+    embeds_one :procedure, class_name: 'FHIR::MedicinalProductAuthorizationProcedure'
 
     def self.transform_json(json_hash, target = MedicinalProductAuthorization.new)
       result = self.superclass.transform_json(json_hash, target)

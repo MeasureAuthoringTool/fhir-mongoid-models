@@ -2,15 +2,15 @@ module FHIR
   # fhir/encounter_hospitalization.rb
   class EncounterHospitalization < BackboneElement
     include Mongoid::Document
-    embeds_one :preAdmissionIdentifier, class_name: 'Identifier'
-    embeds_one :origin, class_name: 'Reference'
-    embeds_one :admitSource, class_name: 'CodeableConcept'
-    embeds_one :reAdmission, class_name: 'CodeableConcept'
-    embeds_many :dietPreference, class_name: 'CodeableConcept'
-    embeds_many :specialCourtesy, class_name: 'CodeableConcept'
-    embeds_many :specialArrangement, class_name: 'CodeableConcept'
-    embeds_one :destination, class_name: 'Reference'
-    embeds_one :dischargeDisposition, class_name: 'CodeableConcept'
+    embeds_one :preAdmissionIdentifier, class_name: 'FHIR::Identifier'
+    embeds_one :origin, class_name: 'FHIR::Reference'
+    embeds_one :admitSource, class_name: 'FHIR::CodeableConcept'
+    embeds_one :reAdmission, class_name: 'FHIR::CodeableConcept'
+    embeds_many :dietPreference, class_name: 'FHIR::CodeableConcept'
+    embeds_many :specialCourtesy, class_name: 'FHIR::CodeableConcept'
+    embeds_many :specialArrangement, class_name: 'FHIR::CodeableConcept'
+    embeds_one :destination, class_name: 'FHIR::Reference'
+    embeds_one :dischargeDisposition, class_name: 'FHIR::CodeableConcept'
 
     def self.transform_json(json_hash, target = EncounterHospitalization.new)
       result = self.superclass.transform_json(json_hash, target)

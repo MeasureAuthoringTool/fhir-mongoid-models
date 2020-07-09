@@ -2,8 +2,8 @@ module FHIR
   # fhir/audit_event_agent_network.rb
   class AuditEventAgentNetwork < BackboneElement
     include Mongoid::Document
-    embeds_one :address, class_name: 'PrimitiveString'
-    embeds_one :type, class_name: 'AuditEventAgentNetworkType'
+    embeds_one :address, class_name: 'FHIR::PrimitiveString'
+    embeds_one :type, class_name: 'FHIR::AuditEventAgentNetworkType'
 
     def self.transform_json(json_hash, target = AuditEventAgentNetwork.new)
       result = self.superclass.transform_json(json_hash, target)

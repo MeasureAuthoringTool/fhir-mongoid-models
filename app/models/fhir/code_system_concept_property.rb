@@ -2,14 +2,14 @@ module FHIR
   # fhir/code_system_concept_property.rb
   class CodeSystemConceptProperty < BackboneElement
     include Mongoid::Document
-    embeds_one :code, class_name: 'PrimitiveCode'
-    embeds_one :valueCode, class_name: 'PrimitiveCode'
-    embeds_one :valueCoding, class_name: 'Coding'
-    embeds_one :valueString, class_name: 'PrimitiveString'
-    embeds_one :valueInteger, class_name: 'PrimitiveInteger'
-    embeds_one :valueBoolean, class_name: 'PrimitiveBoolean'
-    embeds_one :valueDateTime, class_name: 'PrimitiveDateTime'
-    embeds_one :valueDecimal, class_name: 'PrimitiveDecimal'
+    embeds_one :code, class_name: 'FHIR::PrimitiveCode'
+    embeds_one :valueCode, class_name: 'FHIR::PrimitiveCode'
+    embeds_one :valueCoding, class_name: 'FHIR::Coding'
+    embeds_one :valueString, class_name: 'FHIR::PrimitiveString'
+    embeds_one :valueInteger, class_name: 'FHIR::PrimitiveInteger'
+    embeds_one :valueBoolean, class_name: 'FHIR::PrimitiveBoolean'
+    embeds_one :valueDateTime, class_name: 'FHIR::PrimitiveDateTime'
+    embeds_one :valueDecimal, class_name: 'FHIR::PrimitiveDecimal'
 
     def self.transform_json(json_hash, target = CodeSystemConceptProperty.new)
       result = self.superclass.transform_json(json_hash, target)

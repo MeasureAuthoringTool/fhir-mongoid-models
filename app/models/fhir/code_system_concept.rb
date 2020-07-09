@@ -2,12 +2,12 @@ module FHIR
   # fhir/code_system_concept.rb
   class CodeSystemConcept < BackboneElement
     include Mongoid::Document
-    embeds_one :code, class_name: 'PrimitiveCode'
-    embeds_one :display, class_name: 'PrimitiveString'
-    embeds_one :definition, class_name: 'PrimitiveString'
-    embeds_many :designation, class_name: 'CodeSystemConceptDesignation'
-    embeds_many :property, class_name: 'CodeSystemConceptProperty'
-    embeds_many :concept, class_name: 'CodeSystemConcept'
+    embeds_one :code, class_name: 'FHIR::PrimitiveCode'
+    embeds_one :display, class_name: 'FHIR::PrimitiveString'
+    embeds_one :definition, class_name: 'FHIR::PrimitiveString'
+    embeds_many :designation, class_name: 'FHIR::CodeSystemConceptDesignation'
+    embeds_many :property, class_name: 'FHIR::CodeSystemConceptProperty'
+    embeds_many :concept, class_name: 'FHIR::CodeSystemConcept'
 
     def self.transform_json(json_hash, target = CodeSystemConcept.new)
       result = self.superclass.transform_json(json_hash, target)

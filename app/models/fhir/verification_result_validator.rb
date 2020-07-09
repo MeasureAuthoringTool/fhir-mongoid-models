@@ -2,9 +2,9 @@ module FHIR
   # fhir/verification_result_validator.rb
   class VerificationResultValidator < BackboneElement
     include Mongoid::Document
-    embeds_one :organization, class_name: 'Reference'
-    embeds_one :identityCertificate, class_name: 'PrimitiveString'
-    embeds_one :attestationSignature, class_name: 'Signature'
+    embeds_one :organization, class_name: 'FHIR::Reference'
+    embeds_one :identityCertificate, class_name: 'FHIR::PrimitiveString'
+    embeds_one :attestationSignature, class_name: 'FHIR::Signature'
 
     def self.transform_json(json_hash, target = VerificationResultValidator.new)
       result = self.superclass.transform_json(json_hash, target)

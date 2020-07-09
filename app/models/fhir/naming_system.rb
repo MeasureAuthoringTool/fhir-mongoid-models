@@ -2,19 +2,19 @@ module FHIR
   # fhir/naming_system.rb
   class NamingSystem < DomainResource
     include Mongoid::Document
-    embeds_one :name, class_name: 'PrimitiveString'
-    embeds_one :status, class_name: 'PublicationStatus'
-    embeds_one :kind, class_name: 'NamingSystemType'
-    embeds_one :date, class_name: 'PrimitiveDateTime'
-    embeds_one :publisher, class_name: 'PrimitiveString'
-    embeds_many :contact, class_name: 'ContactDetail'
-    embeds_one :responsible, class_name: 'PrimitiveString'
-    embeds_one :type, class_name: 'CodeableConcept'
-    embeds_one :description, class_name: 'PrimitiveMarkdown'
-    embeds_many :useContext, class_name: 'UsageContext'
-    embeds_many :jurisdiction, class_name: 'CodeableConcept'
-    embeds_one :usage, class_name: 'PrimitiveString'
-    embeds_many :uniqueId, class_name: 'NamingSystemUniqueId'
+    embeds_one :name, class_name: 'FHIR::PrimitiveString'
+    embeds_one :status, class_name: 'FHIR::PublicationStatus'
+    embeds_one :kind, class_name: 'FHIR::NamingSystemType'
+    embeds_one :date, class_name: 'FHIR::PrimitiveDateTime'
+    embeds_one :publisher, class_name: 'FHIR::PrimitiveString'
+    embeds_many :contact, class_name: 'FHIR::ContactDetail'
+    embeds_one :responsible, class_name: 'FHIR::PrimitiveString'
+    embeds_one :type, class_name: 'FHIR::CodeableConcept'
+    embeds_one :description, class_name: 'FHIR::PrimitiveMarkdown'
+    embeds_many :useContext, class_name: 'FHIR::UsageContext'
+    embeds_many :jurisdiction, class_name: 'FHIR::CodeableConcept'
+    embeds_one :usage, class_name: 'FHIR::PrimitiveString'
+    embeds_many :uniqueId, class_name: 'FHIR::NamingSystemUniqueId'
 
     def self.transform_json(json_hash, target = NamingSystem.new)
       result = self.superclass.transform_json(json_hash, target)

@@ -2,19 +2,19 @@ module FHIR
   # fhir/substance_source_material.rb
   class SubstanceSourceMaterial < DomainResource
     include Mongoid::Document
-    embeds_one :sourceMaterialClass, class_name: 'CodeableConcept'
-    embeds_one :sourceMaterialType, class_name: 'CodeableConcept'
-    embeds_one :sourceMaterialState, class_name: 'CodeableConcept'
-    embeds_one :organismId, class_name: 'Identifier'
-    embeds_one :organismName, class_name: 'PrimitiveString'
-    embeds_many :parentSubstanceId, class_name: 'Identifier'
-    embeds_many :parentSubstanceName, class_name: 'PrimitiveString'
-    embeds_many :countryOfOrigin, class_name: 'CodeableConcept'
-    embeds_many :geographicalLocation, class_name: 'PrimitiveString'
-    embeds_one :developmentStage, class_name: 'CodeableConcept'
-    embeds_many :fractionDescription, class_name: 'SubstanceSourceMaterialFractionDescription'
-    embeds_one :organism, class_name: 'SubstanceSourceMaterialOrganism'
-    embeds_many :partDescription, class_name: 'SubstanceSourceMaterialPartDescription'
+    embeds_one :sourceMaterialClass, class_name: 'FHIR::CodeableConcept'
+    embeds_one :sourceMaterialType, class_name: 'FHIR::CodeableConcept'
+    embeds_one :sourceMaterialState, class_name: 'FHIR::CodeableConcept'
+    embeds_one :organismId, class_name: 'FHIR::Identifier'
+    embeds_one :organismName, class_name: 'FHIR::PrimitiveString'
+    embeds_many :parentSubstanceId, class_name: 'FHIR::Identifier'
+    embeds_many :parentSubstanceName, class_name: 'FHIR::PrimitiveString'
+    embeds_many :countryOfOrigin, class_name: 'FHIR::CodeableConcept'
+    embeds_many :geographicalLocation, class_name: 'FHIR::PrimitiveString'
+    embeds_one :developmentStage, class_name: 'FHIR::CodeableConcept'
+    embeds_many :fractionDescription, class_name: 'FHIR::SubstanceSourceMaterialFractionDescription'
+    embeds_one :organism, class_name: 'FHIR::SubstanceSourceMaterialOrganism'
+    embeds_many :partDescription, class_name: 'FHIR::SubstanceSourceMaterialPartDescription'
 
     def self.transform_json(json_hash, target = SubstanceSourceMaterial.new)
       result = self.superclass.transform_json(json_hash, target)
