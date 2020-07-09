@@ -13,7 +13,7 @@ jobs:
 
     services:
       mongodb:
-        image: mongo:4.2.8
+        image: mongo:3.4.23
         ports:
           - 27017:27017
 
@@ -26,7 +26,6 @@ jobs:
 
       - name: Install bundler & bundle-audit
         run: |
-          sudo apt-get -yqq install libpq-dev
           gem install bundler -v 2.1.4
           gem install bundle-audit
 
