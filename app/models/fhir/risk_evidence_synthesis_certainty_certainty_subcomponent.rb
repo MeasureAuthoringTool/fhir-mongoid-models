@@ -2,9 +2,9 @@ module FHIR
   # fhir/risk_evidence_synthesis_certainty_certainty_subcomponent.rb
   class RiskEvidenceSynthesisCertaintyCertaintySubcomponent < BackboneElement
     include Mongoid::Document
-    embeds_one :type, class_name: 'CodeableConcept'
-    embeds_many :rating, class_name: 'CodeableConcept'
-    embeds_many :note, class_name: 'Annotation'
+    embeds_one :type, class_name: 'FHIR::CodeableConcept'
+    embeds_many :rating, class_name: 'FHIR::CodeableConcept'
+    embeds_many :note, class_name: 'FHIR::Annotation'
 
     def self.transform_json(json_hash, target = RiskEvidenceSynthesisCertaintyCertaintySubcomponent.new)
       result = self.superclass.transform_json(json_hash, target)

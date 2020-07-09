@@ -2,9 +2,9 @@ module FHIR
   # fhir/coverage_class.rb
   class CoverageClass < BackboneElement
     include Mongoid::Document
-    embeds_one :type, class_name: 'CodeableConcept'
-    embeds_one :value, class_name: 'PrimitiveString'
-    embeds_one :name, class_name: 'PrimitiveString'
+    embeds_one :type, class_name: 'FHIR::CodeableConcept'
+    embeds_one :value, class_name: 'FHIR::PrimitiveString'
+    embeds_one :name, class_name: 'FHIR::PrimitiveString'
 
     def self.transform_json(json_hash, target = CoverageClass.new)
       result = self.superclass.transform_json(json_hash, target)

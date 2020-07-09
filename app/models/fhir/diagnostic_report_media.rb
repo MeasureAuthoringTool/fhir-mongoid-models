@@ -2,8 +2,8 @@ module FHIR
   # fhir/diagnostic_report_media.rb
   class DiagnosticReportMedia < BackboneElement
     include Mongoid::Document
-    embeds_one :comment, class_name: 'PrimitiveString'
-    embeds_one :link, class_name: 'Reference'
+    embeds_one :comment, class_name: 'FHIR::PrimitiveString'
+    embeds_one :link, class_name: 'FHIR::Reference'
 
     def self.transform_json(json_hash, target = DiagnosticReportMedia.new)
       result = self.superclass.transform_json(json_hash, target)

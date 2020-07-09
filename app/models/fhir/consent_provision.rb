@@ -2,17 +2,17 @@ module FHIR
   # fhir/consent_provision.rb
   class ConsentProvision < BackboneElement
     include Mongoid::Document
-    embeds_one :type, class_name: 'ConsentProvisionType'
-    embeds_one :period, class_name: 'Period'
-    embeds_many :actor, class_name: 'ConsentProvisionActor'
-    embeds_many :action, class_name: 'CodeableConcept'
-    embeds_many :securityLabel, class_name: 'Coding'
-    embeds_many :purpose, class_name: 'Coding'
-    embeds_many :class, class_name: 'Coding'
-    embeds_many :code, class_name: 'CodeableConcept'
-    embeds_one :dataPeriod, class_name: 'Period'
-    embeds_many :data, class_name: 'ConsentProvisionData'
-    embeds_many :provision, class_name: 'ConsentProvision'
+    embeds_one :type, class_name: 'FHIR::ConsentProvisionType'
+    embeds_one :period, class_name: 'FHIR::Period'
+    embeds_many :actor, class_name: 'FHIR::ConsentProvisionActor'
+    embeds_many :action, class_name: 'FHIR::CodeableConcept'
+    embeds_many :securityLabel, class_name: 'FHIR::Coding'
+    embeds_many :purpose, class_name: 'FHIR::Coding'
+    embeds_many :class, class_name: 'FHIR::Coding'
+    embeds_many :code, class_name: 'FHIR::CodeableConcept'
+    embeds_one :dataPeriod, class_name: 'FHIR::Period'
+    embeds_many :data, class_name: 'FHIR::ConsentProvisionData'
+    embeds_many :provision, class_name: 'FHIR::ConsentProvision'
 
     def self.transform_json(json_hash, target = ConsentProvision.new)
       result = self.superclass.transform_json(json_hash, target)

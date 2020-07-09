@@ -2,10 +2,10 @@ module FHIR
   # fhir/substance_polymer_repeat.rb
   class SubstancePolymerRepeat < BackboneElement
     include Mongoid::Document
-    embeds_one :numberOfUnits, class_name: 'PrimitiveInteger'
-    embeds_one :averageMolecularFormula, class_name: 'PrimitiveString'
-    embeds_one :repeatUnitAmountType, class_name: 'CodeableConcept'
-    embeds_many :repeatUnit, class_name: 'SubstancePolymerRepeatRepeatUnit'
+    embeds_one :numberOfUnits, class_name: 'FHIR::PrimitiveInteger'
+    embeds_one :averageMolecularFormula, class_name: 'FHIR::PrimitiveString'
+    embeds_one :repeatUnitAmountType, class_name: 'FHIR::CodeableConcept'
+    embeds_many :repeatUnit, class_name: 'FHIR::SubstancePolymerRepeatRepeatUnit'
 
     def self.transform_json(json_hash, target = SubstancePolymerRepeat.new)
       result = self.superclass.transform_json(json_hash, target)

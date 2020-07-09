@@ -2,8 +2,8 @@ module FHIR
   # fhir/imaging_study_series_performer.rb
   class ImagingStudySeriesPerformer < BackboneElement
     include Mongoid::Document
-    embeds_one :function, class_name: 'CodeableConcept'
-    embeds_one :actor, class_name: 'Reference'
+    embeds_one :function, class_name: 'FHIR::CodeableConcept'
+    embeds_one :actor, class_name: 'FHIR::Reference'
 
     def self.transform_json(json_hash, target = ImagingStudySeriesPerformer.new)
       result = self.superclass.transform_json(json_hash, target)

@@ -2,10 +2,10 @@ module FHIR
   # fhir/specimen_definition_type_tested_handling.rb
   class SpecimenDefinitionTypeTestedHandling < BackboneElement
     include Mongoid::Document
-    embeds_one :temperatureQualifier, class_name: 'CodeableConcept'
-    embeds_one :temperatureRange, class_name: 'Range'
-    embeds_one :maxDuration, class_name: 'Duration'
-    embeds_one :instruction, class_name: 'PrimitiveString'
+    embeds_one :temperatureQualifier, class_name: 'FHIR::CodeableConcept'
+    embeds_one :temperatureRange, class_name: 'FHIR::Range'
+    embeds_one :maxDuration, class_name: 'FHIR::Duration'
+    embeds_one :instruction, class_name: 'FHIR::PrimitiveString'
 
     def self.transform_json(json_hash, target = SpecimenDefinitionTypeTestedHandling.new)
       result = self.superclass.transform_json(json_hash, target)

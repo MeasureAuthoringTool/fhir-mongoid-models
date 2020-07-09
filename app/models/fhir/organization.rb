@@ -2,16 +2,16 @@ module FHIR
   # fhir/organization.rb
   class Organization < DomainResource
     include Mongoid::Document
-    embeds_many :identifier, class_name: 'Identifier'
-    embeds_one :active, class_name: 'PrimitiveBoolean'
-    embeds_many :type, class_name: 'CodeableConcept'
-    embeds_one :name, class_name: 'PrimitiveString'
-    embeds_many :alias, class_name: 'PrimitiveString'
-    embeds_many :telecom, class_name: 'ContactPoint'
-    embeds_many :address, class_name: 'Address'
-    embeds_one :partOf, class_name: 'Reference'
-    embeds_many :contact, class_name: 'OrganizationContact'
-    embeds_many :endpoint, class_name: 'Reference'
+    embeds_many :identifier, class_name: 'FHIR::Identifier'
+    embeds_one :active, class_name: 'FHIR::PrimitiveBoolean'
+    embeds_many :type, class_name: 'FHIR::CodeableConcept'
+    embeds_one :name, class_name: 'FHIR::PrimitiveString'
+    embeds_many :alias, class_name: 'FHIR::PrimitiveString'
+    embeds_many :telecom, class_name: 'FHIR::ContactPoint'
+    embeds_many :address, class_name: 'FHIR::Address'
+    embeds_one :partOf, class_name: 'FHIR::Reference'
+    embeds_many :contact, class_name: 'FHIR::OrganizationContact'
+    embeds_many :endpoint, class_name: 'FHIR::Reference'
 
     def self.transform_json(json_hash, target = Organization.new)
       result = self.superclass.transform_json(json_hash, target)

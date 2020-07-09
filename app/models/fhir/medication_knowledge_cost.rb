@@ -2,9 +2,9 @@ module FHIR
   # fhir/medication_knowledge_cost.rb
   class MedicationKnowledgeCost < BackboneElement
     include Mongoid::Document
-    embeds_one :type, class_name: 'CodeableConcept'
-    embeds_one :source, class_name: 'PrimitiveString'
-    embeds_one :cost, class_name: 'Money'
+    embeds_one :type, class_name: 'FHIR::CodeableConcept'
+    embeds_one :source, class_name: 'FHIR::PrimitiveString'
+    embeds_one :cost, class_name: 'FHIR::Money'
 
     def self.transform_json(json_hash, target = MedicationKnowledgeCost.new)
       result = self.superclass.transform_json(json_hash, target)

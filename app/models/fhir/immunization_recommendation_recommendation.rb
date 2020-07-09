@@ -2,20 +2,20 @@ module FHIR
   # fhir/immunization_recommendation_recommendation.rb
   class ImmunizationRecommendationRecommendation < BackboneElement
     include Mongoid::Document
-    embeds_many :vaccineCode, class_name: 'CodeableConcept'
-    embeds_one :targetDisease, class_name: 'CodeableConcept'
-    embeds_many :contraindicatedVaccineCode, class_name: 'CodeableConcept'
-    embeds_one :forecastStatus, class_name: 'CodeableConcept'
-    embeds_many :forecastReason, class_name: 'CodeableConcept'
-    embeds_many :dateCriterion, class_name: 'ImmunizationRecommendationRecommendationDateCriterion'
-    embeds_one :description, class_name: 'PrimitiveString'
-    embeds_one :series, class_name: 'PrimitiveString'
-    embeds_one :doseNumberPositiveInt, class_name: 'PrimitivePositiveInt'
-    embeds_one :doseNumberString, class_name: 'PrimitiveString'
-    embeds_one :seriesDosesPositiveInt, class_name: 'PrimitivePositiveInt'
-    embeds_one :seriesDosesString, class_name: 'PrimitiveString'
-    embeds_many :supportingImmunization, class_name: 'Reference'
-    embeds_many :supportingPatientInformation, class_name: 'Reference'
+    embeds_many :vaccineCode, class_name: 'FHIR::CodeableConcept'
+    embeds_one :targetDisease, class_name: 'FHIR::CodeableConcept'
+    embeds_many :contraindicatedVaccineCode, class_name: 'FHIR::CodeableConcept'
+    embeds_one :forecastStatus, class_name: 'FHIR::CodeableConcept'
+    embeds_many :forecastReason, class_name: 'FHIR::CodeableConcept'
+    embeds_many :dateCriterion, class_name: 'FHIR::ImmunizationRecommendationRecommendationDateCriterion'
+    embeds_one :description, class_name: 'FHIR::PrimitiveString'
+    embeds_one :series, class_name: 'FHIR::PrimitiveString'
+    embeds_one :doseNumberPositiveInt, class_name: 'FHIR::PrimitivePositiveInt'
+    embeds_one :doseNumberString, class_name: 'FHIR::PrimitiveString'
+    embeds_one :seriesDosesPositiveInt, class_name: 'FHIR::PrimitivePositiveInt'
+    embeds_one :seriesDosesString, class_name: 'FHIR::PrimitiveString'
+    embeds_many :supportingImmunization, class_name: 'FHIR::Reference'
+    embeds_many :supportingPatientInformation, class_name: 'FHIR::Reference'
 
     def self.transform_json(json_hash, target = ImmunizationRecommendationRecommendation.new)
       result = self.superclass.transform_json(json_hash, target)

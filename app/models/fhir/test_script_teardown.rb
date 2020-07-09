@@ -2,7 +2,7 @@ module FHIR
   # fhir/test_script_teardown.rb
   class TestScriptTeardown < BackboneElement
     include Mongoid::Document
-    embeds_many :action, class_name: 'TestScriptTeardownAction'
+    embeds_many :action, class_name: 'FHIR::TestScriptTeardownAction'
 
     def self.transform_json(json_hash, target = TestScriptTeardown.new)
       result = self.superclass.transform_json(json_hash, target)

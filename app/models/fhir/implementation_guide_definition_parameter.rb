@@ -2,8 +2,8 @@ module FHIR
   # fhir/implementation_guide_definition_parameter.rb
   class ImplementationGuideDefinitionParameter < BackboneElement
     include Mongoid::Document
-    embeds_one :code, class_name: 'GuideParameterCode'
-    embeds_one :value, class_name: 'PrimitiveString'
+    embeds_one :code, class_name: 'FHIR::GuideParameterCode'
+    embeds_one :value, class_name: 'FHIR::PrimitiveString'
 
     def self.transform_json(json_hash, target = ImplementationGuideDefinitionParameter.new)
       result = self.superclass.transform_json(json_hash, target)

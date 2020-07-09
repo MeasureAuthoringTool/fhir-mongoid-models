@@ -2,18 +2,18 @@ module FHIR
   # fhir/test_report.rb
   class TestReport < DomainResource
     include Mongoid::Document
-    embeds_one :identifier, class_name: 'Identifier'
-    embeds_one :name, class_name: 'PrimitiveString'
-    embeds_one :status, class_name: 'TestReportStatus'
-    embeds_one :testScript, class_name: 'Reference'
-    embeds_one :result, class_name: 'TestReportResult'
-    embeds_one :score, class_name: 'PrimitiveDecimal'
-    embeds_one :tester, class_name: 'PrimitiveString'
-    embeds_one :issued, class_name: 'PrimitiveDateTime'
-    embeds_many :participant, class_name: 'TestReportParticipant'
-    embeds_one :setup, class_name: 'TestReportSetup'
-    embeds_many :test, class_name: 'TestReportTest'
-    embeds_one :teardown, class_name: 'TestReportTeardown'
+    embeds_one :identifier, class_name: 'FHIR::Identifier'
+    embeds_one :name, class_name: 'FHIR::PrimitiveString'
+    embeds_one :status, class_name: 'FHIR::TestReportStatus'
+    embeds_one :testScript, class_name: 'FHIR::Reference'
+    embeds_one :result, class_name: 'FHIR::TestReportResult'
+    embeds_one :score, class_name: 'FHIR::PrimitiveDecimal'
+    embeds_one :tester, class_name: 'FHIR::PrimitiveString'
+    embeds_one :issued, class_name: 'FHIR::PrimitiveDateTime'
+    embeds_many :participant, class_name: 'FHIR::TestReportParticipant'
+    embeds_one :setup, class_name: 'FHIR::TestReportSetup'
+    embeds_many :test, class_name: 'FHIR::TestReportTest'
+    embeds_one :teardown, class_name: 'FHIR::TestReportTeardown'
 
     def self.transform_json(json_hash, target = TestReport.new)
       result = self.superclass.transform_json(json_hash, target)

@@ -2,10 +2,10 @@ module FHIR
   # fhir/effect_evidence_synthesis_results_by_exposure.rb
   class EffectEvidenceSynthesisResultsByExposure < BackboneElement
     include Mongoid::Document
-    embeds_one :description, class_name: 'PrimitiveString'
-    embeds_one :exposureState, class_name: 'ExposureState'
-    embeds_one :variantState, class_name: 'CodeableConcept'
-    embeds_one :riskEvidenceSynthesis, class_name: 'Reference'
+    embeds_one :description, class_name: 'FHIR::PrimitiveString'
+    embeds_one :exposureState, class_name: 'FHIR::ExposureState'
+    embeds_one :variantState, class_name: 'FHIR::CodeableConcept'
+    embeds_one :riskEvidenceSynthesis, class_name: 'FHIR::Reference'
 
     def self.transform_json(json_hash, target = EffectEvidenceSynthesisResultsByExposure.new)
       result = self.superclass.transform_json(json_hash, target)

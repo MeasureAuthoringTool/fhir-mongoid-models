@@ -2,12 +2,12 @@ module FHIR
   # fhir/nutrition_order_oral_diet.rb
   class NutritionOrderOralDiet < BackboneElement
     include Mongoid::Document
-    embeds_many :type, class_name: 'CodeableConcept'
-    embeds_many :schedule, class_name: 'Timing'
-    embeds_many :nutrient, class_name: 'NutritionOrderOralDietNutrient'
-    embeds_many :texture, class_name: 'NutritionOrderOralDietTexture'
-    embeds_many :fluidConsistencyType, class_name: 'CodeableConcept'
-    embeds_one :instruction, class_name: 'PrimitiveString'
+    embeds_many :type, class_name: 'FHIR::CodeableConcept'
+    embeds_many :schedule, class_name: 'FHIR::Timing'
+    embeds_many :nutrient, class_name: 'FHIR::NutritionOrderOralDietNutrient'
+    embeds_many :texture, class_name: 'FHIR::NutritionOrderOralDietTexture'
+    embeds_many :fluidConsistencyType, class_name: 'FHIR::CodeableConcept'
+    embeds_one :instruction, class_name: 'FHIR::PrimitiveString'
 
     def self.transform_json(json_hash, target = NutritionOrderOralDiet.new)
       result = self.superclass.transform_json(json_hash, target)

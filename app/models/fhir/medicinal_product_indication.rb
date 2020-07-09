@@ -2,15 +2,15 @@ module FHIR
   # fhir/medicinal_product_indication.rb
   class MedicinalProductIndication < DomainResource
     include Mongoid::Document
-    embeds_many :subject, class_name: 'Reference'
-    embeds_one :diseaseSymptomProcedure, class_name: 'CodeableConcept'
-    embeds_one :diseaseStatus, class_name: 'CodeableConcept'
-    embeds_many :comorbidity, class_name: 'CodeableConcept'
-    embeds_one :intendedEffect, class_name: 'CodeableConcept'
-    embeds_one :duration, class_name: 'Quantity'
-    embeds_many :otherTherapy, class_name: 'MedicinalProductIndicationOtherTherapy'
-    embeds_many :undesirableEffect, class_name: 'Reference'
-    embeds_many :population, class_name: 'Population'
+    embeds_many :subject, class_name: 'FHIR::Reference'
+    embeds_one :diseaseSymptomProcedure, class_name: 'FHIR::CodeableConcept'
+    embeds_one :diseaseStatus, class_name: 'FHIR::CodeableConcept'
+    embeds_many :comorbidity, class_name: 'FHIR::CodeableConcept'
+    embeds_one :intendedEffect, class_name: 'FHIR::CodeableConcept'
+    embeds_one :duration, class_name: 'FHIR::Quantity'
+    embeds_many :otherTherapy, class_name: 'FHIR::MedicinalProductIndicationOtherTherapy'
+    embeds_many :undesirableEffect, class_name: 'FHIR::Reference'
+    embeds_many :population, class_name: 'FHIR::Population'
 
     def self.transform_json(json_hash, target = MedicinalProductIndication.new)
       result = self.superclass.transform_json(json_hash, target)

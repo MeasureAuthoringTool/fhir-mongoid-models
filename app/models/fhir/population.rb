@@ -2,11 +2,11 @@ module FHIR
   # fhir/population.rb
   class Population < BackboneElement
     include Mongoid::Document
-    embeds_one :ageRange, class_name: 'Range'
-    embeds_one :ageCodeableConcept, class_name: 'CodeableConcept'
-    embeds_one :gender, class_name: 'CodeableConcept'
-    embeds_one :race, class_name: 'CodeableConcept'
-    embeds_one :physiologicalCondition, class_name: 'CodeableConcept'
+    embeds_one :ageRange, class_name: 'FHIR::Range'
+    embeds_one :ageCodeableConcept, class_name: 'FHIR::CodeableConcept'
+    embeds_one :gender, class_name: 'FHIR::CodeableConcept'
+    embeds_one :race, class_name: 'FHIR::CodeableConcept'
+    embeds_one :physiologicalCondition, class_name: 'FHIR::CodeableConcept'
 
     def self.transform_json(json_hash, target = Population.new)
       result = self.superclass.transform_json(json_hash, target)

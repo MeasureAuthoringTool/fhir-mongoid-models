@@ -2,15 +2,15 @@ module FHIR
   # fhir/specimen_collection.rb
   class SpecimenCollection < BackboneElement
     include Mongoid::Document
-    embeds_one :collector, class_name: 'Reference'
-    embeds_one :collectedDateTime, class_name: 'PrimitiveDateTime'
-    embeds_one :collectedPeriod, class_name: 'Period'
-    embeds_one :duration, class_name: 'Duration'
-    embeds_one :quantity, class_name: 'SimpleQuantity'
-    embeds_one :method, class_name: 'CodeableConcept'
-    embeds_one :bodySite, class_name: 'CodeableConcept'
-    embeds_one :fastingStatusCodeableConcept, class_name: 'CodeableConcept'
-    embeds_one :fastingStatusDuration, class_name: 'Duration'
+    embeds_one :collector, class_name: 'FHIR::Reference'
+    embeds_one :collectedDateTime, class_name: 'FHIR::PrimitiveDateTime'
+    embeds_one :collectedPeriod, class_name: 'FHIR::Period'
+    embeds_one :duration, class_name: 'FHIR::Duration'
+    embeds_one :quantity, class_name: 'FHIR::SimpleQuantity'
+    embeds_one :method, class_name: 'FHIR::CodeableConcept'
+    embeds_one :bodySite, class_name: 'FHIR::CodeableConcept'
+    embeds_one :fastingStatusCodeableConcept, class_name: 'FHIR::CodeableConcept'
+    embeds_one :fastingStatusDuration, class_name: 'FHIR::Duration'
 
     def self.transform_json(json_hash, target = SpecimenCollection.new)
       result = self.superclass.transform_json(json_hash, target)

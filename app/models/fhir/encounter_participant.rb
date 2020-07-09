@@ -2,9 +2,9 @@ module FHIR
   # fhir/encounter_participant.rb
   class EncounterParticipant < BackboneElement
     include Mongoid::Document
-    embeds_many :type, class_name: 'CodeableConcept'
-    embeds_one :period, class_name: 'Period'
-    embeds_one :individual, class_name: 'Reference'
+    embeds_many :type, class_name: 'FHIR::CodeableConcept'
+    embeds_one :period, class_name: 'FHIR::Period'
+    embeds_one :individual, class_name: 'FHIR::Reference'
 
     def self.transform_json(json_hash, target = EncounterParticipant.new)
       result = self.superclass.transform_json(json_hash, target)

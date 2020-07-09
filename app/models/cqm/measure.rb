@@ -28,5 +28,6 @@ module CQM
     embeds_one :fhir_measure, class_name: 'FHIR::Measure'
     embeds_many :libraries, class_name: 'FHIR::Library'
     has_and_belongs_to_many :value_sets, class_name: 'CQM::ValueSet', inverse_of: nil
+    has_one :package, class_name: 'CQM::MeasurePackage', inverse_of: :measure, dependent: :destroy
   end
 end

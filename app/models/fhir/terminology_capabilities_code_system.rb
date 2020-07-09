@@ -2,9 +2,9 @@ module FHIR
   # fhir/terminology_capabilities_code_system.rb
   class TerminologyCapabilitiesCodeSystem < BackboneElement
     include Mongoid::Document
-    embeds_one :uri, class_name: 'PrimitiveCanonical'
-    embeds_many :version, class_name: 'TerminologyCapabilitiesCodeSystemVersion'
-    embeds_one :subsumption, class_name: 'PrimitiveBoolean'
+    embeds_one :uri, class_name: 'FHIR::PrimitiveCanonical'
+    embeds_many :version, class_name: 'FHIR::TerminologyCapabilitiesCodeSystemVersion'
+    embeds_one :subsumption, class_name: 'FHIR::PrimitiveBoolean'
 
     def self.transform_json(json_hash, target = TerminologyCapabilitiesCodeSystem.new)
       result = self.superclass.transform_json(json_hash, target)

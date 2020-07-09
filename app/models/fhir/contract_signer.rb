@@ -2,9 +2,9 @@ module FHIR
   # fhir/contract_signer.rb
   class ContractSigner < BackboneElement
     include Mongoid::Document
-    embeds_one :type, class_name: 'Coding'
-    embeds_one :party, class_name: 'Reference'
-    embeds_many :signature, class_name: 'Signature'
+    embeds_one :type, class_name: 'FHIR::Coding'
+    embeds_one :party, class_name: 'FHIR::Reference'
+    embeds_many :signature, class_name: 'FHIR::Signature'
 
     def self.transform_json(json_hash, target = ContractSigner.new)
       result = self.superclass.transform_json(json_hash, target)

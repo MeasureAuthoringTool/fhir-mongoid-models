@@ -2,10 +2,10 @@ module FHIR
   # fhir/explanation_of_benefit_accident.rb
   class ExplanationOfBenefitAccident < BackboneElement
     include Mongoid::Document
-    embeds_one :date, class_name: 'PrimitiveDate'
-    embeds_one :type, class_name: 'CodeableConcept'
-    embeds_one :locationAddress, class_name: 'Address'
-    embeds_one :locationReference, class_name: 'Reference'
+    embeds_one :date, class_name: 'FHIR::PrimitiveDate'
+    embeds_one :type, class_name: 'FHIR::CodeableConcept'
+    embeds_one :locationAddress, class_name: 'FHIR::Address'
+    embeds_one :locationReference, class_name: 'FHIR::Reference'
 
     def self.transform_json(json_hash, target = ExplanationOfBenefitAccident.new)
       result = self.superclass.transform_json(json_hash, target)

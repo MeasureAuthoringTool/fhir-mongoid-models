@@ -2,12 +2,12 @@ module FHIR
   # fhir/molecular_sequence_variant.rb
   class MolecularSequenceVariant < BackboneElement
     include Mongoid::Document
-    embeds_one :start, class_name: 'PrimitiveInteger'
-    embeds_one :end, class_name: 'PrimitiveInteger'
-    embeds_one :observedAllele, class_name: 'PrimitiveString'
-    embeds_one :referenceAllele, class_name: 'PrimitiveString'
-    embeds_one :cigar, class_name: 'PrimitiveString'
-    embeds_one :variantPointer, class_name: 'Reference'
+    embeds_one :start, class_name: 'FHIR::PrimitiveInteger'
+    embeds_one :end, class_name: 'FHIR::PrimitiveInteger'
+    embeds_one :observedAllele, class_name: 'FHIR::PrimitiveString'
+    embeds_one :referenceAllele, class_name: 'FHIR::PrimitiveString'
+    embeds_one :cigar, class_name: 'FHIR::PrimitiveString'
+    embeds_one :variantPointer, class_name: 'FHIR::Reference'
 
     def self.transform_json(json_hash, target = MolecularSequenceVariant.new)
       result = self.superclass.transform_json(json_hash, target)

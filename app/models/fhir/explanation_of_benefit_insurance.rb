@@ -2,9 +2,9 @@ module FHIR
   # fhir/explanation_of_benefit_insurance.rb
   class ExplanationOfBenefitInsurance < BackboneElement
     include Mongoid::Document
-    embeds_one :focal, class_name: 'PrimitiveBoolean'
-    embeds_one :coverage, class_name: 'Reference'
-    embeds_many :preAuthRef, class_name: 'PrimitiveString'
+    embeds_one :focal, class_name: 'FHIR::PrimitiveBoolean'
+    embeds_one :coverage, class_name: 'FHIR::Reference'
+    embeds_many :preAuthRef, class_name: 'FHIR::PrimitiveString'
 
     def self.transform_json(json_hash, target = ExplanationOfBenefitInsurance.new)
       result = self.superclass.transform_json(json_hash, target)

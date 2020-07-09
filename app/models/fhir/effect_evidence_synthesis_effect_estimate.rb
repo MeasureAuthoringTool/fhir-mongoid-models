@@ -2,12 +2,12 @@ module FHIR
   # fhir/effect_evidence_synthesis_effect_estimate.rb
   class EffectEvidenceSynthesisEffectEstimate < BackboneElement
     include Mongoid::Document
-    embeds_one :description, class_name: 'PrimitiveString'
-    embeds_one :type, class_name: 'CodeableConcept'
-    embeds_one :variantState, class_name: 'CodeableConcept'
-    embeds_one :value, class_name: 'PrimitiveDecimal'
-    embeds_one :unitOfMeasure, class_name: 'CodeableConcept'
-    embeds_many :precisionEstimate, class_name: 'EffectEvidenceSynthesisEffectEstimatePrecisionEstimate'
+    embeds_one :description, class_name: 'FHIR::PrimitiveString'
+    embeds_one :type, class_name: 'FHIR::CodeableConcept'
+    embeds_one :variantState, class_name: 'FHIR::CodeableConcept'
+    embeds_one :value, class_name: 'FHIR::PrimitiveDecimal'
+    embeds_one :unitOfMeasure, class_name: 'FHIR::CodeableConcept'
+    embeds_many :precisionEstimate, class_name: 'FHIR::EffectEvidenceSynthesisEffectEstimatePrecisionEstimate'
 
     def self.transform_json(json_hash, target = EffectEvidenceSynthesisEffectEstimate.new)
       result = self.superclass.transform_json(json_hash, target)

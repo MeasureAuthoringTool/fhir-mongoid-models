@@ -2,12 +2,12 @@ module FHIR
   # fhir/example_scenario_instance.rb
   class ExampleScenarioInstance < BackboneElement
     include Mongoid::Document
-    embeds_one :resourceId, class_name: 'PrimitiveString'
-    embeds_one :resourceType, class_name: 'FHIRResourceType'
-    embeds_one :name, class_name: 'PrimitiveString'
-    embeds_one :description, class_name: 'PrimitiveMarkdown'
-    embeds_many :version, class_name: 'ExampleScenarioInstanceVersion'
-    embeds_many :containedInstance, class_name: 'ExampleScenarioInstanceContainedInstance'
+    embeds_one :resourceId, class_name: 'FHIR::PrimitiveString'
+    embeds_one :resourceType, class_name: 'FHIR::FHIRResourceType'
+    embeds_one :name, class_name: 'FHIR::PrimitiveString'
+    embeds_one :description, class_name: 'FHIR::PrimitiveMarkdown'
+    embeds_many :version, class_name: 'FHIR::ExampleScenarioInstanceVersion'
+    embeds_many :containedInstance, class_name: 'FHIR::ExampleScenarioInstanceContainedInstance'
 
     def self.transform_json(json_hash, target = ExampleScenarioInstance.new)
       result = self.superclass.transform_json(json_hash, target)

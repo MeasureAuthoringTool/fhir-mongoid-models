@@ -2,11 +2,11 @@ module FHIR
   # fhir/care_plan_activity.rb
   class CarePlanActivity < BackboneElement
     include Mongoid::Document
-    embeds_many :outcomeCodeableConcept, class_name: 'CodeableConcept'
-    embeds_many :outcomeReference, class_name: 'Reference'
-    embeds_many :progress, class_name: 'Annotation'
-    embeds_one :reference, class_name: 'Reference'
-    embeds_one :detail, class_name: 'CarePlanActivityDetail'
+    embeds_many :outcomeCodeableConcept, class_name: 'FHIR::CodeableConcept'
+    embeds_many :outcomeReference, class_name: 'FHIR::Reference'
+    embeds_many :progress, class_name: 'FHIR::Annotation'
+    embeds_one :reference, class_name: 'FHIR::Reference'
+    embeds_one :detail, class_name: 'FHIR::CarePlanActivityDetail'
 
     def self.transform_json(json_hash, target = CarePlanActivity.new)
       result = self.superclass.transform_json(json_hash, target)

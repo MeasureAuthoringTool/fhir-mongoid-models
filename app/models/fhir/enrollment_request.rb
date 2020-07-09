@@ -2,13 +2,13 @@ module FHIR
   # fhir/enrollment_request.rb
   class EnrollmentRequest < DomainResource
     include Mongoid::Document
-    embeds_many :identifier, class_name: 'Identifier'
-    embeds_one :status, class_name: 'EnrollmentRequestStatus'
-    embeds_one :created, class_name: 'PrimitiveDateTime'
-    embeds_one :insurer, class_name: 'Reference'
-    embeds_one :provider, class_name: 'Reference'
-    embeds_one :candidate, class_name: 'Reference'
-    embeds_one :coverage, class_name: 'Reference'
+    embeds_many :identifier, class_name: 'FHIR::Identifier'
+    embeds_one :status, class_name: 'FHIR::EnrollmentRequestStatus'
+    embeds_one :created, class_name: 'FHIR::PrimitiveDateTime'
+    embeds_one :insurer, class_name: 'FHIR::Reference'
+    embeds_one :provider, class_name: 'FHIR::Reference'
+    embeds_one :candidate, class_name: 'FHIR::Reference'
+    embeds_one :coverage, class_name: 'FHIR::Reference'
 
     def self.transform_json(json_hash, target = EnrollmentRequest.new)
       result = self.superclass.transform_json(json_hash, target)

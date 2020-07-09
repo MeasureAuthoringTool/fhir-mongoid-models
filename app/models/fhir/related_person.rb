@@ -2,18 +2,18 @@ module FHIR
   # fhir/related_person.rb
   class RelatedPerson < DomainResource
     include Mongoid::Document
-    embeds_many :identifier, class_name: 'Identifier'
-    embeds_one :active, class_name: 'PrimitiveBoolean'
-    embeds_one :patient, class_name: 'Reference'
-    embeds_many :relationship, class_name: 'CodeableConcept'
-    embeds_many :name, class_name: 'HumanName'
-    embeds_many :telecom, class_name: 'ContactPoint'
-    embeds_one :gender, class_name: 'AdministrativeGender'
-    embeds_one :birthDate, class_name: 'PrimitiveDate'
-    embeds_many :address, class_name: 'Address'
-    embeds_many :photo, class_name: 'Attachment'
-    embeds_one :period, class_name: 'Period'
-    embeds_many :communication, class_name: 'RelatedPersonCommunication'
+    embeds_many :identifier, class_name: 'FHIR::Identifier'
+    embeds_one :active, class_name: 'FHIR::PrimitiveBoolean'
+    embeds_one :patient, class_name: 'FHIR::Reference'
+    embeds_many :relationship, class_name: 'FHIR::CodeableConcept'
+    embeds_many :name, class_name: 'FHIR::HumanName'
+    embeds_many :telecom, class_name: 'FHIR::ContactPoint'
+    embeds_one :gender, class_name: 'FHIR::AdministrativeGender'
+    embeds_one :birthDate, class_name: 'FHIR::PrimitiveDate'
+    embeds_many :address, class_name: 'FHIR::Address'
+    embeds_many :photo, class_name: 'FHIR::Attachment'
+    embeds_one :period, class_name: 'FHIR::Period'
+    embeds_many :communication, class_name: 'FHIR::RelatedPersonCommunication'
 
     def self.transform_json(json_hash, target = RelatedPerson.new)
       result = self.superclass.transform_json(json_hash, target)

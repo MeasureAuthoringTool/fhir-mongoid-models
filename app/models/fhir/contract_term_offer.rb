@@ -2,16 +2,16 @@ module FHIR
   # fhir/contract_term_offer.rb
   class ContractTermOffer < BackboneElement
     include Mongoid::Document
-    embeds_many :identifier, class_name: 'Identifier'
-    embeds_many :party, class_name: 'ContractTermOfferParty'
-    embeds_one :topic, class_name: 'Reference'
-    embeds_one :type, class_name: 'CodeableConcept'
-    embeds_one :decision, class_name: 'CodeableConcept'
-    embeds_many :decisionMode, class_name: 'CodeableConcept'
-    embeds_many :answer, class_name: 'ContractTermOfferAnswer'
-    embeds_one :text, class_name: 'PrimitiveString'
-    embeds_many :linkId, class_name: 'PrimitiveString'
-    embeds_many :securityLabelNumber, class_name: 'PrimitiveUnsignedInt'
+    embeds_many :identifier, class_name: 'FHIR::Identifier'
+    embeds_many :party, class_name: 'FHIR::ContractTermOfferParty'
+    embeds_one :topic, class_name: 'FHIR::Reference'
+    embeds_one :type, class_name: 'FHIR::CodeableConcept'
+    embeds_one :decision, class_name: 'FHIR::CodeableConcept'
+    embeds_many :decisionMode, class_name: 'FHIR::CodeableConcept'
+    embeds_many :answer, class_name: 'FHIR::ContractTermOfferAnswer'
+    embeds_one :text, class_name: 'FHIR::PrimitiveString'
+    embeds_many :linkId, class_name: 'FHIR::PrimitiveString'
+    embeds_many :securityLabelNumber, class_name: 'FHIR::PrimitiveUnsignedInt'
 
     def self.transform_json(json_hash, target = ContractTermOffer.new)
       result = self.superclass.transform_json(json_hash, target)

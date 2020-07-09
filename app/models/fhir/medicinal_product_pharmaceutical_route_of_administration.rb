@@ -2,13 +2,13 @@ module FHIR
   # fhir/medicinal_product_pharmaceutical_route_of_administration.rb
   class MedicinalProductPharmaceuticalRouteOfAdministration < BackboneElement
     include Mongoid::Document
-    embeds_one :code, class_name: 'CodeableConcept'
-    embeds_one :firstDose, class_name: 'Quantity'
-    embeds_one :maxSingleDose, class_name: 'Quantity'
-    embeds_one :maxDosePerDay, class_name: 'Quantity'
-    embeds_one :maxDosePerTreatmentPeriod, class_name: 'Ratio'
-    embeds_one :maxTreatmentPeriod, class_name: 'Duration'
-    embeds_many :targetSpecies, class_name: 'MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpecies'
+    embeds_one :code, class_name: 'FHIR::CodeableConcept'
+    embeds_one :firstDose, class_name: 'FHIR::Quantity'
+    embeds_one :maxSingleDose, class_name: 'FHIR::Quantity'
+    embeds_one :maxDosePerDay, class_name: 'FHIR::Quantity'
+    embeds_one :maxDosePerTreatmentPeriod, class_name: 'FHIR::Ratio'
+    embeds_one :maxTreatmentPeriod, class_name: 'FHIR::Duration'
+    embeds_many :targetSpecies, class_name: 'FHIR::MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpecies'
 
     def self.transform_json(json_hash, target = MedicinalProductPharmaceuticalRouteOfAdministration.new)
       result = self.superclass.transform_json(json_hash, target)

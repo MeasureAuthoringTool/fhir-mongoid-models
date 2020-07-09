@@ -2,9 +2,9 @@ module FHIR
   # fhir/substance_instance.rb
   class SubstanceInstance < BackboneElement
     include Mongoid::Document
-    embeds_one :identifier, class_name: 'Identifier'
-    embeds_one :expiry, class_name: 'PrimitiveDateTime'
-    embeds_one :quantity, class_name: 'SimpleQuantity'
+    embeds_one :identifier, class_name: 'FHIR::Identifier'
+    embeds_one :expiry, class_name: 'FHIR::PrimitiveDateTime'
+    embeds_one :quantity, class_name: 'FHIR::SimpleQuantity'
 
     def self.transform_json(json_hash, target = SubstanceInstance.new)
       result = self.superclass.transform_json(json_hash, target)

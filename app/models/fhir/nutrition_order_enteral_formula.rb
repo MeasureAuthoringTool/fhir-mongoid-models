@@ -2,15 +2,15 @@ module FHIR
   # fhir/nutrition_order_enteral_formula.rb
   class NutritionOrderEnteralFormula < BackboneElement
     include Mongoid::Document
-    embeds_one :baseFormulaType, class_name: 'CodeableConcept'
-    embeds_one :baseFormulaProductName, class_name: 'PrimitiveString'
-    embeds_one :additiveType, class_name: 'CodeableConcept'
-    embeds_one :additiveProductName, class_name: 'PrimitiveString'
-    embeds_one :caloricDensity, class_name: 'SimpleQuantity'
-    embeds_one :routeofAdministration, class_name: 'CodeableConcept'
-    embeds_many :administration, class_name: 'NutritionOrderEnteralFormulaAdministration'
-    embeds_one :maxVolumeToDeliver, class_name: 'SimpleQuantity'
-    embeds_one :administrationInstruction, class_name: 'PrimitiveString'
+    embeds_one :baseFormulaType, class_name: 'FHIR::CodeableConcept'
+    embeds_one :baseFormulaProductName, class_name: 'FHIR::PrimitiveString'
+    embeds_one :additiveType, class_name: 'FHIR::CodeableConcept'
+    embeds_one :additiveProductName, class_name: 'FHIR::PrimitiveString'
+    embeds_one :caloricDensity, class_name: 'FHIR::SimpleQuantity'
+    embeds_one :routeofAdministration, class_name: 'FHIR::CodeableConcept'
+    embeds_many :administration, class_name: 'FHIR::NutritionOrderEnteralFormulaAdministration'
+    embeds_one :maxVolumeToDeliver, class_name: 'FHIR::SimpleQuantity'
+    embeds_one :administrationInstruction, class_name: 'FHIR::PrimitiveString'
 
     def self.transform_json(json_hash, target = NutritionOrderEnteralFormula.new)
       result = self.superclass.transform_json(json_hash, target)

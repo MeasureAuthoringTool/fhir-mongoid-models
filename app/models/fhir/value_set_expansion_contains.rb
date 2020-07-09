@@ -2,14 +2,14 @@ module FHIR
   # fhir/value_set_expansion_contains.rb
   class ValueSetExpansionContains < BackboneElement
     include Mongoid::Document
-    embeds_one :system, class_name: 'PrimitiveUri'
-    embeds_one :abstract, class_name: 'PrimitiveBoolean'
-    embeds_one :inactive, class_name: 'PrimitiveBoolean'
-    embeds_one :version, class_name: 'PrimitiveString'
-    embeds_one :code, class_name: 'PrimitiveCode'
-    embeds_one :display, class_name: 'PrimitiveString'
-    embeds_many :designation, class_name: 'ValueSetComposeIncludeConceptDesignation'
-    embeds_many :contains, class_name: 'ValueSetExpansionContains'
+    embeds_one :system, class_name: 'FHIR::PrimitiveUri'
+    embeds_one :abstract, class_name: 'FHIR::PrimitiveBoolean'
+    embeds_one :inactive, class_name: 'FHIR::PrimitiveBoolean'
+    embeds_one :version, class_name: 'FHIR::PrimitiveString'
+    embeds_one :code, class_name: 'FHIR::PrimitiveCode'
+    embeds_one :display, class_name: 'FHIR::PrimitiveString'
+    embeds_many :designation, class_name: 'FHIR::ValueSetComposeIncludeConceptDesignation'
+    embeds_many :contains, class_name: 'FHIR::ValueSetExpansionContains'
 
     def self.transform_json(json_hash, target = ValueSetExpansionContains.new)
       result = self.superclass.transform_json(json_hash, target)

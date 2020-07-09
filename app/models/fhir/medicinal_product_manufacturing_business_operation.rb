@@ -2,12 +2,12 @@ module FHIR
   # fhir/medicinal_product_manufacturing_business_operation.rb
   class MedicinalProductManufacturingBusinessOperation < BackboneElement
     include Mongoid::Document
-    embeds_one :operationType, class_name: 'CodeableConcept'
-    embeds_one :authorisationReferenceNumber, class_name: 'Identifier'
-    embeds_one :effectiveDate, class_name: 'PrimitiveDateTime'
-    embeds_one :confidentialityIndicator, class_name: 'CodeableConcept'
-    embeds_many :manufacturer, class_name: 'Reference'
-    embeds_one :regulator, class_name: 'Reference'
+    embeds_one :operationType, class_name: 'FHIR::CodeableConcept'
+    embeds_one :authorisationReferenceNumber, class_name: 'FHIR::Identifier'
+    embeds_one :effectiveDate, class_name: 'FHIR::PrimitiveDateTime'
+    embeds_one :confidentialityIndicator, class_name: 'FHIR::CodeableConcept'
+    embeds_many :manufacturer, class_name: 'FHIR::Reference'
+    embeds_one :regulator, class_name: 'FHIR::Reference'
 
     def self.transform_json(json_hash, target = MedicinalProductManufacturingBusinessOperation.new)
       result = self.superclass.transform_json(json_hash, target)

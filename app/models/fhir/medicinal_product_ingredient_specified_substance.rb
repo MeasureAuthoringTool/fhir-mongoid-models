@@ -2,10 +2,10 @@ module FHIR
   # fhir/medicinal_product_ingredient_specified_substance.rb
   class MedicinalProductIngredientSpecifiedSubstance < BackboneElement
     include Mongoid::Document
-    embeds_one :code, class_name: 'CodeableConcept'
-    embeds_one :group, class_name: 'CodeableConcept'
-    embeds_one :confidentiality, class_name: 'CodeableConcept'
-    embeds_many :strength, class_name: 'MedicinalProductIngredientSpecifiedSubstanceStrength'
+    embeds_one :code, class_name: 'FHIR::CodeableConcept'
+    embeds_one :group, class_name: 'FHIR::CodeableConcept'
+    embeds_one :confidentiality, class_name: 'FHIR::CodeableConcept'
+    embeds_many :strength, class_name: 'FHIR::MedicinalProductIngredientSpecifiedSubstanceStrength'
 
     def self.transform_json(json_hash, target = MedicinalProductIngredientSpecifiedSubstance.new)
       result = self.superclass.transform_json(json_hash, target)

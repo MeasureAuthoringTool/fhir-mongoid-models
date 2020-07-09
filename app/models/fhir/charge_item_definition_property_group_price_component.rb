@@ -2,10 +2,10 @@ module FHIR
   # fhir/charge_item_definition_property_group_price_component.rb
   class ChargeItemDefinitionPropertyGroupPriceComponent < BackboneElement
     include Mongoid::Document
-    embeds_one :type, class_name: 'ChargeItemDefinitionPriceComponentType'
-    embeds_one :code, class_name: 'CodeableConcept'
-    embeds_one :factor, class_name: 'PrimitiveDecimal'
-    embeds_one :amount, class_name: 'Money'
+    embeds_one :type, class_name: 'FHIR::ChargeItemDefinitionPriceComponentType'
+    embeds_one :code, class_name: 'FHIR::CodeableConcept'
+    embeds_one :factor, class_name: 'FHIR::PrimitiveDecimal'
+    embeds_one :amount, class_name: 'FHIR::Money'
 
     def self.transform_json(json_hash, target = ChargeItemDefinitionPropertyGroupPriceComponent.new)
       result = self.superclass.transform_json(json_hash, target)

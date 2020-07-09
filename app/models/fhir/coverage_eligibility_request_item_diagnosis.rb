@@ -2,8 +2,8 @@ module FHIR
   # fhir/coverage_eligibility_request_item_diagnosis.rb
   class CoverageEligibilityRequestItemDiagnosis < BackboneElement
     include Mongoid::Document
-    embeds_one :diagnosisCodeableConcept, class_name: 'CodeableConcept'
-    embeds_one :diagnosisReference, class_name: 'Reference'
+    embeds_one :diagnosisCodeableConcept, class_name: 'FHIR::CodeableConcept'
+    embeds_one :diagnosisReference, class_name: 'FHIR::Reference'
 
     def self.transform_json(json_hash, target = CoverageEligibilityRequestItemDiagnosis.new)
       result = self.superclass.transform_json(json_hash, target)

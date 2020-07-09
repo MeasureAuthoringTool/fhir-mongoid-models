@@ -2,14 +2,14 @@ module FHIR
   # fhir/body_structure.rb
   class BodyStructure < DomainResource
     include Mongoid::Document
-    embeds_many :identifier, class_name: 'Identifier'
-    embeds_one :active, class_name: 'PrimitiveBoolean'
-    embeds_one :morphology, class_name: 'CodeableConcept'
-    embeds_one :location, class_name: 'CodeableConcept'
-    embeds_many :locationQualifier, class_name: 'CodeableConcept'
-    embeds_one :description, class_name: 'PrimitiveString'
-    embeds_many :image, class_name: 'Attachment'
-    embeds_one :patient, class_name: 'Reference'
+    embeds_many :identifier, class_name: 'FHIR::Identifier'
+    embeds_one :active, class_name: 'FHIR::PrimitiveBoolean'
+    embeds_one :morphology, class_name: 'FHIR::CodeableConcept'
+    embeds_one :location, class_name: 'FHIR::CodeableConcept'
+    embeds_many :locationQualifier, class_name: 'FHIR::CodeableConcept'
+    embeds_one :description, class_name: 'FHIR::PrimitiveString'
+    embeds_many :image, class_name: 'FHIR::Attachment'
+    embeds_one :patient, class_name: 'FHIR::Reference'
 
     def self.transform_json(json_hash, target = BodyStructure.new)
       result = self.superclass.transform_json(json_hash, target)

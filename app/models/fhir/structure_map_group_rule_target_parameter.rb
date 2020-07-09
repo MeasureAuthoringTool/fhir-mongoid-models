@@ -2,11 +2,11 @@ module FHIR
   # fhir/structure_map_group_rule_target_parameter.rb
   class StructureMapGroupRuleTargetParameter < BackboneElement
     include Mongoid::Document
-    embeds_one :valueId, class_name: 'PrimitiveId'
-    embeds_one :valueString, class_name: 'PrimitiveString'
-    embeds_one :valueBoolean, class_name: 'PrimitiveBoolean'
-    embeds_one :valueInteger, class_name: 'PrimitiveInteger'
-    embeds_one :valueDecimal, class_name: 'PrimitiveDecimal'
+    embeds_one :valueId, class_name: 'FHIR::PrimitiveId'
+    embeds_one :valueString, class_name: 'FHIR::PrimitiveString'
+    embeds_one :valueBoolean, class_name: 'FHIR::PrimitiveBoolean'
+    embeds_one :valueInteger, class_name: 'FHIR::PrimitiveInteger'
+    embeds_one :valueDecimal, class_name: 'FHIR::PrimitiveDecimal'
 
     def self.transform_json(json_hash, target = StructureMapGroupRuleTargetParameter.new)
       result = self.superclass.transform_json(json_hash, target)

@@ -2,9 +2,9 @@ module FHIR
   # fhir/device_metric_calibration.rb
   class DeviceMetricCalibration < BackboneElement
     include Mongoid::Document
-    embeds_one :type, class_name: 'DeviceMetricCalibrationType'
-    embeds_one :state, class_name: 'DeviceMetricCalibrationState'
-    embeds_one :time, class_name: 'PrimitiveInstant'
+    embeds_one :type, class_name: 'FHIR::DeviceMetricCalibrationType'
+    embeds_one :state, class_name: 'FHIR::DeviceMetricCalibrationState'
+    embeds_one :time, class_name: 'FHIR::PrimitiveInstant'
 
     def self.transform_json(json_hash, target = DeviceMetricCalibration.new)
       result = self.superclass.transform_json(json_hash, target)

@@ -2,9 +2,9 @@ module FHIR
   # fhir/value_set_compose_include_concept_designation.rb
   class ValueSetComposeIncludeConceptDesignation < BackboneElement
     include Mongoid::Document
-    embeds_one :language, class_name: 'PrimitiveCode'
-    embeds_one :use, class_name: 'Coding'
-    embeds_one :value, class_name: 'PrimitiveString'
+    embeds_one :language, class_name: 'FHIR::PrimitiveCode'
+    embeds_one :use, class_name: 'FHIR::Coding'
+    embeds_one :value, class_name: 'FHIR::PrimitiveString'
 
     def self.transform_json(json_hash, target = ValueSetComposeIncludeConceptDesignation.new)
       result = self.superclass.transform_json(json_hash, target)

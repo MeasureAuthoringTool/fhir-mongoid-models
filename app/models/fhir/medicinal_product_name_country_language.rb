@@ -2,9 +2,9 @@ module FHIR
   # fhir/medicinal_product_name_country_language.rb
   class MedicinalProductNameCountryLanguage < BackboneElement
     include Mongoid::Document
-    embeds_one :country, class_name: 'CodeableConcept'
-    embeds_one :jurisdiction, class_name: 'CodeableConcept'
-    embeds_one :language, class_name: 'CodeableConcept'
+    embeds_one :country, class_name: 'FHIR::CodeableConcept'
+    embeds_one :jurisdiction, class_name: 'FHIR::CodeableConcept'
+    embeds_one :language, class_name: 'FHIR::CodeableConcept'
 
     def self.transform_json(json_hash, target = MedicinalProductNameCountryLanguage.new)
       result = self.superclass.transform_json(json_hash, target)

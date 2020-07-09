@@ -2,17 +2,17 @@ module FHIR
   # fhir/questionnaire_response.rb
   class QuestionnaireResponse < DomainResource
     include Mongoid::Document
-    embeds_one :identifier, class_name: 'Identifier'
-    embeds_many :basedOn, class_name: 'Reference'
-    embeds_many :partOf, class_name: 'Reference'
-    embeds_one :questionnaire, class_name: 'PrimitiveCanonical'
-    embeds_one :status, class_name: 'QuestionnaireResponseStatus'
-    embeds_one :subject, class_name: 'Reference'
-    embeds_one :encounter, class_name: 'Reference'
-    embeds_one :authored, class_name: 'PrimitiveDateTime'
-    embeds_one :author, class_name: 'Reference'
-    embeds_one :source, class_name: 'Reference'
-    embeds_many :item, class_name: 'QuestionnaireResponseItem'
+    embeds_one :identifier, class_name: 'FHIR::Identifier'
+    embeds_many :basedOn, class_name: 'FHIR::Reference'
+    embeds_many :partOf, class_name: 'FHIR::Reference'
+    embeds_one :questionnaire, class_name: 'FHIR::PrimitiveCanonical'
+    embeds_one :status, class_name: 'FHIR::QuestionnaireResponseStatus'
+    embeds_one :subject, class_name: 'FHIR::Reference'
+    embeds_one :encounter, class_name: 'FHIR::Reference'
+    embeds_one :authored, class_name: 'FHIR::PrimitiveDateTime'
+    embeds_one :author, class_name: 'FHIR::Reference'
+    embeds_one :source, class_name: 'FHIR::Reference'
+    embeds_many :item, class_name: 'FHIR::QuestionnaireResponseItem'
 
     def self.transform_json(json_hash, target = QuestionnaireResponse.new)
       result = self.superclass.transform_json(json_hash, target)

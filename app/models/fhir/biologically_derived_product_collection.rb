@@ -2,10 +2,10 @@ module FHIR
   # fhir/biologically_derived_product_collection.rb
   class BiologicallyDerivedProductCollection < BackboneElement
     include Mongoid::Document
-    embeds_one :collector, class_name: 'Reference'
-    embeds_one :source, class_name: 'Reference'
-    embeds_one :collectedDateTime, class_name: 'PrimitiveDateTime'
-    embeds_one :collectedPeriod, class_name: 'Period'
+    embeds_one :collector, class_name: 'FHIR::Reference'
+    embeds_one :source, class_name: 'FHIR::Reference'
+    embeds_one :collectedDateTime, class_name: 'FHIR::PrimitiveDateTime'
+    embeds_one :collectedPeriod, class_name: 'FHIR::Period'
 
     def self.transform_json(json_hash, target = BiologicallyDerivedProductCollection.new)
       result = self.superclass.transform_json(json_hash, target)

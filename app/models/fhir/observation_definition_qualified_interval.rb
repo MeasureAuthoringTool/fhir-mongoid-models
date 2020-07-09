@@ -2,14 +2,14 @@ module FHIR
   # fhir/observation_definition_qualified_interval.rb
   class ObservationDefinitionQualifiedInterval < BackboneElement
     include Mongoid::Document
-    embeds_one :category, class_name: 'ObservationRangeCategory'
-    embeds_one :range, class_name: 'Range'
-    embeds_one :context, class_name: 'CodeableConcept'
-    embeds_many :appliesTo, class_name: 'CodeableConcept'
-    embeds_one :gender, class_name: 'AdministrativeGender'
-    embeds_one :age, class_name: 'Range'
-    embeds_one :gestationalAge, class_name: 'Range'
-    embeds_one :condition, class_name: 'PrimitiveString'
+    embeds_one :category, class_name: 'FHIR::ObservationRangeCategory'
+    embeds_one :range, class_name: 'FHIR::Range'
+    embeds_one :context, class_name: 'FHIR::CodeableConcept'
+    embeds_many :appliesTo, class_name: 'FHIR::CodeableConcept'
+    embeds_one :gender, class_name: 'FHIR::AdministrativeGender'
+    embeds_one :age, class_name: 'FHIR::Range'
+    embeds_one :gestationalAge, class_name: 'FHIR::Range'
+    embeds_one :condition, class_name: 'FHIR::PrimitiveString'
 
     def self.transform_json(json_hash, target = ObservationDefinitionQualifiedInterval.new)
       result = self.superclass.transform_json(json_hash, target)

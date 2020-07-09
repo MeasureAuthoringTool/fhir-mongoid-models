@@ -2,10 +2,10 @@ module FHIR
   # fhir/practitioner_qualification.rb
   class PractitionerQualification < BackboneElement
     include Mongoid::Document
-    embeds_many :identifier, class_name: 'Identifier'
-    embeds_one :code, class_name: 'CodeableConcept'
-    embeds_one :period, class_name: 'Period'
-    embeds_one :issuer, class_name: 'Reference'
+    embeds_many :identifier, class_name: 'FHIR::Identifier'
+    embeds_one :code, class_name: 'FHIR::CodeableConcept'
+    embeds_one :period, class_name: 'FHIR::Period'
+    embeds_one :issuer, class_name: 'FHIR::Reference'
 
     def self.transform_json(json_hash, target = PractitionerQualification.new)
       result = self.superclass.transform_json(json_hash, target)

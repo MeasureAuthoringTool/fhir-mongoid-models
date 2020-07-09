@@ -2,20 +2,20 @@ module FHIR
   # fhir/verification_result.rb
   class VerificationResult < DomainResource
     include Mongoid::Document
-    embeds_many :target, class_name: 'Reference'
-    embeds_many :targetLocation, class_name: 'PrimitiveString'
-    embeds_one :need, class_name: 'CodeableConcept'
-    embeds_one :status, class_name: 'Status'
-    embeds_one :statusDate, class_name: 'PrimitiveDateTime'
-    embeds_one :validationType, class_name: 'CodeableConcept'
-    embeds_many :validationProcess, class_name: 'CodeableConcept'
-    embeds_one :frequency, class_name: 'Timing'
-    embeds_one :lastPerformed, class_name: 'PrimitiveDateTime'
-    embeds_one :nextScheduled, class_name: 'PrimitiveDate'
-    embeds_one :failureAction, class_name: 'CodeableConcept'
-    embeds_many :primarySource, class_name: 'VerificationResultPrimarySource'
-    embeds_one :attestation, class_name: 'VerificationResultAttestation'
-    embeds_many :validator, class_name: 'VerificationResultValidator'
+    embeds_many :target, class_name: 'FHIR::Reference'
+    embeds_many :targetLocation, class_name: 'FHIR::PrimitiveString'
+    embeds_one :need, class_name: 'FHIR::CodeableConcept'
+    embeds_one :status, class_name: 'FHIR::Status'
+    embeds_one :statusDate, class_name: 'FHIR::PrimitiveDateTime'
+    embeds_one :validationType, class_name: 'FHIR::CodeableConcept'
+    embeds_many :validationProcess, class_name: 'FHIR::CodeableConcept'
+    embeds_one :frequency, class_name: 'FHIR::Timing'
+    embeds_one :lastPerformed, class_name: 'FHIR::PrimitiveDateTime'
+    embeds_one :nextScheduled, class_name: 'FHIR::PrimitiveDate'
+    embeds_one :failureAction, class_name: 'FHIR::CodeableConcept'
+    embeds_many :primarySource, class_name: 'FHIR::VerificationResultPrimarySource'
+    embeds_one :attestation, class_name: 'FHIR::VerificationResultAttestation'
+    embeds_many :validator, class_name: 'FHIR::VerificationResultValidator'
 
     def self.transform_json(json_hash, target = VerificationResult.new)
       result = self.superclass.transform_json(json_hash, target)

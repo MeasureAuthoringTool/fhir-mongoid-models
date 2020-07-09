@@ -2,9 +2,9 @@ module FHIR
   # fhir/clinical_impression_finding.rb
   class ClinicalImpressionFinding < BackboneElement
     include Mongoid::Document
-    embeds_one :itemCodeableConcept, class_name: 'CodeableConcept'
-    embeds_one :itemReference, class_name: 'Reference'
-    embeds_one :basis, class_name: 'PrimitiveString'
+    embeds_one :itemCodeableConcept, class_name: 'FHIR::CodeableConcept'
+    embeds_one :itemReference, class_name: 'FHIR::Reference'
+    embeds_one :basis, class_name: 'FHIR::PrimitiveString'
 
     def self.transform_json(json_hash, target = ClinicalImpressionFinding.new)
       result = self.superclass.transform_json(json_hash, target)

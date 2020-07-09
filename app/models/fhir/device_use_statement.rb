@@ -2,21 +2,21 @@ module FHIR
   # fhir/device_use_statement.rb
   class DeviceUseStatement < DomainResource
     include Mongoid::Document
-    embeds_many :identifier, class_name: 'Identifier'
-    embeds_many :basedOn, class_name: 'Reference'
-    embeds_one :status, class_name: 'DeviceUseStatementStatus'
-    embeds_one :subject, class_name: 'Reference'
-    embeds_many :derivedFrom, class_name: 'Reference'
-    embeds_one :timingTiming, class_name: 'Timing'
-    embeds_one :timingPeriod, class_name: 'Period'
-    embeds_one :timingDateTime, class_name: 'PrimitiveDateTime'
-    embeds_one :recordedOn, class_name: 'PrimitiveDateTime'
-    embeds_one :source, class_name: 'Reference'
-    embeds_one :device, class_name: 'Reference'
-    embeds_many :reasonCode, class_name: 'CodeableConcept'
-    embeds_many :reasonReference, class_name: 'Reference'
-    embeds_one :bodySite, class_name: 'CodeableConcept'
-    embeds_many :note, class_name: 'Annotation'
+    embeds_many :identifier, class_name: 'FHIR::Identifier'
+    embeds_many :basedOn, class_name: 'FHIR::Reference'
+    embeds_one :status, class_name: 'FHIR::DeviceUseStatementStatus'
+    embeds_one :subject, class_name: 'FHIR::Reference'
+    embeds_many :derivedFrom, class_name: 'FHIR::Reference'
+    embeds_one :timingTiming, class_name: 'FHIR::Timing'
+    embeds_one :timingPeriod, class_name: 'FHIR::Period'
+    embeds_one :timingDateTime, class_name: 'FHIR::PrimitiveDateTime'
+    embeds_one :recordedOn, class_name: 'FHIR::PrimitiveDateTime'
+    embeds_one :source, class_name: 'FHIR::Reference'
+    embeds_one :device, class_name: 'FHIR::Reference'
+    embeds_many :reasonCode, class_name: 'FHIR::CodeableConcept'
+    embeds_many :reasonReference, class_name: 'FHIR::Reference'
+    embeds_one :bodySite, class_name: 'FHIR::CodeableConcept'
+    embeds_many :note, class_name: 'FHIR::Annotation'
 
     def self.transform_json(json_hash, target = DeviceUseStatement.new)
       result = self.superclass.transform_json(json_hash, target)

@@ -2,9 +2,9 @@ module FHIR
   # fhir/example_scenario_process_step_alternative.rb
   class ExampleScenarioProcessStepAlternative < BackboneElement
     include Mongoid::Document
-    embeds_one :title, class_name: 'PrimitiveString'
-    embeds_one :description, class_name: 'PrimitiveMarkdown'
-    embeds_many :step, class_name: 'ExampleScenarioProcessStep'
+    embeds_one :title, class_name: 'FHIR::PrimitiveString'
+    embeds_one :description, class_name: 'FHIR::PrimitiveMarkdown'
+    embeds_many :step, class_name: 'FHIR::ExampleScenarioProcessStep'
 
     def self.transform_json(json_hash, target = ExampleScenarioProcessStepAlternative.new)
       result = self.superclass.transform_json(json_hash, target)

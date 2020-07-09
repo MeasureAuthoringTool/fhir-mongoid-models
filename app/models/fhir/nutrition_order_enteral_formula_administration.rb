@@ -2,10 +2,10 @@ module FHIR
   # fhir/nutrition_order_enteral_formula_administration.rb
   class NutritionOrderEnteralFormulaAdministration < BackboneElement
     include Mongoid::Document
-    embeds_one :schedule, class_name: 'Timing'
-    embeds_one :quantity, class_name: 'SimpleQuantity'
-    embeds_one :rateSimpleQuantity, class_name: 'SimpleQuantity'
-    embeds_one :rateRatio, class_name: 'Ratio'
+    embeds_one :schedule, class_name: 'FHIR::Timing'
+    embeds_one :quantity, class_name: 'FHIR::SimpleQuantity'
+    embeds_one :rateSimpleQuantity, class_name: 'FHIR::SimpleQuantity'
+    embeds_one :rateRatio, class_name: 'FHIR::Ratio'
 
     def self.transform_json(json_hash, target = NutritionOrderEnteralFormulaAdministration.new)
       result = self.superclass.transform_json(json_hash, target)

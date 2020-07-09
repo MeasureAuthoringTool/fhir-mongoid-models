@@ -2,17 +2,17 @@ module FHIR
   # fhir/provenance.rb
   class Provenance < DomainResource
     include Mongoid::Document
-    embeds_many :target, class_name: 'Reference'
-    embeds_one :occurredPeriod, class_name: 'Period'
-    embeds_one :occurredDateTime, class_name: 'PrimitiveDateTime'
-    embeds_one :recorded, class_name: 'PrimitiveInstant'
-    embeds_many :policy, class_name: 'PrimitiveUri'
-    embeds_one :location, class_name: 'Reference'
-    embeds_many :reason, class_name: 'CodeableConcept'
-    embeds_one :activity, class_name: 'CodeableConcept'
-    embeds_many :agent, class_name: 'ProvenanceAgent'
-    embeds_many :entity, class_name: 'ProvenanceEntity'
-    embeds_many :signature, class_name: 'Signature'
+    embeds_many :target, class_name: 'FHIR::Reference'
+    embeds_one :occurredPeriod, class_name: 'FHIR::Period'
+    embeds_one :occurredDateTime, class_name: 'FHIR::PrimitiveDateTime'
+    embeds_one :recorded, class_name: 'FHIR::PrimitiveInstant'
+    embeds_many :policy, class_name: 'FHIR::PrimitiveUri'
+    embeds_one :location, class_name: 'FHIR::Reference'
+    embeds_many :reason, class_name: 'FHIR::CodeableConcept'
+    embeds_one :activity, class_name: 'FHIR::CodeableConcept'
+    embeds_many :agent, class_name: 'FHIR::ProvenanceAgent'
+    embeds_many :entity, class_name: 'FHIR::ProvenanceEntity'
+    embeds_many :signature, class_name: 'FHIR::Signature'
 
     def self.transform_json(json_hash, target = Provenance.new)
       result = self.superclass.transform_json(json_hash, target)

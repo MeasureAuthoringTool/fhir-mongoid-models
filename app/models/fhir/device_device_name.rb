@@ -2,8 +2,8 @@ module FHIR
   # fhir/device_device_name.rb
   class DeviceDeviceName < BackboneElement
     include Mongoid::Document
-    embeds_one :name, class_name: 'PrimitiveString'
-    embeds_one :type, class_name: 'DeviceNameType'
+    embeds_one :name, class_name: 'FHIR::PrimitiveString'
+    embeds_one :type, class_name: 'FHIR::DeviceNameType'
 
     def self.transform_json(json_hash, target = DeviceDeviceName.new)
       result = self.superclass.transform_json(json_hash, target)

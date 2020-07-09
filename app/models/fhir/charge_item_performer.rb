@@ -2,8 +2,8 @@ module FHIR
   # fhir/charge_item_performer.rb
   class ChargeItemPerformer < BackboneElement
     include Mongoid::Document
-    embeds_one :function, class_name: 'CodeableConcept'
-    embeds_one :actor, class_name: 'Reference'
+    embeds_one :function, class_name: 'FHIR::CodeableConcept'
+    embeds_one :actor, class_name: 'FHIR::Reference'
 
     def self.transform_json(json_hash, target = ChargeItemPerformer.new)
       result = self.superclass.transform_json(json_hash, target)

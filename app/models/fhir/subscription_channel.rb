@@ -2,10 +2,10 @@ module FHIR
   # fhir/subscription_channel.rb
   class SubscriptionChannel < BackboneElement
     include Mongoid::Document
-    embeds_one :type, class_name: 'SubscriptionChannelType'
-    embeds_one :endpoint, class_name: 'PrimitiveUrl'
-    embeds_one :payload, class_name: 'MimeType'
-    embeds_many :header, class_name: 'PrimitiveString'
+    embeds_one :type, class_name: 'FHIR::SubscriptionChannelType'
+    embeds_one :endpoint, class_name: 'FHIR::PrimitiveUrl'
+    embeds_one :payload, class_name: 'FHIR::MimeType'
+    embeds_many :header, class_name: 'FHIR::PrimitiveString'
 
     def self.transform_json(json_hash, target = SubscriptionChannel.new)
       result = self.superclass.transform_json(json_hash, target)

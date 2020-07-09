@@ -2,9 +2,9 @@ module FHIR
   # fhir/audit_event_source.rb
   class AuditEventSource < BackboneElement
     include Mongoid::Document
-    embeds_one :site, class_name: 'PrimitiveString'
-    embeds_one :observer, class_name: 'Reference'
-    embeds_many :type, class_name: 'Coding'
+    embeds_one :site, class_name: 'FHIR::PrimitiveString'
+    embeds_one :observer, class_name: 'FHIR::Reference'
+    embeds_many :type, class_name: 'FHIR::Coding'
 
     def self.transform_json(json_hash, target = AuditEventSource.new)
       result = self.superclass.transform_json(json_hash, target)

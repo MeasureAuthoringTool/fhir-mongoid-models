@@ -2,10 +2,10 @@ module FHIR
   # fhir/organization_contact.rb
   class OrganizationContact < BackboneElement
     include Mongoid::Document
-    embeds_one :purpose, class_name: 'CodeableConcept'
-    embeds_one :name, class_name: 'HumanName'
-    embeds_many :telecom, class_name: 'ContactPoint'
-    embeds_one :address, class_name: 'Address'
+    embeds_one :purpose, class_name: 'FHIR::CodeableConcept'
+    embeds_one :name, class_name: 'FHIR::HumanName'
+    embeds_many :telecom, class_name: 'FHIR::ContactPoint'
+    embeds_one :address, class_name: 'FHIR::Address'
 
     def self.transform_json(json_hash, target = OrganizationContact.new)
       result = self.superclass.transform_json(json_hash, target)

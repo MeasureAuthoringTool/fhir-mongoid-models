@@ -2,10 +2,10 @@ module FHIR
   # fhir/insurance_plan_plan_general_cost.rb
   class InsurancePlanPlanGeneralCost < BackboneElement
     include Mongoid::Document
-    embeds_one :type, class_name: 'CodeableConcept'
-    embeds_one :groupSize, class_name: 'PrimitivePositiveInt'
-    embeds_one :cost, class_name: 'Money'
-    embeds_one :comment, class_name: 'PrimitiveString'
+    embeds_one :type, class_name: 'FHIR::CodeableConcept'
+    embeds_one :groupSize, class_name: 'FHIR::PrimitivePositiveInt'
+    embeds_one :cost, class_name: 'FHIR::Money'
+    embeds_one :comment, class_name: 'FHIR::PrimitiveString'
 
     def self.transform_json(json_hash, target = InsurancePlanPlanGeneralCost.new)
       result = self.superclass.transform_json(json_hash, target)

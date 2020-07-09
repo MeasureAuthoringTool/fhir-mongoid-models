@@ -2,11 +2,11 @@ module FHIR
   # fhir/medicinal_product_authorization_procedure.rb
   class MedicinalProductAuthorizationProcedure < BackboneElement
     include Mongoid::Document
-    embeds_one :identifier, class_name: 'Identifier'
-    embeds_one :type, class_name: 'CodeableConcept'
-    embeds_one :datePeriod, class_name: 'Period'
-    embeds_one :dateDateTime, class_name: 'PrimitiveDateTime'
-    embeds_many :application, class_name: 'MedicinalProductAuthorizationProcedure'
+    embeds_one :identifier, class_name: 'FHIR::Identifier'
+    embeds_one :type, class_name: 'FHIR::CodeableConcept'
+    embeds_one :datePeriod, class_name: 'FHIR::Period'
+    embeds_one :dateDateTime, class_name: 'FHIR::PrimitiveDateTime'
+    embeds_many :application, class_name: 'FHIR::MedicinalProductAuthorizationProcedure'
 
     def self.transform_json(json_hash, target = MedicinalProductAuthorizationProcedure.new)
       result = self.superclass.transform_json(json_hash, target)

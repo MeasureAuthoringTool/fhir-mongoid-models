@@ -2,8 +2,8 @@ module FHIR
   # fhir/structure_definition_context.rb
   class StructureDefinitionContext < BackboneElement
     include Mongoid::Document
-    embeds_one :type, class_name: 'ExtensionContextType'
-    embeds_one :expression, class_name: 'PrimitiveString'
+    embeds_one :type, class_name: 'FHIR::ExtensionContextType'
+    embeds_one :expression, class_name: 'FHIR::PrimitiveString'
 
     def self.transform_json(json_hash, target = StructureDefinitionContext.new)
       result = self.superclass.transform_json(json_hash, target)

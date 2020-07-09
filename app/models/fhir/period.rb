@@ -2,8 +2,8 @@ module FHIR
   # fhir/period.rb
   class Period < Element
     include Mongoid::Document
-    embeds_one :start, class_name: 'PrimitiveDateTime'
-    embeds_one :end, class_name: 'PrimitiveDateTime'
+    embeds_one :start, class_name: 'FHIR::PrimitiveDateTime'
+    embeds_one :end, class_name: 'FHIR::PrimitiveDateTime'
 
     def self.transform_json(json_hash, target = Period.new)
       result = self.superclass.transform_json(json_hash, target)

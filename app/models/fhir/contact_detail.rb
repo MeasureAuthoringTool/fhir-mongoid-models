@@ -2,8 +2,8 @@ module FHIR
   # fhir/contact_detail.rb
   class ContactDetail < Element
     include Mongoid::Document
-    embeds_one :name, class_name: 'PrimitiveString'
-    embeds_many :telecom, class_name: 'ContactPoint'
+    embeds_one :name, class_name: 'FHIR::PrimitiveString'
+    embeds_many :telecom, class_name: 'FHIR::ContactPoint'
 
     def self.transform_json(json_hash, target = ContactDetail.new)
       result = self.superclass.transform_json(json_hash, target)

@@ -2,9 +2,9 @@ module FHIR
   # fhir/coverage_eligibility_request_supporting_info.rb
   class CoverageEligibilityRequestSupportingInfo < BackboneElement
     include Mongoid::Document
-    embeds_one :sequence, class_name: 'PrimitivePositiveInt'
-    embeds_one :information, class_name: 'Reference'
-    embeds_one :appliesToAll, class_name: 'PrimitiveBoolean'
+    embeds_one :sequence, class_name: 'FHIR::PrimitivePositiveInt'
+    embeds_one :information, class_name: 'FHIR::Reference'
+    embeds_one :appliesToAll, class_name: 'FHIR::PrimitiveBoolean'
 
     def self.transform_json(json_hash, target = CoverageEligibilityRequestSupportingInfo.new)
       result = self.superclass.transform_json(json_hash, target)

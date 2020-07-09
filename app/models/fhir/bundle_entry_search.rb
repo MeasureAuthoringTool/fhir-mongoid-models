@@ -2,8 +2,8 @@ module FHIR
   # fhir/bundle_entry_search.rb
   class BundleEntrySearch < BackboneElement
     include Mongoid::Document
-    embeds_one :mode, class_name: 'SearchEntryMode'
-    embeds_one :score, class_name: 'PrimitiveDecimal'
+    embeds_one :mode, class_name: 'FHIR::SearchEntryMode'
+    embeds_one :score, class_name: 'FHIR::PrimitiveDecimal'
 
     def self.transform_json(json_hash, target = BundleEntrySearch.new)
       result = self.superclass.transform_json(json_hash, target)

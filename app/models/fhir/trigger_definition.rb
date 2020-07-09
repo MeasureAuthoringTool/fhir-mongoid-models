@@ -2,14 +2,14 @@ module FHIR
   # fhir/trigger_definition.rb
   class TriggerDefinition < Element
     include Mongoid::Document
-    embeds_one :type, class_name: 'TriggerType'
-    embeds_one :name, class_name: 'PrimitiveString'
-    embeds_one :timingTiming, class_name: 'Timing'
-    embeds_one :timingReference, class_name: 'Reference'
-    embeds_one :timingDate, class_name: 'PrimitiveDate'
-    embeds_one :timingDateTime, class_name: 'PrimitiveDateTime'
-    embeds_many :data, class_name: 'DataRequirement'
-    embeds_one :condition, class_name: 'Expression'
+    embeds_one :type, class_name: 'FHIR::TriggerType'
+    embeds_one :name, class_name: 'FHIR::PrimitiveString'
+    embeds_one :timingTiming, class_name: 'FHIR::Timing'
+    embeds_one :timingReference, class_name: 'FHIR::Reference'
+    embeds_one :timingDate, class_name: 'FHIR::PrimitiveDate'
+    embeds_one :timingDateTime, class_name: 'FHIR::PrimitiveDateTime'
+    embeds_many :data, class_name: 'FHIR::DataRequirement'
+    embeds_one :condition, class_name: 'FHIR::Expression'
 
     def self.transform_json(json_hash, target = TriggerDefinition.new)
       result = self.superclass.transform_json(json_hash, target)

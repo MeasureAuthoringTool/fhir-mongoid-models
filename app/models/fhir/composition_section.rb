@@ -2,16 +2,16 @@ module FHIR
   # fhir/composition_section.rb
   class CompositionSection < BackboneElement
     include Mongoid::Document
-    embeds_one :title, class_name: 'PrimitiveString'
-    embeds_one :code, class_name: 'CodeableConcept'
-    embeds_many :author, class_name: 'Reference'
-    embeds_one :focus, class_name: 'Reference'
-    embeds_one :text, class_name: 'Narrative'
-    embeds_one :mode, class_name: 'SectionMode'
-    embeds_one :orderedBy, class_name: 'CodeableConcept'
-    embeds_many :entry, class_name: 'Reference'
-    embeds_one :emptyReason, class_name: 'CodeableConcept'
-    embeds_many :section, class_name: 'CompositionSection'
+    embeds_one :title, class_name: 'FHIR::PrimitiveString'
+    embeds_one :code, class_name: 'FHIR::CodeableConcept'
+    embeds_many :author, class_name: 'FHIR::Reference'
+    embeds_one :focus, class_name: 'FHIR::Reference'
+    embeds_one :text, class_name: 'FHIR::Narrative'
+    embeds_one :mode, class_name: 'FHIR::SectionMode'
+    embeds_one :orderedBy, class_name: 'FHIR::CodeableConcept'
+    embeds_many :entry, class_name: 'FHIR::Reference'
+    embeds_one :emptyReason, class_name: 'FHIR::CodeableConcept'
+    embeds_many :section, class_name: 'FHIR::CompositionSection'
 
     def self.transform_json(json_hash, target = CompositionSection.new)
       result = self.superclass.transform_json(json_hash, target)

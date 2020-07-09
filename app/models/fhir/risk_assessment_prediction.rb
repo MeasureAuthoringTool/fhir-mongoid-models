@@ -2,14 +2,14 @@ module FHIR
   # fhir/risk_assessment_prediction.rb
   class RiskAssessmentPrediction < BackboneElement
     include Mongoid::Document
-    embeds_one :outcome, class_name: 'CodeableConcept'
-    embeds_one :probabilityDecimal, class_name: 'PrimitiveDecimal'
-    embeds_one :probabilityRange, class_name: 'Range'
-    embeds_one :qualitativeRisk, class_name: 'CodeableConcept'
-    embeds_one :relativeRisk, class_name: 'PrimitiveDecimal'
-    embeds_one :whenPeriod, class_name: 'Period'
-    embeds_one :whenRange, class_name: 'Range'
-    embeds_one :rationale, class_name: 'PrimitiveString'
+    embeds_one :outcome, class_name: 'FHIR::CodeableConcept'
+    embeds_one :probabilityDecimal, class_name: 'FHIR::PrimitiveDecimal'
+    embeds_one :probabilityRange, class_name: 'FHIR::Range'
+    embeds_one :qualitativeRisk, class_name: 'FHIR::CodeableConcept'
+    embeds_one :relativeRisk, class_name: 'FHIR::PrimitiveDecimal'
+    embeds_one :whenPeriod, class_name: 'FHIR::Period'
+    embeds_one :whenRange, class_name: 'FHIR::Range'
+    embeds_one :rationale, class_name: 'FHIR::PrimitiveString'
 
     def self.transform_json(json_hash, target = RiskAssessmentPrediction.new)
       result = self.superclass.transform_json(json_hash, target)

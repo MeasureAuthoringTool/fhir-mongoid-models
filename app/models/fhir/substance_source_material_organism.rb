@@ -2,14 +2,14 @@ module FHIR
   # fhir/substance_source_material_organism.rb
   class SubstanceSourceMaterialOrganism < BackboneElement
     include Mongoid::Document
-    embeds_one :family, class_name: 'CodeableConcept'
-    embeds_one :genus, class_name: 'CodeableConcept'
-    embeds_one :species, class_name: 'CodeableConcept'
-    embeds_one :intraspecificType, class_name: 'CodeableConcept'
-    embeds_one :intraspecificDescription, class_name: 'PrimitiveString'
-    embeds_many :author, class_name: 'SubstanceSourceMaterialOrganismAuthor'
-    embeds_one :hybrid, class_name: 'SubstanceSourceMaterialOrganismHybrid'
-    embeds_one :organismGeneral, class_name: 'SubstanceSourceMaterialOrganismOrganismGeneral'
+    embeds_one :family, class_name: 'FHIR::CodeableConcept'
+    embeds_one :genus, class_name: 'FHIR::CodeableConcept'
+    embeds_one :species, class_name: 'FHIR::CodeableConcept'
+    embeds_one :intraspecificType, class_name: 'FHIR::CodeableConcept'
+    embeds_one :intraspecificDescription, class_name: 'FHIR::PrimitiveString'
+    embeds_many :author, class_name: 'FHIR::SubstanceSourceMaterialOrganismAuthor'
+    embeds_one :hybrid, class_name: 'FHIR::SubstanceSourceMaterialOrganismHybrid'
+    embeds_one :organismGeneral, class_name: 'FHIR::SubstanceSourceMaterialOrganismOrganismGeneral'
 
     def self.transform_json(json_hash, target = SubstanceSourceMaterialOrganism.new)
       result = self.superclass.transform_json(json_hash, target)

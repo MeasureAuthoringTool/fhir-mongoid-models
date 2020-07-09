@@ -2,13 +2,13 @@ module FHIR
   # fhir/medication_administration_dosage.rb
   class MedicationAdministrationDosage < BackboneElement
     include Mongoid::Document
-    embeds_one :text, class_name: 'PrimitiveString'
-    embeds_one :site, class_name: 'CodeableConcept'
-    embeds_one :route, class_name: 'CodeableConcept'
-    embeds_one :method, class_name: 'CodeableConcept'
-    embeds_one :dose, class_name: 'SimpleQuantity'
-    embeds_one :rateRatio, class_name: 'Ratio'
-    embeds_one :rateSimpleQuantity, class_name: 'SimpleQuantity'
+    embeds_one :text, class_name: 'FHIR::PrimitiveString'
+    embeds_one :site, class_name: 'FHIR::CodeableConcept'
+    embeds_one :route, class_name: 'FHIR::CodeableConcept'
+    embeds_one :method, class_name: 'FHIR::CodeableConcept'
+    embeds_one :dose, class_name: 'FHIR::SimpleQuantity'
+    embeds_one :rateRatio, class_name: 'FHIR::Ratio'
+    embeds_one :rateSimpleQuantity, class_name: 'FHIR::SimpleQuantity'
 
     def self.transform_json(json_hash, target = MedicationAdministrationDosage.new)
       result = self.superclass.transform_json(json_hash, target)

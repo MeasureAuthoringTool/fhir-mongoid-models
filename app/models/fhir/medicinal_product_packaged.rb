@@ -2,15 +2,15 @@ module FHIR
   # fhir/medicinal_product_packaged.rb
   class MedicinalProductPackaged < DomainResource
     include Mongoid::Document
-    embeds_many :identifier, class_name: 'Identifier'
-    embeds_many :subject, class_name: 'Reference'
-    embeds_one :description, class_name: 'PrimitiveString'
-    embeds_one :legalStatusOfSupply, class_name: 'CodeableConcept'
-    embeds_many :marketingStatus, class_name: 'MarketingStatus'
-    embeds_one :marketingAuthorization, class_name: 'Reference'
-    embeds_many :manufacturer, class_name: 'Reference'
-    embeds_many :batchIdentifier, class_name: 'MedicinalProductPackagedBatchIdentifier'
-    embeds_many :packageItem, class_name: 'MedicinalProductPackagedPackageItem'
+    embeds_many :identifier, class_name: 'FHIR::Identifier'
+    embeds_many :subject, class_name: 'FHIR::Reference'
+    embeds_one :description, class_name: 'FHIR::PrimitiveString'
+    embeds_one :legalStatusOfSupply, class_name: 'FHIR::CodeableConcept'
+    embeds_many :marketingStatus, class_name: 'FHIR::MarketingStatus'
+    embeds_one :marketingAuthorization, class_name: 'FHIR::Reference'
+    embeds_many :manufacturer, class_name: 'FHIR::Reference'
+    embeds_many :batchIdentifier, class_name: 'FHIR::MedicinalProductPackagedBatchIdentifier'
+    embeds_many :packageItem, class_name: 'FHIR::MedicinalProductPackagedPackageItem'
 
     def self.transform_json(json_hash, target = MedicinalProductPackaged.new)
       result = self.superclass.transform_json(json_hash, target)

@@ -2,8 +2,8 @@ module FHIR
   # fhir/message_definition_allowed_response.rb
   class MessageDefinitionAllowedResponse < BackboneElement
     include Mongoid::Document
-    embeds_one :message, class_name: 'PrimitiveCanonical'
-    embeds_one :situation, class_name: 'PrimitiveMarkdown'
+    embeds_one :message, class_name: 'FHIR::PrimitiveCanonical'
+    embeds_one :situation, class_name: 'FHIR::PrimitiveMarkdown'
 
     def self.transform_json(json_hash, target = MessageDefinitionAllowedResponse.new)
       result = self.superclass.transform_json(json_hash, target)

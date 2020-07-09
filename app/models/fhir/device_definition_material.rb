@@ -2,9 +2,9 @@ module FHIR
   # fhir/device_definition_material.rb
   class DeviceDefinitionMaterial < BackboneElement
     include Mongoid::Document
-    embeds_one :substance, class_name: 'CodeableConcept'
-    embeds_one :alternate, class_name: 'PrimitiveBoolean'
-    embeds_one :allergenicIndicator, class_name: 'PrimitiveBoolean'
+    embeds_one :substance, class_name: 'FHIR::CodeableConcept'
+    embeds_one :alternate, class_name: 'FHIR::PrimitiveBoolean'
+    embeds_one :allergenicIndicator, class_name: 'FHIR::PrimitiveBoolean'
 
     def self.transform_json(json_hash, target = DeviceDefinitionMaterial.new)
       result = self.superclass.transform_json(json_hash, target)

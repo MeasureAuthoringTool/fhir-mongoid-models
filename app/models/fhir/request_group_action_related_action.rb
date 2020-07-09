@@ -2,10 +2,10 @@ module FHIR
   # fhir/request_group_action_related_action.rb
   class RequestGroupActionRelatedAction < BackboneElement
     include Mongoid::Document
-    embeds_one :actionId, class_name: 'PrimitiveId'
-    embeds_one :relationship, class_name: 'ActionRelationshipType'
-    embeds_one :offsetDuration, class_name: 'Duration'
-    embeds_one :offsetRange, class_name: 'Range'
+    embeds_one :actionId, class_name: 'FHIR::PrimitiveId'
+    embeds_one :relationship, class_name: 'FHIR::ActionRelationshipType'
+    embeds_one :offsetDuration, class_name: 'FHIR::Duration'
+    embeds_one :offsetRange, class_name: 'FHIR::Range'
 
     def self.transform_json(json_hash, target = RequestGroupActionRelatedAction.new)
       result = self.superclass.transform_json(json_hash, target)

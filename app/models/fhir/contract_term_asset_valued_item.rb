@@ -2,21 +2,21 @@ module FHIR
   # fhir/contract_term_asset_valued_item.rb
   class ContractTermAssetValuedItem < BackboneElement
     include Mongoid::Document
-    embeds_one :entityCodeableConcept, class_name: 'CodeableConcept'
-    embeds_one :entityReference, class_name: 'Reference'
-    embeds_one :identifier, class_name: 'Identifier'
-    embeds_one :effectiveTime, class_name: 'PrimitiveDateTime'
-    embeds_one :quantity, class_name: 'SimpleQuantity'
-    embeds_one :unitPrice, class_name: 'Money'
-    embeds_one :factor, class_name: 'PrimitiveDecimal'
-    embeds_one :points, class_name: 'PrimitiveDecimal'
-    embeds_one :net, class_name: 'Money'
-    embeds_one :payment, class_name: 'PrimitiveString'
-    embeds_one :paymentDate, class_name: 'PrimitiveDateTime'
-    embeds_one :responsible, class_name: 'Reference'
-    embeds_one :recipient, class_name: 'Reference'
-    embeds_many :linkId, class_name: 'PrimitiveString'
-    embeds_many :securityLabelNumber, class_name: 'PrimitiveUnsignedInt'
+    embeds_one :entityCodeableConcept, class_name: 'FHIR::CodeableConcept'
+    embeds_one :entityReference, class_name: 'FHIR::Reference'
+    embeds_one :identifier, class_name: 'FHIR::Identifier'
+    embeds_one :effectiveTime, class_name: 'FHIR::PrimitiveDateTime'
+    embeds_one :quantity, class_name: 'FHIR::SimpleQuantity'
+    embeds_one :unitPrice, class_name: 'FHIR::Money'
+    embeds_one :factor, class_name: 'FHIR::PrimitiveDecimal'
+    embeds_one :points, class_name: 'FHIR::PrimitiveDecimal'
+    embeds_one :net, class_name: 'FHIR::Money'
+    embeds_one :payment, class_name: 'FHIR::PrimitiveString'
+    embeds_one :paymentDate, class_name: 'FHIR::PrimitiveDateTime'
+    embeds_one :responsible, class_name: 'FHIR::Reference'
+    embeds_one :recipient, class_name: 'FHIR::Reference'
+    embeds_many :linkId, class_name: 'FHIR::PrimitiveString'
+    embeds_many :securityLabelNumber, class_name: 'FHIR::PrimitiveUnsignedInt'
 
     def self.transform_json(json_hash, target = ContractTermAssetValuedItem.new)
       result = self.superclass.transform_json(json_hash, target)

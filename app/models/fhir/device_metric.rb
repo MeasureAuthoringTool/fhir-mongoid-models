@@ -2,16 +2,16 @@ module FHIR
   # fhir/device_metric.rb
   class DeviceMetric < DomainResource
     include Mongoid::Document
-    embeds_many :identifier, class_name: 'Identifier'
-    embeds_one :type, class_name: 'CodeableConcept'
-    embeds_one :unit, class_name: 'CodeableConcept'
-    embeds_one :source, class_name: 'Reference'
-    embeds_one :parent, class_name: 'Reference'
-    embeds_one :operationalStatus, class_name: 'DeviceMetricOperationalStatus'
-    embeds_one :color, class_name: 'DeviceMetricColor'
-    embeds_one :category, class_name: 'DeviceMetricCategory'
-    embeds_one :measurementPeriod, class_name: 'Timing'
-    embeds_many :calibration, class_name: 'DeviceMetricCalibration'
+    embeds_many :identifier, class_name: 'FHIR::Identifier'
+    embeds_one :type, class_name: 'FHIR::CodeableConcept'
+    embeds_one :unit, class_name: 'FHIR::CodeableConcept'
+    embeds_one :source, class_name: 'FHIR::Reference'
+    embeds_one :parent, class_name: 'FHIR::Reference'
+    embeds_one :operationalStatus, class_name: 'FHIR::DeviceMetricOperationalStatus'
+    embeds_one :color, class_name: 'FHIR::DeviceMetricColor'
+    embeds_one :category, class_name: 'FHIR::DeviceMetricCategory'
+    embeds_one :measurementPeriod, class_name: 'FHIR::Timing'
+    embeds_many :calibration, class_name: 'FHIR::DeviceMetricCalibration'
 
     def self.transform_json(json_hash, target = DeviceMetric.new)
       result = self.superclass.transform_json(json_hash, target)

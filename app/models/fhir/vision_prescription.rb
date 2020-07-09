@@ -2,14 +2,14 @@ module FHIR
   # fhir/vision_prescription.rb
   class VisionPrescription < DomainResource
     include Mongoid::Document
-    embeds_many :identifier, class_name: 'Identifier'
-    embeds_one :status, class_name: 'VisionStatus'
-    embeds_one :created, class_name: 'PrimitiveDateTime'
-    embeds_one :patient, class_name: 'Reference'
-    embeds_one :encounter, class_name: 'Reference'
-    embeds_one :dateWritten, class_name: 'PrimitiveDateTime'
-    embeds_one :prescriber, class_name: 'Reference'
-    embeds_many :lensSpecification, class_name: 'VisionPrescriptionLensSpecification'
+    embeds_many :identifier, class_name: 'FHIR::Identifier'
+    embeds_one :status, class_name: 'FHIR::VisionStatus'
+    embeds_one :created, class_name: 'FHIR::PrimitiveDateTime'
+    embeds_one :patient, class_name: 'FHIR::Reference'
+    embeds_one :encounter, class_name: 'FHIR::Reference'
+    embeds_one :dateWritten, class_name: 'FHIR::PrimitiveDateTime'
+    embeds_one :prescriber, class_name: 'FHIR::Reference'
+    embeds_many :lensSpecification, class_name: 'FHIR::VisionPrescriptionLensSpecification'
 
     def self.transform_json(json_hash, target = VisionPrescription.new)
       result = self.superclass.transform_json(json_hash, target)

@@ -2,7 +2,7 @@ module FHIR
   # fhir/structure_definition_differential.rb
   class StructureDefinitionDifferential < BackboneElement
     include Mongoid::Document
-    embeds_many :element, class_name: 'ElementDefinition'
+    embeds_many :element, class_name: 'FHIR::ElementDefinition'
 
     def self.transform_json(json_hash, target = StructureDefinitionDifferential.new)
       result = self.superclass.transform_json(json_hash, target)

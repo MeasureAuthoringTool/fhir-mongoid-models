@@ -2,9 +2,9 @@ module FHIR
   # fhir/location_position.rb
   class LocationPosition < BackboneElement
     include Mongoid::Document
-    embeds_one :longitude, class_name: 'PrimitiveDecimal'
-    embeds_one :latitude, class_name: 'PrimitiveDecimal'
-    embeds_one :altitude, class_name: 'PrimitiveDecimal'
+    embeds_one :longitude, class_name: 'FHIR::PrimitiveDecimal'
+    embeds_one :latitude, class_name: 'FHIR::PrimitiveDecimal'
+    embeds_one :altitude, class_name: 'FHIR::PrimitiveDecimal'
 
     def self.transform_json(json_hash, target = LocationPosition.new)
       result = self.superclass.transform_json(json_hash, target)

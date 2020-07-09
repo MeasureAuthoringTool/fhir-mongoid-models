@@ -2,15 +2,15 @@ module FHIR
   # fhir/data_requirement.rb
   class DataRequirement < Element
     include Mongoid::Document
-    embeds_one :type, class_name: 'FHIRAllTypes'
-    embeds_many :profile, class_name: 'PrimitiveCanonical'
-    embeds_one :subjectCodeableConcept, class_name: 'CodeableConcept'
-    embeds_one :subjectReference, class_name: 'Reference'
-    embeds_many :mustSupport, class_name: 'PrimitiveString'
-    embeds_many :codeFilter, class_name: 'DataRequirementCodeFilter'
-    embeds_many :dateFilter, class_name: 'DataRequirementDateFilter'
-    embeds_one :limit, class_name: 'PrimitivePositiveInt'
-    embeds_many :sort, class_name: 'DataRequirementSort'
+    embeds_one :type, class_name: 'FHIR::FHIRAllTypes'
+    embeds_many :profile, class_name: 'FHIR::PrimitiveCanonical'
+    embeds_one :subjectCodeableConcept, class_name: 'FHIR::CodeableConcept'
+    embeds_one :subjectReference, class_name: 'FHIR::Reference'
+    embeds_many :mustSupport, class_name: 'FHIR::PrimitiveString'
+    embeds_many :codeFilter, class_name: 'FHIR::DataRequirementCodeFilter'
+    embeds_many :dateFilter, class_name: 'FHIR::DataRequirementDateFilter'
+    embeds_one :limit, class_name: 'FHIR::PrimitivePositiveInt'
+    embeds_many :sort, class_name: 'FHIR::DataRequirementSort'
 
     def self.transform_json(json_hash, target = DataRequirement.new)
       result = self.superclass.transform_json(json_hash, target)

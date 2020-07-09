@@ -2,16 +2,16 @@ module FHIR
   # fhir/example_scenario_process_step_operation.rb
   class ExampleScenarioProcessStepOperation < BackboneElement
     include Mongoid::Document
-    embeds_one :number, class_name: 'PrimitiveString'
-    embeds_one :type, class_name: 'PrimitiveString'
-    embeds_one :name, class_name: 'PrimitiveString'
-    embeds_one :initiator, class_name: 'PrimitiveString'
-    embeds_one :receiver, class_name: 'PrimitiveString'
-    embeds_one :description, class_name: 'PrimitiveMarkdown'
-    embeds_one :initiatorActive, class_name: 'PrimitiveBoolean'
-    embeds_one :receiverActive, class_name: 'PrimitiveBoolean'
-    embeds_one :request, class_name: 'ExampleScenarioInstanceContainedInstance'
-    embeds_one :response, class_name: 'ExampleScenarioInstanceContainedInstance'
+    embeds_one :number, class_name: 'FHIR::PrimitiveString'
+    embeds_one :type, class_name: 'FHIR::PrimitiveString'
+    embeds_one :name, class_name: 'FHIR::PrimitiveString'
+    embeds_one :initiator, class_name: 'FHIR::PrimitiveString'
+    embeds_one :receiver, class_name: 'FHIR::PrimitiveString'
+    embeds_one :description, class_name: 'FHIR::PrimitiveMarkdown'
+    embeds_one :initiatorActive, class_name: 'FHIR::PrimitiveBoolean'
+    embeds_one :receiverActive, class_name: 'FHIR::PrimitiveBoolean'
+    embeds_one :request, class_name: 'FHIR::ExampleScenarioInstanceContainedInstance'
+    embeds_one :response, class_name: 'FHIR::ExampleScenarioInstanceContainedInstance'
 
     def self.transform_json(json_hash, target = ExampleScenarioProcessStepOperation.new)
       result = self.superclass.transform_json(json_hash, target)

@@ -2,8 +2,8 @@ module FHIR
   # fhir/implementation_guide_global.rb
   class ImplementationGuideGlobal < BackboneElement
     include Mongoid::Document
-    embeds_one :type, class_name: 'ResourceType'
-    embeds_one :profile, class_name: 'PrimitiveCanonical'
+    embeds_one :type, class_name: 'FHIR::ResourceType'
+    embeds_one :profile, class_name: 'FHIR::PrimitiveCanonical'
 
     def self.transform_json(json_hash, target = ImplementationGuideGlobal.new)
       result = self.superclass.transform_json(json_hash, target)

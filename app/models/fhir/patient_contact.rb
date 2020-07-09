@@ -2,13 +2,13 @@ module FHIR
   # fhir/patient_contact.rb
   class PatientContact < BackboneElement
     include Mongoid::Document
-    embeds_many :relationship, class_name: 'CodeableConcept'
-    embeds_one :name, class_name: 'HumanName'
-    embeds_many :telecom, class_name: 'ContactPoint'
-    embeds_one :address, class_name: 'Address'
-    embeds_one :gender, class_name: 'AdministrativeGender'
-    embeds_one :organization, class_name: 'Reference'
-    embeds_one :period, class_name: 'Period'
+    embeds_many :relationship, class_name: 'FHIR::CodeableConcept'
+    embeds_one :name, class_name: 'FHIR::HumanName'
+    embeds_many :telecom, class_name: 'FHIR::ContactPoint'
+    embeds_one :address, class_name: 'FHIR::Address'
+    embeds_one :gender, class_name: 'FHIR::AdministrativeGender'
+    embeds_one :organization, class_name: 'FHIR::Reference'
+    embeds_one :period, class_name: 'FHIR::Period'
 
     def self.transform_json(json_hash, target = PatientContact.new)
       result = self.superclass.transform_json(json_hash, target)

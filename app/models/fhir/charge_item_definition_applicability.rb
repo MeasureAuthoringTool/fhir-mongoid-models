@@ -2,9 +2,9 @@ module FHIR
   # fhir/charge_item_definition_applicability.rb
   class ChargeItemDefinitionApplicability < BackboneElement
     include Mongoid::Document
-    embeds_one :description, class_name: 'PrimitiveString'
-    embeds_one :language, class_name: 'PrimitiveString'
-    embeds_one :expression, class_name: 'PrimitiveString'
+    embeds_one :description, class_name: 'FHIR::PrimitiveString'
+    embeds_one :language, class_name: 'FHIR::PrimitiveString'
+    embeds_one :expression, class_name: 'FHIR::PrimitiveString'
 
     def self.transform_json(json_hash, target = ChargeItemDefinitionApplicability.new)
       result = self.superclass.transform_json(json_hash, target)

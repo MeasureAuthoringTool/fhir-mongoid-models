@@ -2,18 +2,18 @@ module FHIR
   # fhir/questionnaire_item_initial.rb
   class QuestionnaireItemInitial < BackboneElement
     include Mongoid::Document
-    embeds_one :valueBoolean, class_name: 'PrimitiveBoolean'
-    embeds_one :valueDecimal, class_name: 'PrimitiveDecimal'
-    embeds_one :valueInteger, class_name: 'PrimitiveInteger'
-    embeds_one :valueDate, class_name: 'PrimitiveDate'
-    embeds_one :valueDateTime, class_name: 'PrimitiveDateTime'
-    embeds_one :valueTime, class_name: 'PrimitiveTime'
-    embeds_one :valueString, class_name: 'PrimitiveString'
-    embeds_one :valueUri, class_name: 'PrimitiveUri'
-    embeds_one :valueAttachment, class_name: 'Attachment'
-    embeds_one :valueCoding, class_name: 'Coding'
-    embeds_one :valueQuantity, class_name: 'Quantity'
-    embeds_one :valueReference, class_name: 'Reference'
+    embeds_one :valueBoolean, class_name: 'FHIR::PrimitiveBoolean'
+    embeds_one :valueDecimal, class_name: 'FHIR::PrimitiveDecimal'
+    embeds_one :valueInteger, class_name: 'FHIR::PrimitiveInteger'
+    embeds_one :valueDate, class_name: 'FHIR::PrimitiveDate'
+    embeds_one :valueDateTime, class_name: 'FHIR::PrimitiveDateTime'
+    embeds_one :valueTime, class_name: 'FHIR::PrimitiveTime'
+    embeds_one :valueString, class_name: 'FHIR::PrimitiveString'
+    embeds_one :valueUri, class_name: 'FHIR::PrimitiveUri'
+    embeds_one :valueAttachment, class_name: 'FHIR::Attachment'
+    embeds_one :valueCoding, class_name: 'FHIR::Coding'
+    embeds_one :valueQuantity, class_name: 'FHIR::Quantity'
+    embeds_one :valueReference, class_name: 'FHIR::Reference'
 
     def self.transform_json(json_hash, target = QuestionnaireItemInitial.new)
       result = self.superclass.transform_json(json_hash, target)

@@ -2,11 +2,11 @@ module FHIR
   # fhir/substance_polymer_repeat_repeat_unit.rb
   class SubstancePolymerRepeatRepeatUnit < BackboneElement
     include Mongoid::Document
-    embeds_one :orientationOfPolymerisation, class_name: 'CodeableConcept'
-    embeds_one :repeatUnit, class_name: 'PrimitiveString'
-    embeds_one :amount, class_name: 'SubstanceAmount'
-    embeds_many :degreeOfPolymerisation, class_name: 'SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation'
-    embeds_many :structuralRepresentation, class_name: 'SubstancePolymerRepeatRepeatUnitStructuralRepresentation'
+    embeds_one :orientationOfPolymerisation, class_name: 'FHIR::CodeableConcept'
+    embeds_one :repeatUnit, class_name: 'FHIR::PrimitiveString'
+    embeds_one :amount, class_name: 'FHIR::SubstanceAmount'
+    embeds_many :degreeOfPolymerisation, class_name: 'FHIR::SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation'
+    embeds_many :structuralRepresentation, class_name: 'FHIR::SubstancePolymerRepeatRepeatUnitStructuralRepresentation'
 
     def self.transform_json(json_hash, target = SubstancePolymerRepeatRepeatUnit.new)
       result = self.superclass.transform_json(json_hash, target)

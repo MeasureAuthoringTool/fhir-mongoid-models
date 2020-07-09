@@ -2,9 +2,9 @@ module FHIR
   # fhir/linkage.rb
   class Linkage < DomainResource
     include Mongoid::Document
-    embeds_one :active, class_name: 'PrimitiveBoolean'
-    embeds_one :author, class_name: 'Reference'
-    embeds_many :item, class_name: 'LinkageItem'
+    embeds_one :active, class_name: 'FHIR::PrimitiveBoolean'
+    embeds_one :author, class_name: 'FHIR::Reference'
+    embeds_many :item, class_name: 'FHIR::LinkageItem'
 
     def self.transform_json(json_hash, target = Linkage.new)
       result = self.superclass.transform_json(json_hash, target)

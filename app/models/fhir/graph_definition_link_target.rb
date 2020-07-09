@@ -2,11 +2,11 @@ module FHIR
   # fhir/graph_definition_link_target.rb
   class GraphDefinitionLinkTarget < BackboneElement
     include Mongoid::Document
-    embeds_one :type, class_name: 'ResourceType'
-    embeds_one :params, class_name: 'PrimitiveString'
-    embeds_one :profile, class_name: 'PrimitiveCanonical'
-    embeds_many :compartment, class_name: 'GraphDefinitionLinkTargetCompartment'
-    embeds_many :link, class_name: 'GraphDefinitionLink'
+    embeds_one :type, class_name: 'FHIR::ResourceType'
+    embeds_one :params, class_name: 'FHIR::PrimitiveString'
+    embeds_one :profile, class_name: 'FHIR::PrimitiveCanonical'
+    embeds_many :compartment, class_name: 'FHIR::GraphDefinitionLinkTargetCompartment'
+    embeds_many :link, class_name: 'FHIR::GraphDefinitionLink'
 
     def self.transform_json(json_hash, target = GraphDefinitionLinkTarget.new)
       result = self.superclass.transform_json(json_hash, target)

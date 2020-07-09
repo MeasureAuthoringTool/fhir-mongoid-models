@@ -2,7 +2,7 @@ module FHIR
   # fhir/parameters.rb
   class Parameters < Resource
     include Mongoid::Document
-    embeds_many :parameter, class_name: 'ParametersParameter'
+    embeds_many :parameter, class_name: 'FHIR::ParametersParameter'
 
     def self.transform_json(json_hash, target = Parameters.new)
       result = self.superclass.transform_json(json_hash, target)

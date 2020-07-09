@@ -2,10 +2,10 @@ module FHIR
   # fhir/immunization_education.rb
   class ImmunizationEducation < BackboneElement
     include Mongoid::Document
-    embeds_one :documentType, class_name: 'PrimitiveString'
-    embeds_one :reference, class_name: 'PrimitiveUri'
-    embeds_one :publicationDate, class_name: 'PrimitiveDateTime'
-    embeds_one :presentationDate, class_name: 'PrimitiveDateTime'
+    embeds_one :documentType, class_name: 'FHIR::PrimitiveString'
+    embeds_one :reference, class_name: 'FHIR::PrimitiveUri'
+    embeds_one :publicationDate, class_name: 'FHIR::PrimitiveDateTime'
+    embeds_one :presentationDate, class_name: 'FHIR::PrimitiveDateTime'
 
     def self.transform_json(json_hash, target = ImmunizationEducation.new)
       result = self.superclass.transform_json(json_hash, target)

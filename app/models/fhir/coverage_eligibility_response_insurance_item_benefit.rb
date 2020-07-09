@@ -2,13 +2,13 @@ module FHIR
   # fhir/coverage_eligibility_response_insurance_item_benefit.rb
   class CoverageEligibilityResponseInsuranceItemBenefit < BackboneElement
     include Mongoid::Document
-    embeds_one :type, class_name: 'CodeableConcept'
-    embeds_one :allowedUnsignedInt, class_name: 'PrimitiveUnsignedInt'
-    embeds_one :allowedString, class_name: 'PrimitiveString'
-    embeds_one :allowedMoney, class_name: 'Money'
-    embeds_one :usedUnsignedInt, class_name: 'PrimitiveUnsignedInt'
-    embeds_one :usedString, class_name: 'PrimitiveString'
-    embeds_one :usedMoney, class_name: 'Money'
+    embeds_one :type, class_name: 'FHIR::CodeableConcept'
+    embeds_one :allowedUnsignedInt, class_name: 'FHIR::PrimitiveUnsignedInt'
+    embeds_one :allowedString, class_name: 'FHIR::PrimitiveString'
+    embeds_one :allowedMoney, class_name: 'FHIR::Money'
+    embeds_one :usedUnsignedInt, class_name: 'FHIR::PrimitiveUnsignedInt'
+    embeds_one :usedString, class_name: 'FHIR::PrimitiveString'
+    embeds_one :usedMoney, class_name: 'FHIR::Money'
 
     def self.transform_json(json_hash, target = CoverageEligibilityResponseInsuranceItemBenefit.new)
       result = self.superclass.transform_json(json_hash, target)

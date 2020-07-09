@@ -2,9 +2,9 @@ module FHIR
   # fhir/binary.rb
   class Binary < Resource
     include Mongoid::Document
-    embeds_one :contentType, class_name: 'MimeType'
-    embeds_one :securityContext, class_name: 'Reference'
-    embeds_one :data, class_name: 'PrimitiveBase64Binary'
+    embeds_one :contentType, class_name: 'FHIR::MimeType'
+    embeds_one :securityContext, class_name: 'FHIR::Reference'
+    embeds_one :data, class_name: 'FHIR::PrimitiveBase64Binary'
 
     def self.transform_json(json_hash, target = Binary.new)
       result = self.superclass.transform_json(json_hash, target)

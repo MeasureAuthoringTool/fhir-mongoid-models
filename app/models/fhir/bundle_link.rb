@@ -2,8 +2,8 @@ module FHIR
   # fhir/bundle_link.rb
   class BundleLink < BackboneElement
     include Mongoid::Document
-    embeds_one :relation, class_name: 'PrimitiveString'
-    embeds_one :url, class_name: 'PrimitiveUri'
+    embeds_one :relation, class_name: 'FHIR::PrimitiveString'
+    embeds_one :url, class_name: 'FHIR::PrimitiveUri'
 
     def self.transform_json(json_hash, target = BundleLink.new)
       result = self.superclass.transform_json(json_hash, target)

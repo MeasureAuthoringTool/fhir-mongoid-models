@@ -2,12 +2,12 @@ module FHIR
   # fhir/identifier.rb
   class Identifier < Element
     include Mongoid::Document
-    embeds_one :use, class_name: 'IdentifierUse'
-    embeds_one :type, class_name: 'CodeableConcept'
-    embeds_one :system, class_name: 'PrimitiveUri'
-    embeds_one :value, class_name: 'PrimitiveString'
-    embeds_one :period, class_name: 'Period'
-    embeds_one :assigner, class_name: 'Reference'
+    embeds_one :use, class_name: 'FHIR::IdentifierUse'
+    embeds_one :type, class_name: 'FHIR::CodeableConcept'
+    embeds_one :system, class_name: 'FHIR::PrimitiveUri'
+    embeds_one :value, class_name: 'FHIR::PrimitiveString'
+    embeds_one :period, class_name: 'FHIR::Period'
+    embeds_one :assigner, class_name: 'FHIR::Reference'
 
     def self.transform_json(json_hash, target = Identifier.new)
       result = self.superclass.transform_json(json_hash, target)

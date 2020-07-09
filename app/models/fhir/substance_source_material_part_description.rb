@@ -2,8 +2,8 @@ module FHIR
   # fhir/substance_source_material_part_description.rb
   class SubstanceSourceMaterialPartDescription < BackboneElement
     include Mongoid::Document
-    embeds_one :part, class_name: 'CodeableConcept'
-    embeds_one :partLocation, class_name: 'CodeableConcept'
+    embeds_one :part, class_name: 'FHIR::CodeableConcept'
+    embeds_one :partLocation, class_name: 'FHIR::CodeableConcept'
 
     def self.transform_json(json_hash, target = SubstanceSourceMaterialPartDescription.new)
       result = self.superclass.transform_json(json_hash, target)

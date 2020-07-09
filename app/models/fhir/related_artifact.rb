@@ -2,13 +2,13 @@ module FHIR
   # fhir/related_artifact.rb
   class RelatedArtifact < Element
     include Mongoid::Document
-    embeds_one :type, class_name: 'RelatedArtifactType'
-    embeds_one :label, class_name: 'PrimitiveString'
-    embeds_one :display, class_name: 'PrimitiveString'
-    embeds_one :citation, class_name: 'PrimitiveMarkdown'
-    embeds_one :url, class_name: 'PrimitiveUrl'
-    embeds_one :document, class_name: 'Attachment'
-    embeds_one :resource, class_name: 'PrimitiveCanonical'
+    embeds_one :type, class_name: 'FHIR::RelatedArtifactType'
+    embeds_one :label, class_name: 'FHIR::PrimitiveString'
+    embeds_one :display, class_name: 'FHIR::PrimitiveString'
+    embeds_one :citation, class_name: 'FHIR::PrimitiveMarkdown'
+    embeds_one :url, class_name: 'FHIR::PrimitiveUrl'
+    embeds_one :document, class_name: 'FHIR::Attachment'
+    embeds_one :resource, class_name: 'FHIR::PrimitiveCanonical'
 
     def self.transform_json(json_hash, target = RelatedArtifact.new)
       result = self.superclass.transform_json(json_hash, target)

@@ -2,11 +2,11 @@ module FHIR
   # fhir/questionnaire_response_item.rb
   class QuestionnaireResponseItem < BackboneElement
     include Mongoid::Document
-    embeds_one :linkId, class_name: 'PrimitiveString'
-    embeds_one :definition, class_name: 'PrimitiveUri'
-    embeds_one :text, class_name: 'PrimitiveString'
-    embeds_many :answer, class_name: 'QuestionnaireResponseItemAnswer'
-    embeds_many :item, class_name: 'QuestionnaireResponseItem'
+    embeds_one :linkId, class_name: 'FHIR::PrimitiveString'
+    embeds_one :definition, class_name: 'FHIR::PrimitiveUri'
+    embeds_one :text, class_name: 'FHIR::PrimitiveString'
+    embeds_many :answer, class_name: 'FHIR::QuestionnaireResponseItemAnswer'
+    embeds_many :item, class_name: 'FHIR::QuestionnaireResponseItem'
 
     def self.transform_json(json_hash, target = QuestionnaireResponseItem.new)
       result = self.superclass.transform_json(json_hash, target)

@@ -2,9 +2,9 @@ module FHIR
   # fhir/capability_statement_document.rb
   class CapabilityStatementDocument < BackboneElement
     include Mongoid::Document
-    embeds_one :mode, class_name: 'DocumentMode'
-    embeds_one :documentation, class_name: 'PrimitiveMarkdown'
-    embeds_one :profile, class_name: 'PrimitiveCanonical'
+    embeds_one :mode, class_name: 'FHIR::DocumentMode'
+    embeds_one :documentation, class_name: 'FHIR::PrimitiveMarkdown'
+    embeds_one :profile, class_name: 'FHIR::PrimitiveCanonical'
 
     def self.transform_json(json_hash, target = CapabilityStatementDocument.new)
       result = self.superclass.transform_json(json_hash, target)

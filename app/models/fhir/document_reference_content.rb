@@ -2,8 +2,8 @@ module FHIR
   # fhir/document_reference_content.rb
   class DocumentReferenceContent < BackboneElement
     include Mongoid::Document
-    embeds_one :attachment, class_name: 'Attachment'
-    embeds_one :format, class_name: 'Coding'
+    embeds_one :attachment, class_name: 'FHIR::Attachment'
+    embeds_one :format, class_name: 'FHIR::Coding'
 
     def self.transform_json(json_hash, target = DocumentReferenceContent.new)
       result = self.superclass.transform_json(json_hash, target)

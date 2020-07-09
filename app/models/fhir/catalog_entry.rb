@@ -2,19 +2,19 @@ module FHIR
   # fhir/catalog_entry.rb
   class CatalogEntry < DomainResource
     include Mongoid::Document
-    embeds_many :identifier, class_name: 'Identifier'
-    embeds_one :type, class_name: 'CodeableConcept'
-    embeds_one :orderable, class_name: 'PrimitiveBoolean'
-    embeds_one :referencedItem, class_name: 'Reference'
-    embeds_many :additionalIdentifier, class_name: 'Identifier'
-    embeds_many :classification, class_name: 'CodeableConcept'
-    embeds_one :status, class_name: 'PublicationStatus'
-    embeds_one :validityPeriod, class_name: 'Period'
-    embeds_one :validTo, class_name: 'PrimitiveDateTime'
-    embeds_one :lastUpdated, class_name: 'PrimitiveDateTime'
-    embeds_many :additionalCharacteristic, class_name: 'CodeableConcept'
-    embeds_many :additionalClassification, class_name: 'CodeableConcept'
-    embeds_many :relatedEntry, class_name: 'CatalogEntryRelatedEntry'
+    embeds_many :identifier, class_name: 'FHIR::Identifier'
+    embeds_one :type, class_name: 'FHIR::CodeableConcept'
+    embeds_one :orderable, class_name: 'FHIR::PrimitiveBoolean'
+    embeds_one :referencedItem, class_name: 'FHIR::Reference'
+    embeds_many :additionalIdentifier, class_name: 'FHIR::Identifier'
+    embeds_many :classification, class_name: 'FHIR::CodeableConcept'
+    embeds_one :status, class_name: 'FHIR::PublicationStatus'
+    embeds_one :validityPeriod, class_name: 'FHIR::Period'
+    embeds_one :validTo, class_name: 'FHIR::PrimitiveDateTime'
+    embeds_one :lastUpdated, class_name: 'FHIR::PrimitiveDateTime'
+    embeds_many :additionalCharacteristic, class_name: 'FHIR::CodeableConcept'
+    embeds_many :additionalClassification, class_name: 'FHIR::CodeableConcept'
+    embeds_many :relatedEntry, class_name: 'FHIR::CatalogEntryRelatedEntry'
 
     def self.transform_json(json_hash, target = CatalogEntry.new)
       result = self.superclass.transform_json(json_hash, target)

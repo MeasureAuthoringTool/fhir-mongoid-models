@@ -2,17 +2,17 @@ module FHIR
   # fhir/account.rb
   class Account < DomainResource
     include Mongoid::Document
-    embeds_many :identifier, class_name: 'Identifier'
-    embeds_one :status, class_name: 'AccountStatus'
-    embeds_one :type, class_name: 'CodeableConcept'
-    embeds_one :name, class_name: 'PrimitiveString'
-    embeds_many :subject, class_name: 'Reference'
-    embeds_one :servicePeriod, class_name: 'Period'
-    embeds_many :coverage, class_name: 'AccountCoverage'
-    embeds_one :owner, class_name: 'Reference'
-    embeds_one :description, class_name: 'PrimitiveString'
-    embeds_many :guarantor, class_name: 'AccountGuarantor'
-    embeds_one :partOf, class_name: 'Reference'
+    embeds_many :identifier, class_name: 'FHIR::Identifier'
+    embeds_one :status, class_name: 'FHIR::AccountStatus'
+    embeds_one :type, class_name: 'FHIR::CodeableConcept'
+    embeds_one :name, class_name: 'FHIR::PrimitiveString'
+    embeds_many :subject, class_name: 'FHIR::Reference'
+    embeds_one :servicePeriod, class_name: 'FHIR::Period'
+    embeds_many :coverage, class_name: 'FHIR::AccountCoverage'
+    embeds_one :owner, class_name: 'FHIR::Reference'
+    embeds_one :description, class_name: 'FHIR::PrimitiveString'
+    embeds_many :guarantor, class_name: 'FHIR::AccountGuarantor'
+    embeds_one :partOf, class_name: 'FHIR::Reference'
 
     def self.transform_json(json_hash, target = Account.new)
       result = self.superclass.transform_json(json_hash, target)

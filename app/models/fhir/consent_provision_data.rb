@@ -2,8 +2,8 @@ module FHIR
   # fhir/consent_provision_data.rb
   class ConsentProvisionData < BackboneElement
     include Mongoid::Document
-    embeds_one :meaning, class_name: 'ConsentDataMeaning'
-    embeds_one :reference, class_name: 'Reference'
+    embeds_one :meaning, class_name: 'FHIR::ConsentDataMeaning'
+    embeds_one :reference, class_name: 'FHIR::Reference'
 
     def self.transform_json(json_hash, target = ConsentProvisionData.new)
       result = self.superclass.transform_json(json_hash, target)

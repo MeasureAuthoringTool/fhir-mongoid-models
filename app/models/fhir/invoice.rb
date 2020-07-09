@@ -2,22 +2,22 @@ module FHIR
   # fhir/invoice.rb
   class Invoice < DomainResource
     include Mongoid::Document
-    embeds_many :identifier, class_name: 'Identifier'
-    embeds_one :status, class_name: 'InvoiceStatus'
-    embeds_one :cancelledReason, class_name: 'PrimitiveString'
-    embeds_one :type, class_name: 'CodeableConcept'
-    embeds_one :subject, class_name: 'Reference'
-    embeds_one :recipient, class_name: 'Reference'
-    embeds_one :date, class_name: 'PrimitiveDateTime'
-    embeds_many :participant, class_name: 'InvoiceParticipant'
-    embeds_one :issuer, class_name: 'Reference'
-    embeds_one :account, class_name: 'Reference'
-    embeds_many :lineItem, class_name: 'InvoiceLineItem'
-    embeds_many :totalPriceComponent, class_name: 'InvoiceLineItemPriceComponent'
-    embeds_one :totalNet, class_name: 'Money'
-    embeds_one :totalGross, class_name: 'Money'
-    embeds_one :paymentTerms, class_name: 'PrimitiveMarkdown'
-    embeds_many :note, class_name: 'Annotation'
+    embeds_many :identifier, class_name: 'FHIR::Identifier'
+    embeds_one :status, class_name: 'FHIR::InvoiceStatus'
+    embeds_one :cancelledReason, class_name: 'FHIR::PrimitiveString'
+    embeds_one :type, class_name: 'FHIR::CodeableConcept'
+    embeds_one :subject, class_name: 'FHIR::Reference'
+    embeds_one :recipient, class_name: 'FHIR::Reference'
+    embeds_one :date, class_name: 'FHIR::PrimitiveDateTime'
+    embeds_many :participant, class_name: 'FHIR::InvoiceParticipant'
+    embeds_one :issuer, class_name: 'FHIR::Reference'
+    embeds_one :account, class_name: 'FHIR::Reference'
+    embeds_many :lineItem, class_name: 'FHIR::InvoiceLineItem'
+    embeds_many :totalPriceComponent, class_name: 'FHIR::InvoiceLineItemPriceComponent'
+    embeds_one :totalNet, class_name: 'FHIR::Money'
+    embeds_one :totalGross, class_name: 'FHIR::Money'
+    embeds_one :paymentTerms, class_name: 'FHIR::PrimitiveMarkdown'
+    embeds_many :note, class_name: 'FHIR::Annotation'
 
     def self.transform_json(json_hash, target = Invoice.new)
       result = self.superclass.transform_json(json_hash, target)

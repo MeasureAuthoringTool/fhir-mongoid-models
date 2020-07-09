@@ -2,11 +2,11 @@ module FHIR
   # fhir/bundle_entry_response.rb
   class BundleEntryResponse < BackboneElement
     include Mongoid::Document
-    embeds_one :status, class_name: 'PrimitiveString'
-    embeds_one :location, class_name: 'PrimitiveUri'
-    embeds_one :etag, class_name: 'PrimitiveString'
-    embeds_one :lastModified, class_name: 'PrimitiveInstant'
-    embeds_one :outcome, class_name: 'Resource'
+    embeds_one :status, class_name: 'FHIR::PrimitiveString'
+    embeds_one :location, class_name: 'FHIR::PrimitiveUri'
+    embeds_one :etag, class_name: 'FHIR::PrimitiveString'
+    embeds_one :lastModified, class_name: 'FHIR::PrimitiveInstant'
+    embeds_one :outcome, class_name: 'FHIR::Resource'
 
     def self.transform_json(json_hash, target = BundleEntryResponse.new)
       result = self.superclass.transform_json(json_hash, target)

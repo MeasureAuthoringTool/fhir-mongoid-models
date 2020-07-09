@@ -2,19 +2,19 @@ module FHIR
   # fhir/list.rb
   class List < DomainResource
     include Mongoid::Document
-    embeds_many :identifier, class_name: 'Identifier'
-    embeds_one :status, class_name: 'ListStatus'
-    embeds_one :mode, class_name: 'ListMode'
-    embeds_one :title, class_name: 'PrimitiveString'
-    embeds_one :code, class_name: 'CodeableConcept'
-    embeds_one :subject, class_name: 'Reference'
-    embeds_one :encounter, class_name: 'Reference'
-    embeds_one :date, class_name: 'PrimitiveDateTime'
-    embeds_one :source, class_name: 'Reference'
-    embeds_one :orderedBy, class_name: 'CodeableConcept'
-    embeds_many :note, class_name: 'Annotation'
-    embeds_many :entry, class_name: 'ListEntry'
-    embeds_one :emptyReason, class_name: 'CodeableConcept'
+    embeds_many :identifier, class_name: 'FHIR::Identifier'
+    embeds_one :status, class_name: 'FHIR::ListStatus'
+    embeds_one :mode, class_name: 'FHIR::ListMode'
+    embeds_one :title, class_name: 'FHIR::PrimitiveString'
+    embeds_one :code, class_name: 'FHIR::CodeableConcept'
+    embeds_one :subject, class_name: 'FHIR::Reference'
+    embeds_one :encounter, class_name: 'FHIR::Reference'
+    embeds_one :date, class_name: 'FHIR::PrimitiveDateTime'
+    embeds_one :source, class_name: 'FHIR::Reference'
+    embeds_one :orderedBy, class_name: 'FHIR::CodeableConcept'
+    embeds_many :note, class_name: 'FHIR::Annotation'
+    embeds_many :entry, class_name: 'FHIR::ListEntry'
+    embeds_one :emptyReason, class_name: 'FHIR::CodeableConcept'
 
     def self.transform_json(json_hash, target = List.new)
       result = self.superclass.transform_json(json_hash, target)

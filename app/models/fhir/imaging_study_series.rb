@@ -2,18 +2,18 @@ module FHIR
   # fhir/imaging_study_series.rb
   class ImagingStudySeries < BackboneElement
     include Mongoid::Document
-    embeds_one :uid, class_name: 'PrimitiveId'
-    embeds_one :number, class_name: 'PrimitiveUnsignedInt'
-    embeds_one :modality, class_name: 'Coding'
-    embeds_one :description, class_name: 'PrimitiveString'
-    embeds_one :numberOfInstances, class_name: 'PrimitiveUnsignedInt'
-    embeds_many :endpoint, class_name: 'Reference'
-    embeds_one :bodySite, class_name: 'Coding'
-    embeds_one :laterality, class_name: 'Coding'
-    embeds_many :specimen, class_name: 'Reference'
-    embeds_one :started, class_name: 'PrimitiveDateTime'
-    embeds_many :performer, class_name: 'ImagingStudySeriesPerformer'
-    embeds_many :instance, class_name: 'ImagingStudySeriesInstance'
+    embeds_one :uid, class_name: 'FHIR::PrimitiveId'
+    embeds_one :number, class_name: 'FHIR::PrimitiveUnsignedInt'
+    embeds_one :modality, class_name: 'FHIR::Coding'
+    embeds_one :description, class_name: 'FHIR::PrimitiveString'
+    embeds_one :numberOfInstances, class_name: 'FHIR::PrimitiveUnsignedInt'
+    embeds_many :endpoint, class_name: 'FHIR::Reference'
+    embeds_one :bodySite, class_name: 'FHIR::Coding'
+    embeds_one :laterality, class_name: 'FHIR::Coding'
+    embeds_many :specimen, class_name: 'FHIR::Reference'
+    embeds_one :started, class_name: 'FHIR::PrimitiveDateTime'
+    embeds_many :performer, class_name: 'FHIR::ImagingStudySeriesPerformer'
+    embeds_many :instance, class_name: 'FHIR::ImagingStudySeriesInstance'
 
     def self.transform_json(json_hash, target = ImagingStudySeries.new)
       result = self.superclass.transform_json(json_hash, target)

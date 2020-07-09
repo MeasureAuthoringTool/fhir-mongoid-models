@@ -2,17 +2,17 @@ module FHIR
   # fhir/substance_specification_name.rb
   class SubstanceSpecificationName < BackboneElement
     include Mongoid::Document
-    embeds_one :name, class_name: 'PrimitiveString'
-    embeds_one :type, class_name: 'CodeableConcept'
-    embeds_one :status, class_name: 'CodeableConcept'
-    embeds_one :preferred, class_name: 'PrimitiveBoolean'
-    embeds_many :language, class_name: 'CodeableConcept'
-    embeds_many :domain, class_name: 'CodeableConcept'
-    embeds_many :jurisdiction, class_name: 'CodeableConcept'
-    embeds_many :synonym, class_name: 'SubstanceSpecificationName'
-    embeds_many :translation, class_name: 'SubstanceSpecificationName'
-    embeds_many :official, class_name: 'SubstanceSpecificationNameOfficial'
-    embeds_many :source, class_name: 'Reference'
+    embeds_one :name, class_name: 'FHIR::PrimitiveString'
+    embeds_one :type, class_name: 'FHIR::CodeableConcept'
+    embeds_one :status, class_name: 'FHIR::CodeableConcept'
+    embeds_one :preferred, class_name: 'FHIR::PrimitiveBoolean'
+    embeds_many :language, class_name: 'FHIR::CodeableConcept'
+    embeds_many :domain, class_name: 'FHIR::CodeableConcept'
+    embeds_many :jurisdiction, class_name: 'FHIR::CodeableConcept'
+    embeds_many :synonym, class_name: 'FHIR::SubstanceSpecificationName'
+    embeds_many :translation, class_name: 'FHIR::SubstanceSpecificationName'
+    embeds_many :official, class_name: 'FHIR::SubstanceSpecificationNameOfficial'
+    embeds_many :source, class_name: 'FHIR::Reference'
 
     def self.transform_json(json_hash, target = SubstanceSpecificationName.new)
       result = self.superclass.transform_json(json_hash, target)

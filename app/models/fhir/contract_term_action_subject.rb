@@ -2,8 +2,8 @@ module FHIR
   # fhir/contract_term_action_subject.rb
   class ContractTermActionSubject < BackboneElement
     include Mongoid::Document
-    embeds_many :reference, class_name: 'Reference'
-    embeds_one :role, class_name: 'CodeableConcept'
+    embeds_many :reference, class_name: 'FHIR::Reference'
+    embeds_one :role, class_name: 'FHIR::CodeableConcept'
 
     def self.transform_json(json_hash, target = ContractTermActionSubject.new)
       result = self.superclass.transform_json(json_hash, target)

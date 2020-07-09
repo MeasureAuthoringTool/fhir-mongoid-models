@@ -2,16 +2,16 @@ module FHIR
   # fhir/goal_target.rb
   class GoalTarget < BackboneElement
     include Mongoid::Document
-    embeds_one :measure, class_name: 'CodeableConcept'
-    embeds_one :detailQuantity, class_name: 'Quantity'
-    embeds_one :detailRange, class_name: 'Range'
-    embeds_one :detailCodeableConcept, class_name: 'CodeableConcept'
-    embeds_one :detailString, class_name: 'PrimitiveString'
-    embeds_one :detailBoolean, class_name: 'PrimitiveBoolean'
-    embeds_one :detailInteger, class_name: 'PrimitiveInteger'
-    embeds_one :detailRatio, class_name: 'Ratio'
-    embeds_one :dueDate, class_name: 'PrimitiveDate'
-    embeds_one :dueDuration, class_name: 'Duration'
+    embeds_one :measure, class_name: 'FHIR::CodeableConcept'
+    embeds_one :detailQuantity, class_name: 'FHIR::Quantity'
+    embeds_one :detailRange, class_name: 'FHIR::Range'
+    embeds_one :detailCodeableConcept, class_name: 'FHIR::CodeableConcept'
+    embeds_one :detailString, class_name: 'FHIR::PrimitiveString'
+    embeds_one :detailBoolean, class_name: 'FHIR::PrimitiveBoolean'
+    embeds_one :detailInteger, class_name: 'FHIR::PrimitiveInteger'
+    embeds_one :detailRatio, class_name: 'FHIR::Ratio'
+    embeds_one :dueDate, class_name: 'FHIR::PrimitiveDate'
+    embeds_one :dueDuration, class_name: 'FHIR::Duration'
 
     def self.transform_json(json_hash, target = GoalTarget.new)
       result = self.superclass.transform_json(json_hash, target)

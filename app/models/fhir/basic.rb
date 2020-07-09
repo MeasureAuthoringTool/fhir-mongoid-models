@@ -2,11 +2,11 @@ module FHIR
   # fhir/basic.rb
   class Basic < DomainResource
     include Mongoid::Document
-    embeds_many :identifier, class_name: 'Identifier'
-    embeds_one :code, class_name: 'CodeableConcept'
-    embeds_one :subject, class_name: 'Reference'
-    embeds_one :created, class_name: 'PrimitiveDate'
-    embeds_one :author, class_name: 'Reference'
+    embeds_many :identifier, class_name: 'FHIR::Identifier'
+    embeds_one :code, class_name: 'FHIR::CodeableConcept'
+    embeds_one :subject, class_name: 'FHIR::Reference'
+    embeds_one :created, class_name: 'FHIR::PrimitiveDate'
+    embeds_one :author, class_name: 'FHIR::Reference'
 
     def self.transform_json(json_hash, target = Basic.new)
       result = self.superclass.transform_json(json_hash, target)

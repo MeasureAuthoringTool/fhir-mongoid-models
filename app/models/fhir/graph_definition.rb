@@ -2,21 +2,21 @@ module FHIR
   # fhir/graph_definition.rb
   class GraphDefinition < DomainResource
     include Mongoid::Document
-    embeds_one :url, class_name: 'PrimitiveUri'
-    embeds_one :version, class_name: 'PrimitiveString'
-    embeds_one :name, class_name: 'PrimitiveString'
-    embeds_one :status, class_name: 'PublicationStatus'
-    embeds_one :experimental, class_name: 'PrimitiveBoolean'
-    embeds_one :date, class_name: 'PrimitiveDateTime'
-    embeds_one :publisher, class_name: 'PrimitiveString'
-    embeds_many :contact, class_name: 'ContactDetail'
-    embeds_one :description, class_name: 'PrimitiveMarkdown'
-    embeds_many :useContext, class_name: 'UsageContext'
-    embeds_many :jurisdiction, class_name: 'CodeableConcept'
-    embeds_one :purpose, class_name: 'PrimitiveMarkdown'
-    embeds_one :start, class_name: 'ResourceType'
-    embeds_one :profile, class_name: 'PrimitiveCanonical'
-    embeds_many :link, class_name: 'GraphDefinitionLink'
+    embeds_one :url, class_name: 'FHIR::PrimitiveUri'
+    embeds_one :version, class_name: 'FHIR::PrimitiveString'
+    embeds_one :name, class_name: 'FHIR::PrimitiveString'
+    embeds_one :status, class_name: 'FHIR::PublicationStatus'
+    embeds_one :experimental, class_name: 'FHIR::PrimitiveBoolean'
+    embeds_one :date, class_name: 'FHIR::PrimitiveDateTime'
+    embeds_one :publisher, class_name: 'FHIR::PrimitiveString'
+    embeds_many :contact, class_name: 'FHIR::ContactDetail'
+    embeds_one :description, class_name: 'FHIR::PrimitiveMarkdown'
+    embeds_many :useContext, class_name: 'FHIR::UsageContext'
+    embeds_many :jurisdiction, class_name: 'FHIR::CodeableConcept'
+    embeds_one :purpose, class_name: 'FHIR::PrimitiveMarkdown'
+    embeds_one :start, class_name: 'FHIR::ResourceType'
+    embeds_one :profile, class_name: 'FHIR::PrimitiveCanonical'
+    embeds_many :link, class_name: 'FHIR::GraphDefinitionLink'
 
     def self.transform_json(json_hash, target = GraphDefinition.new)
       result = self.superclass.transform_json(json_hash, target)

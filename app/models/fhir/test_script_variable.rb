@@ -2,14 +2,14 @@ module FHIR
   # fhir/test_script_variable.rb
   class TestScriptVariable < BackboneElement
     include Mongoid::Document
-    embeds_one :name, class_name: 'PrimitiveString'
-    embeds_one :defaultValue, class_name: 'PrimitiveString'
-    embeds_one :description, class_name: 'PrimitiveString'
-    embeds_one :expression, class_name: 'PrimitiveString'
-    embeds_one :headerField, class_name: 'PrimitiveString'
-    embeds_one :hint, class_name: 'PrimitiveString'
-    embeds_one :path, class_name: 'PrimitiveString'
-    embeds_one :sourceId, class_name: 'PrimitiveId'
+    embeds_one :name, class_name: 'FHIR::PrimitiveString'
+    embeds_one :defaultValue, class_name: 'FHIR::PrimitiveString'
+    embeds_one :description, class_name: 'FHIR::PrimitiveString'
+    embeds_one :expression, class_name: 'FHIR::PrimitiveString'
+    embeds_one :headerField, class_name: 'FHIR::PrimitiveString'
+    embeds_one :hint, class_name: 'FHIR::PrimitiveString'
+    embeds_one :path, class_name: 'FHIR::PrimitiveString'
+    embeds_one :sourceId, class_name: 'FHIR::PrimitiveId'
 
     def self.transform_json(json_hash, target = TestScriptVariable.new)
       result = self.superclass.transform_json(json_hash, target)

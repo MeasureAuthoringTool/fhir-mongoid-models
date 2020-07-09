@@ -2,17 +2,17 @@ module FHIR
   # fhir/endpoint.rb
   class Endpoint < DomainResource
     include Mongoid::Document
-    embeds_many :identifier, class_name: 'Identifier'
-    embeds_one :status, class_name: 'EndpointStatus'
-    embeds_one :connectionType, class_name: 'Coding'
-    embeds_one :name, class_name: 'PrimitiveString'
-    embeds_one :managingOrganization, class_name: 'Reference'
-    embeds_many :contact, class_name: 'ContactPoint'
-    embeds_one :period, class_name: 'Period'
-    embeds_many :payloadType, class_name: 'CodeableConcept'
-    embeds_many :payloadMimeType, class_name: 'MimeType'
-    embeds_one :address, class_name: 'PrimitiveUrl'
-    embeds_many :header, class_name: 'PrimitiveString'
+    embeds_many :identifier, class_name: 'FHIR::Identifier'
+    embeds_one :status, class_name: 'FHIR::EndpointStatus'
+    embeds_one :connectionType, class_name: 'FHIR::Coding'
+    embeds_one :name, class_name: 'FHIR::PrimitiveString'
+    embeds_one :managingOrganization, class_name: 'FHIR::Reference'
+    embeds_many :contact, class_name: 'FHIR::ContactPoint'
+    embeds_one :period, class_name: 'FHIR::Period'
+    embeds_many :payloadType, class_name: 'FHIR::CodeableConcept'
+    embeds_many :payloadMimeType, class_name: 'FHIR::MimeType'
+    embeds_one :address, class_name: 'FHIR::PrimitiveUrl'
+    embeds_many :header, class_name: 'FHIR::PrimitiveString'
 
     def self.transform_json(json_hash, target = Endpoint.new)
       result = self.superclass.transform_json(json_hash, target)

@@ -2,12 +2,12 @@ module FHIR
   # fhir/device_udi_carrier.rb
   class DeviceUdiCarrier < BackboneElement
     include Mongoid::Document
-    embeds_one :deviceIdentifier, class_name: 'PrimitiveString'
-    embeds_one :issuer, class_name: 'PrimitiveUri'
-    embeds_one :jurisdiction, class_name: 'PrimitiveUri'
-    embeds_one :carrierAIDC, class_name: 'PrimitiveBase64Binary'
-    embeds_one :carrierHRF, class_name: 'PrimitiveString'
-    embeds_one :entryType, class_name: 'UDIEntryType'
+    embeds_one :deviceIdentifier, class_name: 'FHIR::PrimitiveString'
+    embeds_one :issuer, class_name: 'FHIR::PrimitiveUri'
+    embeds_one :jurisdiction, class_name: 'FHIR::PrimitiveUri'
+    embeds_one :carrierAIDC, class_name: 'FHIR::PrimitiveBase64Binary'
+    embeds_one :carrierHRF, class_name: 'FHIR::PrimitiveString'
+    embeds_one :entryType, class_name: 'FHIR::UDIEntryType'
 
     def self.transform_json(json_hash, target = DeviceUdiCarrier.new)
       result = self.superclass.transform_json(json_hash, target)

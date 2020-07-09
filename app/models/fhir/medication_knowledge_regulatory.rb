@@ -2,10 +2,10 @@ module FHIR
   # fhir/medication_knowledge_regulatory.rb
   class MedicationKnowledgeRegulatory < BackboneElement
     include Mongoid::Document
-    embeds_one :regulatoryAuthority, class_name: 'Reference'
-    embeds_many :substitution, class_name: 'MedicationKnowledgeRegulatorySubstitution'
-    embeds_many :schedule, class_name: 'MedicationKnowledgeRegulatorySchedule'
-    embeds_one :maxDispense, class_name: 'MedicationKnowledgeRegulatoryMaxDispense'
+    embeds_one :regulatoryAuthority, class_name: 'FHIR::Reference'
+    embeds_many :substitution, class_name: 'FHIR::MedicationKnowledgeRegulatorySubstitution'
+    embeds_many :schedule, class_name: 'FHIR::MedicationKnowledgeRegulatorySchedule'
+    embeds_one :maxDispense, class_name: 'FHIR::MedicationKnowledgeRegulatoryMaxDispense'
 
     def self.transform_json(json_hash, target = MedicationKnowledgeRegulatory.new)
       result = self.superclass.transform_json(json_hash, target)

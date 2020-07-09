@@ -2,18 +2,18 @@ module FHIR
   # fhir/organization_affiliation.rb
   class OrganizationAffiliation < DomainResource
     include Mongoid::Document
-    embeds_many :identifier, class_name: 'Identifier'
-    embeds_one :active, class_name: 'PrimitiveBoolean'
-    embeds_one :period, class_name: 'Period'
-    embeds_one :organization, class_name: 'Reference'
-    embeds_one :participatingOrganization, class_name: 'Reference'
-    embeds_many :network, class_name: 'Reference'
-    embeds_many :code, class_name: 'CodeableConcept'
-    embeds_many :specialty, class_name: 'CodeableConcept'
-    embeds_many :location, class_name: 'Reference'
-    embeds_many :healthcareService, class_name: 'Reference'
-    embeds_many :telecom, class_name: 'ContactPoint'
-    embeds_many :endpoint, class_name: 'Reference'
+    embeds_many :identifier, class_name: 'FHIR::Identifier'
+    embeds_one :active, class_name: 'FHIR::PrimitiveBoolean'
+    embeds_one :period, class_name: 'FHIR::Period'
+    embeds_one :organization, class_name: 'FHIR::Reference'
+    embeds_one :participatingOrganization, class_name: 'FHIR::Reference'
+    embeds_many :network, class_name: 'FHIR::Reference'
+    embeds_many :code, class_name: 'FHIR::CodeableConcept'
+    embeds_many :specialty, class_name: 'FHIR::CodeableConcept'
+    embeds_many :location, class_name: 'FHIR::Reference'
+    embeds_many :healthcareService, class_name: 'FHIR::Reference'
+    embeds_many :telecom, class_name: 'FHIR::ContactPoint'
+    embeds_many :endpoint, class_name: 'FHIR::Reference'
 
     def self.transform_json(json_hash, target = OrganizationAffiliation.new)
       result = self.superclass.transform_json(json_hash, target)

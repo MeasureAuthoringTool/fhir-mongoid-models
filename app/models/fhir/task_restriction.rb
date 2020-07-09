@@ -2,9 +2,9 @@ module FHIR
   # fhir/task_restriction.rb
   class TaskRestriction < BackboneElement
     include Mongoid::Document
-    embeds_one :repetitions, class_name: 'PrimitivePositiveInt'
-    embeds_one :period, class_name: 'Period'
-    embeds_many :recipient, class_name: 'Reference'
+    embeds_one :repetitions, class_name: 'FHIR::PrimitivePositiveInt'
+    embeds_one :period, class_name: 'FHIR::Period'
+    embeds_many :recipient, class_name: 'FHIR::Reference'
 
     def self.transform_json(json_hash, target = TaskRestriction.new)
       result = self.superclass.transform_json(json_hash, target)
