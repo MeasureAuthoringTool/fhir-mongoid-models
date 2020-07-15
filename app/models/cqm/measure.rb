@@ -29,5 +29,11 @@ module CQM
     embeds_many :libraries, class_name: 'FHIR::Library'
     has_and_belongs_to_many :value_sets, class_name: 'CQM::ValueSet', inverse_of: nil
     has_one :package, class_name: 'CQM::MeasurePackage', inverse_of: :measure, dependent: :destroy
+
+    # ELM/CQL Measure-logic related data
+    # Field name changed from 'cql' to 'cql_libraries' because the semantics of
+    # 'embeds_many :cqls' sounded weird
+    embeds_many :cql_libraries, class_name: 'CQM::LogicLibrary'
+    field :main_cql_library, type: String
   end
 end
