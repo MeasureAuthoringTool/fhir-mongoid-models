@@ -6,7 +6,7 @@ module FHIR
 
     def self.transform_json(json_hash, target = MimeType.new)
       result = self.superclass.transform_json(json_hash, target)
-      result['value'] = json_hash['value'] unless json_hash['value'].nil?
+      result['value'] = json_hash #['value'] unless json_hash['value'].nil?
 
       result
     end
