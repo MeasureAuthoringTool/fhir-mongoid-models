@@ -54,6 +54,7 @@ module FHIR
     embeds_one :valueDosage, class_name: 'FHIR::Dosage'
     embeds_one :valueMeta, class_name: 'FHIR::Meta'
     field :id, type: String
+    field :fhirId, type: String
     embeds_many :extension, class_name: 'FHIR::Extension'
 
     def self.transform_json(json_hash, target = Extension.new)
@@ -109,7 +110,7 @@ module FHIR
       result['valueUsageContext'] = UsageContext.transform_json(json_hash['valueUsageContext']) unless json_hash['valueUsageContext'].nil?      
       result['valueDosage'] = Dosage.transform_json(json_hash['valueDosage']) unless json_hash['valueDosage'].nil?      
       result['valueMeta'] = Meta.transform_json(json_hash['valueMeta']) unless json_hash['valueMeta'].nil?      
-      result['id'] = json_hash['id'] unless json_hash['id'].nil?
+      result['fhirId'] = json_hash['id'] unless json_hash['id'].nil?
       result['extension'] = json_hash['extension'].map { |var| Extension.transform_json(var) } unless json_hash['extension'].nil?
 
       result
