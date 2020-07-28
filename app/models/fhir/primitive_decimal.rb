@@ -2,7 +2,7 @@ module FHIR
   # fhir/primitive_decimal.rb
   class PrimitiveDecimal < Element
     include Mongoid::Document
-    field :value, type: BigDecimal
+    field :value, type: BigDecimal    
 
     def self.transform_json(json_hash, extension_hash, target = PrimitiveDecimal.new)
       result = target

@@ -2,7 +2,7 @@ module FHIR
   # fhir/primitive_integer.rb
   class PrimitiveInteger < Element
     include Mongoid::Document
-    field :value, type: Integer
+    field :value, type: Integer    
 
     def self.transform_json(json_hash, extension_hash, target = PrimitiveInteger.new)
       result = target

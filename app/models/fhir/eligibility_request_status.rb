@@ -2,7 +2,7 @@ module FHIR
   # fhir/eligibility_request_status.rb
   class EligibilityRequestStatus < Element
     include Mongoid::Document
-    field :value, type: String
+    field :value, type: String    
 
     def self.transform_json(json_hash, target = EligibilityRequestStatus.new)
       result = self.superclass.transform_json(json_hash, target)

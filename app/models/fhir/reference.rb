@@ -2,17 +2,17 @@ module FHIR
   # fhir/reference.rb
   class Reference < Element
     include Mongoid::Document
-    embeds_one :reference, class_name: 'FHIR::PrimitiveString'
-    embeds_one :type, class_name: 'FHIR::PrimitiveUri'
-    embeds_one :identifier, class_name: 'FHIR::Identifier'
-    embeds_one :display, class_name: 'FHIR::PrimitiveString'
+    embeds_one :reference, class_name: 'FHIR::PrimitiveString'    
+    embeds_one :type, class_name: 'FHIR::PrimitiveUri'    
+    embeds_one :identifier, class_name: 'FHIR::Identifier'    
+    embeds_one :display, class_name: 'FHIR::PrimitiveString'    
 
     def self.transform_json(json_hash, target = Reference.new)
       result = self.superclass.transform_json(json_hash, target)
-      result['reference'] = PrimitiveString.transform_json(json_hash['reference'], json_hash['_reference']) unless json_hash['reference'].nil?      
-      result['type'] = PrimitiveUri.transform_json(json_hash['type'], json_hash['_type']) unless json_hash['type'].nil?      
-      result['identifier'] = Identifier.transform_json(json_hash['identifier']) unless json_hash['identifier'].nil?      
-      result['display'] = PrimitiveString.transform_json(json_hash['display'], json_hash['_display']) unless json_hash['display'].nil?      
+      result['reference'] = PrimitiveString.transform_json(json_hash['reference'], json_hash['_reference']) unless json_hash['reference'].nil?
+      result['type'] = PrimitiveUri.transform_json(json_hash['type'], json_hash['_type']) unless json_hash['type'].nil?
+      result['identifier'] = Identifier.transform_json(json_hash['identifier']) unless json_hash['identifier'].nil?
+      result['display'] = PrimitiveString.transform_json(json_hash['display'], json_hash['_display']) unless json_hash['display'].nil?
 
       result
     end

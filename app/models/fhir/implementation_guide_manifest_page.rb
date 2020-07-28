@@ -2,14 +2,14 @@ module FHIR
   # fhir/implementation_guide_manifest_page.rb
   class ImplementationGuideManifestPage < BackboneElement
     include Mongoid::Document
-    embeds_one :name, class_name: 'FHIR::PrimitiveString'
-    embeds_one :title, class_name: 'FHIR::PrimitiveString'
-    embeds_many :anchor, class_name: 'FHIR::PrimitiveString'
+    embeds_one :name, class_name: 'FHIR::PrimitiveString'    
+    embeds_one :title, class_name: 'FHIR::PrimitiveString'    
+    embeds_many :anchor, class_name: 'FHIR::PrimitiveString'    
 
     def self.transform_json(json_hash, target = ImplementationGuideManifestPage.new)
       result = self.superclass.transform_json(json_hash, target)
-      result['name'] = PrimitiveString.transform_json(json_hash['name'], json_hash['_name']) unless json_hash['name'].nil?      
-      result['title'] = PrimitiveString.transform_json(json_hash['title'], json_hash['_title']) unless json_hash['title'].nil?      
+      result['name'] = PrimitiveString.transform_json(json_hash['name'], json_hash['_name']) unless json_hash['name'].nil?
+      result['title'] = PrimitiveString.transform_json(json_hash['title'], json_hash['_title']) unless json_hash['title'].nil?
       result['anchor'] = json_hash['anchor'].each_with_index.map do |var, i|
         extension_hash = json_hash['_anchor'] && json_hash['_anchor'][i]
         PrimitiveString.transform_json(var, extension_hash)

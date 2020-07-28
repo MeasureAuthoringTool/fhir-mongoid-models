@@ -2,7 +2,7 @@ module FHIR
   # fhir/account_status.rb
   class AccountStatus < Element
     include Mongoid::Document
-    field :value, type: String
+    field :value, type: String    
 
     def self.transform_json(json_hash, target = AccountStatus.new)
       result = self.superclass.transform_json(json_hash, target)

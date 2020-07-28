@@ -2,7 +2,7 @@ module FHIR
   # fhir/sort_direction.rb
   class SortDirection < Element
     include Mongoid::Document
-    field :value, type: String
+    field :value, type: String    
 
     def self.transform_json(json_hash, target = SortDirection.new)
       result = self.superclass.transform_json(json_hash, target)

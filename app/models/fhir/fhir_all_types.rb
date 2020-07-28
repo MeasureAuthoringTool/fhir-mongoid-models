@@ -2,7 +2,7 @@ module FHIR
   # fhir/fhir_all_types.rb
   class FHIRAllTypes < Element
     include Mongoid::Document
-    field :value, type: String
+    field :value, type: String    
 
     def self.transform_json(json_hash, target = FHIRAllTypes.new)
       result = self.superclass.transform_json(json_hash, target)

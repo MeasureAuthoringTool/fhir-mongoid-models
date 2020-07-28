@@ -2,8 +2,8 @@ module FHIR
   # fhir/measure_report_group_stratifier.rb
   class MeasureReportGroupStratifier < BackboneElement
     include Mongoid::Document
-    embeds_many :code, class_name: 'FHIR::CodeableConcept'
-    embeds_many :stratum, class_name: 'FHIR::MeasureReportGroupStratifierStratum'
+    embeds_many :code, class_name: 'FHIR::CodeableConcept'    
+    embeds_many :stratum, class_name: 'FHIR::MeasureReportGroupStratifierStratum'    
 
     def self.transform_json(json_hash, target = MeasureReportGroupStratifier.new)
       result = self.superclass.transform_json(json_hash, target)

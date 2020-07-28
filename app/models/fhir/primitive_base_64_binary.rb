@@ -2,7 +2,7 @@ module FHIR
   # fhir/primitive_base_64_binary.rb
   class PrimitiveBase64Binary < Element
     include Mongoid::Document
-    field :value, type: String
+    field :value, type: String    
 
     def self.transform_json(json_hash, extension_hash, target = PrimitiveBase64Binary.new)
       result = target

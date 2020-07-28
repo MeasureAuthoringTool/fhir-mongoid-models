@@ -2,7 +2,7 @@ module FHIR
   # fhir/operation_parameter_use.rb
   class OperationParameterUse < Element
     include Mongoid::Document
-    field :value, type: String
+    field :value, type: String    
 
     def self.transform_json(json_hash, target = OperationParameterUse.new)
       result = self.superclass.transform_json(json_hash, target)

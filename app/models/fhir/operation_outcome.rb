@@ -2,7 +2,7 @@ module FHIR
   # fhir/operation_outcome.rb
   class OperationOutcome < DomainResource
     include Mongoid::Document
-    embeds_many :issue, class_name: 'FHIR::OperationOutcomeIssue'
+    embeds_many :issue, class_name: 'FHIR::OperationOutcomeIssue'    
 
     def self.transform_json(json_hash, target = OperationOutcome.new)
       result = self.superclass.transform_json(json_hash, target)

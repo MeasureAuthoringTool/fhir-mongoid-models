@@ -2,7 +2,7 @@ module FHIR
   # fhir/device_request_status.rb
   class DeviceRequestStatus < Element
     include Mongoid::Document
-    field :value, type: String
+    field :value, type: String    
 
     def self.transform_json(json_hash, target = DeviceRequestStatus.new)
       result = self.superclass.transform_json(json_hash, target)

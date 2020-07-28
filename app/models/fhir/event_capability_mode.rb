@@ -2,7 +2,7 @@ module FHIR
   # fhir/event_capability_mode.rb
   class EventCapabilityMode < Element
     include Mongoid::Document
-    field :value, type: String
+    field :value, type: String    
 
     def self.transform_json(json_hash, target = EventCapabilityMode.new)
       result = self.superclass.transform_json(json_hash, target)

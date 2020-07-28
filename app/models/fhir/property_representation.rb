@@ -2,7 +2,7 @@ module FHIR
   # fhir/property_representation.rb
   class PropertyRepresentation < Element
     include Mongoid::Document
-    field :value, type: String
+    field :value, type: String    
 
     def self.transform_json(json_hash, target = PropertyRepresentation.new)
       result = self.superclass.transform_json(json_hash, target)

@@ -2,7 +2,7 @@ module FHIR
   # fhir/quantity_comparator.rb
   class QuantityComparator < Element
     include Mongoid::Document
-    field :value, type: String
+    field :value, type: String    
 
     def self.transform_json(json_hash, target = QuantityComparator.new)
       result = self.superclass.transform_json(json_hash, target)

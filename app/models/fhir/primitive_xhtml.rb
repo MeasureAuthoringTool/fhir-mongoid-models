@@ -2,7 +2,7 @@ module FHIR
   # fhir/primitive_xhtml.rb
   class PrimitiveXhtml < Element
     include Mongoid::Document
-    field :value, type: String
+    field :value, type: String    
 
     def self.transform_json(json_hash, extension_hash, target = PrimitiveXhtml.new)
       result = target

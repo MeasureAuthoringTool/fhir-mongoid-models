@@ -2,7 +2,7 @@ module FHIR
   # fhir/assertion_direction_type.rb
   class AssertionDirectionType < Element
     include Mongoid::Document
-    field :value, type: String
+    field :value, type: String    
 
     def self.transform_json(json_hash, target = AssertionDirectionType.new)
       result = self.superclass.transform_json(json_hash, target)

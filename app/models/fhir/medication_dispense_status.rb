@@ -2,7 +2,7 @@ module FHIR
   # fhir/medication_dispense_status.rb
   class MedicationDispenseStatus < Element
     include Mongoid::Document
-    field :value, type: String
+    field :value, type: String    
 
     def self.transform_json(json_hash, target = MedicationDispenseStatus.new)
       result = self.superclass.transform_json(json_hash, target)

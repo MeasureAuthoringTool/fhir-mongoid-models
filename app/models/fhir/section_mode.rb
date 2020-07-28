@@ -2,7 +2,7 @@ module FHIR
   # fhir/section_mode.rb
   class SectionMode < Element
     include Mongoid::Document
-    field :value, type: String
+    field :value, type: String    
 
     def self.transform_json(json_hash, target = SectionMode.new)
       result = self.superclass.transform_json(json_hash, target)

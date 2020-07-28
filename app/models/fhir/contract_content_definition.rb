@@ -2,21 +2,21 @@ module FHIR
   # fhir/contract_content_definition.rb
   class ContractContentDefinition < BackboneElement
     include Mongoid::Document
-    embeds_one :type, class_name: 'FHIR::CodeableConcept'
-    embeds_one :subType, class_name: 'FHIR::CodeableConcept'
-    embeds_one :publisher, class_name: 'FHIR::Reference'
-    embeds_one :publicationDate, class_name: 'FHIR::PrimitiveDateTime'
-    embeds_one :publicationStatus, class_name: 'FHIR::ContractPublicationStatus'
-    embeds_one :copyright, class_name: 'FHIR::PrimitiveMarkdown'
+    embeds_one :type, class_name: 'FHIR::CodeableConcept'    
+    embeds_one :subType, class_name: 'FHIR::CodeableConcept'    
+    embeds_one :publisher, class_name: 'FHIR::Reference'    
+    embeds_one :publicationDate, class_name: 'FHIR::PrimitiveDateTime'    
+    embeds_one :publicationStatus, class_name: 'FHIR::ContractPublicationStatus'    
+    embeds_one :copyright, class_name: 'FHIR::PrimitiveMarkdown'    
 
     def self.transform_json(json_hash, target = ContractContentDefinition.new)
       result = self.superclass.transform_json(json_hash, target)
-      result['type'] = CodeableConcept.transform_json(json_hash['type']) unless json_hash['type'].nil?      
-      result['subType'] = CodeableConcept.transform_json(json_hash['subType']) unless json_hash['subType'].nil?      
-      result['publisher'] = Reference.transform_json(json_hash['publisher']) unless json_hash['publisher'].nil?      
-      result['publicationDate'] = PrimitiveDateTime.transform_json(json_hash['publicationDate'], json_hash['_publicationDate']) unless json_hash['publicationDate'].nil?      
-      result['publicationStatus'] = ContractPublicationStatus.transform_json(json_hash['publicationStatus']) unless json_hash['publicationStatus'].nil?      
-      result['copyright'] = PrimitiveMarkdown.transform_json(json_hash['copyright'], json_hash['_copyright']) unless json_hash['copyright'].nil?      
+      result['type'] = CodeableConcept.transform_json(json_hash['type']) unless json_hash['type'].nil?
+      result['subType'] = CodeableConcept.transform_json(json_hash['subType']) unless json_hash['subType'].nil?
+      result['publisher'] = Reference.transform_json(json_hash['publisher']) unless json_hash['publisher'].nil?
+      result['publicationDate'] = PrimitiveDateTime.transform_json(json_hash['publicationDate'], json_hash['_publicationDate']) unless json_hash['publicationDate'].nil?
+      result['publicationStatus'] = ContractPublicationStatus.transform_json(json_hash['publicationStatus']) unless json_hash['publicationStatus'].nil?
+      result['copyright'] = PrimitiveMarkdown.transform_json(json_hash['copyright'], json_hash['_copyright']) unless json_hash['copyright'].nil?
 
       result
     end

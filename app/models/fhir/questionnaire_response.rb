@@ -2,30 +2,30 @@ module FHIR
   # fhir/questionnaire_response.rb
   class QuestionnaireResponse < DomainResource
     include Mongoid::Document
-    embeds_one :identifier, class_name: 'FHIR::Identifier'
-    embeds_many :basedOn, class_name: 'FHIR::Reference'
-    embeds_many :partOf, class_name: 'FHIR::Reference'
-    embeds_one :questionnaire, class_name: 'FHIR::PrimitiveCanonical'
-    embeds_one :status, class_name: 'FHIR::QuestionnaireResponseStatus'
-    embeds_one :subject, class_name: 'FHIR::Reference'
-    embeds_one :encounter, class_name: 'FHIR::Reference'
-    embeds_one :authored, class_name: 'FHIR::PrimitiveDateTime'
-    embeds_one :author, class_name: 'FHIR::Reference'
-    embeds_one :source, class_name: 'FHIR::Reference'
-    embeds_many :item, class_name: 'FHIR::QuestionnaireResponseItem'
+    embeds_one :identifier, class_name: 'FHIR::Identifier'    
+    embeds_many :basedOn, class_name: 'FHIR::Reference'    
+    embeds_many :partOf, class_name: 'FHIR::Reference'    
+    embeds_one :questionnaire, class_name: 'FHIR::PrimitiveCanonical'    
+    embeds_one :status, class_name: 'FHIR::QuestionnaireResponseStatus'    
+    embeds_one :subject, class_name: 'FHIR::Reference'    
+    embeds_one :encounter, class_name: 'FHIR::Reference'    
+    embeds_one :authored, class_name: 'FHIR::PrimitiveDateTime'    
+    embeds_one :author, class_name: 'FHIR::Reference'    
+    embeds_one :source, class_name: 'FHIR::Reference'    
+    embeds_many :item, class_name: 'FHIR::QuestionnaireResponseItem'    
 
     def self.transform_json(json_hash, target = QuestionnaireResponse.new)
       result = self.superclass.transform_json(json_hash, target)
-      result['identifier'] = Identifier.transform_json(json_hash['identifier']) unless json_hash['identifier'].nil?      
+      result['identifier'] = Identifier.transform_json(json_hash['identifier']) unless json_hash['identifier'].nil?
       result['basedOn'] = json_hash['basedOn'].map { |var| Reference.transform_json(var) } unless json_hash['basedOn'].nil?
       result['partOf'] = json_hash['partOf'].map { |var| Reference.transform_json(var) } unless json_hash['partOf'].nil?
-      result['questionnaire'] = PrimitiveCanonical.transform_json(json_hash['questionnaire'], json_hash['_questionnaire']) unless json_hash['questionnaire'].nil?      
-      result['status'] = QuestionnaireResponseStatus.transform_json(json_hash['status']) unless json_hash['status'].nil?      
-      result['subject'] = Reference.transform_json(json_hash['subject']) unless json_hash['subject'].nil?      
-      result['encounter'] = Reference.transform_json(json_hash['encounter']) unless json_hash['encounter'].nil?      
-      result['authored'] = PrimitiveDateTime.transform_json(json_hash['authored'], json_hash['_authored']) unless json_hash['authored'].nil?      
-      result['author'] = Reference.transform_json(json_hash['author']) unless json_hash['author'].nil?      
-      result['source'] = Reference.transform_json(json_hash['source']) unless json_hash['source'].nil?      
+      result['questionnaire'] = PrimitiveCanonical.transform_json(json_hash['questionnaire'], json_hash['_questionnaire']) unless json_hash['questionnaire'].nil?
+      result['status'] = QuestionnaireResponseStatus.transform_json(json_hash['status']) unless json_hash['status'].nil?
+      result['subject'] = Reference.transform_json(json_hash['subject']) unless json_hash['subject'].nil?
+      result['encounter'] = Reference.transform_json(json_hash['encounter']) unless json_hash['encounter'].nil?
+      result['authored'] = PrimitiveDateTime.transform_json(json_hash['authored'], json_hash['_authored']) unless json_hash['authored'].nil?
+      result['author'] = Reference.transform_json(json_hash['author']) unless json_hash['author'].nil?
+      result['source'] = Reference.transform_json(json_hash['source']) unless json_hash['source'].nil?
       result['item'] = json_hash['item'].map { |var| QuestionnaireResponseItem.transform_json(var) } unless json_hash['item'].nil?
 
       result

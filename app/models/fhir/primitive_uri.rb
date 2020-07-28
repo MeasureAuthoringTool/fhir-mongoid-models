@@ -2,7 +2,7 @@ module FHIR
   # fhir/primitive_uri.rb
   class PrimitiveUri < Element
     include Mongoid::Document
-    field :value, type: String
+    field :value, type: String    
 
     def self.transform_json(json_hash, extension_hash, target = PrimitiveUri.new)
       result = target

@@ -2,7 +2,7 @@ module FHIR
   # fhir/slicing_rules.rb
   class SlicingRules < Element
     include Mongoid::Document
-    field :value, type: String
+    field :value, type: String    
 
     def self.transform_json(json_hash, target = SlicingRules.new)
       result = self.superclass.transform_json(json_hash, target)

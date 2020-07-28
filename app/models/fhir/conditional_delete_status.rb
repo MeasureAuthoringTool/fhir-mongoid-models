@@ -2,7 +2,7 @@ module FHIR
   # fhir/conditional_delete_status.rb
   class ConditionalDeleteStatus < Element
     include Mongoid::Document
-    field :value, type: String
+    field :value, type: String    
 
     def self.transform_json(json_hash, target = ConditionalDeleteStatus.new)
       result = self.superclass.transform_json(json_hash, target)

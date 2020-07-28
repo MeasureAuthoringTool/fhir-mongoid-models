@@ -2,7 +2,7 @@ module FHIR
   # fhir/nutritiion_order_intent.rb
   class NutritiionOrderIntent < Element
     include Mongoid::Document
-    field :value, type: String
+    field :value, type: String    
 
     def self.transform_json(json_hash, target = NutritiionOrderIntent.new)
       result = self.superclass.transform_json(json_hash, target)

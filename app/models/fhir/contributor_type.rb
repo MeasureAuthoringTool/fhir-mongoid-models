@@ -2,7 +2,7 @@ module FHIR
   # fhir/contributor_type.rb
   class ContributorType < Element
     include Mongoid::Document
-    field :value, type: String
+    field :value, type: String    
 
     def self.transform_json(json_hash, target = ContributorType.new)
       result = self.superclass.transform_json(json_hash, target)

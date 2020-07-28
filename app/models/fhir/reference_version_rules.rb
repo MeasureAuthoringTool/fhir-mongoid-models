@@ -2,7 +2,7 @@ module FHIR
   # fhir/reference_version_rules.rb
   class ReferenceVersionRules < Element
     include Mongoid::Document
-    field :value, type: String
+    field :value, type: String    
 
     def self.transform_json(json_hash, target = ReferenceVersionRules.new)
       result = self.superclass.transform_json(json_hash, target)
