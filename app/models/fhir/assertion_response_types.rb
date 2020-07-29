@@ -2,7 +2,7 @@ module FHIR
   # fhir/assertion_response_types.rb
   class AssertionResponseTypes < Element
     include Mongoid::Document
-    field :value, type: String
+    field :value, type: String    
 
     def self.transform_json(json_hash, target = AssertionResponseTypes.new)
       result = self.superclass.transform_json(json_hash, target)

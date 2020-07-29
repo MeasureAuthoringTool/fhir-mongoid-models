@@ -2,15 +2,15 @@ module FHIR
   # fhir/medicinal_product_pharmaceutical_route_of_administration_target_species_withdrawal_period.rb
   class MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdrawalPeriod < BackboneElement
     include Mongoid::Document
-    embeds_one :tissue, class_name: 'FHIR::CodeableConcept'
-    embeds_one :value, class_name: 'FHIR::Quantity'
-    embeds_one :supportingInformation, class_name: 'FHIR::PrimitiveString'
+    embeds_one :tissue, class_name: 'FHIR::CodeableConcept'    
+    embeds_one :value, class_name: 'FHIR::Quantity'    
+    embeds_one :supportingInformation, class_name: 'FHIR::PrimitiveString'    
 
     def self.transform_json(json_hash, target = MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdrawalPeriod.new)
       result = self.superclass.transform_json(json_hash, target)
-      result['tissue'] = CodeableConcept.transform_json(json_hash['tissue']) unless json_hash['tissue'].nil?      
-      result['value'] = Quantity.transform_json(json_hash['value']) unless json_hash['value'].nil?      
-      result['supportingInformation'] = PrimitiveString.transform_json(json_hash['supportingInformation'], json_hash['_supportingInformation']) unless json_hash['supportingInformation'].nil?      
+      result['tissue'] = CodeableConcept.transform_json(json_hash['tissue']) unless json_hash['tissue'].nil?
+      result['value'] = Quantity.transform_json(json_hash['value']) unless json_hash['value'].nil?
+      result['supportingInformation'] = PrimitiveString.transform_json(json_hash['supportingInformation'], json_hash['_supportingInformation']) unless json_hash['supportingInformation'].nil?
 
       result
     end

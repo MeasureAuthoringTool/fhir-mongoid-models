@@ -2,7 +2,7 @@ module FHIR
   # fhir/related_artifact_type.rb
   class RelatedArtifactType < Element
     include Mongoid::Document
-    field :value, type: String
+    field :value, type: String    
 
     def self.transform_json(json_hash, target = RelatedArtifactType.new)
       result = self.superclass.transform_json(json_hash, target)

@@ -2,7 +2,7 @@ module FHIR
   # fhir/task_priority.rb
   class TaskPriority < Element
     include Mongoid::Document
-    field :value, type: String
+    field :value, type: String    
 
     def self.transform_json(json_hash, target = TaskPriority.new)
       result = self.superclass.transform_json(json_hash, target)

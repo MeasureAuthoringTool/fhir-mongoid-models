@@ -2,7 +2,7 @@ module FHIR
   # fhir/primitive_instant.rb
   class PrimitiveInstant < Element
     include Mongoid::Document
-    field :value, type: DateTime
+    field :value, type: DateTime    
 
     def self.transform_json(json_hash, extension_hash, target = PrimitiveInstant.new)
       result = target

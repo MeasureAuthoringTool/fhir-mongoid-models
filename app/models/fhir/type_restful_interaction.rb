@@ -2,7 +2,7 @@ module FHIR
   # fhir/type_restful_interaction.rb
   class TypeRestfulInteraction < Element
     include Mongoid::Document
-    field :value, type: String
+    field :value, type: String    
 
     def self.transform_json(json_hash, target = TypeRestfulInteraction.new)
       result = self.superclass.transform_json(json_hash, target)

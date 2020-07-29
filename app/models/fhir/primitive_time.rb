@@ -2,7 +2,7 @@ module FHIR
   # fhir/primitive_time.rb
   class PrimitiveTime < Element
     include Mongoid::Document
-    field :value, type: Time
+    field :value, type: Time    
 
     def self.transform_json(json_hash, extension_hash, target = PrimitiveTime.new)
       result = target

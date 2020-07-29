@@ -5,6 +5,7 @@ end
 
 require 'mongoid'
 
+require_relative 'fhir/type'
 require_relative 'fhir/resource'
 require_relative 'fhir/domain_resource'
 require_relative 'fhir/element'

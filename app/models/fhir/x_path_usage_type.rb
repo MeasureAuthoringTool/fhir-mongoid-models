@@ -2,7 +2,7 @@ module FHIR
   # fhir/x_path_usage_type.rb
   class XPathUsageType < Element
     include Mongoid::Document
-    field :value, type: String
+    field :value, type: String    
 
     def self.transform_json(json_hash, target = XPathUsageType.new)
       result = self.superclass.transform_json(json_hash, target)

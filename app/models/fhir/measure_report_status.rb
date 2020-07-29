@@ -2,7 +2,7 @@ module FHIR
   # fhir/measure_report_status.rb
   class MeasureReportStatus < Element
     include Mongoid::Document
-    field :value, type: String
+    field :value, type: String    
 
     def self.transform_json(json_hash, target = MeasureReportStatus.new)
       result = self.superclass.transform_json(json_hash, target)

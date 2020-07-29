@@ -2,7 +2,7 @@ module FHIR
   # fhir/spdx_license.rb
   class SPDXLicense < Element
     include Mongoid::Document
-    field :value, type: String
+    field :value, type: String    
 
     def self.transform_json(json_hash, target = SPDXLicense.new)
       result = self.superclass.transform_json(json_hash, target)

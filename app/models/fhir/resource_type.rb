@@ -2,7 +2,7 @@ module FHIR
   # fhir/resource_type.rb
   class ResourceType < Element
     include Mongoid::Document
-    field :value, type: String
+    field :value, type: String    
 
     def self.transform_json(json_hash, target = ResourceType.new)
       result = self.superclass.transform_json(json_hash, target)

@@ -2,7 +2,7 @@ module FHIR
   # fhir/observation_range_category.rb
   class ObservationRangeCategory < Element
     include Mongoid::Document
-    field :value, type: String
+    field :value, type: String    
 
     def self.transform_json(json_hash, target = ObservationRangeCategory.new)
       result = self.superclass.transform_json(json_hash, target)

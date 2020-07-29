@@ -2,7 +2,7 @@ module FHIR
   # fhir/communication_request_status.rb
   class CommunicationRequestStatus < Element
     include Mongoid::Document
-    field :value, type: String
+    field :value, type: String    
 
     def self.transform_json(json_hash, target = CommunicationRequestStatus.new)
       result = self.superclass.transform_json(json_hash, target)

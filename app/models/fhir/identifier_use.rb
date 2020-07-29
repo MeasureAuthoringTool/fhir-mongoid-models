@@ -2,7 +2,7 @@ module FHIR
   # fhir/identifier_use.rb
   class IdentifierUse < Element
     include Mongoid::Document
-    field :value, type: String
+    field :value, type: String    
 
     def self.transform_json(json_hash, target = IdentifierUse.new)
       result = self.superclass.transform_json(json_hash, target)

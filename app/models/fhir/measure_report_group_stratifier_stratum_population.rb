@@ -2,15 +2,15 @@ module FHIR
   # fhir/measure_report_group_stratifier_stratum_population.rb
   class MeasureReportGroupStratifierStratumPopulation < BackboneElement
     include Mongoid::Document
-    embeds_one :code, class_name: 'FHIR::CodeableConcept'
-    embeds_one :count, class_name: 'FHIR::PrimitiveInteger'
-    embeds_one :subjectResults, class_name: 'FHIR::Reference'
+    embeds_one :code, class_name: 'FHIR::CodeableConcept'    
+    embeds_one :count, class_name: 'FHIR::PrimitiveInteger'    
+    embeds_one :subjectResults, class_name: 'FHIR::Reference'    
 
     def self.transform_json(json_hash, target = MeasureReportGroupStratifierStratumPopulation.new)
       result = self.superclass.transform_json(json_hash, target)
-      result['code'] = CodeableConcept.transform_json(json_hash['code']) unless json_hash['code'].nil?      
-      result['count'] = PrimitiveInteger.transform_json(json_hash['count'], json_hash['_count']) unless json_hash['count'].nil?      
-      result['subjectResults'] = Reference.transform_json(json_hash['subjectResults']) unless json_hash['subjectResults'].nil?      
+      result['code'] = CodeableConcept.transform_json(json_hash['code']) unless json_hash['code'].nil?
+      result['count'] = PrimitiveInteger.transform_json(json_hash['count'], json_hash['_count']) unless json_hash['count'].nil?
+      result['subjectResults'] = Reference.transform_json(json_hash['subjectResults']) unless json_hash['subjectResults'].nil?
 
       result
     end

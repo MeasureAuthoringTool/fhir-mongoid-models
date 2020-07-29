@@ -2,7 +2,7 @@ module FHIR
   # fhir/action_relationship_type.rb
   class ActionRelationshipType < Element
     include Mongoid::Document
-    field :value, type: String
+    field :value, type: String    
 
     def self.transform_json(json_hash, target = ActionRelationshipType.new)
       result = self.superclass.transform_json(json_hash, target)

@@ -2,7 +2,7 @@ module FHIR
   # fhir/naming_system_identifier_type.rb
   class NamingSystemIdentifierType < Element
     include Mongoid::Document
-    field :value, type: String
+    field :value, type: String    
 
     def self.transform_json(json_hash, target = NamingSystemIdentifierType.new)
       result = self.superclass.transform_json(json_hash, target)

@@ -2,7 +2,7 @@ module FHIR
   # fhir/service_request_intent.rb
   class ServiceRequestIntent < Element
     include Mongoid::Document
-    field :value, type: String
+    field :value, type: String    
 
     def self.transform_json(json_hash, target = ServiceRequestIntent.new)
       result = self.superclass.transform_json(json_hash, target)

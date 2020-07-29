@@ -2,7 +2,7 @@ module FHIR
   # fhir/communication_priority.rb
   class CommunicationPriority < Element
     include Mongoid::Document
-    field :value, type: String
+    field :value, type: String    
 
     def self.transform_json(json_hash, target = CommunicationPriority.new)
       result = self.superclass.transform_json(json_hash, target)

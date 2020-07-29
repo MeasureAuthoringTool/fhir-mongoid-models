@@ -2,7 +2,7 @@ module FHIR
   # fhir/capability_statement_kind.rb
   class CapabilityStatementKind < Element
     include Mongoid::Document
-    field :value, type: String
+    field :value, type: String    
 
     def self.transform_json(json_hash, target = CapabilityStatementKind.new)
       result = self.superclass.transform_json(json_hash, target)

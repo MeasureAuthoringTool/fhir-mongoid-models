@@ -2,12 +2,12 @@ module FHIR
   # fhir/nutrition_order_oral_diet.rb
   class NutritionOrderOralDiet < BackboneElement
     include Mongoid::Document
-    embeds_many :type, class_name: 'FHIR::CodeableConcept'
-    embeds_many :schedule, class_name: 'FHIR::Timing'
-    embeds_many :nutrient, class_name: 'FHIR::NutritionOrderOralDietNutrient'
-    embeds_many :texture, class_name: 'FHIR::NutritionOrderOralDietTexture'
-    embeds_many :fluidConsistencyType, class_name: 'FHIR::CodeableConcept'
-    embeds_one :instruction, class_name: 'FHIR::PrimitiveString'
+    embeds_many :type, class_name: 'FHIR::CodeableConcept'    
+    embeds_many :schedule, class_name: 'FHIR::Timing'    
+    embeds_many :nutrient, class_name: 'FHIR::NutritionOrderOralDietNutrient'    
+    embeds_many :texture, class_name: 'FHIR::NutritionOrderOralDietTexture'    
+    embeds_many :fluidConsistencyType, class_name: 'FHIR::CodeableConcept'    
+    embeds_one :instruction, class_name: 'FHIR::PrimitiveString'    
 
     def self.transform_json(json_hash, target = NutritionOrderOralDiet.new)
       result = self.superclass.transform_json(json_hash, target)
@@ -16,7 +16,7 @@ module FHIR
       result['nutrient'] = json_hash['nutrient'].map { |var| NutritionOrderOralDietNutrient.transform_json(var) } unless json_hash['nutrient'].nil?
       result['texture'] = json_hash['texture'].map { |var| NutritionOrderOralDietTexture.transform_json(var) } unless json_hash['texture'].nil?
       result['fluidConsistencyType'] = json_hash['fluidConsistencyType'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['fluidConsistencyType'].nil?
-      result['instruction'] = PrimitiveString.transform_json(json_hash['instruction'], json_hash['_instruction']) unless json_hash['instruction'].nil?      
+      result['instruction'] = PrimitiveString.transform_json(json_hash['instruction'], json_hash['_instruction']) unless json_hash['instruction'].nil?
 
       result
     end

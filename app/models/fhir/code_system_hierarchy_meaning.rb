@@ -2,7 +2,7 @@ module FHIR
   # fhir/code_system_hierarchy_meaning.rb
   class CodeSystemHierarchyMeaning < Element
     include Mongoid::Document
-    field :value, type: String
+    field :value, type: String    
 
     def self.transform_json(json_hash, target = CodeSystemHierarchyMeaning.new)
       result = self.superclass.transform_json(json_hash, target)

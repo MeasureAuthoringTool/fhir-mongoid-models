@@ -2,7 +2,7 @@ module FHIR
   # fhir/care_plan_activity_kind.rb
   class CarePlanActivityKind < Element
     include Mongoid::Document
-    field :value, type: String
+    field :value, type: String    
 
     def self.transform_json(json_hash, target = CarePlanActivityKind.new)
       result = self.superclass.transform_json(json_hash, target)

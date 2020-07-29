@@ -2,7 +2,7 @@ module FHIR
   # fhir/issue_type.rb
   class IssueType < Element
     include Mongoid::Document
-    field :value, type: String
+    field :value, type: String    
 
     def self.transform_json(json_hash, target = IssueType.new)
       result = self.superclass.transform_json(json_hash, target)

@@ -2,7 +2,7 @@ module FHIR
   # fhir/backbone_element.rb
   class BackboneElement < Element
     include Mongoid::Document
-    embeds_many :modifierExtension, class_name: 'FHIR::Extension'
+    embeds_many :modifierExtension, class_name: 'FHIR::Extension'    
 
     def self.transform_json(json_hash, target = BackboneElement.new)
       result = self.superclass.transform_json(json_hash, target)

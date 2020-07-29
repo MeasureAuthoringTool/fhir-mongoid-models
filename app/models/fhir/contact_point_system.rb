@@ -2,7 +2,7 @@ module FHIR
   # fhir/contact_point_system.rb
   class ContactPointSystem < Element
     include Mongoid::Document
-    field :value, type: String
+    field :value, type: String    
 
     def self.transform_json(json_hash, target = ContactPointSystem.new)
       result = self.superclass.transform_json(json_hash, target)
