@@ -35,5 +35,7 @@ module CQM
     # 'embeds_many :cqls' sounded weird
     embeds_many :cql_libraries, class_name: 'CQM::LogicLibrary'
     field :main_cql_library, type: String
+
+    embeds_many :source_data_criteria, class_name: 'CQM::PatientDataCriteria'
   end
 end
