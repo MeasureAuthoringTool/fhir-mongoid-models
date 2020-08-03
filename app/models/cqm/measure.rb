@@ -36,6 +36,6 @@ module CQM
     embeds_many :cql_libraries, class_name: 'CQM::LogicLibrary'
     field :main_cql_library, type: String
 
-    embeds_many :source_data_criteria, class_name: 'CQM::PatientDataCriteria'
+    embeds_many :source_data_criteria, class_name: 'CQM::DataElement'
   end
 end
