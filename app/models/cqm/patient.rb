@@ -9,6 +9,6 @@ module CQM
     field :measure_ids, type: Array
 
     embeds_one :fhir_patient, class_name: 'FHIR::Patient', autobuild: true
-    embeds_many :data_elements, class_name: 'FHIR::DomainResource'
+    embeds_many :data_elements, class_name: 'CQM::DataElement'
   end
 end
