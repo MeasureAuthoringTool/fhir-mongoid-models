@@ -5,6 +5,31 @@ module FHIR
     embeds_one :path, class_name: 'FHIR::PrimitiveString'    
     embeds_one :min, class_name: 'FHIR::PrimitiveUnsignedInt'    
     embeds_one :max, class_name: 'FHIR::PrimitiveString'    
+    
+    def as_json(*args)
+      result = super      
+      unless self.path.nil? 
+        result['path'] = self.path.value
+        serialized = Extension.serializePrimitiveExtension(self.path)            
+        result['_path'] = serialized unless serialized.nil?
+      end
+      unless self.min.nil? 
+        result['min'] = self.min.value
+        serialized = Extension.serializePrimitiveExtension(self.min)            
+        result['_min'] = serialized unless serialized.nil?
+      end
+      unless self.max.nil? 
+        result['max'] = self.max.value
+        serialized = Extension.serializePrimitiveExtension(self.max)            
+        result['_max'] = serialized unless serialized.nil?
+      end
+      result.delete('id')
+      unless self.fhirId.nil?
+        result['id'] = self.fhirId
+        result.delete('fhirId')
+      end  
+      result
+    end
 
     def self.transform_json(json_hash, target = ElementDefinitionBase.new)
       result = self.superclass.transform_json(json_hash, target)

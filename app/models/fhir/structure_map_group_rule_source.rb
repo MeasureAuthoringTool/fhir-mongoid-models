@@ -62,6 +62,254 @@ module FHIR
     embeds_one :condition, class_name: 'FHIR::PrimitiveString'    
     embeds_one :check, class_name: 'FHIR::PrimitiveString'    
     embeds_one :logMessage, class_name: 'FHIR::PrimitiveString'    
+    
+    def as_json(*args)
+      result = super      
+      unless self.context.nil? 
+        result['context'] = self.context.value
+        serialized = Extension.serializePrimitiveExtension(self.context)            
+        result['_context'] = serialized unless serialized.nil?
+      end
+      unless self.min.nil? 
+        result['min'] = self.min.value
+        serialized = Extension.serializePrimitiveExtension(self.min)            
+        result['_min'] = serialized unless serialized.nil?
+      end
+      unless self.max.nil? 
+        result['max'] = self.max.value
+        serialized = Extension.serializePrimitiveExtension(self.max)            
+        result['_max'] = serialized unless serialized.nil?
+      end
+      unless self.type.nil? 
+        result['type'] = self.type.value
+        serialized = Extension.serializePrimitiveExtension(self.type)            
+        result['_type'] = serialized unless serialized.nil?
+      end
+      unless self.defaultValueBase64Binary.nil?
+        result['defaultValueBase64Binary'] = self.defaultValueBase64Binary.value                        
+        serialized = Extension.serializePrimitiveExtension(self.defaultValueBase64Binary) 
+        result['_defaultValueBase64Binary'] = serialized unless serialized.nil?
+      end          
+      unless self.defaultValueBoolean.nil?
+        result['defaultValueBoolean'] = self.defaultValueBoolean.value                        
+        serialized = Extension.serializePrimitiveExtension(self.defaultValueBoolean) 
+        result['_defaultValueBoolean'] = serialized unless serialized.nil?
+      end          
+      unless self.defaultValueCanonical.nil?
+        result['defaultValueCanonical'] = self.defaultValueCanonical.value                        
+        serialized = Extension.serializePrimitiveExtension(self.defaultValueCanonical) 
+        result['_defaultValueCanonical'] = serialized unless serialized.nil?
+      end          
+      unless self.defaultValueCode.nil?
+        result['defaultValueCode'] = self.defaultValueCode.value                        
+        serialized = Extension.serializePrimitiveExtension(self.defaultValueCode) 
+        result['_defaultValueCode'] = serialized unless serialized.nil?
+      end          
+      unless self.defaultValueDate.nil?
+        result['defaultValueDate'] = self.defaultValueDate.value                        
+        serialized = Extension.serializePrimitiveExtension(self.defaultValueDate) 
+        result['_defaultValueDate'] = serialized unless serialized.nil?
+      end          
+      unless self.defaultValueDateTime.nil?
+        result['defaultValueDateTime'] = self.defaultValueDateTime.value                        
+        serialized = Extension.serializePrimitiveExtension(self.defaultValueDateTime) 
+        result['_defaultValueDateTime'] = serialized unless serialized.nil?
+      end          
+      unless self.defaultValueDecimal.nil?
+        result['defaultValueDecimal'] = self.defaultValueDecimal.value                        
+        serialized = Extension.serializePrimitiveExtension(self.defaultValueDecimal) 
+        result['_defaultValueDecimal'] = serialized unless serialized.nil?
+      end          
+      unless self.defaultValueId.nil?
+        result['defaultValueId'] = self.defaultValueId.value                        
+        serialized = Extension.serializePrimitiveExtension(self.defaultValueId) 
+        result['_defaultValueId'] = serialized unless serialized.nil?
+      end          
+      unless self.defaultValueInstant.nil?
+        result['defaultValueInstant'] = self.defaultValueInstant.value                        
+        serialized = Extension.serializePrimitiveExtension(self.defaultValueInstant) 
+        result['_defaultValueInstant'] = serialized unless serialized.nil?
+      end          
+      unless self.defaultValueInteger.nil?
+        result['defaultValueInteger'] = self.defaultValueInteger.value                        
+        serialized = Extension.serializePrimitiveExtension(self.defaultValueInteger) 
+        result['_defaultValueInteger'] = serialized unless serialized.nil?
+      end          
+      unless self.defaultValueMarkdown.nil?
+        result['defaultValueMarkdown'] = self.defaultValueMarkdown.value                        
+        serialized = Extension.serializePrimitiveExtension(self.defaultValueMarkdown) 
+        result['_defaultValueMarkdown'] = serialized unless serialized.nil?
+      end          
+      unless self.defaultValueOid.nil?
+        result['defaultValueOid'] = self.defaultValueOid.value                        
+        serialized = Extension.serializePrimitiveExtension(self.defaultValueOid) 
+        result['_defaultValueOid'] = serialized unless serialized.nil?
+      end          
+      unless self.defaultValuePositiveInt.nil?
+        result['defaultValuePositiveInt'] = self.defaultValuePositiveInt.value                        
+        serialized = Extension.serializePrimitiveExtension(self.defaultValuePositiveInt) 
+        result['_defaultValuePositiveInt'] = serialized unless serialized.nil?
+      end          
+      unless self.defaultValueString.nil?
+        result['defaultValueString'] = self.defaultValueString.value                        
+        serialized = Extension.serializePrimitiveExtension(self.defaultValueString) 
+        result['_defaultValueString'] = serialized unless serialized.nil?
+      end          
+      unless self.defaultValueTime.nil?
+        result['defaultValueTime'] = self.defaultValueTime.value                        
+        serialized = Extension.serializePrimitiveExtension(self.defaultValueTime) 
+        result['_defaultValueTime'] = serialized unless serialized.nil?
+      end          
+      unless self.defaultValueUnsignedInt.nil?
+        result['defaultValueUnsignedInt'] = self.defaultValueUnsignedInt.value                        
+        serialized = Extension.serializePrimitiveExtension(self.defaultValueUnsignedInt) 
+        result['_defaultValueUnsignedInt'] = serialized unless serialized.nil?
+      end          
+      unless self.defaultValueUri.nil?
+        result['defaultValueUri'] = self.defaultValueUri.value                        
+        serialized = Extension.serializePrimitiveExtension(self.defaultValueUri) 
+        result['_defaultValueUri'] = serialized unless serialized.nil?
+      end          
+      unless self.defaultValueUrl.nil?
+        result['defaultValueUrl'] = self.defaultValueUrl.value                        
+        serialized = Extension.serializePrimitiveExtension(self.defaultValueUrl) 
+        result['_defaultValueUrl'] = serialized unless serialized.nil?
+      end          
+      unless self.defaultValueUuid.nil?
+        result['defaultValueUuid'] = self.defaultValueUuid.value                        
+        serialized = Extension.serializePrimitiveExtension(self.defaultValueUuid) 
+        result['_defaultValueUuid'] = serialized unless serialized.nil?
+      end          
+      unless self.defaultValueAddress.nil?
+        result['defaultValueAddress'] = self.defaultValueAddress.as_json(*args)                        
+      end          
+      unless self.defaultValueAge.nil?
+        result['defaultValueAge'] = self.defaultValueAge.as_json(*args)                        
+      end          
+      unless self.defaultValueAnnotation.nil?
+        result['defaultValueAnnotation'] = self.defaultValueAnnotation.as_json(*args)                        
+      end          
+      unless self.defaultValueAttachment.nil?
+        result['defaultValueAttachment'] = self.defaultValueAttachment.as_json(*args)                        
+      end          
+      unless self.defaultValueCodeableConcept.nil?
+        result['defaultValueCodeableConcept'] = self.defaultValueCodeableConcept.as_json(*args)                        
+      end          
+      unless self.defaultValueCoding.nil?
+        result['defaultValueCoding'] = self.defaultValueCoding.as_json(*args)                        
+      end          
+      unless self.defaultValueContactPoint.nil?
+        result['defaultValueContactPoint'] = self.defaultValueContactPoint.as_json(*args)                        
+      end          
+      unless self.defaultValueCount.nil?
+        result['defaultValueCount'] = self.defaultValueCount.as_json(*args)                        
+      end          
+      unless self.defaultValueDistance.nil?
+        result['defaultValueDistance'] = self.defaultValueDistance.as_json(*args)                        
+      end          
+      unless self.defaultValueDuration.nil?
+        result['defaultValueDuration'] = self.defaultValueDuration.as_json(*args)                        
+      end          
+      unless self.defaultValueHumanName.nil?
+        result['defaultValueHumanName'] = self.defaultValueHumanName.as_json(*args)                        
+      end          
+      unless self.defaultValueIdentifier.nil?
+        result['defaultValueIdentifier'] = self.defaultValueIdentifier.as_json(*args)                        
+      end          
+      unless self.defaultValueMoney.nil?
+        result['defaultValueMoney'] = self.defaultValueMoney.as_json(*args)                        
+      end          
+      unless self.defaultValuePeriod.nil?
+        result['defaultValuePeriod'] = self.defaultValuePeriod.as_json(*args)                        
+      end          
+      unless self.defaultValueQuantity.nil?
+        result['defaultValueQuantity'] = self.defaultValueQuantity.as_json(*args)                        
+      end          
+      unless self.defaultValueRange.nil?
+        result['defaultValueRange'] = self.defaultValueRange.as_json(*args)                        
+      end          
+      unless self.defaultValueRatio.nil?
+        result['defaultValueRatio'] = self.defaultValueRatio.as_json(*args)                        
+      end          
+      unless self.defaultValueReference.nil?
+        result['defaultValueReference'] = self.defaultValueReference.as_json(*args)                        
+      end          
+      unless self.defaultValueSampledData.nil?
+        result['defaultValueSampledData'] = self.defaultValueSampledData.as_json(*args)                        
+      end          
+      unless self.defaultValueSignature.nil?
+        result['defaultValueSignature'] = self.defaultValueSignature.as_json(*args)                        
+      end          
+      unless self.defaultValueTiming.nil?
+        result['defaultValueTiming'] = self.defaultValueTiming.as_json(*args)                        
+      end          
+      unless self.defaultValueContactDetail.nil?
+        result['defaultValueContactDetail'] = self.defaultValueContactDetail.as_json(*args)                        
+      end          
+      unless self.defaultValueContributor.nil?
+        result['defaultValueContributor'] = self.defaultValueContributor.as_json(*args)                        
+      end          
+      unless self.defaultValueDataRequirement.nil?
+        result['defaultValueDataRequirement'] = self.defaultValueDataRequirement.as_json(*args)                        
+      end          
+      unless self.defaultValueExpression.nil?
+        result['defaultValueExpression'] = self.defaultValueExpression.as_json(*args)                        
+      end          
+      unless self.defaultValueParameterDefinition.nil?
+        result['defaultValueParameterDefinition'] = self.defaultValueParameterDefinition.as_json(*args)                        
+      end          
+      unless self.defaultValueRelatedArtifact.nil?
+        result['defaultValueRelatedArtifact'] = self.defaultValueRelatedArtifact.as_json(*args)                        
+      end          
+      unless self.defaultValueTriggerDefinition.nil?
+        result['defaultValueTriggerDefinition'] = self.defaultValueTriggerDefinition.as_json(*args)                        
+      end          
+      unless self.defaultValueUsageContext.nil?
+        result['defaultValueUsageContext'] = self.defaultValueUsageContext.as_json(*args)                        
+      end          
+      unless self.defaultValueDosage.nil?
+        result['defaultValueDosage'] = self.defaultValueDosage.as_json(*args)                        
+      end          
+      unless self.defaultValueMeta.nil?
+        result['defaultValueMeta'] = self.defaultValueMeta.as_json(*args)                        
+      end          
+      unless self.element.nil? 
+        result['element'] = self.element.value
+        serialized = Extension.serializePrimitiveExtension(self.element)            
+        result['_element'] = serialized unless serialized.nil?
+      end
+      unless self.listMode.nil? 
+        result['listMode'] = self.listMode.value
+        serialized = Extension.serializePrimitiveExtension(self.listMode)            
+        result['_listMode'] = serialized unless serialized.nil?
+      end
+      unless self.variable.nil? 
+        result['variable'] = self.variable.value
+        serialized = Extension.serializePrimitiveExtension(self.variable)            
+        result['_variable'] = serialized unless serialized.nil?
+      end
+      unless self.condition.nil? 
+        result['condition'] = self.condition.value
+        serialized = Extension.serializePrimitiveExtension(self.condition)            
+        result['_condition'] = serialized unless serialized.nil?
+      end
+      unless self.check.nil? 
+        result['check'] = self.check.value
+        serialized = Extension.serializePrimitiveExtension(self.check)            
+        result['_check'] = serialized unless serialized.nil?
+      end
+      unless self.logMessage.nil? 
+        result['logMessage'] = self.logMessage.value
+        serialized = Extension.serializePrimitiveExtension(self.logMessage)            
+        result['_logMessage'] = serialized unless serialized.nil?
+      end
+      result.delete('id')
+      unless self.fhirId.nil?
+        result['id'] = self.fhirId
+        result.delete('fhirId')
+      end  
+      result
+    end
 
     def self.transform_json(json_hash, target = StructureMapGroupRuleSource.new)
       result = self.superclass.transform_json(json_hash, target)
@@ -120,7 +368,7 @@ module FHIR
       result['defaultValueDosage'] = Dosage.transform_json(json_hash['defaultValueDosage']) unless json_hash['defaultValueDosage'].nil?
       result['defaultValueMeta'] = Meta.transform_json(json_hash['defaultValueMeta']) unless json_hash['defaultValueMeta'].nil?
       result['element'] = PrimitiveString.transform_json(json_hash['element'], json_hash['_element']) unless json_hash['element'].nil?
-      result['listMode'] = StructureMapSourceListMode.transform_json(json_hash['listMode']) unless json_hash['listMode'].nil?
+      result['listMode'] = StructureMapSourceListMode.transform_json(json_hash['listMode'], json_hash['_listMode']) unless json_hash['listMode'].nil?
       result['variable'] = PrimitiveId.transform_json(json_hash['variable'], json_hash['_variable']) unless json_hash['variable'].nil?
       result['condition'] = PrimitiveString.transform_json(json_hash['condition'], json_hash['_condition']) unless json_hash['condition'].nil?
       result['check'] = PrimitiveString.transform_json(json_hash['check'], json_hash['_check']) unless json_hash['check'].nil?

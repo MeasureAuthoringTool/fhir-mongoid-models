@@ -9,6 +9,41 @@ module FHIR
     embeds_one :definingSubstanceCodeableConcept, class_name: 'FHIR::CodeableConcept'    
     embeds_one :amountQuantity, class_name: 'FHIR::Quantity'    
     embeds_one :amountString, class_name: 'FHIR::PrimitiveString'    
+    
+    def as_json(*args)
+      result = super      
+      unless self.category.nil? 
+        result['category'] = self.category.as_json(*args)
+      end
+      unless self.code.nil? 
+        result['code'] = self.code.as_json(*args)
+      end
+      unless self.parameters.nil? 
+        result['parameters'] = self.parameters.value
+        serialized = Extension.serializePrimitiveExtension(self.parameters)            
+        result['_parameters'] = serialized unless serialized.nil?
+      end
+      unless self.definingSubstanceReference.nil?
+        result['definingSubstanceReference'] = self.definingSubstanceReference.as_json(*args)                        
+      end          
+      unless self.definingSubstanceCodeableConcept.nil?
+        result['definingSubstanceCodeableConcept'] = self.definingSubstanceCodeableConcept.as_json(*args)                        
+      end          
+      unless self.amountQuantity.nil?
+        result['amountQuantity'] = self.amountQuantity.as_json(*args)                        
+      end          
+      unless self.amountString.nil?
+        result['amountString'] = self.amountString.value                        
+        serialized = Extension.serializePrimitiveExtension(self.amountString) 
+        result['_amountString'] = serialized unless serialized.nil?
+      end          
+      result.delete('id')
+      unless self.fhirId.nil?
+        result['id'] = self.fhirId
+        result.delete('fhirId')
+      end  
+      result
+    end
 
     def self.transform_json(json_hash, target = SubstanceSpecificationProperty.new)
       result = self.superclass.transform_json(json_hash, target)

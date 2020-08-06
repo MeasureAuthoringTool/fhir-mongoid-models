@@ -17,6 +17,75 @@ module FHIR
     embeds_one :recipient, class_name: 'FHIR::Reference'    
     embeds_many :linkId, class_name: 'FHIR::PrimitiveString'    
     embeds_many :securityLabelNumber, class_name: 'FHIR::PrimitiveUnsignedInt'    
+    
+    def as_json(*args)
+      result = super      
+      unless self.entityCodeableConcept.nil?
+        result['entityCodeableConcept'] = self.entityCodeableConcept.as_json(*args)                        
+      end          
+      unless self.entityReference.nil?
+        result['entityReference'] = self.entityReference.as_json(*args)                        
+      end          
+      unless self.identifier.nil? 
+        result['identifier'] = self.identifier.as_json(*args)
+      end
+      unless self.effectiveTime.nil? 
+        result['effectiveTime'] = self.effectiveTime.value
+        serialized = Extension.serializePrimitiveExtension(self.effectiveTime)            
+        result['_effectiveTime'] = serialized unless serialized.nil?
+      end
+      unless self.quantity.nil? 
+        result['quantity'] = self.quantity.as_json(*args)
+      end
+      unless self.unitPrice.nil? 
+        result['unitPrice'] = self.unitPrice.as_json(*args)
+      end
+      unless self.factor.nil? 
+        result['factor'] = self.factor.value
+        serialized = Extension.serializePrimitiveExtension(self.factor)            
+        result['_factor'] = serialized unless serialized.nil?
+      end
+      unless self.points.nil? 
+        result['points'] = self.points.value
+        serialized = Extension.serializePrimitiveExtension(self.points)            
+        result['_points'] = serialized unless serialized.nil?
+      end
+      unless self.net.nil? 
+        result['net'] = self.net.as_json(*args)
+      end
+      unless self.payment.nil? 
+        result['payment'] = self.payment.value
+        serialized = Extension.serializePrimitiveExtension(self.payment)            
+        result['_payment'] = serialized unless serialized.nil?
+      end
+      unless self.paymentDate.nil? 
+        result['paymentDate'] = self.paymentDate.value
+        serialized = Extension.serializePrimitiveExtension(self.paymentDate)            
+        result['_paymentDate'] = serialized unless serialized.nil?
+      end
+      unless self.responsible.nil? 
+        result['responsible'] = self.responsible.as_json(*args)
+      end
+      unless self.recipient.nil? 
+        result['recipient'] = self.recipient.as_json(*args)
+      end
+      unless self.linkId.nil?  || !self.linkId.any? 
+        result['linkId'] = self.linkId.compact().map{ |x| x.value }
+        serialized = Extension.serializePrimitiveExtensionArray(self.linkId)                              
+        result['_linkId'] = serialized unless serialized.nil? || !serialized.any?
+      end
+      unless self.securityLabelNumber.nil?  || !self.securityLabelNumber.any? 
+        result['securityLabelNumber'] = self.securityLabelNumber.compact().map{ |x| x.value }
+        serialized = Extension.serializePrimitiveExtensionArray(self.securityLabelNumber)                              
+        result['_securityLabelNumber'] = serialized unless serialized.nil? || !serialized.any?
+      end
+      result.delete('id')
+      unless self.fhirId.nil?
+        result['id'] = self.fhirId
+        result.delete('fhirId')
+      end  
+      result
+    end
 
     def self.transform_json(json_hash, target = ContractTermAssetValuedItem.new)
       result = self.superclass.transform_json(json_hash, target)

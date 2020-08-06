@@ -17,6 +17,71 @@ module FHIR
     embeds_one :dataAbsentReason, class_name: 'FHIR::CodeableConcept'    
     embeds_many :interpretation, class_name: 'FHIR::CodeableConcept'    
     embeds_many :referenceRange, class_name: 'FHIR::ObservationReferenceRange'    
+    
+    def as_json(*args)
+      result = super      
+      unless self.code.nil? 
+        result['code'] = self.code.as_json(*args)
+      end
+      unless self.valueQuantity.nil?
+        result['valueQuantity'] = self.valueQuantity.as_json(*args)                        
+      end          
+      unless self.valueCodeableConcept.nil?
+        result['valueCodeableConcept'] = self.valueCodeableConcept.as_json(*args)                        
+      end          
+      unless self.valueString.nil?
+        result['valueString'] = self.valueString.value                        
+        serialized = Extension.serializePrimitiveExtension(self.valueString) 
+        result['_valueString'] = serialized unless serialized.nil?
+      end          
+      unless self.valueBoolean.nil?
+        result['valueBoolean'] = self.valueBoolean.value                        
+        serialized = Extension.serializePrimitiveExtension(self.valueBoolean) 
+        result['_valueBoolean'] = serialized unless serialized.nil?
+      end          
+      unless self.valueInteger.nil?
+        result['valueInteger'] = self.valueInteger.value                        
+        serialized = Extension.serializePrimitiveExtension(self.valueInteger) 
+        result['_valueInteger'] = serialized unless serialized.nil?
+      end          
+      unless self.valueRange.nil?
+        result['valueRange'] = self.valueRange.as_json(*args)                        
+      end          
+      unless self.valueRatio.nil?
+        result['valueRatio'] = self.valueRatio.as_json(*args)                        
+      end          
+      unless self.valueSampledData.nil?
+        result['valueSampledData'] = self.valueSampledData.as_json(*args)                        
+      end          
+      unless self.valueTime.nil?
+        result['valueTime'] = self.valueTime.value                        
+        serialized = Extension.serializePrimitiveExtension(self.valueTime) 
+        result['_valueTime'] = serialized unless serialized.nil?
+      end          
+      unless self.valueDateTime.nil?
+        result['valueDateTime'] = self.valueDateTime.value                        
+        serialized = Extension.serializePrimitiveExtension(self.valueDateTime) 
+        result['_valueDateTime'] = serialized unless serialized.nil?
+      end          
+      unless self.valuePeriod.nil?
+        result['valuePeriod'] = self.valuePeriod.as_json(*args)                        
+      end          
+      unless self.dataAbsentReason.nil? 
+        result['dataAbsentReason'] = self.dataAbsentReason.as_json(*args)
+      end
+      unless self.interpretation.nil?  || !self.interpretation.any? 
+        result['interpretation'] = self.interpretation.map{ |x| x.as_json(*args) }
+      end
+      unless self.referenceRange.nil?  || !self.referenceRange.any? 
+        result['referenceRange'] = self.referenceRange.map{ |x| x.as_json(*args) }
+      end
+      result.delete('id')
+      unless self.fhirId.nil?
+        result['id'] = self.fhirId
+        result.delete('fhirId')
+      end  
+      result
+    end
 
     def self.transform_json(json_hash, target = ObservationComponent.new)
       result = self.superclass.transform_json(json_hash, target)
@@ -33,8 +98,20 @@ module FHIR
       result['valueDateTime'] = PrimitiveDateTime.transform_json(json_hash['valueDateTime'], json_hash['_valueDateTime']) unless json_hash['valueDateTime'].nil?
       result['valuePeriod'] = Period.transform_json(json_hash['valuePeriod']) unless json_hash['valuePeriod'].nil?
       result['dataAbsentReason'] = CodeableConcept.transform_json(json_hash['dataAbsentReason']) unless json_hash['dataAbsentReason'].nil?
-      result['interpretation'] = json_hash['interpretation'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['interpretation'].nil?
-      result['referenceRange'] = json_hash['referenceRange'].map { |var| ObservationReferenceRange.transform_json(var) } unless json_hash['referenceRange'].nil?
+      result['interpretation'] = json_hash['interpretation'].map { |var| 
+        unless var['resourceType'].nil?
+          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
+        else
+          CodeableConcept.transform_json(var) 
+        end
+      } unless json_hash['interpretation'].nil?
+      result['referenceRange'] = json_hash['referenceRange'].map { |var| 
+        unless var['resourceType'].nil?
+          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
+        else
+          ObservationReferenceRange.transform_json(var) 
+        end
+      } unless json_hash['referenceRange'].nil?
 
       result
     end

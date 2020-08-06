@@ -9,6 +9,39 @@ module FHIR
     embeds_one :dose, class_name: 'FHIR::SimpleQuantity'    
     embeds_one :rateRatio, class_name: 'FHIR::Ratio'    
     embeds_one :rateSimpleQuantity, class_name: 'FHIR::SimpleQuantity'    
+    
+    def as_json(*args)
+      result = super      
+      unless self.text.nil? 
+        result['text'] = self.text.value
+        serialized = Extension.serializePrimitiveExtension(self.text)            
+        result['_text'] = serialized unless serialized.nil?
+      end
+      unless self.site.nil? 
+        result['site'] = self.site.as_json(*args)
+      end
+      unless self.route.nil? 
+        result['route'] = self.route.as_json(*args)
+      end
+      unless self.method.nil? 
+        result['method'] = self.method.as_json(*args)
+      end
+      unless self.dose.nil? 
+        result['dose'] = self.dose.as_json(*args)
+      end
+      unless self.rateRatio.nil?
+        result['rateRatio'] = self.rateRatio.as_json(*args)                        
+      end          
+      unless self.rateSimpleQuantity.nil?
+        result['rateSimpleQuantity'] = self.rateSimpleQuantity.as_json(*args)                        
+      end          
+      result.delete('id')
+      unless self.fhirId.nil?
+        result['id'] = self.fhirId
+        result.delete('fhirId')
+      end  
+      result
+    end
 
     def self.transform_json(json_hash, target = MedicationAdministrationDosage.new)
       result = self.superclass.transform_json(json_hash, target)

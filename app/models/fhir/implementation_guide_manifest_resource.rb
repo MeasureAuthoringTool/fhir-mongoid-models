@@ -6,6 +6,34 @@ module FHIR
     embeds_one :exampleBoolean, class_name: 'FHIR::PrimitiveBoolean'    
     embeds_one :exampleCanonical, class_name: 'FHIR::PrimitiveCanonical'    
     embeds_one :relativePath, class_name: 'FHIR::PrimitiveUrl'    
+    
+    def as_json(*args)
+      result = super      
+      unless self.reference.nil? 
+        result['reference'] = self.reference.as_json(*args)
+      end
+      unless self.exampleBoolean.nil?
+        result['exampleBoolean'] = self.exampleBoolean.value                        
+        serialized = Extension.serializePrimitiveExtension(self.exampleBoolean) 
+        result['_exampleBoolean'] = serialized unless serialized.nil?
+      end          
+      unless self.exampleCanonical.nil?
+        result['exampleCanonical'] = self.exampleCanonical.value                        
+        serialized = Extension.serializePrimitiveExtension(self.exampleCanonical) 
+        result['_exampleCanonical'] = serialized unless serialized.nil?
+      end          
+      unless self.relativePath.nil? 
+        result['relativePath'] = self.relativePath.value
+        serialized = Extension.serializePrimitiveExtension(self.relativePath)            
+        result['_relativePath'] = serialized unless serialized.nil?
+      end
+      result.delete('id')
+      unless self.fhirId.nil?
+        result['id'] = self.fhirId
+        result.delete('fhirId')
+      end  
+      result
+    end
 
     def self.transform_json(json_hash, target = ImplementationGuideManifestResource.new)
       result = self.superclass.transform_json(json_hash, target)

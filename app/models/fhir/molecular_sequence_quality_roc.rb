@@ -9,6 +9,51 @@ module FHIR
     embeds_many :precision, class_name: 'FHIR::PrimitiveDecimal'    
     embeds_many :sensitivity, class_name: 'FHIR::PrimitiveDecimal'    
     embeds_many :fMeasure, class_name: 'FHIR::PrimitiveDecimal'    
+    
+    def as_json(*args)
+      result = super      
+      unless self.score.nil?  || !self.score.any? 
+        result['score'] = self.score.compact().map{ |x| x.value }
+        serialized = Extension.serializePrimitiveExtensionArray(self.score)                              
+        result['_score'] = serialized unless serialized.nil? || !serialized.any?
+      end
+      unless self.numTP.nil?  || !self.numTP.any? 
+        result['numTP'] = self.numTP.compact().map{ |x| x.value }
+        serialized = Extension.serializePrimitiveExtensionArray(self.numTP)                              
+        result['_numTP'] = serialized unless serialized.nil? || !serialized.any?
+      end
+      unless self.numFP.nil?  || !self.numFP.any? 
+        result['numFP'] = self.numFP.compact().map{ |x| x.value }
+        serialized = Extension.serializePrimitiveExtensionArray(self.numFP)                              
+        result['_numFP'] = serialized unless serialized.nil? || !serialized.any?
+      end
+      unless self.numFN.nil?  || !self.numFN.any? 
+        result['numFN'] = self.numFN.compact().map{ |x| x.value }
+        serialized = Extension.serializePrimitiveExtensionArray(self.numFN)                              
+        result['_numFN'] = serialized unless serialized.nil? || !serialized.any?
+      end
+      unless self.precision.nil?  || !self.precision.any? 
+        result['precision'] = self.precision.compact().map{ |x| x.value }
+        serialized = Extension.serializePrimitiveExtensionArray(self.precision)                              
+        result['_precision'] = serialized unless serialized.nil? || !serialized.any?
+      end
+      unless self.sensitivity.nil?  || !self.sensitivity.any? 
+        result['sensitivity'] = self.sensitivity.compact().map{ |x| x.value }
+        serialized = Extension.serializePrimitiveExtensionArray(self.sensitivity)                              
+        result['_sensitivity'] = serialized unless serialized.nil? || !serialized.any?
+      end
+      unless self.fMeasure.nil?  || !self.fMeasure.any? 
+        result['fMeasure'] = self.fMeasure.compact().map{ |x| x.value }
+        serialized = Extension.serializePrimitiveExtensionArray(self.fMeasure)                              
+        result['_fMeasure'] = serialized unless serialized.nil? || !serialized.any?
+      end
+      result.delete('id')
+      unless self.fhirId.nil?
+        result['id'] = self.fhirId
+        result.delete('fhirId')
+      end  
+      result
+    end
 
     def self.transform_json(json_hash, target = MolecularSequenceQualityRoc.new)
       result = self.superclass.transform_json(json_hash, target)

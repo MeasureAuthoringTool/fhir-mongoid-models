@@ -18,10 +18,33 @@ RSpec.describe CQM::Measure do
     expect(cqm_measure.fhir_measure.name.value).to eq @fhir_measure_hash['name']
 
     #attributes from super class should be included
-    # TODO: uncomment after MAT-1342 fix
-    #expect(cqm_measure.fhir_measure.extension).to be_present
+    expect(cqm_measure.fhir_measure.extension).to be_present
     expect(cqm_measure.fhir_measure.contained).to be_present
     expect(cqm_measure.fhir_measure.meta).to be_present
+  end
+
+  it 'Should be able to serialize mesaure in FHIR JSON' do
+    fhir_measure = FHIR::Measure.transform_json @fhir_measure_hash
+    expect(fhir_measure).to be_present
+    # puts fhir_measure.to_json
+    updated_fhir_measure_json = fhir_measure.to_json
+    updated_fhir_measure_hash =  JSON.load updated_fhir_measure_json
+    updated_fhir_measure = FHIR::Measure.transform_json updated_fhir_measure_hash
+    expect(updated_fhir_measure).to be_present
+
+    # Dates/datetimes have different format and precision
+    # 1. effectivePeriod
+    expect(Date.parse(@fhir_measure_hash['effectivePeriod']['start'])).to eq  Date.parse(updated_fhir_measure_hash['effectivePeriod']['start'])
+    expect(Date.parse(@fhir_measure_hash['effectivePeriod']['end'])).to eq  Date.parse(updated_fhir_measure_hash['effectivePeriod']['end'])
+    @fhir_measure_hash.delete('effectivePeriod')
+    updated_fhir_measure_hash.delete('effectivePeriod')
+
+    # 2. lastUpdated
+    expect(DateTime.parse(@fhir_measure_hash['meta']['lastUpdated'])).to eq  DateTime.parse(updated_fhir_measure_hash['meta']['lastUpdated'])
+    @fhir_measure_hash['meta'].delete('lastUpdated')
+    updated_fhir_measure_hash['meta'].delete('lastUpdated')
+
+    expect(updated_fhir_measure_hash).to eq @fhir_measure_hash
   end
 
   it 'Should permit FHIR Resources as Source Data Criteria' do

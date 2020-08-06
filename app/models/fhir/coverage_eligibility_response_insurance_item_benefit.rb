@@ -9,6 +9,45 @@ module FHIR
     embeds_one :usedUnsignedInt, class_name: 'FHIR::PrimitiveUnsignedInt'    
     embeds_one :usedString, class_name: 'FHIR::PrimitiveString'    
     embeds_one :usedMoney, class_name: 'FHIR::Money'    
+    
+    def as_json(*args)
+      result = super      
+      unless self.type.nil? 
+        result['type'] = self.type.as_json(*args)
+      end
+      unless self.allowedUnsignedInt.nil?
+        result['allowedUnsignedInt'] = self.allowedUnsignedInt.value                        
+        serialized = Extension.serializePrimitiveExtension(self.allowedUnsignedInt) 
+        result['_allowedUnsignedInt'] = serialized unless serialized.nil?
+      end          
+      unless self.allowedString.nil?
+        result['allowedString'] = self.allowedString.value                        
+        serialized = Extension.serializePrimitiveExtension(self.allowedString) 
+        result['_allowedString'] = serialized unless serialized.nil?
+      end          
+      unless self.allowedMoney.nil?
+        result['allowedMoney'] = self.allowedMoney.as_json(*args)                        
+      end          
+      unless self.usedUnsignedInt.nil?
+        result['usedUnsignedInt'] = self.usedUnsignedInt.value                        
+        serialized = Extension.serializePrimitiveExtension(self.usedUnsignedInt) 
+        result['_usedUnsignedInt'] = serialized unless serialized.nil?
+      end          
+      unless self.usedString.nil?
+        result['usedString'] = self.usedString.value                        
+        serialized = Extension.serializePrimitiveExtension(self.usedString) 
+        result['_usedString'] = serialized unless serialized.nil?
+      end          
+      unless self.usedMoney.nil?
+        result['usedMoney'] = self.usedMoney.as_json(*args)                        
+      end          
+      result.delete('id')
+      unless self.fhirId.nil?
+        result['id'] = self.fhirId
+        result.delete('fhirId')
+      end  
+      result
+    end
 
     def self.transform_json(json_hash, target = CoverageEligibilityResponseInsuranceItemBenefit.new)
       result = self.superclass.transform_json(json_hash, target)

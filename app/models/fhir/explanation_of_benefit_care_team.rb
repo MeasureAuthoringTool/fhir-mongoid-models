@@ -7,6 +7,35 @@ module FHIR
     embeds_one :responsible, class_name: 'FHIR::PrimitiveBoolean'    
     embeds_one :role, class_name: 'FHIR::CodeableConcept'    
     embeds_one :qualification, class_name: 'FHIR::CodeableConcept'    
+    
+    def as_json(*args)
+      result = super      
+      unless self.sequence.nil? 
+        result['sequence'] = self.sequence.value
+        serialized = Extension.serializePrimitiveExtension(self.sequence)            
+        result['_sequence'] = serialized unless serialized.nil?
+      end
+      unless self.provider.nil? 
+        result['provider'] = self.provider.as_json(*args)
+      end
+      unless self.responsible.nil? 
+        result['responsible'] = self.responsible.value
+        serialized = Extension.serializePrimitiveExtension(self.responsible)            
+        result['_responsible'] = serialized unless serialized.nil?
+      end
+      unless self.role.nil? 
+        result['role'] = self.role.as_json(*args)
+      end
+      unless self.qualification.nil? 
+        result['qualification'] = self.qualification.as_json(*args)
+      end
+      result.delete('id')
+      unless self.fhirId.nil?
+        result['id'] = self.fhirId
+        result.delete('fhirId')
+      end  
+      result
+    end
 
     def self.transform_json(json_hash, target = ExplanationOfBenefitCareTeam.new)
       result = self.superclass.transform_json(json_hash, target)

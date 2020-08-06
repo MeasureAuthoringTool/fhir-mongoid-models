@@ -10,6 +10,46 @@ module FHIR
     embeds_one :whenPeriod, class_name: 'FHIR::Period'    
     embeds_one :whenRange, class_name: 'FHIR::Range'    
     embeds_one :rationale, class_name: 'FHIR::PrimitiveString'    
+    
+    def as_json(*args)
+      result = super      
+      unless self.outcome.nil? 
+        result['outcome'] = self.outcome.as_json(*args)
+      end
+      unless self.probabilityDecimal.nil?
+        result['probabilityDecimal'] = self.probabilityDecimal.value                        
+        serialized = Extension.serializePrimitiveExtension(self.probabilityDecimal) 
+        result['_probabilityDecimal'] = serialized unless serialized.nil?
+      end          
+      unless self.probabilityRange.nil?
+        result['probabilityRange'] = self.probabilityRange.as_json(*args)                        
+      end          
+      unless self.qualitativeRisk.nil? 
+        result['qualitativeRisk'] = self.qualitativeRisk.as_json(*args)
+      end
+      unless self.relativeRisk.nil? 
+        result['relativeRisk'] = self.relativeRisk.value
+        serialized = Extension.serializePrimitiveExtension(self.relativeRisk)            
+        result['_relativeRisk'] = serialized unless serialized.nil?
+      end
+      unless self.whenPeriod.nil?
+        result['whenPeriod'] = self.whenPeriod.as_json(*args)                        
+      end          
+      unless self.whenRange.nil?
+        result['whenRange'] = self.whenRange.as_json(*args)                        
+      end          
+      unless self.rationale.nil? 
+        result['rationale'] = self.rationale.value
+        serialized = Extension.serializePrimitiveExtension(self.rationale)            
+        result['_rationale'] = serialized unless serialized.nil?
+      end
+      result.delete('id')
+      unless self.fhirId.nil?
+        result['id'] = self.fhirId
+        result.delete('fhirId')
+      end  
+      result
+    end
 
     def self.transform_json(json_hash, target = RiskAssessmentPrediction.new)
       result = self.superclass.transform_json(json_hash, target)

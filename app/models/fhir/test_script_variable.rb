@@ -10,6 +10,56 @@ module FHIR
     embeds_one :hint, class_name: 'FHIR::PrimitiveString'    
     embeds_one :path, class_name: 'FHIR::PrimitiveString'    
     embeds_one :sourceId, class_name: 'FHIR::PrimitiveId'    
+    
+    def as_json(*args)
+      result = super      
+      unless self.name.nil? 
+        result['name'] = self.name.value
+        serialized = Extension.serializePrimitiveExtension(self.name)            
+        result['_name'] = serialized unless serialized.nil?
+      end
+      unless self.defaultValue.nil? 
+        result['defaultValue'] = self.defaultValue.value
+        serialized = Extension.serializePrimitiveExtension(self.defaultValue)            
+        result['_defaultValue'] = serialized unless serialized.nil?
+      end
+      unless self.description.nil? 
+        result['description'] = self.description.value
+        serialized = Extension.serializePrimitiveExtension(self.description)            
+        result['_description'] = serialized unless serialized.nil?
+      end
+      unless self.expression.nil? 
+        result['expression'] = self.expression.value
+        serialized = Extension.serializePrimitiveExtension(self.expression)            
+        result['_expression'] = serialized unless serialized.nil?
+      end
+      unless self.headerField.nil? 
+        result['headerField'] = self.headerField.value
+        serialized = Extension.serializePrimitiveExtension(self.headerField)            
+        result['_headerField'] = serialized unless serialized.nil?
+      end
+      unless self.hint.nil? 
+        result['hint'] = self.hint.value
+        serialized = Extension.serializePrimitiveExtension(self.hint)            
+        result['_hint'] = serialized unless serialized.nil?
+      end
+      unless self.path.nil? 
+        result['path'] = self.path.value
+        serialized = Extension.serializePrimitiveExtension(self.path)            
+        result['_path'] = serialized unless serialized.nil?
+      end
+      unless self.sourceId.nil? 
+        result['sourceId'] = self.sourceId.value
+        serialized = Extension.serializePrimitiveExtension(self.sourceId)            
+        result['_sourceId'] = serialized unless serialized.nil?
+      end
+      result.delete('id')
+      unless self.fhirId.nil?
+        result['id'] = self.fhirId
+        result.delete('fhirId')
+      end  
+      result
+    end
 
     def self.transform_json(json_hash, target = TestScriptVariable.new)
       result = self.superclass.transform_json(json_hash, target)

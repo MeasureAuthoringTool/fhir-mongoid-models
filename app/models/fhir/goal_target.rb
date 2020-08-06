@@ -12,6 +12,54 @@ module FHIR
     embeds_one :detailRatio, class_name: 'FHIR::Ratio'    
     embeds_one :dueDate, class_name: 'FHIR::PrimitiveDate'    
     embeds_one :dueDuration, class_name: 'FHIR::Duration'    
+    
+    def as_json(*args)
+      result = super      
+      unless self.measure.nil? 
+        result['measure'] = self.measure.as_json(*args)
+      end
+      unless self.detailQuantity.nil?
+        result['detailQuantity'] = self.detailQuantity.as_json(*args)                        
+      end          
+      unless self.detailRange.nil?
+        result['detailRange'] = self.detailRange.as_json(*args)                        
+      end          
+      unless self.detailCodeableConcept.nil?
+        result['detailCodeableConcept'] = self.detailCodeableConcept.as_json(*args)                        
+      end          
+      unless self.detailString.nil?
+        result['detailString'] = self.detailString.value                        
+        serialized = Extension.serializePrimitiveExtension(self.detailString) 
+        result['_detailString'] = serialized unless serialized.nil?
+      end          
+      unless self.detailBoolean.nil?
+        result['detailBoolean'] = self.detailBoolean.value                        
+        serialized = Extension.serializePrimitiveExtension(self.detailBoolean) 
+        result['_detailBoolean'] = serialized unless serialized.nil?
+      end          
+      unless self.detailInteger.nil?
+        result['detailInteger'] = self.detailInteger.value                        
+        serialized = Extension.serializePrimitiveExtension(self.detailInteger) 
+        result['_detailInteger'] = serialized unless serialized.nil?
+      end          
+      unless self.detailRatio.nil?
+        result['detailRatio'] = self.detailRatio.as_json(*args)                        
+      end          
+      unless self.dueDate.nil?
+        result['dueDate'] = self.dueDate.value                        
+        serialized = Extension.serializePrimitiveExtension(self.dueDate) 
+        result['_dueDate'] = serialized unless serialized.nil?
+      end          
+      unless self.dueDuration.nil?
+        result['dueDuration'] = self.dueDuration.as_json(*args)                        
+      end          
+      result.delete('id')
+      unless self.fhirId.nil?
+        result['id'] = self.fhirId
+        result.delete('fhirId')
+      end  
+      result
+    end
 
     def self.transform_json(json_hash, target = GoalTarget.new)
       result = self.superclass.transform_json(json_hash, target)

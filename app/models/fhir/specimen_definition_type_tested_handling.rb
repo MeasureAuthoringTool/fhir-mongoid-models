@@ -6,6 +6,30 @@ module FHIR
     embeds_one :temperatureRange, class_name: 'FHIR::Range'    
     embeds_one :maxDuration, class_name: 'FHIR::Duration'    
     embeds_one :instruction, class_name: 'FHIR::PrimitiveString'    
+    
+    def as_json(*args)
+      result = super      
+      unless self.temperatureQualifier.nil? 
+        result['temperatureQualifier'] = self.temperatureQualifier.as_json(*args)
+      end
+      unless self.temperatureRange.nil? 
+        result['temperatureRange'] = self.temperatureRange.as_json(*args)
+      end
+      unless self.maxDuration.nil? 
+        result['maxDuration'] = self.maxDuration.as_json(*args)
+      end
+      unless self.instruction.nil? 
+        result['instruction'] = self.instruction.value
+        serialized = Extension.serializePrimitiveExtension(self.instruction)            
+        result['_instruction'] = serialized unless serialized.nil?
+      end
+      result.delete('id')
+      unless self.fhirId.nil?
+        result['id'] = self.fhirId
+        result.delete('fhirId')
+      end  
+      result
+    end
 
     def self.transform_json(json_hash, target = SpecimenDefinitionTypeTestedHandling.new)
       result = self.superclass.transform_json(json_hash, target)

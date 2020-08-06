@@ -5,6 +5,29 @@ module FHIR
     embeds_one :sequence, class_name: 'FHIR::PrimitivePositiveInt'    
     embeds_one :information, class_name: 'FHIR::Reference'    
     embeds_one :appliesToAll, class_name: 'FHIR::PrimitiveBoolean'    
+    
+    def as_json(*args)
+      result = super      
+      unless self.sequence.nil? 
+        result['sequence'] = self.sequence.value
+        serialized = Extension.serializePrimitiveExtension(self.sequence)            
+        result['_sequence'] = serialized unless serialized.nil?
+      end
+      unless self.information.nil? 
+        result['information'] = self.information.as_json(*args)
+      end
+      unless self.appliesToAll.nil? 
+        result['appliesToAll'] = self.appliesToAll.value
+        serialized = Extension.serializePrimitiveExtension(self.appliesToAll)            
+        result['_appliesToAll'] = serialized unless serialized.nil?
+      end
+      result.delete('id')
+      unless self.fhirId.nil?
+        result['id'] = self.fhirId
+        result.delete('fhirId')
+      end  
+      result
+    end
 
     def self.transform_json(json_hash, target = CoverageEligibilityRequestSupportingInfo.new)
       result = self.superclass.transform_json(json_hash, target)

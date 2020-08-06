@@ -13,6 +13,53 @@ module FHIR
     embeds_one :amountRatioLowLimit, class_name: 'FHIR::Ratio'    
     embeds_one :amountType, class_name: 'FHIR::CodeableConcept'    
     embeds_many :source, class_name: 'FHIR::Reference'    
+    
+    def as_json(*args)
+      result = super      
+      unless self.substanceReference.nil?
+        result['substanceReference'] = self.substanceReference.as_json(*args)                        
+      end          
+      unless self.substanceCodeableConcept.nil?
+        result['substanceCodeableConcept'] = self.substanceCodeableConcept.as_json(*args)                        
+      end          
+      unless self.relationship.nil? 
+        result['relationship'] = self.relationship.as_json(*args)
+      end
+      unless self.isDefining.nil? 
+        result['isDefining'] = self.isDefining.value
+        serialized = Extension.serializePrimitiveExtension(self.isDefining)            
+        result['_isDefining'] = serialized unless serialized.nil?
+      end
+      unless self.amountQuantity.nil?
+        result['amountQuantity'] = self.amountQuantity.as_json(*args)                        
+      end          
+      unless self.amountRange.nil?
+        result['amountRange'] = self.amountRange.as_json(*args)                        
+      end          
+      unless self.amountRatio.nil?
+        result['amountRatio'] = self.amountRatio.as_json(*args)                        
+      end          
+      unless self.amountString.nil?
+        result['amountString'] = self.amountString.value                        
+        serialized = Extension.serializePrimitiveExtension(self.amountString) 
+        result['_amountString'] = serialized unless serialized.nil?
+      end          
+      unless self.amountRatioLowLimit.nil? 
+        result['amountRatioLowLimit'] = self.amountRatioLowLimit.as_json(*args)
+      end
+      unless self.amountType.nil? 
+        result['amountType'] = self.amountType.as_json(*args)
+      end
+      unless self.source.nil?  || !self.source.any? 
+        result['source'] = self.source.map{ |x| x.as_json(*args) }
+      end
+      result.delete('id')
+      unless self.fhirId.nil?
+        result['id'] = self.fhirId
+        result.delete('fhirId')
+      end  
+      result
+    end
 
     def self.transform_json(json_hash, target = SubstanceSpecificationRelationship.new)
       result = self.superclass.transform_json(json_hash, target)
@@ -26,7 +73,13 @@ module FHIR
       result['amountString'] = PrimitiveString.transform_json(json_hash['amountString'], json_hash['_amountString']) unless json_hash['amountString'].nil?
       result['amountRatioLowLimit'] = Ratio.transform_json(json_hash['amountRatioLowLimit']) unless json_hash['amountRatioLowLimit'].nil?
       result['amountType'] = CodeableConcept.transform_json(json_hash['amountType']) unless json_hash['amountType'].nil?
-      result['source'] = json_hash['source'].map { |var| Reference.transform_json(var) } unless json_hash['source'].nil?
+      result['source'] = json_hash['source'].map { |var| 
+        unless var['resourceType'].nil?
+          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
+        else
+          Reference.transform_json(var) 
+        end
+      } unless json_hash['source'].nil?
 
       result
     end

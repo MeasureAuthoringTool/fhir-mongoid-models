@@ -5,6 +5,29 @@ module FHIR
     embeds_one :description, class_name: 'FHIR::PrimitiveString'    
     embeds_one :timeDateTime, class_name: 'FHIR::PrimitiveDateTime'    
     embeds_one :timePeriod, class_name: 'FHIR::Period'    
+    
+    def as_json(*args)
+      result = super      
+      unless self.description.nil? 
+        result['description'] = self.description.value
+        serialized = Extension.serializePrimitiveExtension(self.description)            
+        result['_description'] = serialized unless serialized.nil?
+      end
+      unless self.timeDateTime.nil?
+        result['timeDateTime'] = self.timeDateTime.value                        
+        serialized = Extension.serializePrimitiveExtension(self.timeDateTime) 
+        result['_timeDateTime'] = serialized unless serialized.nil?
+      end          
+      unless self.timePeriod.nil?
+        result['timePeriod'] = self.timePeriod.as_json(*args)                        
+      end          
+      result.delete('id')
+      unless self.fhirId.nil?
+        result['id'] = self.fhirId
+        result.delete('fhirId')
+      end  
+      result
+    end
 
     def self.transform_json(json_hash, target = BiologicallyDerivedProductManipulation.new)
       result = self.superclass.transform_json(json_hash, target)

@@ -14,11 +14,69 @@ module FHIR
     embeds_one :recipient, class_name: 'FHIR::Reference'    
     embeds_one :amount, class_name: 'FHIR::Money'    
     embeds_one :paymentStatus, class_name: 'FHIR::CodeableConcept'    
+    
+    def as_json(*args)
+      result = super      
+      unless self.identifier.nil?  || !self.identifier.any? 
+        result['identifier'] = self.identifier.map{ |x| x.as_json(*args) }
+      end
+      unless self.status.nil? 
+        result['status'] = self.status.value
+        serialized = Extension.serializePrimitiveExtension(self.status)            
+        result['_status'] = serialized unless serialized.nil?
+      end
+      unless self.request.nil? 
+        result['request'] = self.request.as_json(*args)
+      end
+      unless self.response.nil? 
+        result['response'] = self.response.as_json(*args)
+      end
+      unless self.created.nil? 
+        result['created'] = self.created.value
+        serialized = Extension.serializePrimitiveExtension(self.created)            
+        result['_created'] = serialized unless serialized.nil?
+      end
+      unless self.provider.nil? 
+        result['provider'] = self.provider.as_json(*args)
+      end
+      unless self.payment.nil? 
+        result['payment'] = self.payment.as_json(*args)
+      end
+      unless self.paymentDate.nil? 
+        result['paymentDate'] = self.paymentDate.value
+        serialized = Extension.serializePrimitiveExtension(self.paymentDate)            
+        result['_paymentDate'] = serialized unless serialized.nil?
+      end
+      unless self.payee.nil? 
+        result['payee'] = self.payee.as_json(*args)
+      end
+      unless self.recipient.nil? 
+        result['recipient'] = self.recipient.as_json(*args)
+      end
+      unless self.amount.nil? 
+        result['amount'] = self.amount.as_json(*args)
+      end
+      unless self.paymentStatus.nil? 
+        result['paymentStatus'] = self.paymentStatus.as_json(*args)
+      end
+      result.delete('id')
+      unless self.fhirId.nil?
+        result['id'] = self.fhirId
+        result.delete('fhirId')
+      end  
+      result
+    end
 
     def self.transform_json(json_hash, target = PaymentNotice.new)
       result = self.superclass.transform_json(json_hash, target)
-      result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
-      result['status'] = PaymentNoticeStatus.transform_json(json_hash['status']) unless json_hash['status'].nil?
+      result['identifier'] = json_hash['identifier'].map { |var| 
+        unless var['resourceType'].nil?
+          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
+        else
+          Identifier.transform_json(var) 
+        end
+      } unless json_hash['identifier'].nil?
+      result['status'] = PaymentNoticeStatus.transform_json(json_hash['status'], json_hash['_status']) unless json_hash['status'].nil?
       result['request'] = Reference.transform_json(json_hash['request']) unless json_hash['request'].nil?
       result['response'] = Reference.transform_json(json_hash['response']) unless json_hash['response'].nil?
       result['created'] = PrimitiveDateTime.transform_json(json_hash['created'], json_hash['_created']) unless json_hash['created'].nil?

@@ -14,6 +14,56 @@ module FHIR
     embeds_one :net, class_name: 'FHIR::Money'    
     embeds_many :udi, class_name: 'FHIR::Reference'    
     embeds_many :subDetail, class_name: 'FHIR::ClaimItemDetailSubDetail'    
+    
+    def as_json(*args)
+      result = super      
+      unless self.sequence.nil? 
+        result['sequence'] = self.sequence.value
+        serialized = Extension.serializePrimitiveExtension(self.sequence)            
+        result['_sequence'] = serialized unless serialized.nil?
+      end
+      unless self.revenue.nil? 
+        result['revenue'] = self.revenue.as_json(*args)
+      end
+      unless self.category.nil? 
+        result['category'] = self.category.as_json(*args)
+      end
+      unless self.productOrService.nil? 
+        result['productOrService'] = self.productOrService.as_json(*args)
+      end
+      unless self.modifier.nil?  || !self.modifier.any? 
+        result['modifier'] = self.modifier.map{ |x| x.as_json(*args) }
+      end
+      unless self.programCode.nil?  || !self.programCode.any? 
+        result['programCode'] = self.programCode.map{ |x| x.as_json(*args) }
+      end
+      unless self.quantity.nil? 
+        result['quantity'] = self.quantity.as_json(*args)
+      end
+      unless self.unitPrice.nil? 
+        result['unitPrice'] = self.unitPrice.as_json(*args)
+      end
+      unless self.factor.nil? 
+        result['factor'] = self.factor.value
+        serialized = Extension.serializePrimitiveExtension(self.factor)            
+        result['_factor'] = serialized unless serialized.nil?
+      end
+      unless self.net.nil? 
+        result['net'] = self.net.as_json(*args)
+      end
+      unless self.udi.nil?  || !self.udi.any? 
+        result['udi'] = self.udi.map{ |x| x.as_json(*args) }
+      end
+      unless self.subDetail.nil?  || !self.subDetail.any? 
+        result['subDetail'] = self.subDetail.map{ |x| x.as_json(*args) }
+      end
+      result.delete('id')
+      unless self.fhirId.nil?
+        result['id'] = self.fhirId
+        result.delete('fhirId')
+      end  
+      result
+    end
 
     def self.transform_json(json_hash, target = ClaimItemDetail.new)
       result = self.superclass.transform_json(json_hash, target)
@@ -21,14 +71,38 @@ module FHIR
       result['revenue'] = CodeableConcept.transform_json(json_hash['revenue']) unless json_hash['revenue'].nil?
       result['category'] = CodeableConcept.transform_json(json_hash['category']) unless json_hash['category'].nil?
       result['productOrService'] = CodeableConcept.transform_json(json_hash['productOrService']) unless json_hash['productOrService'].nil?
-      result['modifier'] = json_hash['modifier'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['modifier'].nil?
-      result['programCode'] = json_hash['programCode'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['programCode'].nil?
+      result['modifier'] = json_hash['modifier'].map { |var| 
+        unless var['resourceType'].nil?
+          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
+        else
+          CodeableConcept.transform_json(var) 
+        end
+      } unless json_hash['modifier'].nil?
+      result['programCode'] = json_hash['programCode'].map { |var| 
+        unless var['resourceType'].nil?
+          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
+        else
+          CodeableConcept.transform_json(var) 
+        end
+      } unless json_hash['programCode'].nil?
       result['quantity'] = SimpleQuantity.transform_json(json_hash['quantity']) unless json_hash['quantity'].nil?
       result['unitPrice'] = Money.transform_json(json_hash['unitPrice']) unless json_hash['unitPrice'].nil?
       result['factor'] = PrimitiveDecimal.transform_json(json_hash['factor'], json_hash['_factor']) unless json_hash['factor'].nil?
       result['net'] = Money.transform_json(json_hash['net']) unless json_hash['net'].nil?
-      result['udi'] = json_hash['udi'].map { |var| Reference.transform_json(var) } unless json_hash['udi'].nil?
-      result['subDetail'] = json_hash['subDetail'].map { |var| ClaimItemDetailSubDetail.transform_json(var) } unless json_hash['subDetail'].nil?
+      result['udi'] = json_hash['udi'].map { |var| 
+        unless var['resourceType'].nil?
+          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
+        else
+          Reference.transform_json(var) 
+        end
+      } unless json_hash['udi'].nil?
+      result['subDetail'] = json_hash['subDetail'].map { |var| 
+        unless var['resourceType'].nil?
+          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
+        else
+          ClaimItemDetailSubDetail.transform_json(var) 
+        end
+      } unless json_hash['subDetail'].nil?
 
       result
     end

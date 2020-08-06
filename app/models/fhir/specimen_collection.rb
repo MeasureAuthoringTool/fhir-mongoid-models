@@ -11,6 +11,45 @@ module FHIR
     embeds_one :bodySite, class_name: 'FHIR::CodeableConcept'    
     embeds_one :fastingStatusCodeableConcept, class_name: 'FHIR::CodeableConcept'    
     embeds_one :fastingStatusDuration, class_name: 'FHIR::Duration'    
+    
+    def as_json(*args)
+      result = super      
+      unless self.collector.nil? 
+        result['collector'] = self.collector.as_json(*args)
+      end
+      unless self.collectedDateTime.nil?
+        result['collectedDateTime'] = self.collectedDateTime.value                        
+        serialized = Extension.serializePrimitiveExtension(self.collectedDateTime) 
+        result['_collectedDateTime'] = serialized unless serialized.nil?
+      end          
+      unless self.collectedPeriod.nil?
+        result['collectedPeriod'] = self.collectedPeriod.as_json(*args)                        
+      end          
+      unless self.duration.nil? 
+        result['duration'] = self.duration.as_json(*args)
+      end
+      unless self.quantity.nil? 
+        result['quantity'] = self.quantity.as_json(*args)
+      end
+      unless self.method.nil? 
+        result['method'] = self.method.as_json(*args)
+      end
+      unless self.bodySite.nil? 
+        result['bodySite'] = self.bodySite.as_json(*args)
+      end
+      unless self.fastingStatusCodeableConcept.nil?
+        result['fastingStatusCodeableConcept'] = self.fastingStatusCodeableConcept.as_json(*args)                        
+      end          
+      unless self.fastingStatusDuration.nil?
+        result['fastingStatusDuration'] = self.fastingStatusDuration.as_json(*args)                        
+      end          
+      result.delete('id')
+      unless self.fhirId.nil?
+        result['id'] = self.fhirId
+        result.delete('fhirId')
+      end  
+      result
+    end
 
     def self.transform_json(json_hash, target = SpecimenCollection.new)
       result = self.superclass.transform_json(json_hash, target)

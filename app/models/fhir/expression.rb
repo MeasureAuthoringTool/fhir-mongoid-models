@@ -7,6 +7,41 @@ module FHIR
     embeds_one :language, class_name: 'FHIR::PrimitiveCode'    
     embeds_one :expression, class_name: 'FHIR::PrimitiveString'    
     embeds_one :reference, class_name: 'FHIR::PrimitiveUri'    
+    
+    def as_json(*args)
+      result = super      
+      unless self.description.nil? 
+        result['description'] = self.description.value
+        serialized = Extension.serializePrimitiveExtension(self.description)            
+        result['_description'] = serialized unless serialized.nil?
+      end
+      unless self.name.nil? 
+        result['name'] = self.name.value
+        serialized = Extension.serializePrimitiveExtension(self.name)            
+        result['_name'] = serialized unless serialized.nil?
+      end
+      unless self.language.nil? 
+        result['language'] = self.language.value
+        serialized = Extension.serializePrimitiveExtension(self.language)            
+        result['_language'] = serialized unless serialized.nil?
+      end
+      unless self.expression.nil? 
+        result['expression'] = self.expression.value
+        serialized = Extension.serializePrimitiveExtension(self.expression)            
+        result['_expression'] = serialized unless serialized.nil?
+      end
+      unless self.reference.nil? 
+        result['reference'] = self.reference.value
+        serialized = Extension.serializePrimitiveExtension(self.reference)            
+        result['_reference'] = serialized unless serialized.nil?
+      end
+      result.delete('id')
+      unless self.fhirId.nil?
+        result['id'] = self.fhirId
+        result.delete('fhirId')
+      end  
+      result
+    end
 
     def self.transform_json(json_hash, target = Expression.new)
       result = self.superclass.transform_json(json_hash, target)

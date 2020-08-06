@@ -28,10 +28,128 @@ module FHIR
     embeds_many :reasonReference, class_name: 'FHIR::Reference'    
     embeds_many :note, class_name: 'FHIR::Annotation'    
     embeds_many :condition, class_name: 'FHIR::FamilyMemberHistoryCondition'    
+    
+    def as_json(*args)
+      result = super      
+      unless self.identifier.nil?  || !self.identifier.any? 
+        result['identifier'] = self.identifier.map{ |x| x.as_json(*args) }
+      end
+      unless self.instantiatesCanonical.nil?  || !self.instantiatesCanonical.any? 
+        result['instantiatesCanonical'] = self.instantiatesCanonical.compact().map{ |x| x.value }
+        serialized = Extension.serializePrimitiveExtensionArray(self.instantiatesCanonical)                              
+        result['_instantiatesCanonical'] = serialized unless serialized.nil? || !serialized.any?
+      end
+      unless self.instantiatesUri.nil?  || !self.instantiatesUri.any? 
+        result['instantiatesUri'] = self.instantiatesUri.compact().map{ |x| x.value }
+        serialized = Extension.serializePrimitiveExtensionArray(self.instantiatesUri)                              
+        result['_instantiatesUri'] = serialized unless serialized.nil? || !serialized.any?
+      end
+      unless self.status.nil? 
+        result['status'] = self.status.value
+        serialized = Extension.serializePrimitiveExtension(self.status)            
+        result['_status'] = serialized unless serialized.nil?
+      end
+      unless self.dataAbsentReason.nil? 
+        result['dataAbsentReason'] = self.dataAbsentReason.as_json(*args)
+      end
+      unless self.patient.nil? 
+        result['patient'] = self.patient.as_json(*args)
+      end
+      unless self.date.nil? 
+        result['date'] = self.date.value
+        serialized = Extension.serializePrimitiveExtension(self.date)            
+        result['_date'] = serialized unless serialized.nil?
+      end
+      unless self.name.nil? 
+        result['name'] = self.name.value
+        serialized = Extension.serializePrimitiveExtension(self.name)            
+        result['_name'] = serialized unless serialized.nil?
+      end
+      unless self.relationship.nil? 
+        result['relationship'] = self.relationship.as_json(*args)
+      end
+      unless self.sex.nil? 
+        result['sex'] = self.sex.as_json(*args)
+      end
+      unless self.bornPeriod.nil?
+        result['bornPeriod'] = self.bornPeriod.as_json(*args)                        
+      end          
+      unless self.bornDate.nil?
+        result['bornDate'] = self.bornDate.value                        
+        serialized = Extension.serializePrimitiveExtension(self.bornDate) 
+        result['_bornDate'] = serialized unless serialized.nil?
+      end          
+      unless self.bornString.nil?
+        result['bornString'] = self.bornString.value                        
+        serialized = Extension.serializePrimitiveExtension(self.bornString) 
+        result['_bornString'] = serialized unless serialized.nil?
+      end          
+      unless self.ageAge.nil?
+        result['ageAge'] = self.ageAge.as_json(*args)                        
+      end          
+      unless self.ageRange.nil?
+        result['ageRange'] = self.ageRange.as_json(*args)                        
+      end          
+      unless self.ageString.nil?
+        result['ageString'] = self.ageString.value                        
+        serialized = Extension.serializePrimitiveExtension(self.ageString) 
+        result['_ageString'] = serialized unless serialized.nil?
+      end          
+      unless self.estimatedAge.nil? 
+        result['estimatedAge'] = self.estimatedAge.value
+        serialized = Extension.serializePrimitiveExtension(self.estimatedAge)            
+        result['_estimatedAge'] = serialized unless serialized.nil?
+      end
+      unless self.deceasedBoolean.nil?
+        result['deceasedBoolean'] = self.deceasedBoolean.value                        
+        serialized = Extension.serializePrimitiveExtension(self.deceasedBoolean) 
+        result['_deceasedBoolean'] = serialized unless serialized.nil?
+      end          
+      unless self.deceasedAge.nil?
+        result['deceasedAge'] = self.deceasedAge.as_json(*args)                        
+      end          
+      unless self.deceasedRange.nil?
+        result['deceasedRange'] = self.deceasedRange.as_json(*args)                        
+      end          
+      unless self.deceasedDate.nil?
+        result['deceasedDate'] = self.deceasedDate.value                        
+        serialized = Extension.serializePrimitiveExtension(self.deceasedDate) 
+        result['_deceasedDate'] = serialized unless serialized.nil?
+      end          
+      unless self.deceasedString.nil?
+        result['deceasedString'] = self.deceasedString.value                        
+        serialized = Extension.serializePrimitiveExtension(self.deceasedString) 
+        result['_deceasedString'] = serialized unless serialized.nil?
+      end          
+      unless self.reasonCode.nil?  || !self.reasonCode.any? 
+        result['reasonCode'] = self.reasonCode.map{ |x| x.as_json(*args) }
+      end
+      unless self.reasonReference.nil?  || !self.reasonReference.any? 
+        result['reasonReference'] = self.reasonReference.map{ |x| x.as_json(*args) }
+      end
+      unless self.note.nil?  || !self.note.any? 
+        result['note'] = self.note.map{ |x| x.as_json(*args) }
+      end
+      unless self.condition.nil?  || !self.condition.any? 
+        result['condition'] = self.condition.map{ |x| x.as_json(*args) }
+      end
+      result.delete('id')
+      unless self.fhirId.nil?
+        result['id'] = self.fhirId
+        result.delete('fhirId')
+      end  
+      result
+    end
 
     def self.transform_json(json_hash, target = FamilyMemberHistory.new)
       result = self.superclass.transform_json(json_hash, target)
-      result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
+      result['identifier'] = json_hash['identifier'].map { |var| 
+        unless var['resourceType'].nil?
+          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
+        else
+          Identifier.transform_json(var) 
+        end
+      } unless json_hash['identifier'].nil?
       result['instantiatesCanonical'] = json_hash['instantiatesCanonical'].each_with_index.map do |var, i|
         extension_hash = json_hash['_instantiatesCanonical'] && json_hash['_instantiatesCanonical'][i]
         PrimitiveCanonical.transform_json(var, extension_hash)
@@ -40,7 +158,7 @@ module FHIR
         extension_hash = json_hash['_instantiatesUri'] && json_hash['_instantiatesUri'][i]
         PrimitiveUri.transform_json(var, extension_hash)
       end unless json_hash['instantiatesUri'].nil?
-      result['status'] = FamilyHistoryStatus.transform_json(json_hash['status']) unless json_hash['status'].nil?
+      result['status'] = FamilyHistoryStatus.transform_json(json_hash['status'], json_hash['_status']) unless json_hash['status'].nil?
       result['dataAbsentReason'] = CodeableConcept.transform_json(json_hash['dataAbsentReason']) unless json_hash['dataAbsentReason'].nil?
       result['patient'] = Reference.transform_json(json_hash['patient']) unless json_hash['patient'].nil?
       result['date'] = PrimitiveDateTime.transform_json(json_hash['date'], json_hash['_date']) unless json_hash['date'].nil?
@@ -59,10 +177,34 @@ module FHIR
       result['deceasedRange'] = Range.transform_json(json_hash['deceasedRange']) unless json_hash['deceasedRange'].nil?
       result['deceasedDate'] = PrimitiveDate.transform_json(json_hash['deceasedDate'], json_hash['_deceasedDate']) unless json_hash['deceasedDate'].nil?
       result['deceasedString'] = PrimitiveString.transform_json(json_hash['deceasedString'], json_hash['_deceasedString']) unless json_hash['deceasedString'].nil?
-      result['reasonCode'] = json_hash['reasonCode'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['reasonCode'].nil?
-      result['reasonReference'] = json_hash['reasonReference'].map { |var| Reference.transform_json(var) } unless json_hash['reasonReference'].nil?
-      result['note'] = json_hash['note'].map { |var| Annotation.transform_json(var) } unless json_hash['note'].nil?
-      result['condition'] = json_hash['condition'].map { |var| FamilyMemberHistoryCondition.transform_json(var) } unless json_hash['condition'].nil?
+      result['reasonCode'] = json_hash['reasonCode'].map { |var| 
+        unless var['resourceType'].nil?
+          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
+        else
+          CodeableConcept.transform_json(var) 
+        end
+      } unless json_hash['reasonCode'].nil?
+      result['reasonReference'] = json_hash['reasonReference'].map { |var| 
+        unless var['resourceType'].nil?
+          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
+        else
+          Reference.transform_json(var) 
+        end
+      } unless json_hash['reasonReference'].nil?
+      result['note'] = json_hash['note'].map { |var| 
+        unless var['resourceType'].nil?
+          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
+        else
+          Annotation.transform_json(var) 
+        end
+      } unless json_hash['note'].nil?
+      result['condition'] = json_hash['condition'].map { |var| 
+        unless var['resourceType'].nil?
+          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
+        else
+          FamilyMemberHistoryCondition.transform_json(var) 
+        end
+      } unless json_hash['condition'].nil?
 
       result
     end

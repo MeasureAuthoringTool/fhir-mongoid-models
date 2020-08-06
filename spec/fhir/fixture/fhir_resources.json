@@ -177,7 +177,7 @@
         }
       ]
     },
-    "valueBoolean": "true",
+    "valueBoolean": true,
     "subject": {
       "reference": "Patient/numer-EXM124"
     },
