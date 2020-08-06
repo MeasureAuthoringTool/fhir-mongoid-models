@@ -8,6 +8,44 @@ module FHIR
     embeds_one :max, class_name: 'FHIR::PrimitiveString'    
     embeds_one :description, class_name: 'FHIR::PrimitiveString'    
     embeds_many :target, class_name: 'FHIR::GraphDefinitionLinkTarget'    
+    
+    def as_json(*args)
+      result = super      
+      unless self.path.nil? 
+        result['path'] = self.path.value
+        serialized = Extension.serializePrimitiveExtension(self.path)            
+        result['_path'] = serialized unless serialized.nil?
+      end
+      unless self.sliceName.nil? 
+        result['sliceName'] = self.sliceName.value
+        serialized = Extension.serializePrimitiveExtension(self.sliceName)            
+        result['_sliceName'] = serialized unless serialized.nil?
+      end
+      unless self.min.nil? 
+        result['min'] = self.min.value
+        serialized = Extension.serializePrimitiveExtension(self.min)            
+        result['_min'] = serialized unless serialized.nil?
+      end
+      unless self.max.nil? 
+        result['max'] = self.max.value
+        serialized = Extension.serializePrimitiveExtension(self.max)            
+        result['_max'] = serialized unless serialized.nil?
+      end
+      unless self.description.nil? 
+        result['description'] = self.description.value
+        serialized = Extension.serializePrimitiveExtension(self.description)            
+        result['_description'] = serialized unless serialized.nil?
+      end
+      unless self.target.nil?  || !self.target.any? 
+        result['target'] = self.target.map{ |x| x.as_json(*args) }
+      end
+      result.delete('id')
+      unless self.fhirId.nil?
+        result['id'] = self.fhirId
+        result.delete('fhirId')
+      end  
+      result
+    end
 
     def self.transform_json(json_hash, target = GraphDefinitionLink.new)
       result = self.superclass.transform_json(json_hash, target)
@@ -16,7 +54,13 @@ module FHIR
       result['min'] = PrimitiveInteger.transform_json(json_hash['min'], json_hash['_min']) unless json_hash['min'].nil?
       result['max'] = PrimitiveString.transform_json(json_hash['max'], json_hash['_max']) unless json_hash['max'].nil?
       result['description'] = PrimitiveString.transform_json(json_hash['description'], json_hash['_description']) unless json_hash['description'].nil?
-      result['target'] = json_hash['target'].map { |var| GraphDefinitionLinkTarget.transform_json(var) } unless json_hash['target'].nil?
+      result['target'] = json_hash['target'].map { |var| 
+        unless var['resourceType'].nil?
+          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
+        else
+          GraphDefinitionLinkTarget.transform_json(var) 
+        end
+      } unless json_hash['target'].nil?
 
       result
     end

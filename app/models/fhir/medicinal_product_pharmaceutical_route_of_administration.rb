@@ -9,6 +9,37 @@ module FHIR
     embeds_one :maxDosePerTreatmentPeriod, class_name: 'FHIR::Ratio'    
     embeds_one :maxTreatmentPeriod, class_name: 'FHIR::Duration'    
     embeds_many :targetSpecies, class_name: 'FHIR::MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpecies'    
+    
+    def as_json(*args)
+      result = super      
+      unless self.code.nil? 
+        result['code'] = self.code.as_json(*args)
+      end
+      unless self.firstDose.nil? 
+        result['firstDose'] = self.firstDose.as_json(*args)
+      end
+      unless self.maxSingleDose.nil? 
+        result['maxSingleDose'] = self.maxSingleDose.as_json(*args)
+      end
+      unless self.maxDosePerDay.nil? 
+        result['maxDosePerDay'] = self.maxDosePerDay.as_json(*args)
+      end
+      unless self.maxDosePerTreatmentPeriod.nil? 
+        result['maxDosePerTreatmentPeriod'] = self.maxDosePerTreatmentPeriod.as_json(*args)
+      end
+      unless self.maxTreatmentPeriod.nil? 
+        result['maxTreatmentPeriod'] = self.maxTreatmentPeriod.as_json(*args)
+      end
+      unless self.targetSpecies.nil?  || !self.targetSpecies.any? 
+        result['targetSpecies'] = self.targetSpecies.map{ |x| x.as_json(*args) }
+      end
+      result.delete('id')
+      unless self.fhirId.nil?
+        result['id'] = self.fhirId
+        result.delete('fhirId')
+      end  
+      result
+    end
 
     def self.transform_json(json_hash, target = MedicinalProductPharmaceuticalRouteOfAdministration.new)
       result = self.superclass.transform_json(json_hash, target)
@@ -18,7 +49,13 @@ module FHIR
       result['maxDosePerDay'] = Quantity.transform_json(json_hash['maxDosePerDay']) unless json_hash['maxDosePerDay'].nil?
       result['maxDosePerTreatmentPeriod'] = Ratio.transform_json(json_hash['maxDosePerTreatmentPeriod']) unless json_hash['maxDosePerTreatmentPeriod'].nil?
       result['maxTreatmentPeriod'] = Duration.transform_json(json_hash['maxTreatmentPeriod']) unless json_hash['maxTreatmentPeriod'].nil?
-      result['targetSpecies'] = json_hash['targetSpecies'].map { |var| MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpecies.transform_json(var) } unless json_hash['targetSpecies'].nil?
+      result['targetSpecies'] = json_hash['targetSpecies'].map { |var| 
+        unless var['resourceType'].nil?
+          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
+        else
+          MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpecies.transform_json(var) 
+        end
+      } unless json_hash['targetSpecies'].nil?
 
       result
     end

@@ -10,6 +10,46 @@ module FHIR
     embeds_one :threePrime, class_name: 'FHIR::CodeableConcept'    
     embeds_many :linkage, class_name: 'FHIR::SubstanceNucleicAcidSubunitLinkage'    
     embeds_many :sugar, class_name: 'FHIR::SubstanceNucleicAcidSubunitSugar'    
+    
+    def as_json(*args)
+      result = super      
+      unless self.subunit.nil? 
+        result['subunit'] = self.subunit.value
+        serialized = Extension.serializePrimitiveExtension(self.subunit)            
+        result['_subunit'] = serialized unless serialized.nil?
+      end
+      unless self.sequence.nil? 
+        result['sequence'] = self.sequence.value
+        serialized = Extension.serializePrimitiveExtension(self.sequence)            
+        result['_sequence'] = serialized unless serialized.nil?
+      end
+      unless self.length.nil? 
+        result['length'] = self.length.value
+        serialized = Extension.serializePrimitiveExtension(self.length)            
+        result['_length'] = serialized unless serialized.nil?
+      end
+      unless self.sequenceAttachment.nil? 
+        result['sequenceAttachment'] = self.sequenceAttachment.as_json(*args)
+      end
+      unless self.fivePrime.nil? 
+        result['fivePrime'] = self.fivePrime.as_json(*args)
+      end
+      unless self.threePrime.nil? 
+        result['threePrime'] = self.threePrime.as_json(*args)
+      end
+      unless self.linkage.nil?  || !self.linkage.any? 
+        result['linkage'] = self.linkage.map{ |x| x.as_json(*args) }
+      end
+      unless self.sugar.nil?  || !self.sugar.any? 
+        result['sugar'] = self.sugar.map{ |x| x.as_json(*args) }
+      end
+      result.delete('id')
+      unless self.fhirId.nil?
+        result['id'] = self.fhirId
+        result.delete('fhirId')
+      end  
+      result
+    end
 
     def self.transform_json(json_hash, target = SubstanceNucleicAcidSubunit.new)
       result = self.superclass.transform_json(json_hash, target)
@@ -19,8 +59,20 @@ module FHIR
       result['sequenceAttachment'] = Attachment.transform_json(json_hash['sequenceAttachment']) unless json_hash['sequenceAttachment'].nil?
       result['fivePrime'] = CodeableConcept.transform_json(json_hash['fivePrime']) unless json_hash['fivePrime'].nil?
       result['threePrime'] = CodeableConcept.transform_json(json_hash['threePrime']) unless json_hash['threePrime'].nil?
-      result['linkage'] = json_hash['linkage'].map { |var| SubstanceNucleicAcidSubunitLinkage.transform_json(var) } unless json_hash['linkage'].nil?
-      result['sugar'] = json_hash['sugar'].map { |var| SubstanceNucleicAcidSubunitSugar.transform_json(var) } unless json_hash['sugar'].nil?
+      result['linkage'] = json_hash['linkage'].map { |var| 
+        unless var['resourceType'].nil?
+          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
+        else
+          SubstanceNucleicAcidSubunitLinkage.transform_json(var) 
+        end
+      } unless json_hash['linkage'].nil?
+      result['sugar'] = json_hash['sugar'].map { |var| 
+        unless var['resourceType'].nil?
+          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
+        else
+          SubstanceNucleicAcidSubunitSugar.transform_json(var) 
+        end
+      } unless json_hash['sugar'].nil?
 
       result
     end

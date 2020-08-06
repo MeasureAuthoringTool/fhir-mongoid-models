@@ -54,6 +54,228 @@ module FHIR
     embeds_one :valueDosage, class_name: 'FHIR::Dosage'    
     embeds_one :valueMeta, class_name: 'FHIR::Meta'    
 
+  def self.serializePrimitiveExtension(primitive)
+    result = nil
+    unless primitive.fhirId.nil? || primitive.extension.nil?
+      result = Hash.new
+      result['id'] = primitive.fhirId
+      result['extension'] = primitive.extension.map { |x| x.as_json() }
+    end
+    result
+  end
+
+  def self.serializePrimitiveExtensionArray(primitives)
+    result = primitives.map{ |p|  Extension.serializePrimitiveExtension(p) }
+    result.compact
+    if (result.empty?) 
+      return nil
+    end
+    result
+  end
+    
+    def as_json(*args)
+      result = super      
+      unless self.url.nil? 
+        result['url'] = self.url.value
+        serialized = Extension.serializePrimitiveExtension(self.url)            
+        result['_url'] = serialized unless serialized.nil?
+      end
+      unless self.valueBase64Binary.nil?
+        result['valueBase64Binary'] = self.valueBase64Binary.value                        
+        serialized = Extension.serializePrimitiveExtension(self.valueBase64Binary) 
+        result['_valueBase64Binary'] = serialized unless serialized.nil?
+      end          
+      unless self.valueBoolean.nil?
+        result['valueBoolean'] = self.valueBoolean.value                        
+        serialized = Extension.serializePrimitiveExtension(self.valueBoolean) 
+        result['_valueBoolean'] = serialized unless serialized.nil?
+      end          
+      unless self.valueCanonical.nil?
+        result['valueCanonical'] = self.valueCanonical.value                        
+        serialized = Extension.serializePrimitiveExtension(self.valueCanonical) 
+        result['_valueCanonical'] = serialized unless serialized.nil?
+      end          
+      unless self.valueCode.nil?
+        result['valueCode'] = self.valueCode.value                        
+        serialized = Extension.serializePrimitiveExtension(self.valueCode) 
+        result['_valueCode'] = serialized unless serialized.nil?
+      end          
+      unless self.valueDate.nil?
+        result['valueDate'] = self.valueDate.value                        
+        serialized = Extension.serializePrimitiveExtension(self.valueDate) 
+        result['_valueDate'] = serialized unless serialized.nil?
+      end          
+      unless self.valueDateTime.nil?
+        result['valueDateTime'] = self.valueDateTime.value                        
+        serialized = Extension.serializePrimitiveExtension(self.valueDateTime) 
+        result['_valueDateTime'] = serialized unless serialized.nil?
+      end          
+      unless self.valueDecimal.nil?
+        result['valueDecimal'] = self.valueDecimal.value                        
+        serialized = Extension.serializePrimitiveExtension(self.valueDecimal) 
+        result['_valueDecimal'] = serialized unless serialized.nil?
+      end          
+      unless self.valueId.nil?
+        result['valueId'] = self.valueId.value                        
+        serialized = Extension.serializePrimitiveExtension(self.valueId) 
+        result['_valueId'] = serialized unless serialized.nil?
+      end          
+      unless self.valueInstant.nil?
+        result['valueInstant'] = self.valueInstant.value                        
+        serialized = Extension.serializePrimitiveExtension(self.valueInstant) 
+        result['_valueInstant'] = serialized unless serialized.nil?
+      end          
+      unless self.valueInteger.nil?
+        result['valueInteger'] = self.valueInteger.value                        
+        serialized = Extension.serializePrimitiveExtension(self.valueInteger) 
+        result['_valueInteger'] = serialized unless serialized.nil?
+      end          
+      unless self.valueMarkdown.nil?
+        result['valueMarkdown'] = self.valueMarkdown.value                        
+        serialized = Extension.serializePrimitiveExtension(self.valueMarkdown) 
+        result['_valueMarkdown'] = serialized unless serialized.nil?
+      end          
+      unless self.valueOid.nil?
+        result['valueOid'] = self.valueOid.value                        
+        serialized = Extension.serializePrimitiveExtension(self.valueOid) 
+        result['_valueOid'] = serialized unless serialized.nil?
+      end          
+      unless self.valuePositiveInt.nil?
+        result['valuePositiveInt'] = self.valuePositiveInt.value                        
+        serialized = Extension.serializePrimitiveExtension(self.valuePositiveInt) 
+        result['_valuePositiveInt'] = serialized unless serialized.nil?
+      end          
+      unless self.valueString.nil?
+        result['valueString'] = self.valueString.value                        
+        serialized = Extension.serializePrimitiveExtension(self.valueString) 
+        result['_valueString'] = serialized unless serialized.nil?
+      end          
+      unless self.valueTime.nil?
+        result['valueTime'] = self.valueTime.value                        
+        serialized = Extension.serializePrimitiveExtension(self.valueTime) 
+        result['_valueTime'] = serialized unless serialized.nil?
+      end          
+      unless self.valueUnsignedInt.nil?
+        result['valueUnsignedInt'] = self.valueUnsignedInt.value                        
+        serialized = Extension.serializePrimitiveExtension(self.valueUnsignedInt) 
+        result['_valueUnsignedInt'] = serialized unless serialized.nil?
+      end          
+      unless self.valueUri.nil?
+        result['valueUri'] = self.valueUri.value                        
+        serialized = Extension.serializePrimitiveExtension(self.valueUri) 
+        result['_valueUri'] = serialized unless serialized.nil?
+      end          
+      unless self.valueUrl.nil?
+        result['valueUrl'] = self.valueUrl.value                        
+        serialized = Extension.serializePrimitiveExtension(self.valueUrl) 
+        result['_valueUrl'] = serialized unless serialized.nil?
+      end          
+      unless self.valueUuid.nil?
+        result['valueUuid'] = self.valueUuid.value                        
+        serialized = Extension.serializePrimitiveExtension(self.valueUuid) 
+        result['_valueUuid'] = serialized unless serialized.nil?
+      end          
+      unless self.valueAddress.nil?
+        result['valueAddress'] = self.valueAddress.as_json(*args)                        
+      end          
+      unless self.valueAge.nil?
+        result['valueAge'] = self.valueAge.as_json(*args)                        
+      end          
+      unless self.valueAnnotation.nil?
+        result['valueAnnotation'] = self.valueAnnotation.as_json(*args)                        
+      end          
+      unless self.valueAttachment.nil?
+        result['valueAttachment'] = self.valueAttachment.as_json(*args)                        
+      end          
+      unless self.valueCodeableConcept.nil?
+        result['valueCodeableConcept'] = self.valueCodeableConcept.as_json(*args)                        
+      end          
+      unless self.valueCoding.nil?
+        result['valueCoding'] = self.valueCoding.as_json(*args)                        
+      end          
+      unless self.valueContactPoint.nil?
+        result['valueContactPoint'] = self.valueContactPoint.as_json(*args)                        
+      end          
+      unless self.valueCount.nil?
+        result['valueCount'] = self.valueCount.as_json(*args)                        
+      end          
+      unless self.valueDistance.nil?
+        result['valueDistance'] = self.valueDistance.as_json(*args)                        
+      end          
+      unless self.valueDuration.nil?
+        result['valueDuration'] = self.valueDuration.as_json(*args)                        
+      end          
+      unless self.valueHumanName.nil?
+        result['valueHumanName'] = self.valueHumanName.as_json(*args)                        
+      end          
+      unless self.valueIdentifier.nil?
+        result['valueIdentifier'] = self.valueIdentifier.as_json(*args)                        
+      end          
+      unless self.valueMoney.nil?
+        result['valueMoney'] = self.valueMoney.as_json(*args)                        
+      end          
+      unless self.valuePeriod.nil?
+        result['valuePeriod'] = self.valuePeriod.as_json(*args)                        
+      end          
+      unless self.valueQuantity.nil?
+        result['valueQuantity'] = self.valueQuantity.as_json(*args)                        
+      end          
+      unless self.valueRange.nil?
+        result['valueRange'] = self.valueRange.as_json(*args)                        
+      end          
+      unless self.valueRatio.nil?
+        result['valueRatio'] = self.valueRatio.as_json(*args)                        
+      end          
+      unless self.valueReference.nil?
+        result['valueReference'] = self.valueReference.as_json(*args)                        
+      end          
+      unless self.valueSampledData.nil?
+        result['valueSampledData'] = self.valueSampledData.as_json(*args)                        
+      end          
+      unless self.valueSignature.nil?
+        result['valueSignature'] = self.valueSignature.as_json(*args)                        
+      end          
+      unless self.valueTiming.nil?
+        result['valueTiming'] = self.valueTiming.as_json(*args)                        
+      end          
+      unless self.valueContactDetail.nil?
+        result['valueContactDetail'] = self.valueContactDetail.as_json(*args)                        
+      end          
+      unless self.valueContributor.nil?
+        result['valueContributor'] = self.valueContributor.as_json(*args)                        
+      end          
+      unless self.valueDataRequirement.nil?
+        result['valueDataRequirement'] = self.valueDataRequirement.as_json(*args)                        
+      end          
+      unless self.valueExpression.nil?
+        result['valueExpression'] = self.valueExpression.as_json(*args)                        
+      end          
+      unless self.valueParameterDefinition.nil?
+        result['valueParameterDefinition'] = self.valueParameterDefinition.as_json(*args)                        
+      end          
+      unless self.valueRelatedArtifact.nil?
+        result['valueRelatedArtifact'] = self.valueRelatedArtifact.as_json(*args)                        
+      end          
+      unless self.valueTriggerDefinition.nil?
+        result['valueTriggerDefinition'] = self.valueTriggerDefinition.as_json(*args)                        
+      end          
+      unless self.valueUsageContext.nil?
+        result['valueUsageContext'] = self.valueUsageContext.as_json(*args)                        
+      end          
+      unless self.valueDosage.nil?
+        result['valueDosage'] = self.valueDosage.as_json(*args)                        
+      end          
+      unless self.valueMeta.nil?
+        result['valueMeta'] = self.valueMeta.as_json(*args)                        
+      end          
+      result.delete('id')
+      unless self.fhirId.nil?
+        result['id'] = self.fhirId
+        result.delete('fhirId')
+      end  
+      result
+    end
+
     def self.transform_json(json_hash, target = Extension.new)
       result = self.superclass.transform_json(json_hash, target)
       result['url'] = PrimitiveUri.transform_json(json_hash['url'], json_hash['_url']) unless json_hash['url'].nil?

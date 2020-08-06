@@ -7,6 +7,35 @@ module FHIR
     embeds_one :valueString, class_name: 'FHIR::PrimitiveString'    
     embeds_one :valueSimpleQuantity, class_name: 'FHIR::SimpleQuantity'    
     embeds_one :valueBase64Binary, class_name: 'FHIR::PrimitiveBase64Binary'    
+    
+    def as_json(*args)
+      result = super      
+      unless self.type.nil? 
+        result['type'] = self.type.as_json(*args)
+      end
+      unless self.valueCodeableConcept.nil?
+        result['valueCodeableConcept'] = self.valueCodeableConcept.as_json(*args)                        
+      end          
+      unless self.valueString.nil?
+        result['valueString'] = self.valueString.value                        
+        serialized = Extension.serializePrimitiveExtension(self.valueString) 
+        result['_valueString'] = serialized unless serialized.nil?
+      end          
+      unless self.valueSimpleQuantity.nil?
+        result['valueSimpleQuantity'] = self.valueSimpleQuantity.as_json(*args)                        
+      end          
+      unless self.valueBase64Binary.nil?
+        result['valueBase64Binary'] = self.valueBase64Binary.value                        
+        serialized = Extension.serializePrimitiveExtension(self.valueBase64Binary) 
+        result['_valueBase64Binary'] = serialized unless serialized.nil?
+      end          
+      result.delete('id')
+      unless self.fhirId.nil?
+        result['id'] = self.fhirId
+        result.delete('fhirId')
+      end  
+      result
+    end
 
     def self.transform_json(json_hash, target = MedicationKnowledgeDrugCharacteristic.new)
       result = self.superclass.transform_json(json_hash, target)

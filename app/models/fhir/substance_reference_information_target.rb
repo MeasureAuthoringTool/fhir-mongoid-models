@@ -12,6 +12,48 @@ module FHIR
     embeds_one :amountString, class_name: 'FHIR::PrimitiveString'    
     embeds_one :amountType, class_name: 'FHIR::CodeableConcept'    
     embeds_many :source, class_name: 'FHIR::Reference'    
+    
+    def as_json(*args)
+      result = super      
+      unless self.target.nil? 
+        result['target'] = self.target.as_json(*args)
+      end
+      unless self.type.nil? 
+        result['type'] = self.type.as_json(*args)
+      end
+      unless self.interaction.nil? 
+        result['interaction'] = self.interaction.as_json(*args)
+      end
+      unless self.organism.nil? 
+        result['organism'] = self.organism.as_json(*args)
+      end
+      unless self.organismType.nil? 
+        result['organismType'] = self.organismType.as_json(*args)
+      end
+      unless self.amountQuantity.nil?
+        result['amountQuantity'] = self.amountQuantity.as_json(*args)                        
+      end          
+      unless self.amountRange.nil?
+        result['amountRange'] = self.amountRange.as_json(*args)                        
+      end          
+      unless self.amountString.nil?
+        result['amountString'] = self.amountString.value                        
+        serialized = Extension.serializePrimitiveExtension(self.amountString) 
+        result['_amountString'] = serialized unless serialized.nil?
+      end          
+      unless self.amountType.nil? 
+        result['amountType'] = self.amountType.as_json(*args)
+      end
+      unless self.source.nil?  || !self.source.any? 
+        result['source'] = self.source.map{ |x| x.as_json(*args) }
+      end
+      result.delete('id')
+      unless self.fhirId.nil?
+        result['id'] = self.fhirId
+        result.delete('fhirId')
+      end  
+      result
+    end
 
     def self.transform_json(json_hash, target = SubstanceReferenceInformationTarget.new)
       result = self.superclass.transform_json(json_hash, target)
@@ -24,7 +66,13 @@ module FHIR
       result['amountRange'] = Range.transform_json(json_hash['amountRange']) unless json_hash['amountRange'].nil?
       result['amountString'] = PrimitiveString.transform_json(json_hash['amountString'], json_hash['_amountString']) unless json_hash['amountString'].nil?
       result['amountType'] = CodeableConcept.transform_json(json_hash['amountType']) unless json_hash['amountType'].nil?
-      result['source'] = json_hash['source'].map { |var| Reference.transform_json(var) } unless json_hash['source'].nil?
+      result['source'] = json_hash['source'].map { |var| 
+        unless var['resourceType'].nil?
+          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
+        else
+          Reference.transform_json(var) 
+        end
+      } unless json_hash['source'].nil?
 
       result
     end

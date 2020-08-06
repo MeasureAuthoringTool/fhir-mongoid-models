@@ -5,6 +5,27 @@ module FHIR
     embeds_one :authority, class_name: 'FHIR::CodeableConcept'    
     embeds_one :status, class_name: 'FHIR::CodeableConcept'    
     embeds_one :date, class_name: 'FHIR::PrimitiveDateTime'    
+    
+    def as_json(*args)
+      result = super      
+      unless self.authority.nil? 
+        result['authority'] = self.authority.as_json(*args)
+      end
+      unless self.status.nil? 
+        result['status'] = self.status.as_json(*args)
+      end
+      unless self.date.nil? 
+        result['date'] = self.date.value
+        serialized = Extension.serializePrimitiveExtension(self.date)            
+        result['_date'] = serialized unless serialized.nil?
+      end
+      result.delete('id')
+      unless self.fhirId.nil?
+        result['id'] = self.fhirId
+        result.delete('fhirId')
+      end  
+      result
+    end
 
     def self.transform_json(json_hash, target = SubstanceSpecificationNameOfficial.new)
       result = self.superclass.transform_json(json_hash, target)

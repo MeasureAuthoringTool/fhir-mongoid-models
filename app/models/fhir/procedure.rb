@@ -34,10 +34,132 @@ module FHIR
     embeds_many :focalDevice, class_name: 'FHIR::ProcedureFocalDevice'    
     embeds_many :usedReference, class_name: 'FHIR::Reference'    
     embeds_many :usedCode, class_name: 'FHIR::CodeableConcept'    
+    
+    def as_json(*args)
+      result = super      
+      unless self.identifier.nil?  || !self.identifier.any? 
+        result['identifier'] = self.identifier.map{ |x| x.as_json(*args) }
+      end
+      unless self.instantiatesCanonical.nil?  || !self.instantiatesCanonical.any? 
+        result['instantiatesCanonical'] = self.instantiatesCanonical.compact().map{ |x| x.value }
+        serialized = Extension.serializePrimitiveExtensionArray(self.instantiatesCanonical)                              
+        result['_instantiatesCanonical'] = serialized unless serialized.nil? || !serialized.any?
+      end
+      unless self.instantiatesUri.nil?  || !self.instantiatesUri.any? 
+        result['instantiatesUri'] = self.instantiatesUri.compact().map{ |x| x.value }
+        serialized = Extension.serializePrimitiveExtensionArray(self.instantiatesUri)                              
+        result['_instantiatesUri'] = serialized unless serialized.nil? || !serialized.any?
+      end
+      unless self.basedOn.nil?  || !self.basedOn.any? 
+        result['basedOn'] = self.basedOn.map{ |x| x.as_json(*args) }
+      end
+      unless self.partOf.nil?  || !self.partOf.any? 
+        result['partOf'] = self.partOf.map{ |x| x.as_json(*args) }
+      end
+      unless self.status.nil? 
+        result['status'] = self.status.value
+        serialized = Extension.serializePrimitiveExtension(self.status)            
+        result['_status'] = serialized unless serialized.nil?
+      end
+      unless self.statusReason.nil? 
+        result['statusReason'] = self.statusReason.as_json(*args)
+      end
+      unless self.category.nil? 
+        result['category'] = self.category.as_json(*args)
+      end
+      unless self.code.nil? 
+        result['code'] = self.code.as_json(*args)
+      end
+      unless self.subject.nil? 
+        result['subject'] = self.subject.as_json(*args)
+      end
+      unless self.encounter.nil? 
+        result['encounter'] = self.encounter.as_json(*args)
+      end
+      unless self.performedDateTime.nil?
+        result['performedDateTime'] = self.performedDateTime.value                        
+        serialized = Extension.serializePrimitiveExtension(self.performedDateTime) 
+        result['_performedDateTime'] = serialized unless serialized.nil?
+      end          
+      unless self.performedPeriod.nil?
+        result['performedPeriod'] = self.performedPeriod.as_json(*args)                        
+      end          
+      unless self.performedString.nil?
+        result['performedString'] = self.performedString.value                        
+        serialized = Extension.serializePrimitiveExtension(self.performedString) 
+        result['_performedString'] = serialized unless serialized.nil?
+      end          
+      unless self.performedAge.nil?
+        result['performedAge'] = self.performedAge.as_json(*args)                        
+      end          
+      unless self.performedRange.nil?
+        result['performedRange'] = self.performedRange.as_json(*args)                        
+      end          
+      unless self.recorder.nil? 
+        result['recorder'] = self.recorder.as_json(*args)
+      end
+      unless self.asserter.nil? 
+        result['asserter'] = self.asserter.as_json(*args)
+      end
+      unless self.performer.nil?  || !self.performer.any? 
+        result['performer'] = self.performer.map{ |x| x.as_json(*args) }
+      end
+      unless self.location.nil? 
+        result['location'] = self.location.as_json(*args)
+      end
+      unless self.reasonCode.nil?  || !self.reasonCode.any? 
+        result['reasonCode'] = self.reasonCode.map{ |x| x.as_json(*args) }
+      end
+      unless self.reasonReference.nil?  || !self.reasonReference.any? 
+        result['reasonReference'] = self.reasonReference.map{ |x| x.as_json(*args) }
+      end
+      unless self.bodySite.nil?  || !self.bodySite.any? 
+        result['bodySite'] = self.bodySite.map{ |x| x.as_json(*args) }
+      end
+      unless self.outcome.nil? 
+        result['outcome'] = self.outcome.as_json(*args)
+      end
+      unless self.report.nil?  || !self.report.any? 
+        result['report'] = self.report.map{ |x| x.as_json(*args) }
+      end
+      unless self.complication.nil?  || !self.complication.any? 
+        result['complication'] = self.complication.map{ |x| x.as_json(*args) }
+      end
+      unless self.complicationDetail.nil?  || !self.complicationDetail.any? 
+        result['complicationDetail'] = self.complicationDetail.map{ |x| x.as_json(*args) }
+      end
+      unless self.followUp.nil?  || !self.followUp.any? 
+        result['followUp'] = self.followUp.map{ |x| x.as_json(*args) }
+      end
+      unless self.note.nil?  || !self.note.any? 
+        result['note'] = self.note.map{ |x| x.as_json(*args) }
+      end
+      unless self.focalDevice.nil?  || !self.focalDevice.any? 
+        result['focalDevice'] = self.focalDevice.map{ |x| x.as_json(*args) }
+      end
+      unless self.usedReference.nil?  || !self.usedReference.any? 
+        result['usedReference'] = self.usedReference.map{ |x| x.as_json(*args) }
+      end
+      unless self.usedCode.nil?  || !self.usedCode.any? 
+        result['usedCode'] = self.usedCode.map{ |x| x.as_json(*args) }
+      end
+      result.delete('id')
+      unless self.fhirId.nil?
+        result['id'] = self.fhirId
+        result.delete('fhirId')
+      end  
+      result
+    end
 
     def self.transform_json(json_hash, target = Procedure.new)
       result = self.superclass.transform_json(json_hash, target)
-      result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
+      result['identifier'] = json_hash['identifier'].map { |var| 
+        unless var['resourceType'].nil?
+          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
+        else
+          Identifier.transform_json(var) 
+        end
+      } unless json_hash['identifier'].nil?
       result['instantiatesCanonical'] = json_hash['instantiatesCanonical'].each_with_index.map do |var, i|
         extension_hash = json_hash['_instantiatesCanonical'] && json_hash['_instantiatesCanonical'][i]
         PrimitiveCanonical.transform_json(var, extension_hash)
@@ -46,9 +168,21 @@ module FHIR
         extension_hash = json_hash['_instantiatesUri'] && json_hash['_instantiatesUri'][i]
         PrimitiveUri.transform_json(var, extension_hash)
       end unless json_hash['instantiatesUri'].nil?
-      result['basedOn'] = json_hash['basedOn'].map { |var| Reference.transform_json(var) } unless json_hash['basedOn'].nil?
-      result['partOf'] = json_hash['partOf'].map { |var| Reference.transform_json(var) } unless json_hash['partOf'].nil?
-      result['status'] = ProcedureStatus.transform_json(json_hash['status']) unless json_hash['status'].nil?
+      result['basedOn'] = json_hash['basedOn'].map { |var| 
+        unless var['resourceType'].nil?
+          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
+        else
+          Reference.transform_json(var) 
+        end
+      } unless json_hash['basedOn'].nil?
+      result['partOf'] = json_hash['partOf'].map { |var| 
+        unless var['resourceType'].nil?
+          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
+        else
+          Reference.transform_json(var) 
+        end
+      } unless json_hash['partOf'].nil?
+      result['status'] = ProcedureStatus.transform_json(json_hash['status'], json_hash['_status']) unless json_hash['status'].nil?
       result['statusReason'] = CodeableConcept.transform_json(json_hash['statusReason']) unless json_hash['statusReason'].nil?
       result['category'] = CodeableConcept.transform_json(json_hash['category']) unless json_hash['category'].nil?
       result['code'] = CodeableConcept.transform_json(json_hash['code']) unless json_hash['code'].nil?
@@ -61,20 +195,92 @@ module FHIR
       result['performedRange'] = Range.transform_json(json_hash['performedRange']) unless json_hash['performedRange'].nil?
       result['recorder'] = Reference.transform_json(json_hash['recorder']) unless json_hash['recorder'].nil?
       result['asserter'] = Reference.transform_json(json_hash['asserter']) unless json_hash['asserter'].nil?
-      result['performer'] = json_hash['performer'].map { |var| ProcedurePerformer.transform_json(var) } unless json_hash['performer'].nil?
+      result['performer'] = json_hash['performer'].map { |var| 
+        unless var['resourceType'].nil?
+          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
+        else
+          ProcedurePerformer.transform_json(var) 
+        end
+      } unless json_hash['performer'].nil?
       result['location'] = Reference.transform_json(json_hash['location']) unless json_hash['location'].nil?
-      result['reasonCode'] = json_hash['reasonCode'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['reasonCode'].nil?
-      result['reasonReference'] = json_hash['reasonReference'].map { |var| Reference.transform_json(var) } unless json_hash['reasonReference'].nil?
-      result['bodySite'] = json_hash['bodySite'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['bodySite'].nil?
+      result['reasonCode'] = json_hash['reasonCode'].map { |var| 
+        unless var['resourceType'].nil?
+          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
+        else
+          CodeableConcept.transform_json(var) 
+        end
+      } unless json_hash['reasonCode'].nil?
+      result['reasonReference'] = json_hash['reasonReference'].map { |var| 
+        unless var['resourceType'].nil?
+          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
+        else
+          Reference.transform_json(var) 
+        end
+      } unless json_hash['reasonReference'].nil?
+      result['bodySite'] = json_hash['bodySite'].map { |var| 
+        unless var['resourceType'].nil?
+          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
+        else
+          CodeableConcept.transform_json(var) 
+        end
+      } unless json_hash['bodySite'].nil?
       result['outcome'] = CodeableConcept.transform_json(json_hash['outcome']) unless json_hash['outcome'].nil?
-      result['report'] = json_hash['report'].map { |var| Reference.transform_json(var) } unless json_hash['report'].nil?
-      result['complication'] = json_hash['complication'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['complication'].nil?
-      result['complicationDetail'] = json_hash['complicationDetail'].map { |var| Reference.transform_json(var) } unless json_hash['complicationDetail'].nil?
-      result['followUp'] = json_hash['followUp'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['followUp'].nil?
-      result['note'] = json_hash['note'].map { |var| Annotation.transform_json(var) } unless json_hash['note'].nil?
-      result['focalDevice'] = json_hash['focalDevice'].map { |var| ProcedureFocalDevice.transform_json(var) } unless json_hash['focalDevice'].nil?
-      result['usedReference'] = json_hash['usedReference'].map { |var| Reference.transform_json(var) } unless json_hash['usedReference'].nil?
-      result['usedCode'] = json_hash['usedCode'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['usedCode'].nil?
+      result['report'] = json_hash['report'].map { |var| 
+        unless var['resourceType'].nil?
+          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
+        else
+          Reference.transform_json(var) 
+        end
+      } unless json_hash['report'].nil?
+      result['complication'] = json_hash['complication'].map { |var| 
+        unless var['resourceType'].nil?
+          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
+        else
+          CodeableConcept.transform_json(var) 
+        end
+      } unless json_hash['complication'].nil?
+      result['complicationDetail'] = json_hash['complicationDetail'].map { |var| 
+        unless var['resourceType'].nil?
+          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
+        else
+          Reference.transform_json(var) 
+        end
+      } unless json_hash['complicationDetail'].nil?
+      result['followUp'] = json_hash['followUp'].map { |var| 
+        unless var['resourceType'].nil?
+          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
+        else
+          CodeableConcept.transform_json(var) 
+        end
+      } unless json_hash['followUp'].nil?
+      result['note'] = json_hash['note'].map { |var| 
+        unless var['resourceType'].nil?
+          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
+        else
+          Annotation.transform_json(var) 
+        end
+      } unless json_hash['note'].nil?
+      result['focalDevice'] = json_hash['focalDevice'].map { |var| 
+        unless var['resourceType'].nil?
+          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
+        else
+          ProcedureFocalDevice.transform_json(var) 
+        end
+      } unless json_hash['focalDevice'].nil?
+      result['usedReference'] = json_hash['usedReference'].map { |var| 
+        unless var['resourceType'].nil?
+          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
+        else
+          Reference.transform_json(var) 
+        end
+      } unless json_hash['usedReference'].nil?
+      result['usedCode'] = json_hash['usedCode'].map { |var| 
+        unless var['resourceType'].nil?
+          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
+        else
+          CodeableConcept.transform_json(var) 
+        end
+      } unless json_hash['usedCode'].nil?
 
       result
     end

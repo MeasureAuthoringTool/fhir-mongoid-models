@@ -7,6 +7,31 @@ module FHIR
     embeds_one :gender, class_name: 'FHIR::CodeableConcept'    
     embeds_one :race, class_name: 'FHIR::CodeableConcept'    
     embeds_one :physiologicalCondition, class_name: 'FHIR::CodeableConcept'    
+    
+    def as_json(*args)
+      result = super      
+      unless self.ageRange.nil?
+        result['ageRange'] = self.ageRange.as_json(*args)                        
+      end          
+      unless self.ageCodeableConcept.nil?
+        result['ageCodeableConcept'] = self.ageCodeableConcept.as_json(*args)                        
+      end          
+      unless self.gender.nil? 
+        result['gender'] = self.gender.as_json(*args)
+      end
+      unless self.race.nil? 
+        result['race'] = self.race.as_json(*args)
+      end
+      unless self.physiologicalCondition.nil? 
+        result['physiologicalCondition'] = self.physiologicalCondition.as_json(*args)
+      end
+      result.delete('id')
+      unless self.fhirId.nil?
+        result['id'] = self.fhirId
+        result.delete('fhirId')
+      end  
+      result
+    end
 
     def self.transform_json(json_hash, target = Population.new)
       result = self.superclass.transform_json(json_hash, target)

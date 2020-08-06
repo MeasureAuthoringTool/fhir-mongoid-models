@@ -15,6 +15,71 @@ module FHIR
     embeds_one :valueQuantity, class_name: 'FHIR::Quantity'    
     embeds_one :valueReference, class_name: 'FHIR::Reference'    
     embeds_many :item, class_name: 'FHIR::QuestionnaireResponseItem'    
+    
+    def as_json(*args)
+      result = super      
+      unless self.valueBoolean.nil?
+        result['valueBoolean'] = self.valueBoolean.value                        
+        serialized = Extension.serializePrimitiveExtension(self.valueBoolean) 
+        result['_valueBoolean'] = serialized unless serialized.nil?
+      end          
+      unless self.valueDecimal.nil?
+        result['valueDecimal'] = self.valueDecimal.value                        
+        serialized = Extension.serializePrimitiveExtension(self.valueDecimal) 
+        result['_valueDecimal'] = serialized unless serialized.nil?
+      end          
+      unless self.valueInteger.nil?
+        result['valueInteger'] = self.valueInteger.value                        
+        serialized = Extension.serializePrimitiveExtension(self.valueInteger) 
+        result['_valueInteger'] = serialized unless serialized.nil?
+      end          
+      unless self.valueDate.nil?
+        result['valueDate'] = self.valueDate.value                        
+        serialized = Extension.serializePrimitiveExtension(self.valueDate) 
+        result['_valueDate'] = serialized unless serialized.nil?
+      end          
+      unless self.valueDateTime.nil?
+        result['valueDateTime'] = self.valueDateTime.value                        
+        serialized = Extension.serializePrimitiveExtension(self.valueDateTime) 
+        result['_valueDateTime'] = serialized unless serialized.nil?
+      end          
+      unless self.valueTime.nil?
+        result['valueTime'] = self.valueTime.value                        
+        serialized = Extension.serializePrimitiveExtension(self.valueTime) 
+        result['_valueTime'] = serialized unless serialized.nil?
+      end          
+      unless self.valueString.nil?
+        result['valueString'] = self.valueString.value                        
+        serialized = Extension.serializePrimitiveExtension(self.valueString) 
+        result['_valueString'] = serialized unless serialized.nil?
+      end          
+      unless self.valueUri.nil?
+        result['valueUri'] = self.valueUri.value                        
+        serialized = Extension.serializePrimitiveExtension(self.valueUri) 
+        result['_valueUri'] = serialized unless serialized.nil?
+      end          
+      unless self.valueAttachment.nil?
+        result['valueAttachment'] = self.valueAttachment.as_json(*args)                        
+      end          
+      unless self.valueCoding.nil?
+        result['valueCoding'] = self.valueCoding.as_json(*args)                        
+      end          
+      unless self.valueQuantity.nil?
+        result['valueQuantity'] = self.valueQuantity.as_json(*args)                        
+      end          
+      unless self.valueReference.nil?
+        result['valueReference'] = self.valueReference.as_json(*args)                        
+      end          
+      unless self.item.nil?  || !self.item.any? 
+        result['item'] = self.item.map{ |x| x.as_json(*args) }
+      end
+      result.delete('id')
+      unless self.fhirId.nil?
+        result['id'] = self.fhirId
+        result.delete('fhirId')
+      end  
+      result
+    end
 
     def self.transform_json(json_hash, target = QuestionnaireResponseItemAnswer.new)
       result = self.superclass.transform_json(json_hash, target)
@@ -30,7 +95,13 @@ module FHIR
       result['valueCoding'] = Coding.transform_json(json_hash['valueCoding']) unless json_hash['valueCoding'].nil?
       result['valueQuantity'] = Quantity.transform_json(json_hash['valueQuantity']) unless json_hash['valueQuantity'].nil?
       result['valueReference'] = Reference.transform_json(json_hash['valueReference']) unless json_hash['valueReference'].nil?
-      result['item'] = json_hash['item'].map { |var| QuestionnaireResponseItem.transform_json(var) } unless json_hash['item'].nil?
+      result['item'] = json_hash['item'].map { |var| 
+        unless var['resourceType'].nil?
+          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
+        else
+          QuestionnaireResponseItem.transform_json(var) 
+        end
+      } unless json_hash['item'].nil?
 
       result
     end

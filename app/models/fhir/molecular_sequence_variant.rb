@@ -8,6 +8,44 @@ module FHIR
     embeds_one :referenceAllele, class_name: 'FHIR::PrimitiveString'    
     embeds_one :cigar, class_name: 'FHIR::PrimitiveString'    
     embeds_one :variantPointer, class_name: 'FHIR::Reference'    
+    
+    def as_json(*args)
+      result = super      
+      unless self.start.nil? 
+        result['start'] = self.start.value
+        serialized = Extension.serializePrimitiveExtension(self.start)            
+        result['_start'] = serialized unless serialized.nil?
+      end
+      unless self.end.nil? 
+        result['end'] = self.end.value
+        serialized = Extension.serializePrimitiveExtension(self.end)            
+        result['_end'] = serialized unless serialized.nil?
+      end
+      unless self.observedAllele.nil? 
+        result['observedAllele'] = self.observedAllele.value
+        serialized = Extension.serializePrimitiveExtension(self.observedAllele)            
+        result['_observedAllele'] = serialized unless serialized.nil?
+      end
+      unless self.referenceAllele.nil? 
+        result['referenceAllele'] = self.referenceAllele.value
+        serialized = Extension.serializePrimitiveExtension(self.referenceAllele)            
+        result['_referenceAllele'] = serialized unless serialized.nil?
+      end
+      unless self.cigar.nil? 
+        result['cigar'] = self.cigar.value
+        serialized = Extension.serializePrimitiveExtension(self.cigar)            
+        result['_cigar'] = serialized unless serialized.nil?
+      end
+      unless self.variantPointer.nil? 
+        result['variantPointer'] = self.variantPointer.as_json(*args)
+      end
+      result.delete('id')
+      unless self.fhirId.nil?
+        result['id'] = self.fhirId
+        result.delete('fhirId')
+      end  
+      result
+    end
 
     def self.transform_json(json_hash, target = MolecularSequenceVariant.new)
       result = self.superclass.transform_json(json_hash, target)

@@ -7,6 +7,35 @@ module FHIR
     embeds_one :length, class_name: 'FHIR::PrimitiveInteger'    
     embeds_one :outer, class_name: 'FHIR::MolecularSequenceStructureVariantOuter'    
     embeds_one :inner, class_name: 'FHIR::MolecularSequenceStructureVariantInner'    
+    
+    def as_json(*args)
+      result = super      
+      unless self.variantType.nil? 
+        result['variantType'] = self.variantType.as_json(*args)
+      end
+      unless self.exact.nil? 
+        result['exact'] = self.exact.value
+        serialized = Extension.serializePrimitiveExtension(self.exact)            
+        result['_exact'] = serialized unless serialized.nil?
+      end
+      unless self.length.nil? 
+        result['length'] = self.length.value
+        serialized = Extension.serializePrimitiveExtension(self.length)            
+        result['_length'] = serialized unless serialized.nil?
+      end
+      unless self.outer.nil? 
+        result['outer'] = self.outer.as_json(*args)
+      end
+      unless self.inner.nil? 
+        result['inner'] = self.inner.as_json(*args)
+      end
+      result.delete('id')
+      unless self.fhirId.nil?
+        result['id'] = self.fhirId
+        result.delete('fhirId')
+      end  
+      result
+    end
 
     def self.transform_json(json_hash, target = MolecularSequenceStructureVariant.new)
       result = self.superclass.transform_json(json_hash, target)

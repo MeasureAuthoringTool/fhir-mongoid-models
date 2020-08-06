@@ -7,6 +7,39 @@ module FHIR
     embeds_one :paternalOrganismId, class_name: 'FHIR::PrimitiveString'    
     embeds_one :paternalOrganismName, class_name: 'FHIR::PrimitiveString'    
     embeds_one :hybridType, class_name: 'FHIR::CodeableConcept'    
+    
+    def as_json(*args)
+      result = super      
+      unless self.maternalOrganismId.nil? 
+        result['maternalOrganismId'] = self.maternalOrganismId.value
+        serialized = Extension.serializePrimitiveExtension(self.maternalOrganismId)            
+        result['_maternalOrganismId'] = serialized unless serialized.nil?
+      end
+      unless self.maternalOrganismName.nil? 
+        result['maternalOrganismName'] = self.maternalOrganismName.value
+        serialized = Extension.serializePrimitiveExtension(self.maternalOrganismName)            
+        result['_maternalOrganismName'] = serialized unless serialized.nil?
+      end
+      unless self.paternalOrganismId.nil? 
+        result['paternalOrganismId'] = self.paternalOrganismId.value
+        serialized = Extension.serializePrimitiveExtension(self.paternalOrganismId)            
+        result['_paternalOrganismId'] = serialized unless serialized.nil?
+      end
+      unless self.paternalOrganismName.nil? 
+        result['paternalOrganismName'] = self.paternalOrganismName.value
+        serialized = Extension.serializePrimitiveExtension(self.paternalOrganismName)            
+        result['_paternalOrganismName'] = serialized unless serialized.nil?
+      end
+      unless self.hybridType.nil? 
+        result['hybridType'] = self.hybridType.as_json(*args)
+      end
+      result.delete('id')
+      unless self.fhirId.nil?
+        result['id'] = self.fhirId
+        result.delete('fhirId')
+      end  
+      result
+    end
 
     def self.transform_json(json_hash, target = SubstanceSourceMaterialOrganismHybrid.new)
       result = self.superclass.transform_json(json_hash, target)

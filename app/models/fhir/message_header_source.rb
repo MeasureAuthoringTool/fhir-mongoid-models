@@ -7,6 +7,39 @@ module FHIR
     embeds_one :version, class_name: 'FHIR::PrimitiveString'    
     embeds_one :contact, class_name: 'FHIR::ContactPoint'    
     embeds_one :endpoint, class_name: 'FHIR::PrimitiveUrl'    
+    
+    def as_json(*args)
+      result = super      
+      unless self.name.nil? 
+        result['name'] = self.name.value
+        serialized = Extension.serializePrimitiveExtension(self.name)            
+        result['_name'] = serialized unless serialized.nil?
+      end
+      unless self.software.nil? 
+        result['software'] = self.software.value
+        serialized = Extension.serializePrimitiveExtension(self.software)            
+        result['_software'] = serialized unless serialized.nil?
+      end
+      unless self.version.nil? 
+        result['version'] = self.version.value
+        serialized = Extension.serializePrimitiveExtension(self.version)            
+        result['_version'] = serialized unless serialized.nil?
+      end
+      unless self.contact.nil? 
+        result['contact'] = self.contact.as_json(*args)
+      end
+      unless self.endpoint.nil? 
+        result['endpoint'] = self.endpoint.value
+        serialized = Extension.serializePrimitiveExtension(self.endpoint)            
+        result['_endpoint'] = serialized unless serialized.nil?
+      end
+      result.delete('id')
+      unless self.fhirId.nil?
+        result['id'] = self.fhirId
+        result.delete('fhirId')
+      end  
+      result
+    end
 
     def self.transform_json(json_hash, target = MessageHeaderSource.new)
       result = self.superclass.transform_json(json_hash, target)

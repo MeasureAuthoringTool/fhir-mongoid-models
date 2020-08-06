@@ -5,6 +5,31 @@ module FHIR
     embeds_one :deviceIdentifier, class_name: 'FHIR::PrimitiveString'    
     embeds_one :issuer, class_name: 'FHIR::PrimitiveUri'    
     embeds_one :jurisdiction, class_name: 'FHIR::PrimitiveUri'    
+    
+    def as_json(*args)
+      result = super      
+      unless self.deviceIdentifier.nil? 
+        result['deviceIdentifier'] = self.deviceIdentifier.value
+        serialized = Extension.serializePrimitiveExtension(self.deviceIdentifier)            
+        result['_deviceIdentifier'] = serialized unless serialized.nil?
+      end
+      unless self.issuer.nil? 
+        result['issuer'] = self.issuer.value
+        serialized = Extension.serializePrimitiveExtension(self.issuer)            
+        result['_issuer'] = serialized unless serialized.nil?
+      end
+      unless self.jurisdiction.nil? 
+        result['jurisdiction'] = self.jurisdiction.value
+        serialized = Extension.serializePrimitiveExtension(self.jurisdiction)            
+        result['_jurisdiction'] = serialized unless serialized.nil?
+      end
+      result.delete('id')
+      unless self.fhirId.nil?
+        result['id'] = self.fhirId
+        result.delete('fhirId')
+      end  
+      result
+    end
 
     def self.transform_json(json_hash, target = DeviceDefinitionUdiDeviceIdentifier.new)
       result = self.superclass.transform_json(json_hash, target)

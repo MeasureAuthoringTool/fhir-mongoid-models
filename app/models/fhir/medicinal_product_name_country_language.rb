@@ -5,6 +5,25 @@ module FHIR
     embeds_one :country, class_name: 'FHIR::CodeableConcept'    
     embeds_one :jurisdiction, class_name: 'FHIR::CodeableConcept'    
     embeds_one :language, class_name: 'FHIR::CodeableConcept'    
+    
+    def as_json(*args)
+      result = super      
+      unless self.country.nil? 
+        result['country'] = self.country.as_json(*args)
+      end
+      unless self.jurisdiction.nil? 
+        result['jurisdiction'] = self.jurisdiction.as_json(*args)
+      end
+      unless self.language.nil? 
+        result['language'] = self.language.as_json(*args)
+      end
+      result.delete('id')
+      unless self.fhirId.nil?
+        result['id'] = self.fhirId
+        result.delete('fhirId')
+      end  
+      result
+    end
 
     def self.transform_json(json_hash, target = MedicinalProductNameCountryLanguage.new)
       result = self.superclass.transform_json(json_hash, target)

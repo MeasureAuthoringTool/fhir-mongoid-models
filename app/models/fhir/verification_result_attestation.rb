@@ -10,6 +10,46 @@ module FHIR
     embeds_one :proxyIdentityCertificate, class_name: 'FHIR::PrimitiveString'    
     embeds_one :proxySignature, class_name: 'FHIR::Signature'    
     embeds_one :sourceSignature, class_name: 'FHIR::Signature'    
+    
+    def as_json(*args)
+      result = super      
+      unless self.who.nil? 
+        result['who'] = self.who.as_json(*args)
+      end
+      unless self.onBehalfOf.nil? 
+        result['onBehalfOf'] = self.onBehalfOf.as_json(*args)
+      end
+      unless self.communicationMethod.nil? 
+        result['communicationMethod'] = self.communicationMethod.as_json(*args)
+      end
+      unless self.date.nil? 
+        result['date'] = self.date.value
+        serialized = Extension.serializePrimitiveExtension(self.date)            
+        result['_date'] = serialized unless serialized.nil?
+      end
+      unless self.sourceIdentityCertificate.nil? 
+        result['sourceIdentityCertificate'] = self.sourceIdentityCertificate.value
+        serialized = Extension.serializePrimitiveExtension(self.sourceIdentityCertificate)            
+        result['_sourceIdentityCertificate'] = serialized unless serialized.nil?
+      end
+      unless self.proxyIdentityCertificate.nil? 
+        result['proxyIdentityCertificate'] = self.proxyIdentityCertificate.value
+        serialized = Extension.serializePrimitiveExtension(self.proxyIdentityCertificate)            
+        result['_proxyIdentityCertificate'] = serialized unless serialized.nil?
+      end
+      unless self.proxySignature.nil? 
+        result['proxySignature'] = self.proxySignature.as_json(*args)
+      end
+      unless self.sourceSignature.nil? 
+        result['sourceSignature'] = self.sourceSignature.as_json(*args)
+      end
+      result.delete('id')
+      unless self.fhirId.nil?
+        result['id'] = self.fhirId
+        result.delete('fhirId')
+      end  
+      result
+    end
 
     def self.transform_json(json_hash, target = VerificationResultAttestation.new)
       result = self.superclass.transform_json(json_hash, target)

@@ -9,6 +9,39 @@ module FHIR
     embeds_one :quantity, class_name: 'FHIR::SimpleQuantity'    
     embeds_one :expectedSupplyDuration, class_name: 'FHIR::Duration'    
     embeds_one :performer, class_name: 'FHIR::Reference'    
+    
+    def as_json(*args)
+      result = super      
+      unless self.initialFill.nil? 
+        result['initialFill'] = self.initialFill.as_json(*args)
+      end
+      unless self.dispenseInterval.nil? 
+        result['dispenseInterval'] = self.dispenseInterval.as_json(*args)
+      end
+      unless self.validityPeriod.nil? 
+        result['validityPeriod'] = self.validityPeriod.as_json(*args)
+      end
+      unless self.numberOfRepeatsAllowed.nil? 
+        result['numberOfRepeatsAllowed'] = self.numberOfRepeatsAllowed.value
+        serialized = Extension.serializePrimitiveExtension(self.numberOfRepeatsAllowed)            
+        result['_numberOfRepeatsAllowed'] = serialized unless serialized.nil?
+      end
+      unless self.quantity.nil? 
+        result['quantity'] = self.quantity.as_json(*args)
+      end
+      unless self.expectedSupplyDuration.nil? 
+        result['expectedSupplyDuration'] = self.expectedSupplyDuration.as_json(*args)
+      end
+      unless self.performer.nil? 
+        result['performer'] = self.performer.as_json(*args)
+      end
+      result.delete('id')
+      unless self.fhirId.nil?
+        result['id'] = self.fhirId
+        result.delete('fhirId')
+      end  
+      result
+    end
 
     def self.transform_json(json_hash, target = MedicationRequestDispenseRequest.new)
       result = self.superclass.transform_json(json_hash, target)

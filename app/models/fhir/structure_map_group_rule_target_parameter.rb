@@ -7,6 +7,41 @@ module FHIR
     embeds_one :valueBoolean, class_name: 'FHIR::PrimitiveBoolean'    
     embeds_one :valueInteger, class_name: 'FHIR::PrimitiveInteger'    
     embeds_one :valueDecimal, class_name: 'FHIR::PrimitiveDecimal'    
+    
+    def as_json(*args)
+      result = super      
+      unless self.valueId.nil?
+        result['valueId'] = self.valueId.value                        
+        serialized = Extension.serializePrimitiveExtension(self.valueId) 
+        result['_valueId'] = serialized unless serialized.nil?
+      end          
+      unless self.valueString.nil?
+        result['valueString'] = self.valueString.value                        
+        serialized = Extension.serializePrimitiveExtension(self.valueString) 
+        result['_valueString'] = serialized unless serialized.nil?
+      end          
+      unless self.valueBoolean.nil?
+        result['valueBoolean'] = self.valueBoolean.value                        
+        serialized = Extension.serializePrimitiveExtension(self.valueBoolean) 
+        result['_valueBoolean'] = serialized unless serialized.nil?
+      end          
+      unless self.valueInteger.nil?
+        result['valueInteger'] = self.valueInteger.value                        
+        serialized = Extension.serializePrimitiveExtension(self.valueInteger) 
+        result['_valueInteger'] = serialized unless serialized.nil?
+      end          
+      unless self.valueDecimal.nil?
+        result['valueDecimal'] = self.valueDecimal.value                        
+        serialized = Extension.serializePrimitiveExtension(self.valueDecimal) 
+        result['_valueDecimal'] = serialized unless serialized.nil?
+      end          
+      result.delete('id')
+      unless self.fhirId.nil?
+        result['id'] = self.fhirId
+        result.delete('fhirId')
+      end  
+      result
+    end
 
     def self.transform_json(json_hash, target = StructureMapGroupRuleTargetParameter.new)
       result = self.superclass.transform_json(json_hash, target)

@@ -9,6 +9,45 @@ module FHIR
     embeds_one :businessArrangement, class_name: 'FHIR::PrimitiveString'    
     embeds_many :preAuthRef, class_name: 'FHIR::PrimitiveString'    
     embeds_one :claimResponse, class_name: 'FHIR::Reference'    
+    
+    def as_json(*args)
+      result = super      
+      unless self.sequence.nil? 
+        result['sequence'] = self.sequence.value
+        serialized = Extension.serializePrimitiveExtension(self.sequence)            
+        result['_sequence'] = serialized unless serialized.nil?
+      end
+      unless self.focal.nil? 
+        result['focal'] = self.focal.value
+        serialized = Extension.serializePrimitiveExtension(self.focal)            
+        result['_focal'] = serialized unless serialized.nil?
+      end
+      unless self.identifier.nil? 
+        result['identifier'] = self.identifier.as_json(*args)
+      end
+      unless self.coverage.nil? 
+        result['coverage'] = self.coverage.as_json(*args)
+      end
+      unless self.businessArrangement.nil? 
+        result['businessArrangement'] = self.businessArrangement.value
+        serialized = Extension.serializePrimitiveExtension(self.businessArrangement)            
+        result['_businessArrangement'] = serialized unless serialized.nil?
+      end
+      unless self.preAuthRef.nil?  || !self.preAuthRef.any? 
+        result['preAuthRef'] = self.preAuthRef.compact().map{ |x| x.value }
+        serialized = Extension.serializePrimitiveExtensionArray(self.preAuthRef)                              
+        result['_preAuthRef'] = serialized unless serialized.nil? || !serialized.any?
+      end
+      unless self.claimResponse.nil? 
+        result['claimResponse'] = self.claimResponse.as_json(*args)
+      end
+      result.delete('id')
+      unless self.fhirId.nil?
+        result['id'] = self.fhirId
+        result.delete('fhirId')
+      end  
+      result
+    end
 
     def self.transform_json(json_hash, target = ClaimInsurance.new)
       result = self.superclass.transform_json(json_hash, target)

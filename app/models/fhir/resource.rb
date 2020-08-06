@@ -8,6 +8,38 @@ module FHIR
     embeds_one :language, class_name: 'FHIR::PrimitiveCode'    
     field :resourceType, type: String    
     field :fhirId, type: String    
+    
+    def as_json(*args)
+      result = Hash.new      
+      unless self.id.nil? 
+        result['id'] = self.id
+      end
+      unless self.meta.nil? 
+        result['meta'] = self.meta.as_json(*args)
+      end
+      unless self.implicitRules.nil? 
+        result['implicitRules'] = self.implicitRules.value
+        serialized = Extension.serializePrimitiveExtension(self.implicitRules)            
+        result['_implicitRules'] = serialized unless serialized.nil?
+      end
+      unless self.language.nil? 
+        result['language'] = self.language.value
+        serialized = Extension.serializePrimitiveExtension(self.language)            
+        result['_language'] = serialized unless serialized.nil?
+      end
+      unless self.resourceType.nil? 
+        result['resourceType'] = self.resourceType
+      end
+      unless self.fhirId.nil? 
+        result['fhirId'] = self.fhirId
+      end
+      result.delete('id')
+      unless self.fhirId.nil?
+        result['id'] = self.fhirId
+        result.delete('fhirId')
+      end  
+      result
+    end
 
     def self.transform_json(json_hash, target = Resource.new)
       result = target

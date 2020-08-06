@@ -7,6 +7,37 @@ module FHIR
     embeds_one :valueDateTime, class_name: 'FHIR::PrimitiveDateTime'    
     embeds_one :valuePeriod, class_name: 'FHIR::Period'    
     embeds_one :valueDuration, class_name: 'FHIR::Duration'    
+    
+    def as_json(*args)
+      result = super      
+      unless self.path.nil? 
+        result['path'] = self.path.value
+        serialized = Extension.serializePrimitiveExtension(self.path)            
+        result['_path'] = serialized unless serialized.nil?
+      end
+      unless self.searchParam.nil? 
+        result['searchParam'] = self.searchParam.value
+        serialized = Extension.serializePrimitiveExtension(self.searchParam)            
+        result['_searchParam'] = serialized unless serialized.nil?
+      end
+      unless self.valueDateTime.nil?
+        result['valueDateTime'] = self.valueDateTime.value                        
+        serialized = Extension.serializePrimitiveExtension(self.valueDateTime) 
+        result['_valueDateTime'] = serialized unless serialized.nil?
+      end          
+      unless self.valuePeriod.nil?
+        result['valuePeriod'] = self.valuePeriod.as_json(*args)                        
+      end          
+      unless self.valueDuration.nil?
+        result['valueDuration'] = self.valueDuration.as_json(*args)                        
+      end          
+      result.delete('id')
+      unless self.fhirId.nil?
+        result['id'] = self.fhirId
+        result.delete('fhirId')
+      end  
+      result
+    end
 
     def self.transform_json(json_hash, target = DataRequirementDateFilter.new)
       result = self.superclass.transform_json(json_hash, target)

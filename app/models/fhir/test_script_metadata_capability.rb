@@ -11,9 +11,49 @@ module FHIR
     embeds_one :capabilities, class_name: 'FHIR::PrimitiveCanonical'    
     
     def as_json(*args)
-      res = super
-      res['validated'] = res.delete('_validated')
-      res
+      result = super      
+      unless self.required.nil? 
+        result['required'] = self.required.value
+        serialized = Extension.serializePrimitiveExtension(self.required)            
+        result['_required'] = serialized unless serialized.nil?
+      end
+      unless self.validated.nil? 
+        result['validated'] = self.validated.value
+        serialized = Extension.serializePrimitiveExtension(self.validated)            
+        result['_validated'] = serialized unless serialized.nil?
+      end
+        result['validated'] = result.delete('_validated')
+      unless self.description.nil? 
+        result['description'] = self.description.value
+        serialized = Extension.serializePrimitiveExtension(self.description)            
+        result['_description'] = serialized unless serialized.nil?
+      end
+      unless self.origin.nil?  || !self.origin.any? 
+        result['origin'] = self.origin.compact().map{ |x| x.value }
+        serialized = Extension.serializePrimitiveExtensionArray(self.origin)                              
+        result['_origin'] = serialized unless serialized.nil? || !serialized.any?
+      end
+      unless self.destination.nil? 
+        result['destination'] = self.destination.value
+        serialized = Extension.serializePrimitiveExtension(self.destination)            
+        result['_destination'] = serialized unless serialized.nil?
+      end
+      unless self.link.nil?  || !self.link.any? 
+        result['link'] = self.link.compact().map{ |x| x.value }
+        serialized = Extension.serializePrimitiveExtensionArray(self.link)                              
+        result['_link'] = serialized unless serialized.nil? || !serialized.any?
+      end
+      unless self.capabilities.nil? 
+        result['capabilities'] = self.capabilities.value
+        serialized = Extension.serializePrimitiveExtension(self.capabilities)            
+        result['_capabilities'] = serialized unless serialized.nil?
+      end
+      result.delete('id')
+      unless self.fhirId.nil?
+        result['id'] = self.fhirId
+        result.delete('fhirId')
+      end  
+      result
     end
 
     def self.transform_json(json_hash, target = TestScriptMetadataCapability.new)

@@ -13,6 +13,57 @@ module FHIR
     embeds_one :valueAttachment, class_name: 'FHIR::Attachment'    
     embeds_one :valueReference, class_name: 'FHIR::Reference'    
     embeds_one :reason, class_name: 'FHIR::CodeableConcept'    
+    
+    def as_json(*args)
+      result = super      
+      unless self.sequence.nil? 
+        result['sequence'] = self.sequence.value
+        serialized = Extension.serializePrimitiveExtension(self.sequence)            
+        result['_sequence'] = serialized unless serialized.nil?
+      end
+      unless self.category.nil? 
+        result['category'] = self.category.as_json(*args)
+      end
+      unless self.code.nil? 
+        result['code'] = self.code.as_json(*args)
+      end
+      unless self.timingDate.nil?
+        result['timingDate'] = self.timingDate.value                        
+        serialized = Extension.serializePrimitiveExtension(self.timingDate) 
+        result['_timingDate'] = serialized unless serialized.nil?
+      end          
+      unless self.timingPeriod.nil?
+        result['timingPeriod'] = self.timingPeriod.as_json(*args)                        
+      end          
+      unless self.valueBoolean.nil?
+        result['valueBoolean'] = self.valueBoolean.value                        
+        serialized = Extension.serializePrimitiveExtension(self.valueBoolean) 
+        result['_valueBoolean'] = serialized unless serialized.nil?
+      end          
+      unless self.valueString.nil?
+        result['valueString'] = self.valueString.value                        
+        serialized = Extension.serializePrimitiveExtension(self.valueString) 
+        result['_valueString'] = serialized unless serialized.nil?
+      end          
+      unless self.valueQuantity.nil?
+        result['valueQuantity'] = self.valueQuantity.as_json(*args)                        
+      end          
+      unless self.valueAttachment.nil?
+        result['valueAttachment'] = self.valueAttachment.as_json(*args)                        
+      end          
+      unless self.valueReference.nil?
+        result['valueReference'] = self.valueReference.as_json(*args)                        
+      end          
+      unless self.reason.nil? 
+        result['reason'] = self.reason.as_json(*args)
+      end
+      result.delete('id')
+      unless self.fhirId.nil?
+        result['id'] = self.fhirId
+        result.delete('fhirId')
+      end  
+      result
+    end
 
     def self.transform_json(json_hash, target = ClaimSupportingInfo.new)
       result = self.superclass.transform_json(json_hash, target)

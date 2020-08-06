@@ -6,6 +6,36 @@ module FHIR
     embeds_one :reference, class_name: 'FHIR::PrimitiveUri'    
     embeds_one :publicationDate, class_name: 'FHIR::PrimitiveDateTime'    
     embeds_one :presentationDate, class_name: 'FHIR::PrimitiveDateTime'    
+    
+    def as_json(*args)
+      result = super      
+      unless self.documentType.nil? 
+        result['documentType'] = self.documentType.value
+        serialized = Extension.serializePrimitiveExtension(self.documentType)            
+        result['_documentType'] = serialized unless serialized.nil?
+      end
+      unless self.reference.nil? 
+        result['reference'] = self.reference.value
+        serialized = Extension.serializePrimitiveExtension(self.reference)            
+        result['_reference'] = serialized unless serialized.nil?
+      end
+      unless self.publicationDate.nil? 
+        result['publicationDate'] = self.publicationDate.value
+        serialized = Extension.serializePrimitiveExtension(self.publicationDate)            
+        result['_publicationDate'] = serialized unless serialized.nil?
+      end
+      unless self.presentationDate.nil? 
+        result['presentationDate'] = self.presentationDate.value
+        serialized = Extension.serializePrimitiveExtension(self.presentationDate)            
+        result['_presentationDate'] = serialized unless serialized.nil?
+      end
+      result.delete('id')
+      unless self.fhirId.nil?
+        result['id'] = self.fhirId
+        result.delete('fhirId')
+      end  
+      result
+    end
 
     def self.transform_json(json_hash, target = ImmunizationEducation.new)
       result = self.superclass.transform_json(json_hash, target)

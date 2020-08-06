@@ -7,6 +7,31 @@ module FHIR
     embeds_one :detailRange, class_name: 'FHIR::Range'    
     embeds_one :detailCodeableConcept, class_name: 'FHIR::CodeableConcept'    
     embeds_one :due, class_name: 'FHIR::Duration'    
+    
+    def as_json(*args)
+      result = super      
+      unless self.measure.nil? 
+        result['measure'] = self.measure.as_json(*args)
+      end
+      unless self.detailQuantity.nil?
+        result['detailQuantity'] = self.detailQuantity.as_json(*args)                        
+      end          
+      unless self.detailRange.nil?
+        result['detailRange'] = self.detailRange.as_json(*args)                        
+      end          
+      unless self.detailCodeableConcept.nil?
+        result['detailCodeableConcept'] = self.detailCodeableConcept.as_json(*args)                        
+      end          
+      unless self.due.nil? 
+        result['due'] = self.due.as_json(*args)
+      end
+      result.delete('id')
+      unless self.fhirId.nil?
+        result['id'] = self.fhirId
+        result.delete('fhirId')
+      end  
+      result
+    end
 
     def self.transform_json(json_hash, target = PlanDefinitionGoalTarget.new)
       result = self.superclass.transform_json(json_hash, target)

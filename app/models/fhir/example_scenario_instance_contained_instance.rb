@@ -4,6 +4,26 @@ module FHIR
     include Mongoid::Document
     embeds_one :resourceId, class_name: 'FHIR::PrimitiveString'    
     embeds_one :versionId, class_name: 'FHIR::PrimitiveString'    
+    
+    def as_json(*args)
+      result = super      
+      unless self.resourceId.nil? 
+        result['resourceId'] = self.resourceId.value
+        serialized = Extension.serializePrimitiveExtension(self.resourceId)            
+        result['_resourceId'] = serialized unless serialized.nil?
+      end
+      unless self.versionId.nil? 
+        result['versionId'] = self.versionId.value
+        serialized = Extension.serializePrimitiveExtension(self.versionId)            
+        result['_versionId'] = serialized unless serialized.nil?
+      end
+      result.delete('id')
+      unless self.fhirId.nil?
+        result['id'] = self.fhirId
+        result.delete('fhirId')
+      end  
+      result
+    end
 
     def self.transform_json(json_hash, target = ExampleScenarioInstanceContainedInstance.new)
       result = self.superclass.transform_json(json_hash, target)

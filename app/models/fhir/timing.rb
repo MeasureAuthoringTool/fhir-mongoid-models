@@ -5,6 +5,27 @@ module FHIR
     embeds_many :event, class_name: 'FHIR::PrimitiveDateTime'    
     embeds_one :repeat, class_name: 'FHIR::TimingRepeat'    
     embeds_one :code, class_name: 'FHIR::CodeableConcept'    
+    
+    def as_json(*args)
+      result = super      
+      unless self.event.nil?  || !self.event.any? 
+        result['event'] = self.event.compact().map{ |x| x.value }
+        serialized = Extension.serializePrimitiveExtensionArray(self.event)                              
+        result['_event'] = serialized unless serialized.nil? || !serialized.any?
+      end
+      unless self.repeat.nil? 
+        result['repeat'] = self.repeat.as_json(*args)
+      end
+      unless self.code.nil? 
+        result['code'] = self.code.as_json(*args)
+      end
+      result.delete('id')
+      unless self.fhirId.nil?
+        result['id'] = self.fhirId
+        result.delete('fhirId')
+      end  
+      result
+    end
 
     def self.transform_json(json_hash, target = Timing.new)
       result = self.superclass.transform_json(json_hash, target)

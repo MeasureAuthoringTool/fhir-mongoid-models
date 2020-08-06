@@ -6,6 +6,32 @@ module FHIR
     embeds_one :target, class_name: 'FHIR::Reference'    
     embeds_one :endpoint, class_name: 'FHIR::PrimitiveUrl'    
     embeds_one :receiver, class_name: 'FHIR::Reference'    
+    
+    def as_json(*args)
+      result = super      
+      unless self.name.nil? 
+        result['name'] = self.name.value
+        serialized = Extension.serializePrimitiveExtension(self.name)            
+        result['_name'] = serialized unless serialized.nil?
+      end
+      unless self.target.nil? 
+        result['target'] = self.target.as_json(*args)
+      end
+      unless self.endpoint.nil? 
+        result['endpoint'] = self.endpoint.value
+        serialized = Extension.serializePrimitiveExtension(self.endpoint)            
+        result['_endpoint'] = serialized unless serialized.nil?
+      end
+      unless self.receiver.nil? 
+        result['receiver'] = self.receiver.as_json(*args)
+      end
+      result.delete('id')
+      unless self.fhirId.nil?
+        result['id'] = self.fhirId
+        result.delete('fhirId')
+      end  
+      result
+    end
 
     def self.transform_json(json_hash, target = MessageHeaderDestination.new)
       result = self.superclass.transform_json(json_hash, target)
