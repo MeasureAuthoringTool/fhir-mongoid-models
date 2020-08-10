@@ -1,5 +1,5 @@
 RSpec.describe FHIR::Bundle do
-  it 'Should be able to construct a bundle from a bunle file' do
+  it 'Should be able to construct a bundle from a bundle file' do
     bundle_json = File.open(File.join(File.dirname(__FILE__), '../fixture/EXM104-9.1.000-bundle.json'))
     bundle_hash = JSON.load bundle_json
     # TODO - Uncomment when:
