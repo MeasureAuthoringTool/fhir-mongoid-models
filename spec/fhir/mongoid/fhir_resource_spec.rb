@@ -19,7 +19,6 @@ RSpec.describe 'FHIR Resources' do
   end
 
   it 'Should be able to construct a encounter from encounter resource' do
-    # pending("FIXME reserved words are not handled in Encounter")
     encounter_hash = fhir_resource_hash['encounter']
     encounter = FHIR::Encounter.transform_json encounter_hash
     expect(encounter.fhirId).to eql encounter_hash['id']
