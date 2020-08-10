@@ -20,6 +20,11 @@ module CQM
 
     CQL_SKIP_STATEMENTS = ['SDE Ethnicity', 'SDE Payer', 'SDE Race', 'SDE Sex'].freeze
 
+    # A CMS-style string (e.g. "CMS2v4") for the measure
+    field :cms_id, type: String
+    field :title, type: String, default: ''
+    field :description, type: String, default: ''
+
     # A version-specific UUID for the measure
     field :set_id, type: String
     field :calculation_method, type: String, default: 'PATIENT'
@@ -37,5 +42,7 @@ module CQM
     field :main_cql_library, type: String
 
     embeds_many :source_data_criteria, class_name: 'CQM::DataElement'
+
+    embeds_many :population_sets
   end
 end
