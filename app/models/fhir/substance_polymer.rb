@@ -2,7 +2,7 @@ module FHIR
   # fhir/substance_polymer.rb
   class SubstancePolymer < DomainResource
     include Mongoid::Document
-    embeds_one :class, class_name: 'FHIR::CodeableConcept'    
+    embeds_one :class_local, class_name: 'FHIR::CodeableConcept'    
     embeds_one :geometry, class_name: 'FHIR::CodeableConcept'    
     embeds_many :copolymerConnectivity, class_name: 'FHIR::CodeableConcept'    
     embeds_many :modification, class_name: 'FHIR::PrimitiveString'    
@@ -11,8 +11,8 @@ module FHIR
     
     def as_json(*args)
       result = super      
-      unless self.class.nil? 
-        result['class'] = self.class.as_json(*args)
+      unless self.class_local.nil? 
+        result['class'] = self.class_local.as_json(*args)
       end
       unless self.geometry.nil? 
         result['geometry'] = self.geometry.as_json(*args)
@@ -42,7 +42,7 @@ module FHIR
     def self.transform_json(json_hash, target = SubstancePolymer.new)
     
       result = self.superclass.transform_json(json_hash, target)
-      result['class'] = CodeableConcept.transform_json(json_hash['class']) unless json_hash['class'].nil?
+      result['class_local'] = CodeableConcept.transform_json(json_hash['class']) unless json_hash['class'].nil?
       result['geometry'] = CodeableConcept.transform_json(json_hash['geometry']) unless json_hash['geometry'].nil?
       result['copolymerConnectivity'] = json_hash['copolymerConnectivity'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['copolymerConnectivity'].nil?
       result['modification'] = json_hash['modification'].each_with_index.map do |var, i|

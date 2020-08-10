@@ -5,7 +5,7 @@ module FHIR
     embeds_many :identifier, class_name: 'FHIR::Identifier'    
     embeds_one :status, class_name: 'FHIR::EncounterStatus'    
     embeds_many :statusHistory, class_name: 'FHIR::EncounterStatusHistory'    
-    embeds_one :class, class_name: 'FHIR::Coding'    
+    embeds_one :class_local, class_name: 'FHIR::Coding'    
     embeds_many :classHistory, class_name: 'FHIR::EncounterClassHistory'    
     embeds_many :type, class_name: 'FHIR::CodeableConcept'    
     embeds_one :serviceType, class_name: 'FHIR::CodeableConcept'    
@@ -39,8 +39,8 @@ module FHIR
       unless self.statusHistory.nil?  || !self.statusHistory.any? 
         result['statusHistory'] = self.statusHistory.map{ |x| x.as_json(*args) }
       end
-      unless self.class.nil? 
-        result['class'] = self.class.as_json(*args)
+      unless self.class_local.nil? 
+        result['class'] = self.class_local.as_json(*args)
       end
       unless self.classHistory.nil?  || !self.classHistory.any? 
         result['classHistory'] = self.classHistory.map{ |x| x.as_json(*args) }
@@ -113,7 +113,7 @@ module FHIR
       result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['status'] = EncounterStatus.transform_json(json_hash['status'], json_hash['_status']) unless json_hash['status'].nil?
       result['statusHistory'] = json_hash['statusHistory'].map { |var| EncounterStatusHistory.transform_json(var) } unless json_hash['statusHistory'].nil?
-      result['class'] = Coding.transform_json(json_hash['class']) unless json_hash['class'].nil?
+      result['class_local'] = Coding.transform_json(json_hash['class']) unless json_hash['class'].nil?
       result['classHistory'] = json_hash['classHistory'].map { |var| EncounterClassHistory.transform_json(var) } unless json_hash['classHistory'].nil?
       result['type'] = json_hash['type'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['type'].nil?
       result['serviceType'] = CodeableConcept.transform_json(json_hash['serviceType']) unless json_hash['serviceType'].nil?

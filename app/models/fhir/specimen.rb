@@ -10,7 +10,7 @@ module FHIR
     embeds_one :receivedTime, class_name: 'FHIR::PrimitiveDateTime'    
     embeds_many :parent, class_name: 'FHIR::Reference'    
     embeds_many :request, class_name: 'FHIR::Reference'    
-    embeds_one :_collection, class_name: 'FHIR::SpecimenCollection'    
+    embeds_one :collection_local, class_name: 'FHIR::SpecimenCollection'    
     embeds_many :processing, class_name: 'FHIR::SpecimenProcessing'    
     embeds_many :container, class_name: 'FHIR::SpecimenContainer'    
     embeds_many :condition, class_name: 'FHIR::CodeableConcept'    
@@ -46,10 +46,9 @@ module FHIR
       unless self.request.nil?  || !self.request.any? 
         result['request'] = self.request.map{ |x| x.as_json(*args) }
       end
-      unless self.collection.nil? 
-        result['collection'] = self.collection.as_json(*args)
+      unless self.collection_local.nil? 
+        result['collection'] = self.collection_local.as_json(*args)
       end
-        result['collection'] = result.delete('_collection')
       unless self.processing.nil?  || !self.processing.any? 
         result['processing'] = self.processing.map{ |x| x.as_json(*args) }
       end
@@ -81,7 +80,7 @@ module FHIR
       result['receivedTime'] = PrimitiveDateTime.transform_json(json_hash['receivedTime'], json_hash['_receivedTime']) unless json_hash['receivedTime'].nil?
       result['parent'] = json_hash['parent'].map { |var| Reference.transform_json(var) } unless json_hash['parent'].nil?
       result['request'] = json_hash['request'].map { |var| Reference.transform_json(var) } unless json_hash['request'].nil?
-      result['_collection'] = SpecimenCollection.transform_json(json_hash['collection']) unless json_hash['collection'].nil?
+      result['collection_local'] = SpecimenCollection.transform_json(json_hash['collection']) unless json_hash['collection'].nil?
       result['processing'] = json_hash['processing'].map { |var| SpecimenProcessing.transform_json(var) } unless json_hash['processing'].nil?
       result['container'] = json_hash['container'].map { |var| SpecimenContainer.transform_json(var) } unless json_hash['container'].nil?
       result['condition'] = json_hash['condition'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['condition'].nil?
