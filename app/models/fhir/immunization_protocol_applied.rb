@@ -52,16 +52,11 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = ImmunizationProtocolApplied.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['series'] = PrimitiveString.transform_json(json_hash['series'], json_hash['_series']) unless json_hash['series'].nil?
       result['authority'] = Reference.transform_json(json_hash['authority']) unless json_hash['authority'].nil?
-      result['targetDisease'] = json_hash['targetDisease'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          CodeableConcept.transform_json(var) 
-        end
-      } unless json_hash['targetDisease'].nil?
+      result['targetDisease'] = json_hash['targetDisease'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['targetDisease'].nil?
       result['doseNumberPositiveInt'] = PrimitivePositiveInt.transform_json(json_hash['doseNumberPositiveInt'], json_hash['_doseNumberPositiveInt']) unless json_hash['doseNumberPositiveInt'].nil?
       result['doseNumberString'] = PrimitiveString.transform_json(json_hash['doseNumberString'], json_hash['_doseNumberString']) unless json_hash['doseNumberString'].nil?
       result['seriesDosesPositiveInt'] = PrimitivePositiveInt.transform_json(json_hash['seriesDosesPositiveInt'], json_hash['_seriesDosesPositiveInt']) unless json_hash['seriesDosesPositiveInt'].nil?

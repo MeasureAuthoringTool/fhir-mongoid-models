@@ -34,36 +34,13 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = ImplementationGuideDefinition.new)
+    
       result = self.superclass.transform_json(json_hash, target)
-      result['grouping'] = json_hash['grouping'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          ImplementationGuideDefinitionGrouping.transform_json(var) 
-        end
-      } unless json_hash['grouping'].nil?
-      result['resource'] = json_hash['resource'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          ImplementationGuideDefinitionResource.transform_json(var) 
-        end
-      } unless json_hash['resource'].nil?
+      result['grouping'] = json_hash['grouping'].map { |var| ImplementationGuideDefinitionGrouping.transform_json(var) } unless json_hash['grouping'].nil?
+      result['resource'] = json_hash['resource'].map { |var| ImplementationGuideDefinitionResource.transform_json(var) } unless json_hash['resource'].nil?
       result['page'] = ImplementationGuideDefinitionPage.transform_json(json_hash['page']) unless json_hash['page'].nil?
-      result['parameter'] = json_hash['parameter'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          ImplementationGuideDefinitionParameter.transform_json(var) 
-        end
-      } unless json_hash['parameter'].nil?
-      result['template'] = json_hash['template'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          ImplementationGuideDefinitionTemplate.transform_json(var) 
-        end
-      } unless json_hash['template'].nil?
+      result['parameter'] = json_hash['parameter'].map { |var| ImplementationGuideDefinitionParameter.transform_json(var) } unless json_hash['parameter'].nil?
+      result['template'] = json_hash['template'].map { |var| ImplementationGuideDefinitionTemplate.transform_json(var) } unless json_hash['template'].nil?
 
       result
     end

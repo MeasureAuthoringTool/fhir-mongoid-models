@@ -22,6 +22,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['degree'] = CodeableConcept.transform_json(json_hash['degree']) unless json_hash['degree'].nil?
       result['amount'] = SubstanceAmount.transform_json(json_hash['amount']) unless json_hash['amount'].nil?

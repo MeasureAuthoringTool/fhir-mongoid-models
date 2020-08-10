@@ -60,6 +60,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = StructureMapGroupRuleTarget.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['context'] = PrimitiveId.transform_json(json_hash['context'], json_hash['_context']) unless json_hash['context'].nil?
       result['contextType'] = StructureMapContextType.transform_json(json_hash['contextType'], json_hash['_contextType']) unless json_hash['contextType'].nil?
@@ -71,13 +72,7 @@ module FHIR
       end unless json_hash['listMode'].nil?
       result['listRuleId'] = PrimitiveId.transform_json(json_hash['listRuleId'], json_hash['_listRuleId']) unless json_hash['listRuleId'].nil?
       result['transform'] = StructureMapTransform.transform_json(json_hash['transform'], json_hash['_transform']) unless json_hash['transform'].nil?
-      result['parameter'] = json_hash['parameter'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          StructureMapGroupRuleTargetParameter.transform_json(var) 
-        end
-      } unless json_hash['parameter'].nil?
+      result['parameter'] = json_hash['parameter'].map { |var| StructureMapGroupRuleTargetParameter.transform_json(var) } unless json_hash['parameter'].nil?
 
       result
     end

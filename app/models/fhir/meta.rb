@@ -46,6 +46,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = Meta.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['versionId'] = PrimitiveId.transform_json(json_hash['versionId'], json_hash['_versionId']) unless json_hash['versionId'].nil?
       result['lastUpdated'] = PrimitiveInstant.transform_json(json_hash['lastUpdated'], json_hash['_lastUpdated']) unless json_hash['lastUpdated'].nil?
@@ -54,20 +55,8 @@ module FHIR
         extension_hash = json_hash['_profile'] && json_hash['_profile'][i]
         PrimitiveCanonical.transform_json(var, extension_hash)
       end unless json_hash['profile'].nil?
-      result['security'] = json_hash['security'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Coding.transform_json(var) 
-        end
-      } unless json_hash['security'].nil?
-      result['tag'] = json_hash['tag'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Coding.transform_json(var) 
-        end
-      } unless json_hash['tag'].nil?
+      result['security'] = json_hash['security'].map { |var| Coding.transform_json(var) } unless json_hash['security'].nil?
+      result['tag'] = json_hash['tag'].map { |var| Coding.transform_json(var) } unless json_hash['tag'].nil?
 
       result
     end

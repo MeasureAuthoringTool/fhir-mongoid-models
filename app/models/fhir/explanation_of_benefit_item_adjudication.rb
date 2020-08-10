@@ -32,6 +32,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = ExplanationOfBenefitItemAdjudication.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['category'] = CodeableConcept.transform_json(json_hash['category']) unless json_hash['category'].nil?
       result['reason'] = CodeableConcept.transform_json(json_hash['reason']) unless json_hash['reason'].nil?

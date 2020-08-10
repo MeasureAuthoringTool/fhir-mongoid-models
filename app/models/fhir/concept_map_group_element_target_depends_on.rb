@@ -38,6 +38,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = ConceptMapGroupElementTargetDependsOn.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['property'] = PrimitiveUri.transform_json(json_hash['property'], json_hash['_property']) unless json_hash['property'].nil?
       result['system'] = PrimitiveCanonical.transform_json(json_hash['system'], json_hash['_system']) unless json_hash['system'].nil?

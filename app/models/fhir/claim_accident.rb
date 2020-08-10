@@ -32,6 +32,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = ClaimAccident.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['date'] = PrimitiveDate.transform_json(json_hash['date'], json_hash['_date']) unless json_hash['date'].nil?
       result['type'] = CodeableConcept.transform_json(json_hash['type']) unless json_hash['type'].nil?

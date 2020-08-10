@@ -24,6 +24,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = MedicinalProductNameNamePart.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['part'] = PrimitiveString.transform_json(json_hash['part'], json_hash['_part']) unless json_hash['part'].nil?
       result['type'] = Coding.transform_json(json_hash['type']) unless json_hash['type'].nil?

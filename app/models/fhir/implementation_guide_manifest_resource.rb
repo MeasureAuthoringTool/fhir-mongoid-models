@@ -36,6 +36,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = ImplementationGuideManifestResource.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['reference'] = Reference.transform_json(json_hash['reference']) unless json_hash['reference'].nil?
       result['exampleBoolean'] = PrimitiveBoolean.transform_json(json_hash['exampleBoolean'], json_hash['_exampleBoolean']) unless json_hash['exampleBoolean'].nil?

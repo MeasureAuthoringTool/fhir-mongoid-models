@@ -40,18 +40,13 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = MedicinalProductManufacturingBusinessOperation.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['operationType'] = CodeableConcept.transform_json(json_hash['operationType']) unless json_hash['operationType'].nil?
       result['authorisationReferenceNumber'] = Identifier.transform_json(json_hash['authorisationReferenceNumber']) unless json_hash['authorisationReferenceNumber'].nil?
       result['effectiveDate'] = PrimitiveDateTime.transform_json(json_hash['effectiveDate'], json_hash['_effectiveDate']) unless json_hash['effectiveDate'].nil?
       result['confidentialityIndicator'] = CodeableConcept.transform_json(json_hash['confidentialityIndicator']) unless json_hash['confidentialityIndicator'].nil?
-      result['manufacturer'] = json_hash['manufacturer'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Reference.transform_json(var) 
-        end
-      } unless json_hash['manufacturer'].nil?
+      result['manufacturer'] = json_hash['manufacturer'].map { |var| Reference.transform_json(var) } unless json_hash['manufacturer'].nil?
       result['regulator'] = Reference.transform_json(json_hash['regulator']) unless json_hash['regulator'].nil?
 
       result

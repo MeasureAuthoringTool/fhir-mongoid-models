@@ -84,14 +84,9 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = PaymentReconciliation.new)
+    
       result = self.superclass.transform_json(json_hash, target)
-      result['identifier'] = json_hash['identifier'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Identifier.transform_json(var) 
-        end
-      } unless json_hash['identifier'].nil?
+      result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['status'] = PaymentReconciliationStatus.transform_json(json_hash['status'], json_hash['_status']) unless json_hash['status'].nil?
       result['period'] = Period.transform_json(json_hash['period']) unless json_hash['period'].nil?
       result['created'] = PrimitiveDateTime.transform_json(json_hash['created'], json_hash['_created']) unless json_hash['created'].nil?
@@ -103,21 +98,9 @@ module FHIR
       result['paymentDate'] = PrimitiveDate.transform_json(json_hash['paymentDate'], json_hash['_paymentDate']) unless json_hash['paymentDate'].nil?
       result['paymentAmount'] = Money.transform_json(json_hash['paymentAmount']) unless json_hash['paymentAmount'].nil?
       result['paymentIdentifier'] = Identifier.transform_json(json_hash['paymentIdentifier']) unless json_hash['paymentIdentifier'].nil?
-      result['detail'] = json_hash['detail'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          PaymentReconciliationDetail.transform_json(var) 
-        end
-      } unless json_hash['detail'].nil?
+      result['detail'] = json_hash['detail'].map { |var| PaymentReconciliationDetail.transform_json(var) } unless json_hash['detail'].nil?
       result['formCode'] = CodeableConcept.transform_json(json_hash['formCode']) unless json_hash['formCode'].nil?
-      result['processNote'] = json_hash['processNote'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          PaymentReconciliationProcessNote.transform_json(var) 
-        end
-      } unless json_hash['processNote'].nil?
+      result['processNote'] = json_hash['processNote'].map { |var| PaymentReconciliationProcessNote.transform_json(var) } unless json_hash['processNote'].nil?
 
       result
     end

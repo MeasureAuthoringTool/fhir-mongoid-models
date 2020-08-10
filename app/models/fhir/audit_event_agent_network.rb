@@ -26,6 +26,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = AuditEventAgentNetwork.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['address'] = PrimitiveString.transform_json(json_hash['address'], json_hash['_address']) unless json_hash['address'].nil?
       result['type'] = AuditEventAgentNetworkType.transform_json(json_hash['type'], json_hash['_type']) unless json_hash['type'].nil?

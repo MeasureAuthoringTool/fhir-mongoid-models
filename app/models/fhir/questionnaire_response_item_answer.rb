@@ -82,6 +82,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = QuestionnaireResponseItemAnswer.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['valueBoolean'] = PrimitiveBoolean.transform_json(json_hash['valueBoolean'], json_hash['_valueBoolean']) unless json_hash['valueBoolean'].nil?
       result['valueDecimal'] = PrimitiveDecimal.transform_json(json_hash['valueDecimal'], json_hash['_valueDecimal']) unless json_hash['valueDecimal'].nil?
@@ -95,13 +96,7 @@ module FHIR
       result['valueCoding'] = Coding.transform_json(json_hash['valueCoding']) unless json_hash['valueCoding'].nil?
       result['valueQuantity'] = Quantity.transform_json(json_hash['valueQuantity']) unless json_hash['valueQuantity'].nil?
       result['valueReference'] = Reference.transform_json(json_hash['valueReference']) unless json_hash['valueReference'].nil?
-      result['item'] = json_hash['item'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          QuestionnaireResponseItem.transform_json(var) 
-        end
-      } unless json_hash['item'].nil?
+      result['item'] = json_hash['item'].map { |var| QuestionnaireResponseItem.transform_json(var) } unless json_hash['item'].nil?
 
       result
     end

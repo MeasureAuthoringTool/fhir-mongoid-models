@@ -24,6 +24,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = EpisodeOfCareStatusHistory.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['status'] = EpisodeOfCareStatus.transform_json(json_hash['status'], json_hash['_status']) unless json_hash['status'].nil?
       result['period'] = Period.transform_json(json_hash['period']) unless json_hash['period'].nil?

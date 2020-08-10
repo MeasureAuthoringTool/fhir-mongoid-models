@@ -22,6 +22,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = InsurancePlanCoverageBenefitLimit.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['value'] = Quantity.transform_json(json_hash['value']) unless json_hash['value'].nil?
       result['code'] = CodeableConcept.transform_json(json_hash['code']) unless json_hash['code'].nil?

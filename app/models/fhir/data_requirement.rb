@@ -58,6 +58,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = DataRequirement.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['type'] = FHIRAllTypes.transform_json(json_hash['type'], json_hash['_type']) unless json_hash['type'].nil?
       result['profile'] = json_hash['profile'].each_with_index.map do |var, i|
@@ -70,28 +71,10 @@ module FHIR
         extension_hash = json_hash['_mustSupport'] && json_hash['_mustSupport'][i]
         PrimitiveString.transform_json(var, extension_hash)
       end unless json_hash['mustSupport'].nil?
-      result['codeFilter'] = json_hash['codeFilter'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          DataRequirementCodeFilter.transform_json(var) 
-        end
-      } unless json_hash['codeFilter'].nil?
-      result['dateFilter'] = json_hash['dateFilter'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          DataRequirementDateFilter.transform_json(var) 
-        end
-      } unless json_hash['dateFilter'].nil?
+      result['codeFilter'] = json_hash['codeFilter'].map { |var| DataRequirementCodeFilter.transform_json(var) } unless json_hash['codeFilter'].nil?
+      result['dateFilter'] = json_hash['dateFilter'].map { |var| DataRequirementDateFilter.transform_json(var) } unless json_hash['dateFilter'].nil?
       result['limit'] = PrimitivePositiveInt.transform_json(json_hash['limit'], json_hash['_limit']) unless json_hash['limit'].nil?
-      result['sort'] = json_hash['sort'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          DataRequirementSort.transform_json(var) 
-        end
-      } unless json_hash['sort'].nil?
+      result['sort'] = json_hash['sort'].map { |var| DataRequirementSort.transform_json(var) } unless json_hash['sort'].nil?
 
       result
     end

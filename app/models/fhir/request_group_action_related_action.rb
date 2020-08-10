@@ -34,6 +34,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = RequestGroupActionRelatedAction.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['actionId'] = PrimitiveId.transform_json(json_hash['actionId'], json_hash['_actionId']) unless json_hash['actionId'].nil?
       result['relationship'] = ActionRelationshipType.transform_json(json_hash['relationship'], json_hash['_relationship']) unless json_hash['relationship'].nil?

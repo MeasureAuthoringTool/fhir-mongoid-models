@@ -32,17 +32,12 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = CoverageEligibilityResponseInsurance.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['coverage'] = Reference.transform_json(json_hash['coverage']) unless json_hash['coverage'].nil?
       result['inforce'] = PrimitiveBoolean.transform_json(json_hash['inforce'], json_hash['_inforce']) unless json_hash['inforce'].nil?
       result['benefitPeriod'] = Period.transform_json(json_hash['benefitPeriod']) unless json_hash['benefitPeriod'].nil?
-      result['item'] = json_hash['item'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          CoverageEligibilityResponseInsuranceItem.transform_json(var) 
-        end
-      } unless json_hash['item'].nil?
+      result['item'] = json_hash['item'].map { |var| CoverageEligibilityResponseInsuranceItem.transform_json(var) } unless json_hash['item'].nil?
 
       result
     end

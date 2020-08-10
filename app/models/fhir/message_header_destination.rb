@@ -34,6 +34,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = MessageHeaderDestination.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['name'] = PrimitiveString.transform_json(json_hash['name'], json_hash['_name']) unless json_hash['name'].nil?
       result['target'] = Reference.transform_json(json_hash['target']) unless json_hash['target'].nil?

@@ -34,28 +34,11 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = CarePlanActivity.new)
+    
       result = self.superclass.transform_json(json_hash, target)
-      result['outcomeCodeableConcept'] = json_hash['outcomeCodeableConcept'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          CodeableConcept.transform_json(var) 
-        end
-      } unless json_hash['outcomeCodeableConcept'].nil?
-      result['outcomeReference'] = json_hash['outcomeReference'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Reference.transform_json(var) 
-        end
-      } unless json_hash['outcomeReference'].nil?
-      result['progress'] = json_hash['progress'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Annotation.transform_json(var) 
-        end
-      } unless json_hash['progress'].nil?
+      result['outcomeCodeableConcept'] = json_hash['outcomeCodeableConcept'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['outcomeCodeableConcept'].nil?
+      result['outcomeReference'] = json_hash['outcomeReference'].map { |var| Reference.transform_json(var) } unless json_hash['outcomeReference'].nil?
+      result['progress'] = json_hash['progress'].map { |var| Annotation.transform_json(var) } unless json_hash['progress'].nil?
       result['reference'] = Reference.transform_json(json_hash['reference']) unless json_hash['reference'].nil?
       result['detail'] = CarePlanActivityDetail.transform_json(json_hash['detail']) unless json_hash['detail'].nil?
 

@@ -56,6 +56,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = PaymentReconciliationDetail.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = Identifier.transform_json(json_hash['identifier']) unless json_hash['identifier'].nil?
       result['predecessor'] = Identifier.transform_json(json_hash['predecessor']) unless json_hash['predecessor'].nil?

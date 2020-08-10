@@ -64,22 +64,11 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = QuestionnaireResponse.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = Identifier.transform_json(json_hash['identifier']) unless json_hash['identifier'].nil?
-      result['basedOn'] = json_hash['basedOn'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Reference.transform_json(var) 
-        end
-      } unless json_hash['basedOn'].nil?
-      result['partOf'] = json_hash['partOf'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Reference.transform_json(var) 
-        end
-      } unless json_hash['partOf'].nil?
+      result['basedOn'] = json_hash['basedOn'].map { |var| Reference.transform_json(var) } unless json_hash['basedOn'].nil?
+      result['partOf'] = json_hash['partOf'].map { |var| Reference.transform_json(var) } unless json_hash['partOf'].nil?
       result['questionnaire'] = PrimitiveCanonical.transform_json(json_hash['questionnaire'], json_hash['_questionnaire']) unless json_hash['questionnaire'].nil?
       result['status'] = QuestionnaireResponseStatus.transform_json(json_hash['status'], json_hash['_status']) unless json_hash['status'].nil?
       result['subject'] = Reference.transform_json(json_hash['subject']) unless json_hash['subject'].nil?
@@ -87,13 +76,7 @@ module FHIR
       result['authored'] = PrimitiveDateTime.transform_json(json_hash['authored'], json_hash['_authored']) unless json_hash['authored'].nil?
       result['author'] = Reference.transform_json(json_hash['author']) unless json_hash['author'].nil?
       result['source'] = Reference.transform_json(json_hash['source']) unless json_hash['source'].nil?
-      result['item'] = json_hash['item'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          QuestionnaireResponseItem.transform_json(var) 
-        end
-      } unless json_hash['item'].nil?
+      result['item'] = json_hash['item'].map { |var| QuestionnaireResponseItem.transform_json(var) } unless json_hash['item'].nil?
 
       result
     end

@@ -22,6 +22,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = ContractLegal.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['contentAttachment'] = Attachment.transform_json(json_hash['contentAttachment']) unless json_hash['contentAttachment'].nil?
       result['contentReference'] = Reference.transform_json(json_hash['contentReference']) unless json_hash['contentReference'].nil?

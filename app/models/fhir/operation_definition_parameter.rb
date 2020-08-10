@@ -74,6 +74,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = OperationDefinitionParameter.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['name'] = PrimitiveCode.transform_json(json_hash['name'], json_hash['_name']) unless json_hash['name'].nil?
       result['use'] = OperationParameterUse.transform_json(json_hash['use'], json_hash['_use']) unless json_hash['use'].nil?
@@ -87,20 +88,8 @@ module FHIR
       end unless json_hash['targetProfile'].nil?
       result['searchType'] = SearchParamType.transform_json(json_hash['searchType'], json_hash['_searchType']) unless json_hash['searchType'].nil?
       result['binding'] = OperationDefinitionParameterBinding.transform_json(json_hash['binding']) unless json_hash['binding'].nil?
-      result['referencedFrom'] = json_hash['referencedFrom'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          OperationDefinitionParameterReferencedFrom.transform_json(var) 
-        end
-      } unless json_hash['referencedFrom'].nil?
-      result['part'] = json_hash['part'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          OperationDefinitionParameter.transform_json(var) 
-        end
-      } unless json_hash['part'].nil?
+      result['referencedFrom'] = json_hash['referencedFrom'].map { |var| OperationDefinitionParameterReferencedFrom.transform_json(var) } unless json_hash['referencedFrom'].nil?
+      result['part'] = json_hash['part'].map { |var| OperationDefinitionParameter.transform_json(var) } unless json_hash['part'].nil?
 
       result
     end

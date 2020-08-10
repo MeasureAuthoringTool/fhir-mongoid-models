@@ -50,6 +50,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = CoverageEligibilityResponseInsuranceItemBenefit.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['type'] = CodeableConcept.transform_json(json_hash['type']) unless json_hash['type'].nil?
       result['allowedUnsignedInt'] = PrimitiveUnsignedInt.transform_json(json_hash['allowedUnsignedInt'], json_hash['_allowedUnsignedInt']) unless json_hash['allowedUnsignedInt'].nil?

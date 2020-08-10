@@ -52,15 +52,10 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = Subscription.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['status'] = SubscriptionStatus.transform_json(json_hash['status'], json_hash['_status']) unless json_hash['status'].nil?
-      result['contact'] = json_hash['contact'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          ContactPoint.transform_json(var) 
-        end
-      } unless json_hash['contact'].nil?
+      result['contact'] = json_hash['contact'].map { |var| ContactPoint.transform_json(var) } unless json_hash['contact'].nil?
       result['end'] = PrimitiveInstant.transform_json(json_hash['end'], json_hash['_end']) unless json_hash['end'].nil?
       result['reason'] = PrimitiveString.transform_json(json_hash['reason'], json_hash['_reason']) unless json_hash['reason'].nil?
       result['criteria'] = PrimitiveString.transform_json(json_hash['criteria'], json_hash['_criteria']) unless json_hash['criteria'].nil?

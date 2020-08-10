@@ -30,6 +30,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = ExplanationOfBenefitInsurance.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['focal'] = PrimitiveBoolean.transform_json(json_hash['focal'], json_hash['_focal']) unless json_hash['focal'].nil?
       result['coverage'] = Reference.transform_json(json_hash['coverage']) unless json_hash['coverage'].nil?

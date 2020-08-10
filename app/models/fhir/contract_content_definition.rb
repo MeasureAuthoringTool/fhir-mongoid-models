@@ -44,6 +44,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = ContractContentDefinition.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['type'] = CodeableConcept.transform_json(json_hash['type']) unless json_hash['type'].nil?
       result['subType'] = CodeableConcept.transform_json(json_hash['subType']) unless json_hash['subType'].nil?

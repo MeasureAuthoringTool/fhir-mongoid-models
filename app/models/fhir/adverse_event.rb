@@ -102,69 +102,28 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = AdverseEvent.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = Identifier.transform_json(json_hash['identifier']) unless json_hash['identifier'].nil?
       result['actuality'] = AdverseEventActuality.transform_json(json_hash['actuality'], json_hash['_actuality']) unless json_hash['actuality'].nil?
-      result['category'] = json_hash['category'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          CodeableConcept.transform_json(var) 
-        end
-      } unless json_hash['category'].nil?
+      result['category'] = json_hash['category'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['category'].nil?
       result['event'] = CodeableConcept.transform_json(json_hash['event']) unless json_hash['event'].nil?
       result['subject'] = Reference.transform_json(json_hash['subject']) unless json_hash['subject'].nil?
       result['encounter'] = Reference.transform_json(json_hash['encounter']) unless json_hash['encounter'].nil?
       result['date'] = PrimitiveDateTime.transform_json(json_hash['date'], json_hash['_date']) unless json_hash['date'].nil?
       result['detected'] = PrimitiveDateTime.transform_json(json_hash['detected'], json_hash['_detected']) unless json_hash['detected'].nil?
       result['recordedDate'] = PrimitiveDateTime.transform_json(json_hash['recordedDate'], json_hash['_recordedDate']) unless json_hash['recordedDate'].nil?
-      result['resultingCondition'] = json_hash['resultingCondition'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Reference.transform_json(var) 
-        end
-      } unless json_hash['resultingCondition'].nil?
+      result['resultingCondition'] = json_hash['resultingCondition'].map { |var| Reference.transform_json(var) } unless json_hash['resultingCondition'].nil?
       result['location'] = Reference.transform_json(json_hash['location']) unless json_hash['location'].nil?
       result['seriousness'] = CodeableConcept.transform_json(json_hash['seriousness']) unless json_hash['seriousness'].nil?
       result['severity'] = CodeableConcept.transform_json(json_hash['severity']) unless json_hash['severity'].nil?
       result['outcome'] = CodeableConcept.transform_json(json_hash['outcome']) unless json_hash['outcome'].nil?
       result['recorder'] = Reference.transform_json(json_hash['recorder']) unless json_hash['recorder'].nil?
-      result['contributor'] = json_hash['contributor'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Reference.transform_json(var) 
-        end
-      } unless json_hash['contributor'].nil?
-      result['suspectEntity'] = json_hash['suspectEntity'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          AdverseEventSuspectEntity.transform_json(var) 
-        end
-      } unless json_hash['suspectEntity'].nil?
-      result['subjectMedicalHistory'] = json_hash['subjectMedicalHistory'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Reference.transform_json(var) 
-        end
-      } unless json_hash['subjectMedicalHistory'].nil?
-      result['referenceDocument'] = json_hash['referenceDocument'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Reference.transform_json(var) 
-        end
-      } unless json_hash['referenceDocument'].nil?
-      result['study'] = json_hash['study'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Reference.transform_json(var) 
-        end
-      } unless json_hash['study'].nil?
+      result['contributor'] = json_hash['contributor'].map { |var| Reference.transform_json(var) } unless json_hash['contributor'].nil?
+      result['suspectEntity'] = json_hash['suspectEntity'].map { |var| AdverseEventSuspectEntity.transform_json(var) } unless json_hash['suspectEntity'].nil?
+      result['subjectMedicalHistory'] = json_hash['subjectMedicalHistory'].map { |var| Reference.transform_json(var) } unless json_hash['subjectMedicalHistory'].nil?
+      result['referenceDocument'] = json_hash['referenceDocument'].map { |var| Reference.transform_json(var) } unless json_hash['referenceDocument'].nil?
+      result['study'] = json_hash['study'].map { |var| Reference.transform_json(var) } unless json_hash['study'].nil?
 
       result
     end

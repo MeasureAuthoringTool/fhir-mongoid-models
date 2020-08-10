@@ -30,6 +30,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = SubstanceSourceMaterialOrganismOrganismGeneral.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['kingdom'] = CodeableConcept.transform_json(json_hash['kingdom']) unless json_hash['kingdom'].nil?
       result['phylum'] = CodeableConcept.transform_json(json_hash['phylum']) unless json_hash['phylum'].nil?

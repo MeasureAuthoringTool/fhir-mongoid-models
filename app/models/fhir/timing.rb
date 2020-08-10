@@ -28,6 +28,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = Timing.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['event'] = json_hash['event'].each_with_index.map do |var, i|
         extension_hash = json_hash['_event'] && json_hash['_event'][i]

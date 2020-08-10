@@ -44,6 +44,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = Coding.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['system'] = PrimitiveUri.transform_json(json_hash['system'], json_hash['_system']) unless json_hash['system'].nil?
       result['version'] = PrimitiveString.transform_json(json_hash['version'], json_hash['_version']) unless json_hash['version'].nil?

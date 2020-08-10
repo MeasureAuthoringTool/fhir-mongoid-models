@@ -38,6 +38,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = CodeSystemFilter.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['code'] = PrimitiveCode.transform_json(json_hash['code'], json_hash['_code']) unless json_hash['code'].nil?
       result['description'] = PrimitiveString.transform_json(json_hash['description'], json_hash['_description']) unless json_hash['description'].nil?

@@ -92,14 +92,9 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = CoverageEligibilityResponse.new)
+    
       result = self.superclass.transform_json(json_hash, target)
-      result['identifier'] = json_hash['identifier'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Identifier.transform_json(var) 
-        end
-      } unless json_hash['identifier'].nil?
+      result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['status'] = EligibilityResponseStatus.transform_json(json_hash['status'], json_hash['_status']) unless json_hash['status'].nil?
       result['purpose'] = json_hash['purpose'].each_with_index.map do |var, i|
         extension_hash = json_hash['_purpose'] && json_hash['_purpose'][i]
@@ -114,22 +109,10 @@ module FHIR
       result['outcome'] = RemittanceOutcome.transform_json(json_hash['outcome'], json_hash['_outcome']) unless json_hash['outcome'].nil?
       result['disposition'] = PrimitiveString.transform_json(json_hash['disposition'], json_hash['_disposition']) unless json_hash['disposition'].nil?
       result['insurer'] = Reference.transform_json(json_hash['insurer']) unless json_hash['insurer'].nil?
-      result['insurance'] = json_hash['insurance'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          CoverageEligibilityResponseInsurance.transform_json(var) 
-        end
-      } unless json_hash['insurance'].nil?
+      result['insurance'] = json_hash['insurance'].map { |var| CoverageEligibilityResponseInsurance.transform_json(var) } unless json_hash['insurance'].nil?
       result['preAuthRef'] = PrimitiveString.transform_json(json_hash['preAuthRef'], json_hash['_preAuthRef']) unless json_hash['preAuthRef'].nil?
       result['form'] = CodeableConcept.transform_json(json_hash['form']) unless json_hash['form'].nil?
-      result['error'] = json_hash['error'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          CoverageEligibilityResponseError.transform_json(var) 
-        end
-      } unless json_hash['error'].nil?
+      result['error'] = json_hash['error'].map { |var| CoverageEligibilityResponseError.transform_json(var) } unless json_hash['error'].nil?
 
       result
     end

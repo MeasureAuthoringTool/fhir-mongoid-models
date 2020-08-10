@@ -22,6 +22,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = SubstanceSourceMaterialPartDescription.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['part'] = CodeableConcept.transform_json(json_hash['part']) unless json_hash['part'].nil?
       result['partLocation'] = CodeableConcept.transform_json(json_hash['partLocation']) unless json_hash['partLocation'].nil?

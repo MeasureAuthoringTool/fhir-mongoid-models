@@ -56,6 +56,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = ParameterDefinition.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['name'] = PrimitiveCode.transform_json(json_hash['name'], json_hash['_name']) unless json_hash['name'].nil?
       result['use'] = ParameterUse.transform_json(json_hash['use'], json_hash['_use']) unless json_hash['use'].nil?

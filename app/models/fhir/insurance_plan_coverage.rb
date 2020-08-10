@@ -26,22 +26,11 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = InsurancePlanCoverage.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['type'] = CodeableConcept.transform_json(json_hash['type']) unless json_hash['type'].nil?
-      result['network'] = json_hash['network'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Reference.transform_json(var) 
-        end
-      } unless json_hash['network'].nil?
-      result['benefit'] = json_hash['benefit'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          InsurancePlanCoverageBenefit.transform_json(var) 
-        end
-      } unless json_hash['benefit'].nil?
+      result['network'] = json_hash['network'].map { |var| Reference.transform_json(var) } unless json_hash['network'].nil?
+      result['benefit'] = json_hash['benefit'].map { |var| InsurancePlanCoverageBenefit.transform_json(var) } unless json_hash['benefit'].nil?
 
       result
     end

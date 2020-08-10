@@ -94,64 +94,23 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = SubstanceSpecification.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = Identifier.transform_json(json_hash['identifier']) unless json_hash['identifier'].nil?
       result['type'] = CodeableConcept.transform_json(json_hash['type']) unless json_hash['type'].nil?
       result['status'] = CodeableConcept.transform_json(json_hash['status']) unless json_hash['status'].nil?
       result['domain'] = CodeableConcept.transform_json(json_hash['domain']) unless json_hash['domain'].nil?
       result['description'] = PrimitiveString.transform_json(json_hash['description'], json_hash['_description']) unless json_hash['description'].nil?
-      result['source'] = json_hash['source'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Reference.transform_json(var) 
-        end
-      } unless json_hash['source'].nil?
+      result['source'] = json_hash['source'].map { |var| Reference.transform_json(var) } unless json_hash['source'].nil?
       result['comment'] = PrimitiveString.transform_json(json_hash['comment'], json_hash['_comment']) unless json_hash['comment'].nil?
-      result['moiety'] = json_hash['moiety'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          SubstanceSpecificationMoiety.transform_json(var) 
-        end
-      } unless json_hash['moiety'].nil?
-      result['property'] = json_hash['property'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          SubstanceSpecificationProperty.transform_json(var) 
-        end
-      } unless json_hash['property'].nil?
+      result['moiety'] = json_hash['moiety'].map { |var| SubstanceSpecificationMoiety.transform_json(var) } unless json_hash['moiety'].nil?
+      result['property'] = json_hash['property'].map { |var| SubstanceSpecificationProperty.transform_json(var) } unless json_hash['property'].nil?
       result['referenceInformation'] = Reference.transform_json(json_hash['referenceInformation']) unless json_hash['referenceInformation'].nil?
       result['structure'] = SubstanceSpecificationStructure.transform_json(json_hash['structure']) unless json_hash['structure'].nil?
-      result['code'] = json_hash['code'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          SubstanceSpecificationCode.transform_json(var) 
-        end
-      } unless json_hash['code'].nil?
-      result['name'] = json_hash['name'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          SubstanceSpecificationName.transform_json(var) 
-        end
-      } unless json_hash['name'].nil?
-      result['molecularWeight'] = json_hash['molecularWeight'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          SubstanceSpecificationStructureIsotopeMolecularWeight.transform_json(var) 
-        end
-      } unless json_hash['molecularWeight'].nil?
-      result['relationship'] = json_hash['relationship'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          SubstanceSpecificationRelationship.transform_json(var) 
-        end
-      } unless json_hash['relationship'].nil?
+      result['code'] = json_hash['code'].map { |var| SubstanceSpecificationCode.transform_json(var) } unless json_hash['code'].nil?
+      result['name'] = json_hash['name'].map { |var| SubstanceSpecificationName.transform_json(var) } unless json_hash['name'].nil?
+      result['molecularWeight'] = json_hash['molecularWeight'].map { |var| SubstanceSpecificationStructureIsotopeMolecularWeight.transform_json(var) } unless json_hash['molecularWeight'].nil?
+      result['relationship'] = json_hash['relationship'].map { |var| SubstanceSpecificationRelationship.transform_json(var) } unless json_hash['relationship'].nil?
       result['nucleicAcid'] = Reference.transform_json(json_hash['nucleicAcid']) unless json_hash['nucleicAcid'].nil?
       result['polymer'] = Reference.transform_json(json_hash['polymer']) unless json_hash['polymer'].nil?
       result['protein'] = Reference.transform_json(json_hash['protein']) unless json_hash['protein'].nil?

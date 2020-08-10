@@ -28,6 +28,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = ClinicalImpressionFinding.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['itemCodeableConcept'] = CodeableConcept.transform_json(json_hash['itemCodeableConcept']) unless json_hash['itemCodeableConcept'].nil?
       result['itemReference'] = Reference.transform_json(json_hash['itemReference']) unless json_hash['itemReference'].nil?

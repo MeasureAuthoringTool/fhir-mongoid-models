@@ -40,24 +40,13 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = GraphDefinitionLinkTarget.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['type'] = ResourceType.transform_json(json_hash['type'], json_hash['_type']) unless json_hash['type'].nil?
       result['params'] = PrimitiveString.transform_json(json_hash['params'], json_hash['_params']) unless json_hash['params'].nil?
       result['profile'] = PrimitiveCanonical.transform_json(json_hash['profile'], json_hash['_profile']) unless json_hash['profile'].nil?
-      result['compartment'] = json_hash['compartment'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          GraphDefinitionLinkTargetCompartment.transform_json(var) 
-        end
-      } unless json_hash['compartment'].nil?
-      result['link'] = json_hash['link'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          GraphDefinitionLink.transform_json(var) 
-        end
-      } unless json_hash['link'].nil?
+      result['compartment'] = json_hash['compartment'].map { |var| GraphDefinitionLinkTargetCompartment.transform_json(var) } unless json_hash['compartment'].nil?
+      result['link'] = json_hash['link'].map { |var| GraphDefinitionLink.transform_json(var) } unless json_hash['link'].nil?
 
       result
     end

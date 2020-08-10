@@ -24,6 +24,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = TestScriptDestination.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['index'] = PrimitiveInteger.transform_json(json_hash['index'], json_hash['_index']) unless json_hash['index'].nil?
       result['profile'] = Coding.transform_json(json_hash['profile']) unless json_hash['profile'].nil?

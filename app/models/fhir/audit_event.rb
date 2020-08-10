@@ -66,42 +66,19 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = AuditEvent.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['type'] = Coding.transform_json(json_hash['type']) unless json_hash['type'].nil?
-      result['subtype'] = json_hash['subtype'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Coding.transform_json(var) 
-        end
-      } unless json_hash['subtype'].nil?
+      result['subtype'] = json_hash['subtype'].map { |var| Coding.transform_json(var) } unless json_hash['subtype'].nil?
       result['action'] = AuditEventAction.transform_json(json_hash['action'], json_hash['_action']) unless json_hash['action'].nil?
       result['period'] = Period.transform_json(json_hash['period']) unless json_hash['period'].nil?
       result['recorded'] = PrimitiveInstant.transform_json(json_hash['recorded'], json_hash['_recorded']) unless json_hash['recorded'].nil?
       result['outcome'] = AuditEventOutcome.transform_json(json_hash['outcome'], json_hash['_outcome']) unless json_hash['outcome'].nil?
       result['outcomeDesc'] = PrimitiveString.transform_json(json_hash['outcomeDesc'], json_hash['_outcomeDesc']) unless json_hash['outcomeDesc'].nil?
-      result['purposeOfEvent'] = json_hash['purposeOfEvent'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          CodeableConcept.transform_json(var) 
-        end
-      } unless json_hash['purposeOfEvent'].nil?
-      result['agent'] = json_hash['agent'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          AuditEventAgent.transform_json(var) 
-        end
-      } unless json_hash['agent'].nil?
+      result['purposeOfEvent'] = json_hash['purposeOfEvent'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['purposeOfEvent'].nil?
+      result['agent'] = json_hash['agent'].map { |var| AuditEventAgent.transform_json(var) } unless json_hash['agent'].nil?
       result['source'] = AuditEventSource.transform_json(json_hash['source']) unless json_hash['source'].nil?
-      result['entity'] = json_hash['entity'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          AuditEventEntity.transform_json(var) 
-        end
-      } unless json_hash['entity'].nil?
+      result['entity'] = json_hash['entity'].map { |var| AuditEventEntity.transform_json(var) } unless json_hash['entity'].nil?
 
       result
     end

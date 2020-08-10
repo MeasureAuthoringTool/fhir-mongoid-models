@@ -48,22 +48,11 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = Flag.new)
+    
       result = self.superclass.transform_json(json_hash, target)
-      result['identifier'] = json_hash['identifier'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Identifier.transform_json(var) 
-        end
-      } unless json_hash['identifier'].nil?
+      result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['status'] = FlagStatus.transform_json(json_hash['status'], json_hash['_status']) unless json_hash['status'].nil?
-      result['category'] = json_hash['category'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          CodeableConcept.transform_json(var) 
-        end
-      } unless json_hash['category'].nil?
+      result['category'] = json_hash['category'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['category'].nil?
       result['code'] = CodeableConcept.transform_json(json_hash['code']) unless json_hash['code'].nil?
       result['subject'] = Reference.transform_json(json_hash['subject']) unless json_hash['subject'].nil?
       result['period'] = Period.transform_json(json_hash['period']) unless json_hash['period'].nil?

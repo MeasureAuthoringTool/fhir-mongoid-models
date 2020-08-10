@@ -90,14 +90,9 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = ImmunizationEvaluation.new)
+    
       result = self.superclass.transform_json(json_hash, target)
-      result['identifier'] = json_hash['identifier'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Identifier.transform_json(var) 
-        end
-      } unless json_hash['identifier'].nil?
+      result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['status'] = ImmunizationEvaluationStatus.transform_json(json_hash['status'], json_hash['_status']) unless json_hash['status'].nil?
       result['patient'] = Reference.transform_json(json_hash['patient']) unless json_hash['patient'].nil?
       result['date'] = PrimitiveDateTime.transform_json(json_hash['date'], json_hash['_date']) unless json_hash['date'].nil?
@@ -105,13 +100,7 @@ module FHIR
       result['targetDisease'] = CodeableConcept.transform_json(json_hash['targetDisease']) unless json_hash['targetDisease'].nil?
       result['immunizationEvent'] = Reference.transform_json(json_hash['immunizationEvent']) unless json_hash['immunizationEvent'].nil?
       result['doseStatus'] = CodeableConcept.transform_json(json_hash['doseStatus']) unless json_hash['doseStatus'].nil?
-      result['doseStatusReason'] = json_hash['doseStatusReason'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          CodeableConcept.transform_json(var) 
-        end
-      } unless json_hash['doseStatusReason'].nil?
+      result['doseStatusReason'] = json_hash['doseStatusReason'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['doseStatusReason'].nil?
       result['description'] = PrimitiveString.transform_json(json_hash['description'], json_hash['_description']) unless json_hash['description'].nil?
       result['series'] = PrimitiveString.transform_json(json_hash['series'], json_hash['_series']) unless json_hash['series'].nil?
       result['doseNumberPositiveInt'] = PrimitivePositiveInt.transform_json(json_hash['doseNumberPositiveInt'], json_hash['_doseNumberPositiveInt']) unless json_hash['doseNumberPositiveInt'].nil?

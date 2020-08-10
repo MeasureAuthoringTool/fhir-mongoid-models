@@ -62,60 +62,19 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = SubstanceSpecificationName.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['name'] = PrimitiveString.transform_json(json_hash['name'], json_hash['_name']) unless json_hash['name'].nil?
       result['type'] = CodeableConcept.transform_json(json_hash['type']) unless json_hash['type'].nil?
       result['status'] = CodeableConcept.transform_json(json_hash['status']) unless json_hash['status'].nil?
       result['preferred'] = PrimitiveBoolean.transform_json(json_hash['preferred'], json_hash['_preferred']) unless json_hash['preferred'].nil?
-      result['language'] = json_hash['language'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          CodeableConcept.transform_json(var) 
-        end
-      } unless json_hash['language'].nil?
-      result['domain'] = json_hash['domain'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          CodeableConcept.transform_json(var) 
-        end
-      } unless json_hash['domain'].nil?
-      result['jurisdiction'] = json_hash['jurisdiction'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          CodeableConcept.transform_json(var) 
-        end
-      } unless json_hash['jurisdiction'].nil?
-      result['synonym'] = json_hash['synonym'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          SubstanceSpecificationName.transform_json(var) 
-        end
-      } unless json_hash['synonym'].nil?
-      result['translation'] = json_hash['translation'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          SubstanceSpecificationName.transform_json(var) 
-        end
-      } unless json_hash['translation'].nil?
-      result['official'] = json_hash['official'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          SubstanceSpecificationNameOfficial.transform_json(var) 
-        end
-      } unless json_hash['official'].nil?
-      result['source'] = json_hash['source'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Reference.transform_json(var) 
-        end
-      } unless json_hash['source'].nil?
+      result['language'] = json_hash['language'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['language'].nil?
+      result['domain'] = json_hash['domain'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['domain'].nil?
+      result['jurisdiction'] = json_hash['jurisdiction'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['jurisdiction'].nil?
+      result['synonym'] = json_hash['synonym'].map { |var| SubstanceSpecificationName.transform_json(var) } unless json_hash['synonym'].nil?
+      result['translation'] = json_hash['translation'].map { |var| SubstanceSpecificationName.transform_json(var) } unless json_hash['translation'].nil?
+      result['official'] = json_hash['official'].map { |var| SubstanceSpecificationNameOfficial.transform_json(var) } unless json_hash['official'].nil?
+      result['source'] = json_hash['source'].map { |var| Reference.transform_json(var) } unless json_hash['source'].nil?
 
       result
     end

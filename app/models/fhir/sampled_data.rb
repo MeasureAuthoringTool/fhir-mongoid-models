@@ -54,6 +54,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = SampledData.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['origin'] = SimpleQuantity.transform_json(json_hash['origin']) unless json_hash['origin'].nil?
       result['period'] = PrimitiveDecimal.transform_json(json_hash['period'], json_hash['_period']) unless json_hash['period'].nil?

@@ -28,6 +28,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = MeasureGroupPopulation.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['code'] = CodeableConcept.transform_json(json_hash['code']) unless json_hash['code'].nil?
       result['description'] = PrimitiveString.transform_json(json_hash['description'], json_hash['_description']) unless json_hash['description'].nil?

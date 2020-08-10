@@ -32,6 +32,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = AdverseEventSuspectEntityCausality.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['assessment'] = CodeableConcept.transform_json(json_hash['assessment']) unless json_hash['assessment'].nil?
       result['productRelatedness'] = PrimitiveString.transform_json(json_hash['productRelatedness'], json_hash['_productRelatedness']) unless json_hash['productRelatedness'].nil?

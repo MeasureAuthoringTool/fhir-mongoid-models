@@ -44,6 +44,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = MedicationAdministrationDosage.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['text'] = PrimitiveString.transform_json(json_hash['text'], json_hash['_text']) unless json_hash['text'].nil?
       result['site'] = CodeableConcept.transform_json(json_hash['site']) unless json_hash['site'].nil?

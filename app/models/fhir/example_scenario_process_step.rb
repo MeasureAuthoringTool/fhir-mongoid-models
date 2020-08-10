@@ -32,23 +32,12 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = ExampleScenarioProcessStep.new)
+    
       result = self.superclass.transform_json(json_hash, target)
-      result['process'] = json_hash['process'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          ExampleScenarioProcess.transform_json(var) 
-        end
-      } unless json_hash['process'].nil?
+      result['process'] = json_hash['process'].map { |var| ExampleScenarioProcess.transform_json(var) } unless json_hash['process'].nil?
       result['pause'] = PrimitiveBoolean.transform_json(json_hash['pause'], json_hash['_pause']) unless json_hash['pause'].nil?
       result['operation'] = ExampleScenarioProcessStepOperation.transform_json(json_hash['operation']) unless json_hash['operation'].nil?
-      result['alternative'] = json_hash['alternative'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          ExampleScenarioProcessStepAlternative.transform_json(var) 
-        end
-      } unless json_hash['alternative'].nil?
+      result['alternative'] = json_hash['alternative'].map { |var| ExampleScenarioProcessStepAlternative.transform_json(var) } unless json_hash['alternative'].nil?
 
       result
     end

@@ -277,6 +277,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = Extension.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['url'] = PrimitiveUri.transform_json(json_hash['url'], json_hash['_url']) unless json_hash['url'].nil?
       result['valueBase64Binary'] = PrimitiveBase64Binary.transform_json(json_hash['valueBase64Binary'], json_hash['_valueBase64Binary']) unless json_hash['valueBase64Binary'].nil?

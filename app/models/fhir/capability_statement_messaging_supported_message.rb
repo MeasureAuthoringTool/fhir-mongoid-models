@@ -26,6 +26,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = CapabilityStatementMessagingSupportedMessage.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['mode'] = EventCapabilityMode.transform_json(json_hash['mode'], json_hash['_mode']) unless json_hash['mode'].nil?
       result['definition'] = PrimitiveCanonical.transform_json(json_hash['definition'], json_hash['_definition']) unless json_hash['definition'].nil?

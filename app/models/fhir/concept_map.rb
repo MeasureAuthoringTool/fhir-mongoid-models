@@ -124,6 +124,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = ConceptMap.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['url'] = PrimitiveUri.transform_json(json_hash['url'], json_hash['_url']) unless json_hash['url'].nil?
       result['identifier'] = Identifier.transform_json(json_hash['identifier']) unless json_hash['identifier'].nil?
@@ -134,41 +135,17 @@ module FHIR
       result['experimental'] = PrimitiveBoolean.transform_json(json_hash['experimental'], json_hash['_experimental']) unless json_hash['experimental'].nil?
       result['date'] = PrimitiveDateTime.transform_json(json_hash['date'], json_hash['_date']) unless json_hash['date'].nil?
       result['publisher'] = PrimitiveString.transform_json(json_hash['publisher'], json_hash['_publisher']) unless json_hash['publisher'].nil?
-      result['contact'] = json_hash['contact'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          ContactDetail.transform_json(var) 
-        end
-      } unless json_hash['contact'].nil?
+      result['contact'] = json_hash['contact'].map { |var| ContactDetail.transform_json(var) } unless json_hash['contact'].nil?
       result['description'] = PrimitiveMarkdown.transform_json(json_hash['description'], json_hash['_description']) unless json_hash['description'].nil?
-      result['useContext'] = json_hash['useContext'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          UsageContext.transform_json(var) 
-        end
-      } unless json_hash['useContext'].nil?
-      result['jurisdiction'] = json_hash['jurisdiction'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          CodeableConcept.transform_json(var) 
-        end
-      } unless json_hash['jurisdiction'].nil?
+      result['useContext'] = json_hash['useContext'].map { |var| UsageContext.transform_json(var) } unless json_hash['useContext'].nil?
+      result['jurisdiction'] = json_hash['jurisdiction'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['jurisdiction'].nil?
       result['purpose'] = PrimitiveMarkdown.transform_json(json_hash['purpose'], json_hash['_purpose']) unless json_hash['purpose'].nil?
       result['copyright'] = PrimitiveMarkdown.transform_json(json_hash['copyright'], json_hash['_copyright']) unless json_hash['copyright'].nil?
       result['sourceUri'] = PrimitiveUri.transform_json(json_hash['sourceUri'], json_hash['_sourceUri']) unless json_hash['sourceUri'].nil?
       result['sourceCanonical'] = PrimitiveCanonical.transform_json(json_hash['sourceCanonical'], json_hash['_sourceCanonical']) unless json_hash['sourceCanonical'].nil?
       result['targetUri'] = PrimitiveUri.transform_json(json_hash['targetUri'], json_hash['_targetUri']) unless json_hash['targetUri'].nil?
       result['targetCanonical'] = PrimitiveCanonical.transform_json(json_hash['targetCanonical'], json_hash['_targetCanonical']) unless json_hash['targetCanonical'].nil?
-      result['group'] = json_hash['group'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          ConceptMapGroup.transform_json(var) 
-        end
-      } unless json_hash['group'].nil?
+      result['group'] = json_hash['group'].map { |var| ConceptMapGroup.transform_json(var) } unless json_hash['group'].nil?
 
       result
     end

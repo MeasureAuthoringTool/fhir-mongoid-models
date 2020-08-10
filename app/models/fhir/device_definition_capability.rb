@@ -22,15 +22,10 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = DeviceDefinitionCapability.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['type'] = CodeableConcept.transform_json(json_hash['type']) unless json_hash['type'].nil?
-      result['description'] = json_hash['description'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          CodeableConcept.transform_json(var) 
-        end
-      } unless json_hash['description'].nil?
+      result['description'] = json_hash['description'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['description'].nil?
 
       result
     end

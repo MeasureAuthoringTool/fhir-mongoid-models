@@ -60,14 +60,9 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = DeviceMetric.new)
+    
       result = self.superclass.transform_json(json_hash, target)
-      result['identifier'] = json_hash['identifier'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Identifier.transform_json(var) 
-        end
-      } unless json_hash['identifier'].nil?
+      result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['type'] = CodeableConcept.transform_json(json_hash['type']) unless json_hash['type'].nil?
       result['unit'] = CodeableConcept.transform_json(json_hash['unit']) unless json_hash['unit'].nil?
       result['source'] = Reference.transform_json(json_hash['source']) unless json_hash['source'].nil?
@@ -76,13 +71,7 @@ module FHIR
       result['color'] = DeviceMetricColor.transform_json(json_hash['color'], json_hash['_color']) unless json_hash['color'].nil?
       result['category'] = DeviceMetricCategory.transform_json(json_hash['category'], json_hash['_category']) unless json_hash['category'].nil?
       result['measurementPeriod'] = Timing.transform_json(json_hash['measurementPeriod']) unless json_hash['measurementPeriod'].nil?
-      result['calibration'] = json_hash['calibration'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          DeviceMetricCalibration.transform_json(var) 
-        end
-      } unless json_hash['calibration'].nil?
+      result['calibration'] = json_hash['calibration'].map { |var| DeviceMetricCalibration.transform_json(var) } unless json_hash['calibration'].nil?
 
       result
     end

@@ -108,14 +108,9 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = AllergyIntolerance.new)
+    
       result = self.superclass.transform_json(json_hash, target)
-      result['identifier'] = json_hash['identifier'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Identifier.transform_json(var) 
-        end
-      } unless json_hash['identifier'].nil?
+      result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['clinicalStatus'] = CodeableConcept.transform_json(json_hash['clinicalStatus']) unless json_hash['clinicalStatus'].nil?
       result['verificationStatus'] = CodeableConcept.transform_json(json_hash['verificationStatus']) unless json_hash['verificationStatus'].nil?
       result['type'] = AllergyIntoleranceType.transform_json(json_hash['type'], json_hash['_type']) unless json_hash['type'].nil?
@@ -136,20 +131,8 @@ module FHIR
       result['recorder'] = Reference.transform_json(json_hash['recorder']) unless json_hash['recorder'].nil?
       result['asserter'] = Reference.transform_json(json_hash['asserter']) unless json_hash['asserter'].nil?
       result['lastOccurrence'] = PrimitiveDateTime.transform_json(json_hash['lastOccurrence'], json_hash['_lastOccurrence']) unless json_hash['lastOccurrence'].nil?
-      result['note'] = json_hash['note'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Annotation.transform_json(var) 
-        end
-      } unless json_hash['note'].nil?
-      result['reaction'] = json_hash['reaction'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          AllergyIntoleranceReaction.transform_json(var) 
-        end
-      } unless json_hash['reaction'].nil?
+      result['note'] = json_hash['note'].map { |var| Annotation.transform_json(var) } unless json_hash['note'].nil?
+      result['reaction'] = json_hash['reaction'].map { |var| AllergyIntoleranceReaction.transform_json(var) } unless json_hash['reaction'].nil?
 
       result
     end

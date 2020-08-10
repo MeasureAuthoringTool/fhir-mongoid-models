@@ -38,6 +38,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = StructureMapStructure.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['url'] = PrimitiveCanonical.transform_json(json_hash['url'], json_hash['_url']) unless json_hash['url'].nil?
       result['mode'] = StructureMapModelMode.transform_json(json_hash['mode'], json_hash['_mode']) unless json_hash['mode'].nil?

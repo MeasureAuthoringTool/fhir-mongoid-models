@@ -154,31 +154,14 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = Task.new)
+    
       result = self.superclass.transform_json(json_hash, target)
-      result['identifier'] = json_hash['identifier'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Identifier.transform_json(var) 
-        end
-      } unless json_hash['identifier'].nil?
+      result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['instantiatesCanonical'] = PrimitiveCanonical.transform_json(json_hash['instantiatesCanonical'], json_hash['_instantiatesCanonical']) unless json_hash['instantiatesCanonical'].nil?
       result['instantiatesUri'] = PrimitiveUri.transform_json(json_hash['instantiatesUri'], json_hash['_instantiatesUri']) unless json_hash['instantiatesUri'].nil?
-      result['basedOn'] = json_hash['basedOn'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Reference.transform_json(var) 
-        end
-      } unless json_hash['basedOn'].nil?
+      result['basedOn'] = json_hash['basedOn'].map { |var| Reference.transform_json(var) } unless json_hash['basedOn'].nil?
       result['groupIdentifier'] = Identifier.transform_json(json_hash['groupIdentifier']) unless json_hash['groupIdentifier'].nil?
-      result['partOf'] = json_hash['partOf'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Reference.transform_json(var) 
-        end
-      } unless json_hash['partOf'].nil?
+      result['partOf'] = json_hash['partOf'].map { |var| Reference.transform_json(var) } unless json_hash['partOf'].nil?
       result['status'] = TaskStatus.transform_json(json_hash['status'], json_hash['_status']) unless json_hash['status'].nil?
       result['statusReason'] = CodeableConcept.transform_json(json_hash['statusReason']) unless json_hash['statusReason'].nil?
       result['businessStatus'] = CodeableConcept.transform_json(json_hash['businessStatus']) unless json_hash['businessStatus'].nil?
@@ -193,53 +176,17 @@ module FHIR
       result['authoredOn'] = PrimitiveDateTime.transform_json(json_hash['authoredOn'], json_hash['_authoredOn']) unless json_hash['authoredOn'].nil?
       result['lastModified'] = PrimitiveDateTime.transform_json(json_hash['lastModified'], json_hash['_lastModified']) unless json_hash['lastModified'].nil?
       result['requester'] = Reference.transform_json(json_hash['requester']) unless json_hash['requester'].nil?
-      result['performerType'] = json_hash['performerType'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          CodeableConcept.transform_json(var) 
-        end
-      } unless json_hash['performerType'].nil?
+      result['performerType'] = json_hash['performerType'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['performerType'].nil?
       result['owner'] = Reference.transform_json(json_hash['owner']) unless json_hash['owner'].nil?
       result['location'] = Reference.transform_json(json_hash['location']) unless json_hash['location'].nil?
       result['reasonCode'] = CodeableConcept.transform_json(json_hash['reasonCode']) unless json_hash['reasonCode'].nil?
       result['reasonReference'] = Reference.transform_json(json_hash['reasonReference']) unless json_hash['reasonReference'].nil?
-      result['insurance'] = json_hash['insurance'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Reference.transform_json(var) 
-        end
-      } unless json_hash['insurance'].nil?
-      result['note'] = json_hash['note'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Annotation.transform_json(var) 
-        end
-      } unless json_hash['note'].nil?
-      result['relevantHistory'] = json_hash['relevantHistory'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Reference.transform_json(var) 
-        end
-      } unless json_hash['relevantHistory'].nil?
+      result['insurance'] = json_hash['insurance'].map { |var| Reference.transform_json(var) } unless json_hash['insurance'].nil?
+      result['note'] = json_hash['note'].map { |var| Annotation.transform_json(var) } unless json_hash['note'].nil?
+      result['relevantHistory'] = json_hash['relevantHistory'].map { |var| Reference.transform_json(var) } unless json_hash['relevantHistory'].nil?
       result['restriction'] = TaskRestriction.transform_json(json_hash['restriction']) unless json_hash['restriction'].nil?
-      result['input'] = json_hash['input'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          TaskInput.transform_json(var) 
-        end
-      } unless json_hash['input'].nil?
-      result['output'] = json_hash['output'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          TaskOutput.transform_json(var) 
-        end
-      } unless json_hash['output'].nil?
+      result['input'] = json_hash['input'].map { |var| TaskInput.transform_json(var) } unless json_hash['input'].nil?
+      result['output'] = json_hash['output'].map { |var| TaskOutput.transform_json(var) } unless json_hash['output'].nil?
 
       result
     end

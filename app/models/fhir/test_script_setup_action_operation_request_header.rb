@@ -26,6 +26,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = TestScriptSetupActionOperationRequestHeader.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['field'] = PrimitiveString.transform_json(json_hash['field'], json_hash['_field']) unless json_hash['field'].nil?
       result['value'] = PrimitiveString.transform_json(json_hash['value'], json_hash['_value']) unless json_hash['value'].nil?

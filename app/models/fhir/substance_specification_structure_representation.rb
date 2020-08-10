@@ -28,6 +28,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = SubstanceSpecificationStructureRepresentation.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['type'] = CodeableConcept.transform_json(json_hash['type']) unless json_hash['type'].nil?
       result['representation'] = PrimitiveString.transform_json(json_hash['representation'], json_hash['_representation']) unless json_hash['representation'].nil?

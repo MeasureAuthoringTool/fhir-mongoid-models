@@ -44,6 +44,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = MedicationRequestDispenseRequest.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['initialFill'] = MedicationRequestDispenseRequestInitialFill.transform_json(json_hash['initialFill']) unless json_hash['initialFill'].nil?
       result['dispenseInterval'] = Duration.transform_json(json_hash['dispenseInterval']) unless json_hash['dispenseInterval'].nil?

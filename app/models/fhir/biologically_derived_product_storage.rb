@@ -36,6 +36,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = BiologicallyDerivedProductStorage.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['description'] = PrimitiveString.transform_json(json_hash['description'], json_hash['_description']) unless json_hash['description'].nil?
       result['temperature'] = PrimitiveDecimal.transform_json(json_hash['temperature'], json_hash['_temperature']) unless json_hash['temperature'].nil?

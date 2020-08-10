@@ -32,6 +32,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = ElementDefinitionType.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['code'] = PrimitiveUri.transform_json(json_hash['code'], json_hash['_code']) unless json_hash['code'].nil?
       result['targetProfile'] = json_hash['targetProfile'].each_with_index.map do |var, i|

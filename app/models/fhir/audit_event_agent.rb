@@ -66,15 +66,10 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = AuditEventAgent.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['type'] = CodeableConcept.transform_json(json_hash['type']) unless json_hash['type'].nil?
-      result['role'] = json_hash['role'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          CodeableConcept.transform_json(var) 
-        end
-      } unless json_hash['role'].nil?
+      result['role'] = json_hash['role'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['role'].nil?
       result['who'] = Reference.transform_json(json_hash['who']) unless json_hash['who'].nil?
       result['altId'] = PrimitiveString.transform_json(json_hash['altId'], json_hash['_altId']) unless json_hash['altId'].nil?
       result['name'] = PrimitiveString.transform_json(json_hash['name'], json_hash['_name']) unless json_hash['name'].nil?
@@ -86,13 +81,7 @@ module FHIR
       end unless json_hash['policy'].nil?
       result['media'] = Coding.transform_json(json_hash['media']) unless json_hash['media'].nil?
       result['network'] = AuditEventAgentNetwork.transform_json(json_hash['network']) unless json_hash['network'].nil?
-      result['purposeOfUse'] = json_hash['purposeOfUse'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          CodeableConcept.transform_json(var) 
-        end
-      } unless json_hash['purposeOfUse'].nil?
+      result['purposeOfUse'] = json_hash['purposeOfUse'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['purposeOfUse'].nil?
 
       result
     end

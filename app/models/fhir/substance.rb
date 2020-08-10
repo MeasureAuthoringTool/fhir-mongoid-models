@@ -46,38 +46,15 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = Substance.new)
+    
       result = self.superclass.transform_json(json_hash, target)
-      result['identifier'] = json_hash['identifier'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Identifier.transform_json(var) 
-        end
-      } unless json_hash['identifier'].nil?
+      result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['status'] = FHIRSubstanceStatus.transform_json(json_hash['status'], json_hash['_status']) unless json_hash['status'].nil?
-      result['category'] = json_hash['category'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          CodeableConcept.transform_json(var) 
-        end
-      } unless json_hash['category'].nil?
+      result['category'] = json_hash['category'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['category'].nil?
       result['code'] = CodeableConcept.transform_json(json_hash['code']) unless json_hash['code'].nil?
       result['description'] = PrimitiveString.transform_json(json_hash['description'], json_hash['_description']) unless json_hash['description'].nil?
-      result['instance'] = json_hash['instance'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          SubstanceInstance.transform_json(var) 
-        end
-      } unless json_hash['instance'].nil?
-      result['ingredient'] = json_hash['ingredient'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          SubstanceIngredient.transform_json(var) 
-        end
-      } unless json_hash['ingredient'].nil?
+      result['instance'] = json_hash['instance'].map { |var| SubstanceInstance.transform_json(var) } unless json_hash['instance'].nil?
+      result['ingredient'] = json_hash['ingredient'].map { |var| SubstanceIngredient.transform_json(var) } unless json_hash['ingredient'].nil?
 
       result
     end

@@ -32,6 +32,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = TestReportParticipant.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['type'] = TestReportParticipantType.transform_json(json_hash['type'], json_hash['_type']) unless json_hash['type'].nil?
       result['uri'] = PrimitiveUri.transform_json(json_hash['uri'], json_hash['_uri']) unless json_hash['uri'].nil?

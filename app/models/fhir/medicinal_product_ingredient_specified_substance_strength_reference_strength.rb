@@ -36,18 +36,13 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = MedicinalProductIngredientSpecifiedSubstanceStrengthReferenceStrength.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['substance'] = CodeableConcept.transform_json(json_hash['substance']) unless json_hash['substance'].nil?
       result['strength'] = Ratio.transform_json(json_hash['strength']) unless json_hash['strength'].nil?
       result['strengthLowLimit'] = Ratio.transform_json(json_hash['strengthLowLimit']) unless json_hash['strengthLowLimit'].nil?
       result['measurementPoint'] = PrimitiveString.transform_json(json_hash['measurementPoint'], json_hash['_measurementPoint']) unless json_hash['measurementPoint'].nil?
-      result['country'] = json_hash['country'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          CodeableConcept.transform_json(var) 
-        end
-      } unless json_hash['country'].nil?
+      result['country'] = json_hash['country'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['country'].nil?
 
       result
     end

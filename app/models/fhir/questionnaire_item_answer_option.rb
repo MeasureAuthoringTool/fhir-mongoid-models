@@ -52,6 +52,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = QuestionnaireItemAnswerOption.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['valueInteger'] = PrimitiveInteger.transform_json(json_hash['valueInteger'], json_hash['_valueInteger']) unless json_hash['valueInteger'].nil?
       result['valueDate'] = PrimitiveDate.transform_json(json_hash['valueDate'], json_hash['_valueDate']) unless json_hash['valueDate'].nil?

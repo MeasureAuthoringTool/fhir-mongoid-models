@@ -142,14 +142,9 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = FamilyMemberHistory.new)
+    
       result = self.superclass.transform_json(json_hash, target)
-      result['identifier'] = json_hash['identifier'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Identifier.transform_json(var) 
-        end
-      } unless json_hash['identifier'].nil?
+      result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['instantiatesCanonical'] = json_hash['instantiatesCanonical'].each_with_index.map do |var, i|
         extension_hash = json_hash['_instantiatesCanonical'] && json_hash['_instantiatesCanonical'][i]
         PrimitiveCanonical.transform_json(var, extension_hash)
@@ -177,34 +172,10 @@ module FHIR
       result['deceasedRange'] = Range.transform_json(json_hash['deceasedRange']) unless json_hash['deceasedRange'].nil?
       result['deceasedDate'] = PrimitiveDate.transform_json(json_hash['deceasedDate'], json_hash['_deceasedDate']) unless json_hash['deceasedDate'].nil?
       result['deceasedString'] = PrimitiveString.transform_json(json_hash['deceasedString'], json_hash['_deceasedString']) unless json_hash['deceasedString'].nil?
-      result['reasonCode'] = json_hash['reasonCode'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          CodeableConcept.transform_json(var) 
-        end
-      } unless json_hash['reasonCode'].nil?
-      result['reasonReference'] = json_hash['reasonReference'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Reference.transform_json(var) 
-        end
-      } unless json_hash['reasonReference'].nil?
-      result['note'] = json_hash['note'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Annotation.transform_json(var) 
-        end
-      } unless json_hash['note'].nil?
-      result['condition'] = json_hash['condition'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          FamilyMemberHistoryCondition.transform_json(var) 
-        end
-      } unless json_hash['condition'].nil?
+      result['reasonCode'] = json_hash['reasonCode'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['reasonCode'].nil?
+      result['reasonReference'] = json_hash['reasonReference'].map { |var| Reference.transform_json(var) } unless json_hash['reasonReference'].nil?
+      result['note'] = json_hash['note'].map { |var| Annotation.transform_json(var) } unless json_hash['note'].nil?
+      result['condition'] = json_hash['condition'].map { |var| FamilyMemberHistoryCondition.transform_json(var) } unless json_hash['condition'].nil?
 
       result
     end

@@ -56,6 +56,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = SubstanceProteinSubunit.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['subunit'] = PrimitiveInteger.transform_json(json_hash['subunit'], json_hash['_subunit']) unless json_hash['subunit'].nil?
       result['sequence'] = PrimitiveString.transform_json(json_hash['sequence'], json_hash['_sequence']) unless json_hash['sequence'].nil?

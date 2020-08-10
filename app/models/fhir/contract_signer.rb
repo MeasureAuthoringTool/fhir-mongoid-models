@@ -26,16 +26,11 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = ContractSigner.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['type'] = Coding.transform_json(json_hash['type']) unless json_hash['type'].nil?
       result['party'] = Reference.transform_json(json_hash['party']) unless json_hash['party'].nil?
-      result['signature'] = json_hash['signature'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Signature.transform_json(var) 
-        end
-      } unless json_hash['signature'].nil?
+      result['signature'] = json_hash['signature'].map { |var| Signature.transform_json(var) } unless json_hash['signature'].nil?
 
       result
     end

@@ -266,6 +266,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = ParametersParameter.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['name'] = PrimitiveString.transform_json(json_hash['name'], json_hash['_name']) unless json_hash['name'].nil?
       result['valueBase64Binary'] = PrimitiveBase64Binary.transform_json(json_hash['valueBase64Binary'], json_hash['_valueBase64Binary']) unless json_hash['valueBase64Binary'].nil?
@@ -319,13 +320,7 @@ module FHIR
       result['valueDosage'] = Dosage.transform_json(json_hash['valueDosage']) unless json_hash['valueDosage'].nil?
       result['valueMeta'] = Meta.transform_json(json_hash['valueMeta']) unless json_hash['valueMeta'].nil?
       result['resource'] = Resource.transform_json(json_hash['resource']) unless json_hash['resource'].nil?
-      result['part'] = json_hash['part'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          ParametersParameter.transform_json(var) 
-        end
-      } unless json_hash['part'].nil?
+      result['part'] = json_hash['part'].map { |var| ParametersParameter.transform_json(var) } unless json_hash['part'].nil?
 
       result
     end

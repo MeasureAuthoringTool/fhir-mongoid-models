@@ -40,24 +40,13 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = QuestionnaireResponseItem.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['linkId'] = PrimitiveString.transform_json(json_hash['linkId'], json_hash['_linkId']) unless json_hash['linkId'].nil?
       result['definition'] = PrimitiveUri.transform_json(json_hash['definition'], json_hash['_definition']) unless json_hash['definition'].nil?
       result['text'] = PrimitiveString.transform_json(json_hash['text'], json_hash['_text']) unless json_hash['text'].nil?
-      result['answer'] = json_hash['answer'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          QuestionnaireResponseItemAnswer.transform_json(var) 
-        end
-      } unless json_hash['answer'].nil?
-      result['item'] = json_hash['item'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          QuestionnaireResponseItem.transform_json(var) 
-        end
-      } unless json_hash['item'].nil?
+      result['answer'] = json_hash['answer'].map { |var| QuestionnaireResponseItemAnswer.transform_json(var) } unless json_hash['answer'].nil?
+      result['item'] = json_hash['item'].map { |var| QuestionnaireResponseItem.transform_json(var) } unless json_hash['item'].nil?
 
       result
     end

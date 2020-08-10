@@ -110,6 +110,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = CapabilityStatementRestResource.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['type'] = ResourceType.transform_json(json_hash['type'], json_hash['_type']) unless json_hash['type'].nil?
       result['profile'] = PrimitiveCanonical.transform_json(json_hash['profile'], json_hash['_profile']) unless json_hash['profile'].nil?
@@ -118,13 +119,7 @@ module FHIR
         PrimitiveCanonical.transform_json(var, extension_hash)
       end unless json_hash['supportedProfile'].nil?
       result['documentation'] = PrimitiveMarkdown.transform_json(json_hash['documentation'], json_hash['_documentation']) unless json_hash['documentation'].nil?
-      result['interaction'] = json_hash['interaction'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          CapabilityStatementRestResourceInteraction.transform_json(var) 
-        end
-      } unless json_hash['interaction'].nil?
+      result['interaction'] = json_hash['interaction'].map { |var| CapabilityStatementRestResourceInteraction.transform_json(var) } unless json_hash['interaction'].nil?
       result['versioning'] = ResourceVersionPolicy.transform_json(json_hash['versioning'], json_hash['_versioning']) unless json_hash['versioning'].nil?
       result['readHistory'] = PrimitiveBoolean.transform_json(json_hash['readHistory'], json_hash['_readHistory']) unless json_hash['readHistory'].nil?
       result['updateCreate'] = PrimitiveBoolean.transform_json(json_hash['updateCreate'], json_hash['_updateCreate']) unless json_hash['updateCreate'].nil?
@@ -144,20 +139,8 @@ module FHIR
         extension_hash = json_hash['_searchRevInclude'] && json_hash['_searchRevInclude'][i]
         PrimitiveString.transform_json(var, extension_hash)
       end unless json_hash['searchRevInclude'].nil?
-      result['searchParam'] = json_hash['searchParam'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          CapabilityStatementRestResourceSearchParam.transform_json(var) 
-        end
-      } unless json_hash['searchParam'].nil?
-      result['operation'] = json_hash['operation'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          CapabilityStatementRestResourceOperation.transform_json(var) 
-        end
-      } unless json_hash['operation'].nil?
+      result['searchParam'] = json_hash['searchParam'].map { |var| CapabilityStatementRestResourceSearchParam.transform_json(var) } unless json_hash['searchParam'].nil?
+      result['operation'] = json_hash['operation'].map { |var| CapabilityStatementRestResourceOperation.transform_json(var) } unless json_hash['operation'].nil?
 
       result
     end

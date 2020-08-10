@@ -24,6 +24,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = CapabilityStatementMessagingEndpoint.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['protocol'] = Coding.transform_json(json_hash['protocol']) unless json_hash['protocol'].nil?
       result['address'] = PrimitiveUrl.transform_json(json_hash['address'], json_hash['_address']) unless json_hash['address'].nil?

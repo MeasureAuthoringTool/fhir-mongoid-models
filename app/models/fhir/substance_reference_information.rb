@@ -36,36 +36,13 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = SubstanceReferenceInformation.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['comment'] = PrimitiveString.transform_json(json_hash['comment'], json_hash['_comment']) unless json_hash['comment'].nil?
-      result['gene'] = json_hash['gene'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          SubstanceReferenceInformationGene.transform_json(var) 
-        end
-      } unless json_hash['gene'].nil?
-      result['geneElement'] = json_hash['geneElement'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          SubstanceReferenceInformationGeneElement.transform_json(var) 
-        end
-      } unless json_hash['geneElement'].nil?
-      result['classification'] = json_hash['classification'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          SubstanceReferenceInformationClassification.transform_json(var) 
-        end
-      } unless json_hash['classification'].nil?
-      result['target'] = json_hash['target'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          SubstanceReferenceInformationTarget.transform_json(var) 
-        end
-      } unless json_hash['target'].nil?
+      result['gene'] = json_hash['gene'].map { |var| SubstanceReferenceInformationGene.transform_json(var) } unless json_hash['gene'].nil?
+      result['geneElement'] = json_hash['geneElement'].map { |var| SubstanceReferenceInformationGeneElement.transform_json(var) } unless json_hash['geneElement'].nil?
+      result['classification'] = json_hash['classification'].map { |var| SubstanceReferenceInformationClassification.transform_json(var) } unless json_hash['classification'].nil?
+      result['target'] = json_hash['target'].map { |var| SubstanceReferenceInformationTarget.transform_json(var) } unless json_hash['target'].nil?
 
       result
     end

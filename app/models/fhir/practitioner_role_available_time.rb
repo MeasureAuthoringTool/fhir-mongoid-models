@@ -38,6 +38,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = PractitionerRoleAvailableTime.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['daysOfWeek'] = json_hash['daysOfWeek'].each_with_index.map do |var, i|
         extension_hash = json_hash['_daysOfWeek'] && json_hash['_daysOfWeek'][i]

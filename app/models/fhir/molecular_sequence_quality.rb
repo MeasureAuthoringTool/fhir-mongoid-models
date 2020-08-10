@@ -96,6 +96,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = MolecularSequenceQuality.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['type'] = QualityType.transform_json(json_hash['type'], json_hash['_type']) unless json_hash['type'].nil?
       result['standardSequence'] = CodeableConcept.transform_json(json_hash['standardSequence']) unless json_hash['standardSequence'].nil?

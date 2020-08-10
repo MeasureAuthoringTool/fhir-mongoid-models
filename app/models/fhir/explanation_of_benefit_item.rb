@@ -134,6 +134,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = ExplanationOfBenefitItem.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['sequence'] = PrimitivePositiveInt.transform_json(json_hash['sequence'], json_hash['_sequence']) unless json_hash['sequence'].nil?
       result['careTeamSequence'] = json_hash['careTeamSequence'].each_with_index.map do |var, i|
@@ -155,20 +156,8 @@ module FHIR
       result['revenue'] = CodeableConcept.transform_json(json_hash['revenue']) unless json_hash['revenue'].nil?
       result['category'] = CodeableConcept.transform_json(json_hash['category']) unless json_hash['category'].nil?
       result['productOrService'] = CodeableConcept.transform_json(json_hash['productOrService']) unless json_hash['productOrService'].nil?
-      result['modifier'] = json_hash['modifier'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          CodeableConcept.transform_json(var) 
-        end
-      } unless json_hash['modifier'].nil?
-      result['programCode'] = json_hash['programCode'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          CodeableConcept.transform_json(var) 
-        end
-      } unless json_hash['programCode'].nil?
+      result['modifier'] = json_hash['modifier'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['modifier'].nil?
+      result['programCode'] = json_hash['programCode'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['programCode'].nil?
       result['servicedDate'] = PrimitiveDate.transform_json(json_hash['servicedDate'], json_hash['_servicedDate']) unless json_hash['servicedDate'].nil?
       result['servicedPeriod'] = Period.transform_json(json_hash['servicedPeriod']) unless json_hash['servicedPeriod'].nil?
       result['locationCodeableConcept'] = CodeableConcept.transform_json(json_hash['locationCodeableConcept']) unless json_hash['locationCodeableConcept'].nil?
@@ -178,46 +167,16 @@ module FHIR
       result['unitPrice'] = Money.transform_json(json_hash['unitPrice']) unless json_hash['unitPrice'].nil?
       result['factor'] = PrimitiveDecimal.transform_json(json_hash['factor'], json_hash['_factor']) unless json_hash['factor'].nil?
       result['net'] = Money.transform_json(json_hash['net']) unless json_hash['net'].nil?
-      result['udi'] = json_hash['udi'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Reference.transform_json(var) 
-        end
-      } unless json_hash['udi'].nil?
+      result['udi'] = json_hash['udi'].map { |var| Reference.transform_json(var) } unless json_hash['udi'].nil?
       result['bodySite'] = CodeableConcept.transform_json(json_hash['bodySite']) unless json_hash['bodySite'].nil?
-      result['subSite'] = json_hash['subSite'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          CodeableConcept.transform_json(var) 
-        end
-      } unless json_hash['subSite'].nil?
-      result['encounter'] = json_hash['encounter'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Reference.transform_json(var) 
-        end
-      } unless json_hash['encounter'].nil?
+      result['subSite'] = json_hash['subSite'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['subSite'].nil?
+      result['encounter'] = json_hash['encounter'].map { |var| Reference.transform_json(var) } unless json_hash['encounter'].nil?
       result['noteNumber'] = json_hash['noteNumber'].each_with_index.map do |var, i|
         extension_hash = json_hash['_noteNumber'] && json_hash['_noteNumber'][i]
         PrimitivePositiveInt.transform_json(var, extension_hash)
       end unless json_hash['noteNumber'].nil?
-      result['adjudication'] = json_hash['adjudication'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          ExplanationOfBenefitItemAdjudication.transform_json(var) 
-        end
-      } unless json_hash['adjudication'].nil?
-      result['detail'] = json_hash['detail'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          ExplanationOfBenefitItemDetail.transform_json(var) 
-        end
-      } unless json_hash['detail'].nil?
+      result['adjudication'] = json_hash['adjudication'].map { |var| ExplanationOfBenefitItemAdjudication.transform_json(var) } unless json_hash['adjudication'].nil?
+      result['detail'] = json_hash['detail'].map { |var| ExplanationOfBenefitItemDetail.transform_json(var) } unless json_hash['detail'].nil?
 
       result
     end

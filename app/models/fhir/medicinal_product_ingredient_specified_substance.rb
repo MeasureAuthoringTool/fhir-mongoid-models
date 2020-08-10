@@ -30,17 +30,12 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = MedicinalProductIngredientSpecifiedSubstance.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['code'] = CodeableConcept.transform_json(json_hash['code']) unless json_hash['code'].nil?
       result['group'] = CodeableConcept.transform_json(json_hash['group']) unless json_hash['group'].nil?
       result['confidentiality'] = CodeableConcept.transform_json(json_hash['confidentiality']) unless json_hash['confidentiality'].nil?
-      result['strength'] = json_hash['strength'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          MedicinalProductIngredientSpecifiedSubstanceStrength.transform_json(var) 
-        end
-      } unless json_hash['strength'].nil?
+      result['strength'] = json_hash['strength'].map { |var| MedicinalProductIngredientSpecifiedSubstanceStrength.transform_json(var) } unless json_hash['strength'].nil?
 
       result
     end

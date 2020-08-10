@@ -32,26 +32,15 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = ContractTermSecurityLabel.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['number'] = json_hash['number'].each_with_index.map do |var, i|
         extension_hash = json_hash['_number'] && json_hash['_number'][i]
         PrimitiveUnsignedInt.transform_json(var, extension_hash)
       end unless json_hash['number'].nil?
       result['classification'] = Coding.transform_json(json_hash['classification']) unless json_hash['classification'].nil?
-      result['category'] = json_hash['category'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Coding.transform_json(var) 
-        end
-      } unless json_hash['category'].nil?
-      result['control'] = json_hash['control'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Coding.transform_json(var) 
-        end
-      } unless json_hash['control'].nil?
+      result['category'] = json_hash['category'].map { |var| Coding.transform_json(var) } unless json_hash['category'].nil?
+      result['control'] = json_hash['control'].map { |var| Coding.transform_json(var) } unless json_hash['control'].nil?
 
       result
     end

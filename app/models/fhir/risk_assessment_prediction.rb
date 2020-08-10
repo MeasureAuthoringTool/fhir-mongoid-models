@@ -52,6 +52,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = RiskAssessmentPrediction.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['outcome'] = CodeableConcept.transform_json(json_hash['outcome']) unless json_hash['outcome'].nil?
       result['probabilityDecimal'] = PrimitiveDecimal.transform_json(json_hash['probabilityDecimal'], json_hash['_probabilityDecimal']) unless json_hash['probabilityDecimal'].nil?

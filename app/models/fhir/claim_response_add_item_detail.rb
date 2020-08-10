@@ -54,15 +54,10 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = ClaimResponseAddItemDetail.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['productOrService'] = CodeableConcept.transform_json(json_hash['productOrService']) unless json_hash['productOrService'].nil?
-      result['modifier'] = json_hash['modifier'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          CodeableConcept.transform_json(var) 
-        end
-      } unless json_hash['modifier'].nil?
+      result['modifier'] = json_hash['modifier'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['modifier'].nil?
       result['quantity'] = SimpleQuantity.transform_json(json_hash['quantity']) unless json_hash['quantity'].nil?
       result['unitPrice'] = Money.transform_json(json_hash['unitPrice']) unless json_hash['unitPrice'].nil?
       result['factor'] = PrimitiveDecimal.transform_json(json_hash['factor'], json_hash['_factor']) unless json_hash['factor'].nil?
@@ -71,20 +66,8 @@ module FHIR
         extension_hash = json_hash['_noteNumber'] && json_hash['_noteNumber'][i]
         PrimitivePositiveInt.transform_json(var, extension_hash)
       end unless json_hash['noteNumber'].nil?
-      result['adjudication'] = json_hash['adjudication'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          ClaimResponseItemAdjudication.transform_json(var) 
-        end
-      } unless json_hash['adjudication'].nil?
-      result['subDetail'] = json_hash['subDetail'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          ClaimResponseAddItemDetailSubDetail.transform_json(var) 
-        end
-      } unless json_hash['subDetail'].nil?
+      result['adjudication'] = json_hash['adjudication'].map { |var| ClaimResponseItemAdjudication.transform_json(var) } unless json_hash['adjudication'].nil?
+      result['subDetail'] = json_hash['subDetail'].map { |var| ClaimResponseAddItemDetailSubDetail.transform_json(var) } unless json_hash['subDetail'].nil?
 
       result
     end

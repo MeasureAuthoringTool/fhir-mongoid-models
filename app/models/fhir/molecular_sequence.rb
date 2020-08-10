@@ -86,14 +86,9 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = MolecularSequence.new)
+    
       result = self.superclass.transform_json(json_hash, target)
-      result['identifier'] = json_hash['identifier'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Identifier.transform_json(var) 
-        end
-      } unless json_hash['identifier'].nil?
+      result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['type'] = SequenceType.transform_json(json_hash['type'], json_hash['_type']) unless json_hash['type'].nil?
       result['coordinateSystem'] = PrimitiveInteger.transform_json(json_hash['coordinateSystem'], json_hash['_coordinateSystem']) unless json_hash['coordinateSystem'].nil?
       result['patient'] = Reference.transform_json(json_hash['patient']) unless json_hash['patient'].nil?
@@ -102,43 +97,13 @@ module FHIR
       result['performer'] = Reference.transform_json(json_hash['performer']) unless json_hash['performer'].nil?
       result['quantity'] = Quantity.transform_json(json_hash['quantity']) unless json_hash['quantity'].nil?
       result['referenceSeq'] = MolecularSequenceReferenceSeq.transform_json(json_hash['referenceSeq']) unless json_hash['referenceSeq'].nil?
-      result['variant'] = json_hash['variant'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          MolecularSequenceVariant.transform_json(var) 
-        end
-      } unless json_hash['variant'].nil?
+      result['variant'] = json_hash['variant'].map { |var| MolecularSequenceVariant.transform_json(var) } unless json_hash['variant'].nil?
       result['observedSeq'] = PrimitiveString.transform_json(json_hash['observedSeq'], json_hash['_observedSeq']) unless json_hash['observedSeq'].nil?
-      result['quality'] = json_hash['quality'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          MolecularSequenceQuality.transform_json(var) 
-        end
-      } unless json_hash['quality'].nil?
+      result['quality'] = json_hash['quality'].map { |var| MolecularSequenceQuality.transform_json(var) } unless json_hash['quality'].nil?
       result['readCoverage'] = PrimitiveInteger.transform_json(json_hash['readCoverage'], json_hash['_readCoverage']) unless json_hash['readCoverage'].nil?
-      result['repository'] = json_hash['repository'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          MolecularSequenceRepository.transform_json(var) 
-        end
-      } unless json_hash['repository'].nil?
-      result['pointer'] = json_hash['pointer'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Reference.transform_json(var) 
-        end
-      } unless json_hash['pointer'].nil?
-      result['structureVariant'] = json_hash['structureVariant'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          MolecularSequenceStructureVariant.transform_json(var) 
-        end
-      } unless json_hash['structureVariant'].nil?
+      result['repository'] = json_hash['repository'].map { |var| MolecularSequenceRepository.transform_json(var) } unless json_hash['repository'].nil?
+      result['pointer'] = json_hash['pointer'].map { |var| Reference.transform_json(var) } unless json_hash['pointer'].nil?
+      result['structureVariant'] = json_hash['structureVariant'].map { |var| MolecularSequenceStructureVariant.transform_json(var) } unless json_hash['structureVariant'].nil?
 
       result
     end

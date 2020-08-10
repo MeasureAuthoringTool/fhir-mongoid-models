@@ -42,32 +42,15 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = MedicinalProductManufactured.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['manufacturedDoseForm'] = CodeableConcept.transform_json(json_hash['manufacturedDoseForm']) unless json_hash['manufacturedDoseForm'].nil?
       result['unitOfPresentation'] = CodeableConcept.transform_json(json_hash['unitOfPresentation']) unless json_hash['unitOfPresentation'].nil?
       result['quantity'] = Quantity.transform_json(json_hash['quantity']) unless json_hash['quantity'].nil?
-      result['manufacturer'] = json_hash['manufacturer'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Reference.transform_json(var) 
-        end
-      } unless json_hash['manufacturer'].nil?
-      result['ingredient'] = json_hash['ingredient'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Reference.transform_json(var) 
-        end
-      } unless json_hash['ingredient'].nil?
+      result['manufacturer'] = json_hash['manufacturer'].map { |var| Reference.transform_json(var) } unless json_hash['manufacturer'].nil?
+      result['ingredient'] = json_hash['ingredient'].map { |var| Reference.transform_json(var) } unless json_hash['ingredient'].nil?
       result['physicalCharacteristics'] = ProdCharacteristic.transform_json(json_hash['physicalCharacteristics']) unless json_hash['physicalCharacteristics'].nil?
-      result['otherCharacteristics'] = json_hash['otherCharacteristics'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          CodeableConcept.transform_json(var) 
-        end
-      } unless json_hash['otherCharacteristics'].nil?
+      result['otherCharacteristics'] = json_hash['otherCharacteristics'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['otherCharacteristics'].nil?
 
       result
     end

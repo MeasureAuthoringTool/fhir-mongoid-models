@@ -30,6 +30,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = DeviceDefinitionMaterial.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['substance'] = CodeableConcept.transform_json(json_hash['substance']) unless json_hash['substance'].nil?
       result['alternate'] = PrimitiveBoolean.transform_json(json_hash['alternate'], json_hash['_alternate']) unless json_hash['alternate'].nil?

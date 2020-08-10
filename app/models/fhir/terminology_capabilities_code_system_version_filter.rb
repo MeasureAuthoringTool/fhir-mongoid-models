@@ -26,6 +26,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = TerminologyCapabilitiesCodeSystemVersionFilter.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['code'] = PrimitiveCode.transform_json(json_hash['code'], json_hash['_code']) unless json_hash['code'].nil?
       result['op'] = json_hash['op'].each_with_index.map do |var, i|

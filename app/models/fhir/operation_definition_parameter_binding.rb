@@ -26,6 +26,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = OperationDefinitionParameterBinding.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['strength'] = BindingStrength.transform_json(json_hash['strength'], json_hash['_strength']) unless json_hash['strength'].nil?
       result['valueSet'] = PrimitiveCanonical.transform_json(json_hash['valueSet'], json_hash['_valueSet']) unless json_hash['valueSet'].nil?

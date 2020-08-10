@@ -48,26 +48,15 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = AllergyIntoleranceReaction.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['substance'] = CodeableConcept.transform_json(json_hash['substance']) unless json_hash['substance'].nil?
-      result['manifestation'] = json_hash['manifestation'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          CodeableConcept.transform_json(var) 
-        end
-      } unless json_hash['manifestation'].nil?
+      result['manifestation'] = json_hash['manifestation'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['manifestation'].nil?
       result['description'] = PrimitiveString.transform_json(json_hash['description'], json_hash['_description']) unless json_hash['description'].nil?
       result['onset'] = PrimitiveDateTime.transform_json(json_hash['onset'], json_hash['_onset']) unless json_hash['onset'].nil?
       result['severity'] = AllergyIntoleranceSeverity.transform_json(json_hash['severity'], json_hash['_severity']) unless json_hash['severity'].nil?
       result['exposureRoute'] = CodeableConcept.transform_json(json_hash['exposureRoute']) unless json_hash['exposureRoute'].nil?
-      result['note'] = json_hash['note'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Annotation.transform_json(var) 
-        end
-      } unless json_hash['note'].nil?
+      result['note'] = json_hash['note'].map { |var| Annotation.transform_json(var) } unless json_hash['note'].nil?
 
       result
     end

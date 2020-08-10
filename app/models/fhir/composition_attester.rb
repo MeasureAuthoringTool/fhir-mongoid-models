@@ -30,6 +30,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = CompositionAttester.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['mode'] = CompositionAttestationMode.transform_json(json_hash['mode'], json_hash['_mode']) unless json_hash['mode'].nil?
       result['time'] = PrimitiveDateTime.transform_json(json_hash['time'], json_hash['_time']) unless json_hash['time'].nil?

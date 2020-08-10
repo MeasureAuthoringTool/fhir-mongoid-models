@@ -38,6 +38,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = ImmunizationEducation.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['documentType'] = PrimitiveString.transform_json(json_hash['documentType'], json_hash['_documentType']) unless json_hash['documentType'].nil?
       result['reference'] = PrimitiveUri.transform_json(json_hash['reference'], json_hash['_reference']) unless json_hash['reference'].nil?

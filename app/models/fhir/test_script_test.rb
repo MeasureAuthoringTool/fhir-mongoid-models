@@ -30,16 +30,11 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = TestScriptTest.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['name'] = PrimitiveString.transform_json(json_hash['name'], json_hash['_name']) unless json_hash['name'].nil?
       result['description'] = PrimitiveString.transform_json(json_hash['description'], json_hash['_description']) unless json_hash['description'].nil?
-      result['action'] = json_hash['action'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          TestScriptTestAction.transform_json(var) 
-        end
-      } unless json_hash['action'].nil?
+      result['action'] = json_hash['action'].map { |var| TestScriptTestAction.transform_json(var) } unless json_hash['action'].nil?
 
       result
     end

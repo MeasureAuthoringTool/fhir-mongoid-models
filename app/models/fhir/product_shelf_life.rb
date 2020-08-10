@@ -30,17 +30,12 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = ProductShelfLife.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = Identifier.transform_json(json_hash['identifier']) unless json_hash['identifier'].nil?
       result['type'] = CodeableConcept.transform_json(json_hash['type']) unless json_hash['type'].nil?
       result['period'] = Quantity.transform_json(json_hash['period']) unless json_hash['period'].nil?
-      result['specialPrecautionsForStorage'] = json_hash['specialPrecautionsForStorage'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          CodeableConcept.transform_json(var) 
-        end
-      } unless json_hash['specialPrecautionsForStorage'].nil?
+      result['specialPrecautionsForStorage'] = json_hash['specialPrecautionsForStorage'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['specialPrecautionsForStorage'].nil?
 
       result
     end

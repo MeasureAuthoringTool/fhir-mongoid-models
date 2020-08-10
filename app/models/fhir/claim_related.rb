@@ -26,6 +26,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = ClaimRelated.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['claim'] = Reference.transform_json(json_hash['claim']) unless json_hash['claim'].nil?
       result['relationship'] = CodeableConcept.transform_json(json_hash['relationship']) unless json_hash['relationship'].nil?

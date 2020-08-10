@@ -62,6 +62,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = MolecularSequenceReferenceSeq.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['chromosome'] = CodeableConcept.transform_json(json_hash['chromosome']) unless json_hash['chromosome'].nil?
       result['genomeBuild'] = PrimitiveString.transform_json(json_hash['genomeBuild'], json_hash['_genomeBuild']) unless json_hash['genomeBuild'].nil?

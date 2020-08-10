@@ -70,6 +70,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = ExampleScenarioProcessStepOperation.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['number'] = PrimitiveString.transform_json(json_hash['number'], json_hash['_number']) unless json_hash['number'].nil?
       result['type'] = PrimitiveString.transform_json(json_hash['type'], json_hash['_type']) unless json_hash['type'].nil?

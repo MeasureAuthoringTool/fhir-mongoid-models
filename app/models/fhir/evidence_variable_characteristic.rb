@@ -84,6 +84,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = EvidenceVariableCharacteristic.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['description'] = PrimitiveString.transform_json(json_hash['description'], json_hash['_description']) unless json_hash['description'].nil?
       result['definitionReference'] = Reference.transform_json(json_hash['definitionReference']) unless json_hash['definitionReference'].nil?
@@ -92,13 +93,7 @@ module FHIR
       result['definitionExpression'] = Expression.transform_json(json_hash['definitionExpression']) unless json_hash['definitionExpression'].nil?
       result['definitionDataRequirement'] = DataRequirement.transform_json(json_hash['definitionDataRequirement']) unless json_hash['definitionDataRequirement'].nil?
       result['definitionTriggerDefinition'] = TriggerDefinition.transform_json(json_hash['definitionTriggerDefinition']) unless json_hash['definitionTriggerDefinition'].nil?
-      result['usageContext'] = json_hash['usageContext'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          UsageContext.transform_json(var) 
-        end
-      } unless json_hash['usageContext'].nil?
+      result['usageContext'] = json_hash['usageContext'].map { |var| UsageContext.transform_json(var) } unless json_hash['usageContext'].nil?
       result['exclude'] = PrimitiveBoolean.transform_json(json_hash['exclude'], json_hash['_exclude']) unless json_hash['exclude'].nil?
       result['participantEffectiveDateTime'] = PrimitiveDateTime.transform_json(json_hash['participantEffectiveDateTime'], json_hash['_participantEffectiveDateTime']) unless json_hash['participantEffectiveDateTime'].nil?
       result['participantEffectivePeriod'] = Period.transform_json(json_hash['participantEffectivePeriod']) unless json_hash['participantEffectivePeriod'].nil?

@@ -26,6 +26,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = BundleEntrySearch.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['mode'] = SearchEntryMode.transform_json(json_hash['mode'], json_hash['_mode']) unless json_hash['mode'].nil?
       result['score'] = PrimitiveDecimal.transform_json(json_hash['score'], json_hash['_score']) unless json_hash['score'].nil?

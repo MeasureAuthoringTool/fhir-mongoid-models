@@ -50,32 +50,15 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = BodyStructure.new)
+    
       result = self.superclass.transform_json(json_hash, target)
-      result['identifier'] = json_hash['identifier'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Identifier.transform_json(var) 
-        end
-      } unless json_hash['identifier'].nil?
+      result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['active'] = PrimitiveBoolean.transform_json(json_hash['active'], json_hash['_active']) unless json_hash['active'].nil?
       result['morphology'] = CodeableConcept.transform_json(json_hash['morphology']) unless json_hash['morphology'].nil?
       result['location'] = CodeableConcept.transform_json(json_hash['location']) unless json_hash['location'].nil?
-      result['locationQualifier'] = json_hash['locationQualifier'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          CodeableConcept.transform_json(var) 
-        end
-      } unless json_hash['locationQualifier'].nil?
+      result['locationQualifier'] = json_hash['locationQualifier'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['locationQualifier'].nil?
       result['description'] = PrimitiveString.transform_json(json_hash['description'], json_hash['_description']) unless json_hash['description'].nil?
-      result['image'] = json_hash['image'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Attachment.transform_json(var) 
-        end
-      } unless json_hash['image'].nil?
+      result['image'] = json_hash['image'].map { |var| Attachment.transform_json(var) } unless json_hash['image'].nil?
       result['patient'] = Reference.transform_json(json_hash['patient']) unless json_hash['patient'].nil?
 
       result

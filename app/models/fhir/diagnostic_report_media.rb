@@ -24,6 +24,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = DiagnosticReportMedia.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['comment'] = PrimitiveString.transform_json(json_hash['comment'], json_hash['_comment']) unless json_hash['comment'].nil?
       result['link'] = Reference.transform_json(json_hash['link']) unless json_hash['link'].nil?

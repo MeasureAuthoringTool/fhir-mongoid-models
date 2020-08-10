@@ -32,6 +32,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = ValueSetComposeIncludeFilter.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['property'] = PrimitiveCode.transform_json(json_hash['property'], json_hash['_property']) unless json_hash['property'].nil?
       result['op'] = FilterOperator.transform_json(json_hash['op'], json_hash['_op']) unless json_hash['op'].nil?

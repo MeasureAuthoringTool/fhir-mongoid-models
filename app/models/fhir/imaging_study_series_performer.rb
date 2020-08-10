@@ -22,6 +22,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = ImagingStudySeriesPerformer.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['function'] = CodeableConcept.transform_json(json_hash['function']) unless json_hash['function'].nil?
       result['actor'] = Reference.transform_json(json_hash['actor']) unless json_hash['actor'].nil?

@@ -38,6 +38,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = MolecularSequenceStructureVariant.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['variantType'] = CodeableConcept.transform_json(json_hash['variantType']) unless json_hash['variantType'].nil?
       result['exact'] = PrimitiveBoolean.transform_json(json_hash['exact'], json_hash['_exact']) unless json_hash['exact'].nil?

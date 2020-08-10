@@ -30,14 +30,9 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = CareTeamParticipant.new)
+    
       result = self.superclass.transform_json(json_hash, target)
-      result['role'] = json_hash['role'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          CodeableConcept.transform_json(var) 
-        end
-      } unless json_hash['role'].nil?
+      result['role'] = json_hash['role'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['role'].nil?
       result['member'] = Reference.transform_json(json_hash['member']) unless json_hash['member'].nil?
       result['onBehalfOf'] = Reference.transform_json(json_hash['onBehalfOf']) unless json_hash['onBehalfOf'].nil?
       result['period'] = Period.transform_json(json_hash['period']) unless json_hash['period'].nil?

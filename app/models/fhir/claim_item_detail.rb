@@ -66,43 +66,20 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = ClaimItemDetail.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['sequence'] = PrimitivePositiveInt.transform_json(json_hash['sequence'], json_hash['_sequence']) unless json_hash['sequence'].nil?
       result['revenue'] = CodeableConcept.transform_json(json_hash['revenue']) unless json_hash['revenue'].nil?
       result['category'] = CodeableConcept.transform_json(json_hash['category']) unless json_hash['category'].nil?
       result['productOrService'] = CodeableConcept.transform_json(json_hash['productOrService']) unless json_hash['productOrService'].nil?
-      result['modifier'] = json_hash['modifier'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          CodeableConcept.transform_json(var) 
-        end
-      } unless json_hash['modifier'].nil?
-      result['programCode'] = json_hash['programCode'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          CodeableConcept.transform_json(var) 
-        end
-      } unless json_hash['programCode'].nil?
+      result['modifier'] = json_hash['modifier'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['modifier'].nil?
+      result['programCode'] = json_hash['programCode'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['programCode'].nil?
       result['quantity'] = SimpleQuantity.transform_json(json_hash['quantity']) unless json_hash['quantity'].nil?
       result['unitPrice'] = Money.transform_json(json_hash['unitPrice']) unless json_hash['unitPrice'].nil?
       result['factor'] = PrimitiveDecimal.transform_json(json_hash['factor'], json_hash['_factor']) unless json_hash['factor'].nil?
       result['net'] = Money.transform_json(json_hash['net']) unless json_hash['net'].nil?
-      result['udi'] = json_hash['udi'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Reference.transform_json(var) 
-        end
-      } unless json_hash['udi'].nil?
-      result['subDetail'] = json_hash['subDetail'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          ClaimItemDetailSubDetail.transform_json(var) 
-        end
-      } unless json_hash['subDetail'].nil?
+      result['udi'] = json_hash['udi'].map { |var| Reference.transform_json(var) } unless json_hash['udi'].nil?
+      result['subDetail'] = json_hash['subDetail'].map { |var| ClaimItemDetailSubDetail.transform_json(var) } unless json_hash['subDetail'].nil?
 
       result
     end

@@ -108,6 +108,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = CarePlanActivityDetail.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['kind'] = CarePlanActivityKind.transform_json(json_hash['kind'], json_hash['_kind']) unless json_hash['kind'].nil?
       result['instantiatesCanonical'] = json_hash['instantiatesCanonical'].each_with_index.map do |var, i|
@@ -119,27 +120,9 @@ module FHIR
         PrimitiveUri.transform_json(var, extension_hash)
       end unless json_hash['instantiatesUri'].nil?
       result['code'] = CodeableConcept.transform_json(json_hash['code']) unless json_hash['code'].nil?
-      result['reasonCode'] = json_hash['reasonCode'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          CodeableConcept.transform_json(var) 
-        end
-      } unless json_hash['reasonCode'].nil?
-      result['reasonReference'] = json_hash['reasonReference'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Reference.transform_json(var) 
-        end
-      } unless json_hash['reasonReference'].nil?
-      result['goal'] = json_hash['goal'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Reference.transform_json(var) 
-        end
-      } unless json_hash['goal'].nil?
+      result['reasonCode'] = json_hash['reasonCode'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['reasonCode'].nil?
+      result['reasonReference'] = json_hash['reasonReference'].map { |var| Reference.transform_json(var) } unless json_hash['reasonReference'].nil?
+      result['goal'] = json_hash['goal'].map { |var| Reference.transform_json(var) } unless json_hash['goal'].nil?
       result['status'] = CarePlanActivityStatus.transform_json(json_hash['status'], json_hash['_status']) unless json_hash['status'].nil?
       result['statusReason'] = CodeableConcept.transform_json(json_hash['statusReason']) unless json_hash['statusReason'].nil?
       result['doNotPerform'] = PrimitiveBoolean.transform_json(json_hash['doNotPerform'], json_hash['_doNotPerform']) unless json_hash['doNotPerform'].nil?
@@ -147,13 +130,7 @@ module FHIR
       result['scheduledPeriod'] = Period.transform_json(json_hash['scheduledPeriod']) unless json_hash['scheduledPeriod'].nil?
       result['scheduledString'] = PrimitiveString.transform_json(json_hash['scheduledString'], json_hash['_scheduledString']) unless json_hash['scheduledString'].nil?
       result['location'] = Reference.transform_json(json_hash['location']) unless json_hash['location'].nil?
-      result['performer'] = json_hash['performer'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Reference.transform_json(var) 
-        end
-      } unless json_hash['performer'].nil?
+      result['performer'] = json_hash['performer'].map { |var| Reference.transform_json(var) } unless json_hash['performer'].nil?
       result['productCodeableConcept'] = CodeableConcept.transform_json(json_hash['productCodeableConcept']) unless json_hash['productCodeableConcept'].nil?
       result['productReference'] = Reference.transform_json(json_hash['productReference']) unless json_hash['productReference'].nil?
       result['dailyAmount'] = SimpleQuantity.transform_json(json_hash['dailyAmount']) unless json_hash['dailyAmount'].nil?

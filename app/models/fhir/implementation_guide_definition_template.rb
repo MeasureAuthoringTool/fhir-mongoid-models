@@ -32,6 +32,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = ImplementationGuideDefinitionTemplate.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['code'] = PrimitiveCode.transform_json(json_hash['code'], json_hash['_code']) unless json_hash['code'].nil?
       result['source'] = PrimitiveString.transform_json(json_hash['source'], json_hash['_source']) unless json_hash['source'].nil?

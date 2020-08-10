@@ -36,6 +36,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = EffectEvidenceSynthesisEffectEstimatePrecisionEstimate.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['type'] = CodeableConcept.transform_json(json_hash['type']) unless json_hash['type'].nil?
       result['level'] = PrimitiveDecimal.transform_json(json_hash['level'], json_hash['_level']) unless json_hash['level'].nil?

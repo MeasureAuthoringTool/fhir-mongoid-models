@@ -54,6 +54,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = ImplementationGuideDefinitionResource.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['reference'] = Reference.transform_json(json_hash['reference']) unless json_hash['reference'].nil?
       result['fhirVersion'] = json_hash['fhirVersion'].each_with_index.map do |var, i|

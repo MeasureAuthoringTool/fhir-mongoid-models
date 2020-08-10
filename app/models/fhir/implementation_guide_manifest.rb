@@ -40,22 +40,11 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = ImplementationGuideManifest.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['rendering'] = PrimitiveUrl.transform_json(json_hash['rendering'], json_hash['_rendering']) unless json_hash['rendering'].nil?
-      result['resource'] = json_hash['resource'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          ImplementationGuideManifestResource.transform_json(var) 
-        end
-      } unless json_hash['resource'].nil?
-      result['page'] = json_hash['page'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          ImplementationGuideManifestPage.transform_json(var) 
-        end
-      } unless json_hash['page'].nil?
+      result['resource'] = json_hash['resource'].map { |var| ImplementationGuideManifestResource.transform_json(var) } unless json_hash['resource'].nil?
+      result['page'] = json_hash['page'].map { |var| ImplementationGuideManifestPage.transform_json(var) } unless json_hash['page'].nil?
       result['image'] = json_hash['image'].each_with_index.map do |var, i|
         extension_hash = json_hash['_image'] && json_hash['_image'][i]
         PrimitiveString.transform_json(var, extension_hash)

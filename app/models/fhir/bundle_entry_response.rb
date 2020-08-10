@@ -42,6 +42,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = BundleEntryResponse.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['status'] = PrimitiveString.transform_json(json_hash['status'], json_hash['_status']) unless json_hash['status'].nil?
       result['location'] = PrimitiveUri.transform_json(json_hash['location'], json_hash['_location']) unless json_hash['location'].nil?

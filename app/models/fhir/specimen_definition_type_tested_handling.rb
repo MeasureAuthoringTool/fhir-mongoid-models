@@ -32,6 +32,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = SpecimenDefinitionTypeTestedHandling.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['temperatureQualifier'] = CodeableConcept.transform_json(json_hash['temperatureQualifier']) unless json_hash['temperatureQualifier'].nil?
       result['temperatureRange'] = Range.transform_json(json_hash['temperatureRange']) unless json_hash['temperatureRange'].nil?

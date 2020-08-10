@@ -34,6 +34,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = UsageContext.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['code'] = Coding.transform_json(json_hash['code']) unless json_hash['code'].nil?
       result['valueCodeableConcept'] = CodeableConcept.transform_json(json_hash['valueCodeableConcept']) unless json_hash['valueCodeableConcept'].nil?

@@ -28,6 +28,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = GroupMember.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['entity'] = Reference.transform_json(json_hash['entity']) unless json_hash['entity'].nil?
       result['period'] = Period.transform_json(json_hash['period']) unless json_hash['period'].nil?

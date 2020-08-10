@@ -22,6 +22,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = ProcedureFocalDevice.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['action'] = CodeableConcept.transform_json(json_hash['action']) unless json_hash['action'].nil?
       result['manipulated'] = Reference.transform_json(json_hash['manipulated']) unless json_hash['manipulated'].nil?

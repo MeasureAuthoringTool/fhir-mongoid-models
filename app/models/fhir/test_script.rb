@@ -132,6 +132,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = TestScript.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['url'] = PrimitiveUri.transform_json(json_hash['url'], json_hash['_url']) unless json_hash['url'].nil?
       result['identifier'] = Identifier.transform_json(json_hash['identifier']) unless json_hash['identifier'].nil?
@@ -142,74 +143,20 @@ module FHIR
       result['experimental'] = PrimitiveBoolean.transform_json(json_hash['experimental'], json_hash['_experimental']) unless json_hash['experimental'].nil?
       result['date'] = PrimitiveDateTime.transform_json(json_hash['date'], json_hash['_date']) unless json_hash['date'].nil?
       result['publisher'] = PrimitiveString.transform_json(json_hash['publisher'], json_hash['_publisher']) unless json_hash['publisher'].nil?
-      result['contact'] = json_hash['contact'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          ContactDetail.transform_json(var) 
-        end
-      } unless json_hash['contact'].nil?
+      result['contact'] = json_hash['contact'].map { |var| ContactDetail.transform_json(var) } unless json_hash['contact'].nil?
       result['description'] = PrimitiveMarkdown.transform_json(json_hash['description'], json_hash['_description']) unless json_hash['description'].nil?
-      result['useContext'] = json_hash['useContext'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          UsageContext.transform_json(var) 
-        end
-      } unless json_hash['useContext'].nil?
-      result['jurisdiction'] = json_hash['jurisdiction'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          CodeableConcept.transform_json(var) 
-        end
-      } unless json_hash['jurisdiction'].nil?
+      result['useContext'] = json_hash['useContext'].map { |var| UsageContext.transform_json(var) } unless json_hash['useContext'].nil?
+      result['jurisdiction'] = json_hash['jurisdiction'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['jurisdiction'].nil?
       result['purpose'] = PrimitiveMarkdown.transform_json(json_hash['purpose'], json_hash['_purpose']) unless json_hash['purpose'].nil?
       result['copyright'] = PrimitiveMarkdown.transform_json(json_hash['copyright'], json_hash['_copyright']) unless json_hash['copyright'].nil?
-      result['origin'] = json_hash['origin'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          TestScriptOrigin.transform_json(var) 
-        end
-      } unless json_hash['origin'].nil?
-      result['destination'] = json_hash['destination'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          TestScriptDestination.transform_json(var) 
-        end
-      } unless json_hash['destination'].nil?
+      result['origin'] = json_hash['origin'].map { |var| TestScriptOrigin.transform_json(var) } unless json_hash['origin'].nil?
+      result['destination'] = json_hash['destination'].map { |var| TestScriptDestination.transform_json(var) } unless json_hash['destination'].nil?
       result['metadata'] = TestScriptMetadata.transform_json(json_hash['metadata']) unless json_hash['metadata'].nil?
-      result['fixture'] = json_hash['fixture'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          TestScriptFixture.transform_json(var) 
-        end
-      } unless json_hash['fixture'].nil?
-      result['profile'] = json_hash['profile'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Reference.transform_json(var) 
-        end
-      } unless json_hash['profile'].nil?
-      result['variable'] = json_hash['variable'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          TestScriptVariable.transform_json(var) 
-        end
-      } unless json_hash['variable'].nil?
+      result['fixture'] = json_hash['fixture'].map { |var| TestScriptFixture.transform_json(var) } unless json_hash['fixture'].nil?
+      result['profile'] = json_hash['profile'].map { |var| Reference.transform_json(var) } unless json_hash['profile'].nil?
+      result['variable'] = json_hash['variable'].map { |var| TestScriptVariable.transform_json(var) } unless json_hash['variable'].nil?
       result['setup'] = TestScriptSetup.transform_json(json_hash['setup']) unless json_hash['setup'].nil?
-      result['test'] = json_hash['test'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          TestScriptTest.transform_json(var) 
-        end
-      } unless json_hash['test'].nil?
+      result['test'] = json_hash['test'].map { |var| TestScriptTest.transform_json(var) } unless json_hash['test'].nil?
       result['teardown'] = TestScriptTeardown.transform_json(json_hash['teardown']) unless json_hash['teardown'].nil?
 
       result

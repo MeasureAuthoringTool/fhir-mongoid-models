@@ -36,6 +36,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = MarketingStatus.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['country'] = CodeableConcept.transform_json(json_hash['country']) unless json_hash['country'].nil?
       result['jurisdiction'] = CodeableConcept.transform_json(json_hash['jurisdiction']) unless json_hash['jurisdiction'].nil?

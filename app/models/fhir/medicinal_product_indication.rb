@@ -50,46 +50,17 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = MedicinalProductIndication.new)
+    
       result = self.superclass.transform_json(json_hash, target)
-      result['subject'] = json_hash['subject'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Reference.transform_json(var) 
-        end
-      } unless json_hash['subject'].nil?
+      result['subject'] = json_hash['subject'].map { |var| Reference.transform_json(var) } unless json_hash['subject'].nil?
       result['diseaseSymptomProcedure'] = CodeableConcept.transform_json(json_hash['diseaseSymptomProcedure']) unless json_hash['diseaseSymptomProcedure'].nil?
       result['diseaseStatus'] = CodeableConcept.transform_json(json_hash['diseaseStatus']) unless json_hash['diseaseStatus'].nil?
-      result['comorbidity'] = json_hash['comorbidity'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          CodeableConcept.transform_json(var) 
-        end
-      } unless json_hash['comorbidity'].nil?
+      result['comorbidity'] = json_hash['comorbidity'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['comorbidity'].nil?
       result['intendedEffect'] = CodeableConcept.transform_json(json_hash['intendedEffect']) unless json_hash['intendedEffect'].nil?
       result['duration'] = Quantity.transform_json(json_hash['duration']) unless json_hash['duration'].nil?
-      result['otherTherapy'] = json_hash['otherTherapy'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          MedicinalProductIndicationOtherTherapy.transform_json(var) 
-        end
-      } unless json_hash['otherTherapy'].nil?
-      result['undesirableEffect'] = json_hash['undesirableEffect'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Reference.transform_json(var) 
-        end
-      } unless json_hash['undesirableEffect'].nil?
-      result['population'] = json_hash['population'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Population.transform_json(var) 
-        end
-      } unless json_hash['population'].nil?
+      result['otherTherapy'] = json_hash['otherTherapy'].map { |var| MedicinalProductIndicationOtherTherapy.transform_json(var) } unless json_hash['otherTherapy'].nil?
+      result['undesirableEffect'] = json_hash['undesirableEffect'].map { |var| Reference.transform_json(var) } unless json_hash['undesirableEffect'].nil?
+      result['population'] = json_hash['population'].map { |var| Population.transform_json(var) } unless json_hash['population'].nil?
 
       result
     end

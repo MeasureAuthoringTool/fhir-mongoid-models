@@ -200,14 +200,9 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = ExplanationOfBenefit.new)
+    
       result = self.superclass.transform_json(json_hash, target)
-      result['identifier'] = json_hash['identifier'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Identifier.transform_json(var) 
-        end
-      } unless json_hash['identifier'].nil?
+      result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['status'] = ExplanationOfBenefitStatus.transform_json(json_hash['status'], json_hash['_status']) unless json_hash['status'].nil?
       result['type'] = CodeableConcept.transform_json(json_hash['type']) unless json_hash['type'].nil?
       result['subType'] = CodeableConcept.transform_json(json_hash['subType']) unless json_hash['subType'].nil?
@@ -221,13 +216,7 @@ module FHIR
       result['priority'] = CodeableConcept.transform_json(json_hash['priority']) unless json_hash['priority'].nil?
       result['fundsReserveRequested'] = CodeableConcept.transform_json(json_hash['fundsReserveRequested']) unless json_hash['fundsReserveRequested'].nil?
       result['fundsReserve'] = CodeableConcept.transform_json(json_hash['fundsReserve']) unless json_hash['fundsReserve'].nil?
-      result['related'] = json_hash['related'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          ExplanationOfBenefitRelated.transform_json(var) 
-        end
-      } unless json_hash['related'].nil?
+      result['related'] = json_hash['related'].map { |var| ExplanationOfBenefitRelated.transform_json(var) } unless json_hash['related'].nil?
       result['prescription'] = Reference.transform_json(json_hash['prescription']) unless json_hash['prescription'].nil?
       result['originalPrescription'] = Reference.transform_json(json_hash['originalPrescription']) unless json_hash['originalPrescription'].nil?
       result['payee'] = ExplanationOfBenefitPayee.transform_json(json_hash['payee']) unless json_hash['payee'].nil?
@@ -241,96 +230,24 @@ module FHIR
         extension_hash = json_hash['_preAuthRef'] && json_hash['_preAuthRef'][i]
         PrimitiveString.transform_json(var, extension_hash)
       end unless json_hash['preAuthRef'].nil?
-      result['preAuthRefPeriod'] = json_hash['preAuthRefPeriod'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Period.transform_json(var) 
-        end
-      } unless json_hash['preAuthRefPeriod'].nil?
-      result['careTeam'] = json_hash['careTeam'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          ExplanationOfBenefitCareTeam.transform_json(var) 
-        end
-      } unless json_hash['careTeam'].nil?
-      result['supportingInfo'] = json_hash['supportingInfo'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          ExplanationOfBenefitSupportingInfo.transform_json(var) 
-        end
-      } unless json_hash['supportingInfo'].nil?
-      result['diagnosis'] = json_hash['diagnosis'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          ExplanationOfBenefitDiagnosis.transform_json(var) 
-        end
-      } unless json_hash['diagnosis'].nil?
-      result['procedure'] = json_hash['procedure'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          ExplanationOfBenefitProcedure.transform_json(var) 
-        end
-      } unless json_hash['procedure'].nil?
+      result['preAuthRefPeriod'] = json_hash['preAuthRefPeriod'].map { |var| Period.transform_json(var) } unless json_hash['preAuthRefPeriod'].nil?
+      result['careTeam'] = json_hash['careTeam'].map { |var| ExplanationOfBenefitCareTeam.transform_json(var) } unless json_hash['careTeam'].nil?
+      result['supportingInfo'] = json_hash['supportingInfo'].map { |var| ExplanationOfBenefitSupportingInfo.transform_json(var) } unless json_hash['supportingInfo'].nil?
+      result['diagnosis'] = json_hash['diagnosis'].map { |var| ExplanationOfBenefitDiagnosis.transform_json(var) } unless json_hash['diagnosis'].nil?
+      result['procedure'] = json_hash['procedure'].map { |var| ExplanationOfBenefitProcedure.transform_json(var) } unless json_hash['procedure'].nil?
       result['precedence'] = PrimitivePositiveInt.transform_json(json_hash['precedence'], json_hash['_precedence']) unless json_hash['precedence'].nil?
-      result['insurance'] = json_hash['insurance'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          ExplanationOfBenefitInsurance.transform_json(var) 
-        end
-      } unless json_hash['insurance'].nil?
+      result['insurance'] = json_hash['insurance'].map { |var| ExplanationOfBenefitInsurance.transform_json(var) } unless json_hash['insurance'].nil?
       result['accident'] = ExplanationOfBenefitAccident.transform_json(json_hash['accident']) unless json_hash['accident'].nil?
-      result['item'] = json_hash['item'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          ExplanationOfBenefitItem.transform_json(var) 
-        end
-      } unless json_hash['item'].nil?
-      result['addItem'] = json_hash['addItem'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          ExplanationOfBenefitAddItem.transform_json(var) 
-        end
-      } unless json_hash['addItem'].nil?
-      result['adjudication'] = json_hash['adjudication'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          ExplanationOfBenefitItemAdjudication.transform_json(var) 
-        end
-      } unless json_hash['adjudication'].nil?
-      result['total'] = json_hash['total'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          ExplanationOfBenefitTotal.transform_json(var) 
-        end
-      } unless json_hash['total'].nil?
+      result['item'] = json_hash['item'].map { |var| ExplanationOfBenefitItem.transform_json(var) } unless json_hash['item'].nil?
+      result['addItem'] = json_hash['addItem'].map { |var| ExplanationOfBenefitAddItem.transform_json(var) } unless json_hash['addItem'].nil?
+      result['adjudication'] = json_hash['adjudication'].map { |var| ExplanationOfBenefitItemAdjudication.transform_json(var) } unless json_hash['adjudication'].nil?
+      result['total'] = json_hash['total'].map { |var| ExplanationOfBenefitTotal.transform_json(var) } unless json_hash['total'].nil?
       result['payment'] = ExplanationOfBenefitPayment.transform_json(json_hash['payment']) unless json_hash['payment'].nil?
       result['formCode'] = CodeableConcept.transform_json(json_hash['formCode']) unless json_hash['formCode'].nil?
       result['form'] = Attachment.transform_json(json_hash['form']) unless json_hash['form'].nil?
-      result['processNote'] = json_hash['processNote'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          ExplanationOfBenefitProcessNote.transform_json(var) 
-        end
-      } unless json_hash['processNote'].nil?
+      result['processNote'] = json_hash['processNote'].map { |var| ExplanationOfBenefitProcessNote.transform_json(var) } unless json_hash['processNote'].nil?
       result['benefitPeriod'] = Period.transform_json(json_hash['benefitPeriod']) unless json_hash['benefitPeriod'].nil?
-      result['benefitBalance'] = json_hash['benefitBalance'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          ExplanationOfBenefitBenefitBalance.transform_json(var) 
-        end
-      } unless json_hash['benefitBalance'].nil?
+      result['benefitBalance'] = json_hash['benefitBalance'].map { |var| ExplanationOfBenefitBenefitBalance.transform_json(var) } unless json_hash['benefitBalance'].nil?
 
       result
     end

@@ -32,6 +32,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = CapabilityStatementDocument.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['mode'] = DocumentMode.transform_json(json_hash['mode'], json_hash['_mode']) unless json_hash['mode'].nil?
       result['documentation'] = PrimitiveMarkdown.transform_json(json_hash['documentation'], json_hash['_documentation']) unless json_hash['documentation'].nil?

@@ -24,6 +24,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = LinkageItem.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['type'] = LinkageType.transform_json(json_hash['type'], json_hash['_type']) unless json_hash['type'].nil?
       result['resource'] = Reference.transform_json(json_hash['resource']) unless json_hash['resource'].nil?

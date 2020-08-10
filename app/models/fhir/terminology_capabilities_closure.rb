@@ -20,6 +20,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = TerminologyCapabilitiesClosure.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['translation'] = PrimitiveBoolean.transform_json(json_hash['translation'], json_hash['_translation']) unless json_hash['translation'].nil?
 

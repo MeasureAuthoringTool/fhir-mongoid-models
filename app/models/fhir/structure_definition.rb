@@ -158,15 +158,10 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = StructureDefinition.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['url'] = PrimitiveUri.transform_json(json_hash['url'], json_hash['_url']) unless json_hash['url'].nil?
-      result['identifier'] = json_hash['identifier'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Identifier.transform_json(var) 
-        end
-      } unless json_hash['identifier'].nil?
+      result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['version'] = PrimitiveString.transform_json(json_hash['version'], json_hash['_version']) unless json_hash['version'].nil?
       result['name'] = PrimitiveString.transform_json(json_hash['name'], json_hash['_name']) unless json_hash['name'].nil?
       result['title'] = PrimitiveString.transform_json(json_hash['title'], json_hash['_title']) unless json_hash['title'].nil?
@@ -174,54 +169,18 @@ module FHIR
       result['experimental'] = PrimitiveBoolean.transform_json(json_hash['experimental'], json_hash['_experimental']) unless json_hash['experimental'].nil?
       result['date'] = PrimitiveDateTime.transform_json(json_hash['date'], json_hash['_date']) unless json_hash['date'].nil?
       result['publisher'] = PrimitiveString.transform_json(json_hash['publisher'], json_hash['_publisher']) unless json_hash['publisher'].nil?
-      result['contact'] = json_hash['contact'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          ContactDetail.transform_json(var) 
-        end
-      } unless json_hash['contact'].nil?
+      result['contact'] = json_hash['contact'].map { |var| ContactDetail.transform_json(var) } unless json_hash['contact'].nil?
       result['description'] = PrimitiveMarkdown.transform_json(json_hash['description'], json_hash['_description']) unless json_hash['description'].nil?
-      result['useContext'] = json_hash['useContext'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          UsageContext.transform_json(var) 
-        end
-      } unless json_hash['useContext'].nil?
-      result['jurisdiction'] = json_hash['jurisdiction'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          CodeableConcept.transform_json(var) 
-        end
-      } unless json_hash['jurisdiction'].nil?
+      result['useContext'] = json_hash['useContext'].map { |var| UsageContext.transform_json(var) } unless json_hash['useContext'].nil?
+      result['jurisdiction'] = json_hash['jurisdiction'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['jurisdiction'].nil?
       result['purpose'] = PrimitiveMarkdown.transform_json(json_hash['purpose'], json_hash['_purpose']) unless json_hash['purpose'].nil?
       result['copyright'] = PrimitiveMarkdown.transform_json(json_hash['copyright'], json_hash['_copyright']) unless json_hash['copyright'].nil?
-      result['keyword'] = json_hash['keyword'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Coding.transform_json(var) 
-        end
-      } unless json_hash['keyword'].nil?
+      result['keyword'] = json_hash['keyword'].map { |var| Coding.transform_json(var) } unless json_hash['keyword'].nil?
       result['fhirVersion'] = FHIRVersion.transform_json(json_hash['fhirVersion'], json_hash['_fhirVersion']) unless json_hash['fhirVersion'].nil?
-      result['mapping'] = json_hash['mapping'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          StructureDefinitionMapping.transform_json(var) 
-        end
-      } unless json_hash['mapping'].nil?
+      result['mapping'] = json_hash['mapping'].map { |var| StructureDefinitionMapping.transform_json(var) } unless json_hash['mapping'].nil?
       result['kind'] = StructureDefinitionKind.transform_json(json_hash['kind'], json_hash['_kind']) unless json_hash['kind'].nil?
       result['abstract'] = PrimitiveBoolean.transform_json(json_hash['abstract'], json_hash['_abstract']) unless json_hash['abstract'].nil?
-      result['context'] = json_hash['context'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          StructureDefinitionContext.transform_json(var) 
-        end
-      } unless json_hash['context'].nil?
+      result['context'] = json_hash['context'].map { |var| StructureDefinitionContext.transform_json(var) } unless json_hash['context'].nil?
       result['contextInvariant'] = json_hash['contextInvariant'].each_with_index.map do |var, i|
         extension_hash = json_hash['_contextInvariant'] && json_hash['_contextInvariant'][i]
         PrimitiveString.transform_json(var, extension_hash)

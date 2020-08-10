@@ -28,16 +28,11 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = InsurancePlanCoverageBenefit.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['type'] = CodeableConcept.transform_json(json_hash['type']) unless json_hash['type'].nil?
       result['requirement'] = PrimitiveString.transform_json(json_hash['requirement'], json_hash['_requirement']) unless json_hash['requirement'].nil?
-      result['limit'] = json_hash['limit'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          InsurancePlanCoverageBenefitLimit.transform_json(var) 
-        end
-      } unless json_hash['limit'].nil?
+      result['limit'] = json_hash['limit'].map { |var| InsurancePlanCoverageBenefitLimit.transform_json(var) } unless json_hash['limit'].nil?
 
       result
     end

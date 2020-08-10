@@ -66,14 +66,9 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = MeasureReport.new)
+    
       result = self.superclass.transform_json(json_hash, target)
-      result['identifier'] = json_hash['identifier'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Identifier.transform_json(var) 
-        end
-      } unless json_hash['identifier'].nil?
+      result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['status'] = MeasureReportStatus.transform_json(json_hash['status'], json_hash['_status']) unless json_hash['status'].nil?
       result['type'] = MeasureReportType.transform_json(json_hash['type'], json_hash['_type']) unless json_hash['type'].nil?
       result['measure'] = PrimitiveCanonical.transform_json(json_hash['measure'], json_hash['_measure']) unless json_hash['measure'].nil?
@@ -82,20 +77,8 @@ module FHIR
       result['reporter'] = Reference.transform_json(json_hash['reporter']) unless json_hash['reporter'].nil?
       result['period'] = Period.transform_json(json_hash['period']) unless json_hash['period'].nil?
       result['improvementNotation'] = CodeableConcept.transform_json(json_hash['improvementNotation']) unless json_hash['improvementNotation'].nil?
-      result['group'] = json_hash['group'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          MeasureReportGroup.transform_json(var) 
-        end
-      } unless json_hash['group'].nil?
-      result['evaluatedResource'] = json_hash['evaluatedResource'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Reference.transform_json(var) 
-        end
-      } unless json_hash['evaluatedResource'].nil?
+      result['group'] = json_hash['group'].map { |var| MeasureReportGroup.transform_json(var) } unless json_hash['group'].nil?
+      result['evaluatedResource'] = json_hash['evaluatedResource'].map { |var| Reference.transform_json(var) } unless json_hash['evaluatedResource'].nil?
 
       result
     end

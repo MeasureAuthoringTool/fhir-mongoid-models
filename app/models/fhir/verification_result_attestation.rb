@@ -52,6 +52,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = VerificationResultAttestation.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['who'] = Reference.transform_json(json_hash['who']) unless json_hash['who'].nil?
       result['onBehalfOf'] = Reference.transform_json(json_hash['onBehalfOf']) unless json_hash['onBehalfOf'].nil?

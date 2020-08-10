@@ -28,6 +28,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = AccountGuarantor.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['party'] = Reference.transform_json(json_hash['party']) unless json_hash['party'].nil?
       result['onHold'] = PrimitiveBoolean.transform_json(json_hash['onHold'], json_hash['_onHold']) unless json_hash['onHold'].nil?

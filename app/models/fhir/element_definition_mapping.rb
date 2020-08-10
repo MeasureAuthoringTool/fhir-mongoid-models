@@ -38,6 +38,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = ElementDefinitionMapping.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['identity'] = PrimitiveId.transform_json(json_hash['identity'], json_hash['_identity']) unless json_hash['identity'].nil?
       result['language'] = MimeType.transform_json(json_hash['language'], json_hash['_language']) unless json_hash['language'].nil?

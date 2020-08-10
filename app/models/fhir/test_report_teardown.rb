@@ -18,14 +18,9 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = TestReportTeardown.new)
+    
       result = self.superclass.transform_json(json_hash, target)
-      result['action'] = json_hash['action'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          TestReportTeardownAction.transform_json(var) 
-        end
-      } unless json_hash['action'].nil?
+      result['action'] = json_hash['action'].map { |var| TestReportTeardownAction.transform_json(var) } unless json_hash['action'].nil?
 
       result
     end

@@ -34,6 +34,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = SubstanceProtein.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['sequenceType'] = CodeableConcept.transform_json(json_hash['sequenceType']) unless json_hash['sequenceType'].nil?
       result['numberOfSubunits'] = PrimitiveInteger.transform_json(json_hash['numberOfSubunits'], json_hash['_numberOfSubunits']) unless json_hash['numberOfSubunits'].nil?
@@ -41,13 +42,7 @@ module FHIR
         extension_hash = json_hash['_disulfideLinkage'] && json_hash['_disulfideLinkage'][i]
         PrimitiveString.transform_json(var, extension_hash)
       end unless json_hash['disulfideLinkage'].nil?
-      result['subunit'] = json_hash['subunit'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          SubstanceProteinSubunit.transform_json(var) 
-        end
-      } unless json_hash['subunit'].nil?
+      result['subunit'] = json_hash['subunit'].map { |var| SubstanceProteinSubunit.transform_json(var) } unless json_hash['subunit'].nil?
 
       result
     end

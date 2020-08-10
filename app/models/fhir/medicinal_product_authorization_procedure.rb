@@ -36,18 +36,13 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = MedicinalProductAuthorizationProcedure.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = Identifier.transform_json(json_hash['identifier']) unless json_hash['identifier'].nil?
       result['type'] = CodeableConcept.transform_json(json_hash['type']) unless json_hash['type'].nil?
       result['datePeriod'] = Period.transform_json(json_hash['datePeriod']) unless json_hash['datePeriod'].nil?
       result['dateDateTime'] = PrimitiveDateTime.transform_json(json_hash['dateDateTime'], json_hash['_dateDateTime']) unless json_hash['dateDateTime'].nil?
-      result['application'] = json_hash['application'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          MedicinalProductAuthorizationProcedure.transform_json(var) 
-        end
-      } unless json_hash['application'].nil?
+      result['application'] = json_hash['application'].map { |var| MedicinalProductAuthorizationProcedure.transform_json(var) } unless json_hash['application'].nil?
 
       result
     end

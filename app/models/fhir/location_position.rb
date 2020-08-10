@@ -32,6 +32,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = LocationPosition.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['longitude'] = PrimitiveDecimal.transform_json(json_hash['longitude'], json_hash['_longitude']) unless json_hash['longitude'].nil?
       result['latitude'] = PrimitiveDecimal.transform_json(json_hash['latitude'], json_hash['_latitude']) unless json_hash['latitude'].nil?

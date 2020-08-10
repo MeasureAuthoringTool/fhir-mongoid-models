@@ -40,17 +40,12 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = ClaimDiagnosis.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['sequence'] = PrimitivePositiveInt.transform_json(json_hash['sequence'], json_hash['_sequence']) unless json_hash['sequence'].nil?
       result['diagnosisCodeableConcept'] = CodeableConcept.transform_json(json_hash['diagnosisCodeableConcept']) unless json_hash['diagnosisCodeableConcept'].nil?
       result['diagnosisReference'] = Reference.transform_json(json_hash['diagnosisReference']) unless json_hash['diagnosisReference'].nil?
-      result['type'] = json_hash['type'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          CodeableConcept.transform_json(var) 
-        end
-      } unless json_hash['type'].nil?
+      result['type'] = json_hash['type'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['type'].nil?
       result['onAdmission'] = CodeableConcept.transform_json(json_hash['onAdmission']) unless json_hash['onAdmission'].nil?
       result['packageCode'] = CodeableConcept.transform_json(json_hash['packageCode']) unless json_hash['packageCode'].nil?
 

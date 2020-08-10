@@ -18,14 +18,9 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = OperationOutcome.new)
+    
       result = self.superclass.transform_json(json_hash, target)
-      result['issue'] = json_hash['issue'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          OperationOutcomeIssue.transform_json(var) 
-        end
-      } unless json_hash['issue'].nil?
+      result['issue'] = json_hash['issue'].map { |var| OperationOutcomeIssue.transform_json(var) } unless json_hash['issue'].nil?
 
       result
     end

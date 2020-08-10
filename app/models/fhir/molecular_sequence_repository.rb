@@ -50,6 +50,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = MolecularSequenceRepository.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['type'] = RepositoryType.transform_json(json_hash['type'], json_hash['_type']) unless json_hash['type'].nil?
       result['url'] = PrimitiveUri.transform_json(json_hash['url'], json_hash['_url']) unless json_hash['url'].nil?

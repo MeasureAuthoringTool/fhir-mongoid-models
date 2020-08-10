@@ -52,6 +52,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = SubstanceSpecificationMoiety.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['role'] = CodeableConcept.transform_json(json_hash['role']) unless json_hash['role'].nil?
       result['identifier'] = Identifier.transform_json(json_hash['identifier']) unless json_hash['identifier'].nil?

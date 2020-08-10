@@ -30,16 +30,11 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = Contributor.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['type'] = ContributorType.transform_json(json_hash['type'], json_hash['_type']) unless json_hash['type'].nil?
       result['name'] = PrimitiveString.transform_json(json_hash['name'], json_hash['_name']) unless json_hash['name'].nil?
-      result['contact'] = json_hash['contact'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          ContactDetail.transform_json(var) 
-        end
-      } unless json_hash['contact'].nil?
+      result['contact'] = json_hash['contact'].map { |var| ContactDetail.transform_json(var) } unless json_hash['contact'].nil?
 
       result
     end

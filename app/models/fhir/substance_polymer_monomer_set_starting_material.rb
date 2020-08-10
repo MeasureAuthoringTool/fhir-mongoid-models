@@ -32,6 +32,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = SubstancePolymerMonomerSetStartingMaterial.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['material'] = CodeableConcept.transform_json(json_hash['material']) unless json_hash['material'].nil?
       result['type'] = CodeableConcept.transform_json(json_hash['type']) unless json_hash['type'].nil?

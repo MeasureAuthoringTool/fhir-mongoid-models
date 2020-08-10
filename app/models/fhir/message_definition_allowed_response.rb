@@ -26,6 +26,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = MessageDefinitionAllowedResponse.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['message'] = PrimitiveCanonical.transform_json(json_hash['message'], json_hash['_message']) unless json_hash['message'].nil?
       result['situation'] = PrimitiveMarkdown.transform_json(json_hash['situation'], json_hash['_situation']) unless json_hash['situation'].nil?

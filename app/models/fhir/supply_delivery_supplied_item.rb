@@ -26,6 +26,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = SupplyDeliverySuppliedItem.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['quantity'] = SimpleQuantity.transform_json(json_hash['quantity']) unless json_hash['quantity'].nil?
       result['itemCodeableConcept'] = CodeableConcept.transform_json(json_hash['itemCodeableConcept']) unless json_hash['itemCodeableConcept'].nil?

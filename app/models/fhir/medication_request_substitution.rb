@@ -28,6 +28,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = MedicationRequestSubstitution.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['allowedBoolean'] = PrimitiveBoolean.transform_json(json_hash['allowedBoolean'], json_hash['_allowedBoolean']) unless json_hash['allowedBoolean'].nil?
       result['allowedCodeableConcept'] = CodeableConcept.transform_json(json_hash['allowedCodeableConcept']) unless json_hash['allowedCodeableConcept'].nil?
