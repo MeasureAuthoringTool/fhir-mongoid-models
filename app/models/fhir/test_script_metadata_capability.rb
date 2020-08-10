@@ -3,7 +3,7 @@ module FHIR
   class TestScriptMetadataCapability < BackboneElement
     include Mongoid::Document
     embeds_one :required, class_name: 'FHIR::PrimitiveBoolean'    
-    embeds_one :_validated, class_name: 'FHIR::PrimitiveBoolean'    
+    embeds_one :validated_local, class_name: 'FHIR::PrimitiveBoolean'    
     embeds_one :description, class_name: 'FHIR::PrimitiveString'    
     embeds_many :origin, class_name: 'FHIR::PrimitiveInteger'    
     embeds_one :destination, class_name: 'FHIR::PrimitiveInteger'    
@@ -17,12 +17,11 @@ module FHIR
         serialized = Extension.serializePrimitiveExtension(self.required)            
         result['_required'] = serialized unless serialized.nil?
       end
-      unless self.validated.nil? 
-        result['validated'] = self.validated.value
-        serialized = Extension.serializePrimitiveExtension(self.validated)            
+      unless self.validated_local.nil? 
+        result['validated'] = self.validated_local.value
+        serialized = Extension.serializePrimitiveExtension(self.validated_local)            
         result['_validated'] = serialized unless serialized.nil?
       end
-        result['validated'] = result.delete('_validated')
       unless self.description.nil? 
         result['description'] = self.description.value
         serialized = Extension.serializePrimitiveExtension(self.description)            
@@ -60,7 +59,7 @@ module FHIR
     
       result = self.superclass.transform_json(json_hash, target)
       result['required'] = PrimitiveBoolean.transform_json(json_hash['required'], json_hash['_required']) unless json_hash['required'].nil?
-      result['_validated'] = PrimitiveBoolean.transform_json(json_hash['validated'], json_hash['_validated']) unless json_hash['validated'].nil?
+      result['validated_local'] = PrimitiveBoolean.transform_json(json_hash['validated'], json_hash['_validated']) unless json_hash['validated'].nil?
       result['description'] = PrimitiveString.transform_json(json_hash['description'], json_hash['_description']) unless json_hash['description'].nil?
       result['origin'] = json_hash['origin'].each_with_index.map do |var, i|
         extension_hash = json_hash['_origin'] && json_hash['_origin'][i]

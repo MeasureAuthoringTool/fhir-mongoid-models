@@ -6,7 +6,7 @@ module FHIR
     embeds_one :typeCollected, class_name: 'FHIR::CodeableConcept'    
     embeds_many :patientPreparation, class_name: 'FHIR::CodeableConcept'    
     embeds_one :timeAspect, class_name: 'FHIR::PrimitiveString'    
-    embeds_many :_collection, class_name: 'FHIR::CodeableConcept'    
+    embeds_many :collection_local, class_name: 'FHIR::CodeableConcept'    
     embeds_many :typeTested, class_name: 'FHIR::SpecimenDefinitionTypeTested'    
     
     def as_json(*args)
@@ -25,10 +25,9 @@ module FHIR
         serialized = Extension.serializePrimitiveExtension(self.timeAspect)            
         result['_timeAspect'] = serialized unless serialized.nil?
       end
-      unless self.collection.nil?  || !self.collection.any? 
-        result['collection'] = self.collection.map{ |x| x.as_json(*args) }
+      unless self.collection_local.nil?  || !self.collection_local.any? 
+        result['collection'] = self.collection_local.map{ |x| x.as_json(*args) }
       end
-        result['collection'] = result.delete('_collection')
       unless self.typeTested.nil?  || !self.typeTested.any? 
         result['typeTested'] = self.typeTested.map{ |x| x.as_json(*args) }
       end
@@ -47,7 +46,7 @@ module FHIR
       result['typeCollected'] = CodeableConcept.transform_json(json_hash['typeCollected']) unless json_hash['typeCollected'].nil?
       result['patientPreparation'] = json_hash['patientPreparation'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['patientPreparation'].nil?
       result['timeAspect'] = PrimitiveString.transform_json(json_hash['timeAspect'], json_hash['_timeAspect']) unless json_hash['timeAspect'].nil?
-      result['_collection'] = json_hash['collection'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['collection'].nil?
+      result['collection_local'] = json_hash['collection'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['collection'].nil?
       result['typeTested'] = json_hash['typeTested'].map { |var| SpecimenDefinitionTypeTested.transform_json(var) } unless json_hash['typeTested'].nil?
 
       result

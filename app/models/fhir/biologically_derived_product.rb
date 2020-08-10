@@ -9,7 +9,7 @@ module FHIR
     embeds_many :request, class_name: 'FHIR::Reference'    
     embeds_one :quantity, class_name: 'FHIR::PrimitiveInteger'    
     embeds_many :parent, class_name: 'FHIR::Reference'    
-    embeds_one :_collection, class_name: 'FHIR::BiologicallyDerivedProductCollection'    
+    embeds_one :collection_local, class_name: 'FHIR::BiologicallyDerivedProductCollection'    
     embeds_many :processing, class_name: 'FHIR::BiologicallyDerivedProductProcessing'    
     embeds_one :manipulation, class_name: 'FHIR::BiologicallyDerivedProductManipulation'    
     embeds_many :storage, class_name: 'FHIR::BiologicallyDerivedProductStorage'    
@@ -43,10 +43,9 @@ module FHIR
       unless self.parent.nil?  || !self.parent.any? 
         result['parent'] = self.parent.map{ |x| x.as_json(*args) }
       end
-      unless self.collection.nil? 
-        result['collection'] = self.collection.as_json(*args)
+      unless self.collection_local.nil? 
+        result['collection'] = self.collection_local.as_json(*args)
       end
-        result['collection'] = result.delete('_collection')
       unless self.processing.nil?  || !self.processing.any? 
         result['processing'] = self.processing.map{ |x| x.as_json(*args) }
       end
@@ -74,7 +73,7 @@ module FHIR
       result['request'] = json_hash['request'].map { |var| Reference.transform_json(var) } unless json_hash['request'].nil?
       result['quantity'] = PrimitiveInteger.transform_json(json_hash['quantity'], json_hash['_quantity']) unless json_hash['quantity'].nil?
       result['parent'] = json_hash['parent'].map { |var| Reference.transform_json(var) } unless json_hash['parent'].nil?
-      result['_collection'] = BiologicallyDerivedProductCollection.transform_json(json_hash['collection']) unless json_hash['collection'].nil?
+      result['collection_local'] = BiologicallyDerivedProductCollection.transform_json(json_hash['collection']) unless json_hash['collection'].nil?
       result['processing'] = json_hash['processing'].map { |var| BiologicallyDerivedProductProcessing.transform_json(var) } unless json_hash['processing'].nil?
       result['manipulation'] = BiologicallyDerivedProductManipulation.transform_json(json_hash['manipulation']) unless json_hash['manipulation'].nil?
       result['storage'] = json_hash['storage'].map { |var| BiologicallyDerivedProductStorage.transform_json(var) } unless json_hash['storage'].nil?

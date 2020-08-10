@@ -13,7 +13,7 @@ module FHIR
     embeds_one :relationship, class_name: 'FHIR::CodeableConcept'    
     embeds_one :period, class_name: 'FHIR::Period'    
     embeds_many :payor, class_name: 'FHIR::Reference'    
-    embeds_many :class, class_name: 'FHIR::CoverageClass'    
+    embeds_many :class_local, class_name: 'FHIR::CoverageClass'    
     embeds_one :order, class_name: 'FHIR::PrimitivePositiveInt'    
     embeds_one :network, class_name: 'FHIR::PrimitiveString'    
     embeds_many :costToBeneficiary, class_name: 'FHIR::CoverageCostToBeneficiary'    
@@ -61,8 +61,8 @@ module FHIR
       unless self.payor.nil?  || !self.payor.any? 
         result['payor'] = self.payor.map{ |x| x.as_json(*args) }
       end
-      unless self.class.nil?  || !self.class.any? 
-        result['class'] = self.class.map{ |x| x.as_json(*args) }
+      unless self.class_local.nil?  || !self.class_local.any? 
+        result['class'] = self.class_local.map{ |x| x.as_json(*args) }
       end
       unless self.order.nil? 
         result['order'] = self.order.value
@@ -107,7 +107,7 @@ module FHIR
       result['relationship'] = CodeableConcept.transform_json(json_hash['relationship']) unless json_hash['relationship'].nil?
       result['period'] = Period.transform_json(json_hash['period']) unless json_hash['period'].nil?
       result['payor'] = json_hash['payor'].map { |var| Reference.transform_json(var) } unless json_hash['payor'].nil?
-      result['class'] = json_hash['class'].map { |var| CoverageClass.transform_json(var) } unless json_hash['class'].nil?
+      result['class_local'] = json_hash['class'].map { |var| CoverageClass.transform_json(var) } unless json_hash['class'].nil?
       result['order'] = PrimitivePositiveInt.transform_json(json_hash['order'], json_hash['_order']) unless json_hash['order'].nil?
       result['network'] = PrimitiveString.transform_json(json_hash['network'], json_hash['_network']) unless json_hash['network'].nil?
       result['costToBeneficiary'] = json_hash['costToBeneficiary'].map { |var| CoverageCostToBeneficiary.transform_json(var) } unless json_hash['costToBeneficiary'].nil?

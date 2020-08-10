@@ -4,7 +4,7 @@ module FHIR
     include Mongoid::Document
     embeds_one :kingdom, class_name: 'FHIR::CodeableConcept'    
     embeds_one :phylum, class_name: 'FHIR::CodeableConcept'    
-    embeds_one :class, class_name: 'FHIR::CodeableConcept'    
+    embeds_one :class_local, class_name: 'FHIR::CodeableConcept'    
     embeds_one :order, class_name: 'FHIR::CodeableConcept'    
     
     def as_json(*args)
@@ -15,8 +15,8 @@ module FHIR
       unless self.phylum.nil? 
         result['phylum'] = self.phylum.as_json(*args)
       end
-      unless self.class.nil? 
-        result['class'] = self.class.as_json(*args)
+      unless self.class_local.nil? 
+        result['class'] = self.class_local.as_json(*args)
       end
       unless self.order.nil? 
         result['order'] = self.order.as_json(*args)
@@ -34,7 +34,7 @@ module FHIR
       result = self.superclass.transform_json(json_hash, target)
       result['kingdom'] = CodeableConcept.transform_json(json_hash['kingdom']) unless json_hash['kingdom'].nil?
       result['phylum'] = CodeableConcept.transform_json(json_hash['phylum']) unless json_hash['phylum'].nil?
-      result['class'] = CodeableConcept.transform_json(json_hash['class']) unless json_hash['class'].nil?
+      result['class_local'] = CodeableConcept.transform_json(json_hash['class']) unless json_hash['class'].nil?
       result['order'] = CodeableConcept.transform_json(json_hash['order']) unless json_hash['order'].nil?
 
       result
