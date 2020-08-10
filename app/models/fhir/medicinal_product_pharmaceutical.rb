@@ -42,44 +42,15 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = MedicinalProductPharmaceutical.new)
+    
       result = self.superclass.transform_json(json_hash, target)
-      result['identifier'] = json_hash['identifier'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Identifier.transform_json(var) 
-        end
-      } unless json_hash['identifier'].nil?
+      result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['administrableDoseForm'] = CodeableConcept.transform_json(json_hash['administrableDoseForm']) unless json_hash['administrableDoseForm'].nil?
       result['unitOfPresentation'] = CodeableConcept.transform_json(json_hash['unitOfPresentation']) unless json_hash['unitOfPresentation'].nil?
-      result['ingredient'] = json_hash['ingredient'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Reference.transform_json(var) 
-        end
-      } unless json_hash['ingredient'].nil?
-      result['device'] = json_hash['device'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Reference.transform_json(var) 
-        end
-      } unless json_hash['device'].nil?
-      result['characteristics'] = json_hash['characteristics'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          MedicinalProductPharmaceuticalCharacteristics.transform_json(var) 
-        end
-      } unless json_hash['characteristics'].nil?
-      result['routeOfAdministration'] = json_hash['routeOfAdministration'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          MedicinalProductPharmaceuticalRouteOfAdministration.transform_json(var) 
-        end
-      } unless json_hash['routeOfAdministration'].nil?
+      result['ingredient'] = json_hash['ingredient'].map { |var| Reference.transform_json(var) } unless json_hash['ingredient'].nil?
+      result['device'] = json_hash['device'].map { |var| Reference.transform_json(var) } unless json_hash['device'].nil?
+      result['characteristics'] = json_hash['characteristics'].map { |var| MedicinalProductPharmaceuticalCharacteristics.transform_json(var) } unless json_hash['characteristics'].nil?
+      result['routeOfAdministration'] = json_hash['routeOfAdministration'].map { |var| MedicinalProductPharmaceuticalRouteOfAdministration.transform_json(var) } unless json_hash['routeOfAdministration'].nil?
 
       result
     end

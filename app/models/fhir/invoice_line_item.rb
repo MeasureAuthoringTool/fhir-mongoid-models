@@ -32,17 +32,12 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = InvoiceLineItem.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['sequence'] = PrimitivePositiveInt.transform_json(json_hash['sequence'], json_hash['_sequence']) unless json_hash['sequence'].nil?
       result['chargeItemReference'] = Reference.transform_json(json_hash['chargeItemReference']) unless json_hash['chargeItemReference'].nil?
       result['chargeItemCodeableConcept'] = CodeableConcept.transform_json(json_hash['chargeItemCodeableConcept']) unless json_hash['chargeItemCodeableConcept'].nil?
-      result['priceComponent'] = json_hash['priceComponent'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          InvoiceLineItemPriceComponent.transform_json(var) 
-        end
-      } unless json_hash['priceComponent'].nil?
+      result['priceComponent'] = json_hash['priceComponent'].map { |var| InvoiceLineItemPriceComponent.transform_json(var) } unless json_hash['priceComponent'].nil?
 
       result
     end

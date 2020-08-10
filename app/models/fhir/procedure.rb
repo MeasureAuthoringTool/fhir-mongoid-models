@@ -152,14 +152,9 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = Procedure.new)
+    
       result = self.superclass.transform_json(json_hash, target)
-      result['identifier'] = json_hash['identifier'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Identifier.transform_json(var) 
-        end
-      } unless json_hash['identifier'].nil?
+      result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['instantiatesCanonical'] = json_hash['instantiatesCanonical'].each_with_index.map do |var, i|
         extension_hash = json_hash['_instantiatesCanonical'] && json_hash['_instantiatesCanonical'][i]
         PrimitiveCanonical.transform_json(var, extension_hash)
@@ -168,20 +163,8 @@ module FHIR
         extension_hash = json_hash['_instantiatesUri'] && json_hash['_instantiatesUri'][i]
         PrimitiveUri.transform_json(var, extension_hash)
       end unless json_hash['instantiatesUri'].nil?
-      result['basedOn'] = json_hash['basedOn'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Reference.transform_json(var) 
-        end
-      } unless json_hash['basedOn'].nil?
-      result['partOf'] = json_hash['partOf'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Reference.transform_json(var) 
-        end
-      } unless json_hash['partOf'].nil?
+      result['basedOn'] = json_hash['basedOn'].map { |var| Reference.transform_json(var) } unless json_hash['basedOn'].nil?
+      result['partOf'] = json_hash['partOf'].map { |var| Reference.transform_json(var) } unless json_hash['partOf'].nil?
       result['status'] = ProcedureStatus.transform_json(json_hash['status'], json_hash['_status']) unless json_hash['status'].nil?
       result['statusReason'] = CodeableConcept.transform_json(json_hash['statusReason']) unless json_hash['statusReason'].nil?
       result['category'] = CodeableConcept.transform_json(json_hash['category']) unless json_hash['category'].nil?
@@ -195,92 +178,20 @@ module FHIR
       result['performedRange'] = Range.transform_json(json_hash['performedRange']) unless json_hash['performedRange'].nil?
       result['recorder'] = Reference.transform_json(json_hash['recorder']) unless json_hash['recorder'].nil?
       result['asserter'] = Reference.transform_json(json_hash['asserter']) unless json_hash['asserter'].nil?
-      result['performer'] = json_hash['performer'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          ProcedurePerformer.transform_json(var) 
-        end
-      } unless json_hash['performer'].nil?
+      result['performer'] = json_hash['performer'].map { |var| ProcedurePerformer.transform_json(var) } unless json_hash['performer'].nil?
       result['location'] = Reference.transform_json(json_hash['location']) unless json_hash['location'].nil?
-      result['reasonCode'] = json_hash['reasonCode'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          CodeableConcept.transform_json(var) 
-        end
-      } unless json_hash['reasonCode'].nil?
-      result['reasonReference'] = json_hash['reasonReference'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Reference.transform_json(var) 
-        end
-      } unless json_hash['reasonReference'].nil?
-      result['bodySite'] = json_hash['bodySite'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          CodeableConcept.transform_json(var) 
-        end
-      } unless json_hash['bodySite'].nil?
+      result['reasonCode'] = json_hash['reasonCode'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['reasonCode'].nil?
+      result['reasonReference'] = json_hash['reasonReference'].map { |var| Reference.transform_json(var) } unless json_hash['reasonReference'].nil?
+      result['bodySite'] = json_hash['bodySite'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['bodySite'].nil?
       result['outcome'] = CodeableConcept.transform_json(json_hash['outcome']) unless json_hash['outcome'].nil?
-      result['report'] = json_hash['report'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Reference.transform_json(var) 
-        end
-      } unless json_hash['report'].nil?
-      result['complication'] = json_hash['complication'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          CodeableConcept.transform_json(var) 
-        end
-      } unless json_hash['complication'].nil?
-      result['complicationDetail'] = json_hash['complicationDetail'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Reference.transform_json(var) 
-        end
-      } unless json_hash['complicationDetail'].nil?
-      result['followUp'] = json_hash['followUp'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          CodeableConcept.transform_json(var) 
-        end
-      } unless json_hash['followUp'].nil?
-      result['note'] = json_hash['note'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Annotation.transform_json(var) 
-        end
-      } unless json_hash['note'].nil?
-      result['focalDevice'] = json_hash['focalDevice'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          ProcedureFocalDevice.transform_json(var) 
-        end
-      } unless json_hash['focalDevice'].nil?
-      result['usedReference'] = json_hash['usedReference'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Reference.transform_json(var) 
-        end
-      } unless json_hash['usedReference'].nil?
-      result['usedCode'] = json_hash['usedCode'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          CodeableConcept.transform_json(var) 
-        end
-      } unless json_hash['usedCode'].nil?
+      result['report'] = json_hash['report'].map { |var| Reference.transform_json(var) } unless json_hash['report'].nil?
+      result['complication'] = json_hash['complication'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['complication'].nil?
+      result['complicationDetail'] = json_hash['complicationDetail'].map { |var| Reference.transform_json(var) } unless json_hash['complicationDetail'].nil?
+      result['followUp'] = json_hash['followUp'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['followUp'].nil?
+      result['note'] = json_hash['note'].map { |var| Annotation.transform_json(var) } unless json_hash['note'].nil?
+      result['focalDevice'] = json_hash['focalDevice'].map { |var| ProcedureFocalDevice.transform_json(var) } unless json_hash['focalDevice'].nil?
+      result['usedReference'] = json_hash['usedReference'].map { |var| Reference.transform_json(var) } unless json_hash['usedReference'].nil?
+      result['usedCode'] = json_hash['usedCode'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['usedCode'].nil?
 
       result
     end

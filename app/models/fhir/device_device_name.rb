@@ -26,6 +26,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = DeviceDeviceName.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['name'] = PrimitiveString.transform_json(json_hash['name'], json_hash['_name']) unless json_hash['name'].nil?
       result['type'] = DeviceNameType.transform_json(json_hash['type'], json_hash['_type']) unless json_hash['type'].nil?

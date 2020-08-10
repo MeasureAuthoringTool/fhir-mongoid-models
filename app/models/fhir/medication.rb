@@ -48,26 +48,15 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = Medication.new)
+    
       result = self.superclass.transform_json(json_hash, target)
-      result['identifier'] = json_hash['identifier'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Identifier.transform_json(var) 
-        end
-      } unless json_hash['identifier'].nil?
+      result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['code'] = CodeableConcept.transform_json(json_hash['code']) unless json_hash['code'].nil?
       result['status'] = MedicationStatus.transform_json(json_hash['status'], json_hash['_status']) unless json_hash['status'].nil?
       result['manufacturer'] = Reference.transform_json(json_hash['manufacturer']) unless json_hash['manufacturer'].nil?
       result['form'] = CodeableConcept.transform_json(json_hash['form']) unless json_hash['form'].nil?
       result['amount'] = Ratio.transform_json(json_hash['amount']) unless json_hash['amount'].nil?
-      result['ingredient'] = json_hash['ingredient'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          MedicationIngredient.transform_json(var) 
-        end
-      } unless json_hash['ingredient'].nil?
+      result['ingredient'] = json_hash['ingredient'].map { |var| MedicationIngredient.transform_json(var) } unless json_hash['ingredient'].nil?
       result['batch'] = MedicationBatch.transform_json(json_hash['batch']) unless json_hash['batch'].nil?
 
       result

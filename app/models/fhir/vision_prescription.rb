@@ -52,27 +52,16 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = VisionPrescription.new)
+    
       result = self.superclass.transform_json(json_hash, target)
-      result['identifier'] = json_hash['identifier'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Identifier.transform_json(var) 
-        end
-      } unless json_hash['identifier'].nil?
+      result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['status'] = VisionStatus.transform_json(json_hash['status'], json_hash['_status']) unless json_hash['status'].nil?
       result['created'] = PrimitiveDateTime.transform_json(json_hash['created'], json_hash['_created']) unless json_hash['created'].nil?
       result['patient'] = Reference.transform_json(json_hash['patient']) unless json_hash['patient'].nil?
       result['encounter'] = Reference.transform_json(json_hash['encounter']) unless json_hash['encounter'].nil?
       result['dateWritten'] = PrimitiveDateTime.transform_json(json_hash['dateWritten'], json_hash['_dateWritten']) unless json_hash['dateWritten'].nil?
       result['prescriber'] = Reference.transform_json(json_hash['prescriber']) unless json_hash['prescriber'].nil?
-      result['lensSpecification'] = json_hash['lensSpecification'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          VisionPrescriptionLensSpecification.transform_json(var) 
-        end
-      } unless json_hash['lensSpecification'].nil?
+      result['lensSpecification'] = json_hash['lensSpecification'].map { |var| VisionPrescriptionLensSpecification.transform_json(var) } unless json_hash['lensSpecification'].nil?
 
       result
     end

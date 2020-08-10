@@ -38,6 +38,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = SubscriptionChannel.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['type'] = SubscriptionChannelType.transform_json(json_hash['type'], json_hash['_type']) unless json_hash['type'].nil?
       result['endpoint'] = PrimitiveUrl.transform_json(json_hash['endpoint'], json_hash['_endpoint']) unless json_hash['endpoint'].nil?

@@ -28,6 +28,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = SubstanceSpecificationNameOfficial.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['authority'] = CodeableConcept.transform_json(json_hash['authority']) unless json_hash['authority'].nil?
       result['status'] = CodeableConcept.transform_json(json_hash['status']) unless json_hash['status'].nil?

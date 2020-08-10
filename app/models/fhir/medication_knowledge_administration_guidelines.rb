@@ -30,23 +30,12 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = MedicationKnowledgeAdministrationGuidelines.new)
+    
       result = self.superclass.transform_json(json_hash, target)
-      result['dosage'] = json_hash['dosage'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          MedicationKnowledgeAdministrationGuidelinesDosage.transform_json(var) 
-        end
-      } unless json_hash['dosage'].nil?
+      result['dosage'] = json_hash['dosage'].map { |var| MedicationKnowledgeAdministrationGuidelinesDosage.transform_json(var) } unless json_hash['dosage'].nil?
       result['indicationCodeableConcept'] = CodeableConcept.transform_json(json_hash['indicationCodeableConcept']) unless json_hash['indicationCodeableConcept'].nil?
       result['indicationReference'] = Reference.transform_json(json_hash['indicationReference']) unless json_hash['indicationReference'].nil?
-      result['patientCharacteristics'] = json_hash['patientCharacteristics'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          MedicationKnowledgeAdministrationGuidelinesPatientCharacteristics.transform_json(var) 
-        end
-      } unless json_hash['patientCharacteristics'].nil?
+      result['patientCharacteristics'] = json_hash['patientCharacteristics'].map { |var| MedicationKnowledgeAdministrationGuidelinesPatientCharacteristics.transform_json(var) } unless json_hash['patientCharacteristics'].nil?
 
       result
     end

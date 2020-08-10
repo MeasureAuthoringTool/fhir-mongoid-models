@@ -24,6 +24,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = CatalogEntryRelatedEntry.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['relationtype'] = CatalogEntryRelationType.transform_json(json_hash['relationtype'], json_hash['_relationtype']) unless json_hash['relationtype'].nil?
       result['item'] = Reference.transform_json(json_hash['item']) unless json_hash['item'].nil?

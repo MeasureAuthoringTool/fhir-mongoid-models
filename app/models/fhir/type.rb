@@ -14,6 +14,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = Type.new)
+    
       result = target
 
       result

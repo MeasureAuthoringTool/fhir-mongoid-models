@@ -46,25 +46,14 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = StructureMapGroup.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['name'] = PrimitiveId.transform_json(json_hash['name'], json_hash['_name']) unless json_hash['name'].nil?
       result['extends'] = PrimitiveId.transform_json(json_hash['extends'], json_hash['_extends']) unless json_hash['extends'].nil?
       result['typeMode'] = StructureMapGroupTypeMode.transform_json(json_hash['typeMode'], json_hash['_typeMode']) unless json_hash['typeMode'].nil?
       result['documentation'] = PrimitiveString.transform_json(json_hash['documentation'], json_hash['_documentation']) unless json_hash['documentation'].nil?
-      result['input'] = json_hash['input'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          StructureMapGroupInput.transform_json(var) 
-        end
-      } unless json_hash['input'].nil?
-      result['rule'] = json_hash['rule'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          StructureMapGroupRule.transform_json(var) 
-        end
-      } unless json_hash['rule'].nil?
+      result['input'] = json_hash['input'].map { |var| StructureMapGroupInput.transform_json(var) } unless json_hash['input'].nil?
+      result['rule'] = json_hash['rule'].map { |var| StructureMapGroupRule.transform_json(var) } unless json_hash['rule'].nil?
 
       result
     end

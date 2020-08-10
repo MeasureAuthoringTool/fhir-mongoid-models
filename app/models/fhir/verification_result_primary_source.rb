@@ -44,32 +44,15 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = VerificationResultPrimarySource.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['who'] = Reference.transform_json(json_hash['who']) unless json_hash['who'].nil?
-      result['type'] = json_hash['type'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          CodeableConcept.transform_json(var) 
-        end
-      } unless json_hash['type'].nil?
-      result['communicationMethod'] = json_hash['communicationMethod'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          CodeableConcept.transform_json(var) 
-        end
-      } unless json_hash['communicationMethod'].nil?
+      result['type'] = json_hash['type'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['type'].nil?
+      result['communicationMethod'] = json_hash['communicationMethod'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['communicationMethod'].nil?
       result['validationStatus'] = CodeableConcept.transform_json(json_hash['validationStatus']) unless json_hash['validationStatus'].nil?
       result['validationDate'] = PrimitiveDateTime.transform_json(json_hash['validationDate'], json_hash['_validationDate']) unless json_hash['validationDate'].nil?
       result['canPushUpdates'] = CodeableConcept.transform_json(json_hash['canPushUpdates']) unless json_hash['canPushUpdates'].nil?
-      result['pushTypeAvailable'] = json_hash['pushTypeAvailable'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          CodeableConcept.transform_json(var) 
-        end
-      } unless json_hash['pushTypeAvailable'].nil?
+      result['pushTypeAvailable'] = json_hash['pushTypeAvailable'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['pushTypeAvailable'].nil?
 
       result
     end

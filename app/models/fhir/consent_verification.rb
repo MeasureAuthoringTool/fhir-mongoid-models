@@ -30,6 +30,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = ConsentVerification.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['verified'] = PrimitiveBoolean.transform_json(json_hash['verified'], json_hash['_verified']) unless json_hash['verified'].nil?
       result['verifiedWith'] = Reference.transform_json(json_hash['verifiedWith']) unless json_hash['verifiedWith'].nil?

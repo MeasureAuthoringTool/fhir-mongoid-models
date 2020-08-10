@@ -990,6 +990,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = ElementDefinition.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['path'] = PrimitiveString.transform_json(json_hash['path'], json_hash['_path']) unless json_hash['path'].nil?
       result['representation'] = json_hash['representation'].each_with_index.map do |var, i|
@@ -999,13 +1000,7 @@ module FHIR
       result['sliceName'] = PrimitiveString.transform_json(json_hash['sliceName'], json_hash['_sliceName']) unless json_hash['sliceName'].nil?
       result['sliceIsConstraining'] = PrimitiveBoolean.transform_json(json_hash['sliceIsConstraining'], json_hash['_sliceIsConstraining']) unless json_hash['sliceIsConstraining'].nil?
       result['label'] = PrimitiveString.transform_json(json_hash['label'], json_hash['_label']) unless json_hash['label'].nil?
-      result['code'] = json_hash['code'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Coding.transform_json(var) 
-        end
-      } unless json_hash['code'].nil?
+      result['code'] = json_hash['code'].map { |var| Coding.transform_json(var) } unless json_hash['code'].nil?
       result['slicing'] = ElementDefinitionSlicing.transform_json(json_hash['slicing']) unless json_hash['slicing'].nil?
       result['short'] = PrimitiveString.transform_json(json_hash['short'], json_hash['_short']) unless json_hash['short'].nil?
       result['definition'] = PrimitiveMarkdown.transform_json(json_hash['definition'], json_hash['_definition']) unless json_hash['definition'].nil?
@@ -1019,13 +1014,7 @@ module FHIR
       result['max'] = PrimitiveString.transform_json(json_hash['max'], json_hash['_max']) unless json_hash['max'].nil?
       result['base'] = ElementDefinitionBase.transform_json(json_hash['base']) unless json_hash['base'].nil?
       result['contentReference'] = PrimitiveUri.transform_json(json_hash['contentReference'], json_hash['_contentReference']) unless json_hash['contentReference'].nil?
-      result['type'] = json_hash['type'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          ElementDefinitionType.transform_json(var) 
-        end
-      } unless json_hash['type'].nil?
+      result['type'] = json_hash['type'].map { |var| ElementDefinitionType.transform_json(var) } unless json_hash['type'].nil?
       result['defaultValueBase64Binary'] = PrimitiveBase64Binary.transform_json(json_hash['defaultValueBase64Binary'], json_hash['_defaultValueBase64Binary']) unless json_hash['defaultValueBase64Binary'].nil?
       result['defaultValueBoolean'] = PrimitiveBoolean.transform_json(json_hash['defaultValueBoolean'], json_hash['_defaultValueBoolean']) unless json_hash['defaultValueBoolean'].nil?
       result['defaultValueCanonical'] = PrimitiveCanonical.transform_json(json_hash['defaultValueCanonical'], json_hash['_defaultValueCanonical']) unless json_hash['defaultValueCanonical'].nil?
@@ -1178,13 +1167,7 @@ module FHIR
       result['patternUsageContext'] = UsageContext.transform_json(json_hash['patternUsageContext']) unless json_hash['patternUsageContext'].nil?
       result['patternDosage'] = Dosage.transform_json(json_hash['patternDosage']) unless json_hash['patternDosage'].nil?
       result['patternMeta'] = Meta.transform_json(json_hash['patternMeta']) unless json_hash['patternMeta'].nil?
-      result['example'] = json_hash['example'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          ElementDefinitionExample.transform_json(var) 
-        end
-      } unless json_hash['example'].nil?
+      result['example'] = json_hash['example'].map { |var| ElementDefinitionExample.transform_json(var) } unless json_hash['example'].nil?
       result['minValueDate'] = PrimitiveDate.transform_json(json_hash['minValueDate'], json_hash['_minValueDate']) unless json_hash['minValueDate'].nil?
       result['minValueDateTime'] = PrimitiveDateTime.transform_json(json_hash['minValueDateTime'], json_hash['_minValueDateTime']) unless json_hash['minValueDateTime'].nil?
       result['minValueInstant'] = PrimitiveInstant.transform_json(json_hash['minValueInstant'], json_hash['_minValueInstant']) unless json_hash['minValueInstant'].nil?
@@ -1208,25 +1191,13 @@ module FHIR
         extension_hash = json_hash['_condition'] && json_hash['_condition'][i]
         PrimitiveId.transform_json(var, extension_hash)
       end unless json_hash['condition'].nil?
-      result['constraint'] = json_hash['constraint'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          ElementDefinitionConstraint.transform_json(var) 
-        end
-      } unless json_hash['constraint'].nil?
+      result['constraint'] = json_hash['constraint'].map { |var| ElementDefinitionConstraint.transform_json(var) } unless json_hash['constraint'].nil?
       result['mustSupport'] = PrimitiveBoolean.transform_json(json_hash['mustSupport'], json_hash['_mustSupport']) unless json_hash['mustSupport'].nil?
       result['isModifier'] = PrimitiveBoolean.transform_json(json_hash['isModifier'], json_hash['_isModifier']) unless json_hash['isModifier'].nil?
       result['isModifierReason'] = PrimitiveString.transform_json(json_hash['isModifierReason'], json_hash['_isModifierReason']) unless json_hash['isModifierReason'].nil?
       result['isSummary'] = PrimitiveBoolean.transform_json(json_hash['isSummary'], json_hash['_isSummary']) unless json_hash['isSummary'].nil?
       result['binding'] = ElementDefinitionBinding.transform_json(json_hash['binding']) unless json_hash['binding'].nil?
-      result['mapping'] = json_hash['mapping'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          ElementDefinitionMapping.transform_json(var) 
-        end
-      } unless json_hash['mapping'].nil?
+      result['mapping'] = json_hash['mapping'].map { |var| ElementDefinitionMapping.transform_json(var) } unless json_hash['mapping'].nil?
 
       result
     end

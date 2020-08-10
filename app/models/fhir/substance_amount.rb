@@ -42,6 +42,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = SubstanceAmount.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['amountQuantity'] = Quantity.transform_json(json_hash['amountQuantity']) unless json_hash['amountQuantity'].nil?
       result['amountRange'] = Range.transform_json(json_hash['amountRange']) unless json_hash['amountRange'].nil?

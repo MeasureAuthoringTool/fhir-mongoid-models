@@ -24,6 +24,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = SubstanceSourceMaterialOrganismAuthor.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['authorType'] = CodeableConcept.transform_json(json_hash['authorType']) unless json_hash['authorType'].nil?
       result['authorDescription'] = PrimitiveString.transform_json(json_hash['authorDescription'], json_hash['_authorDescription']) unless json_hash['authorDescription'].nil?

@@ -28,6 +28,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = CommunicationPayload.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['contentString'] = PrimitiveString.transform_json(json_hash['contentString'], json_hash['_contentString']) unless json_hash['contentString'].nil?
       result['contentAttachment'] = Attachment.transform_json(json_hash['contentAttachment']) unless json_hash['contentAttachment'].nil?

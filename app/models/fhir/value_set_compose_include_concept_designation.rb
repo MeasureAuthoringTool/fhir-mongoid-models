@@ -30,6 +30,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = ValueSetComposeIncludeConceptDesignation.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['language'] = PrimitiveCode.transform_json(json_hash['language'], json_hash['_language']) unless json_hash['language'].nil?
       result['use'] = Coding.transform_json(json_hash['use']) unless json_hash['use'].nil?

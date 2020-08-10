@@ -24,6 +24,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = AccountCoverage.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['coverage'] = Reference.transform_json(json_hash['coverage']) unless json_hash['coverage'].nil?
       result['priority'] = PrimitivePositiveInt.transform_json(json_hash['priority'], json_hash['_priority']) unless json_hash['priority'].nil?

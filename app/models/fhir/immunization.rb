@@ -146,14 +146,9 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = Immunization.new)
+    
       result = self.superclass.transform_json(json_hash, target)
-      result['identifier'] = json_hash['identifier'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Identifier.transform_json(var) 
-        end
-      } unless json_hash['identifier'].nil?
+      result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['status'] = ImmunizationStatus.transform_json(json_hash['status'], json_hash['_status']) unless json_hash['status'].nil?
       result['statusReason'] = CodeableConcept.transform_json(json_hash['statusReason']) unless json_hash['statusReason'].nil?
       result['vaccineCode'] = CodeableConcept.transform_json(json_hash['vaccineCode']) unless json_hash['vaccineCode'].nil?
@@ -171,71 +166,17 @@ module FHIR
       result['site'] = CodeableConcept.transform_json(json_hash['site']) unless json_hash['site'].nil?
       result['route'] = CodeableConcept.transform_json(json_hash['route']) unless json_hash['route'].nil?
       result['doseQuantity'] = SimpleQuantity.transform_json(json_hash['doseQuantity']) unless json_hash['doseQuantity'].nil?
-      result['performer'] = json_hash['performer'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          ImmunizationPerformer.transform_json(var) 
-        end
-      } unless json_hash['performer'].nil?
-      result['note'] = json_hash['note'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Annotation.transform_json(var) 
-        end
-      } unless json_hash['note'].nil?
-      result['reasonCode'] = json_hash['reasonCode'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          CodeableConcept.transform_json(var) 
-        end
-      } unless json_hash['reasonCode'].nil?
-      result['reasonReference'] = json_hash['reasonReference'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Reference.transform_json(var) 
-        end
-      } unless json_hash['reasonReference'].nil?
+      result['performer'] = json_hash['performer'].map { |var| ImmunizationPerformer.transform_json(var) } unless json_hash['performer'].nil?
+      result['note'] = json_hash['note'].map { |var| Annotation.transform_json(var) } unless json_hash['note'].nil?
+      result['reasonCode'] = json_hash['reasonCode'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['reasonCode'].nil?
+      result['reasonReference'] = json_hash['reasonReference'].map { |var| Reference.transform_json(var) } unless json_hash['reasonReference'].nil?
       result['isSubpotent'] = PrimitiveBoolean.transform_json(json_hash['isSubpotent'], json_hash['_isSubpotent']) unless json_hash['isSubpotent'].nil?
-      result['subpotentReason'] = json_hash['subpotentReason'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          CodeableConcept.transform_json(var) 
-        end
-      } unless json_hash['subpotentReason'].nil?
-      result['education'] = json_hash['education'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          ImmunizationEducation.transform_json(var) 
-        end
-      } unless json_hash['education'].nil?
-      result['programEligibility'] = json_hash['programEligibility'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          CodeableConcept.transform_json(var) 
-        end
-      } unless json_hash['programEligibility'].nil?
+      result['subpotentReason'] = json_hash['subpotentReason'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['subpotentReason'].nil?
+      result['education'] = json_hash['education'].map { |var| ImmunizationEducation.transform_json(var) } unless json_hash['education'].nil?
+      result['programEligibility'] = json_hash['programEligibility'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['programEligibility'].nil?
       result['fundingSource'] = CodeableConcept.transform_json(json_hash['fundingSource']) unless json_hash['fundingSource'].nil?
-      result['reaction'] = json_hash['reaction'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          ImmunizationReaction.transform_json(var) 
-        end
-      } unless json_hash['reaction'].nil?
-      result['protocolApplied'] = json_hash['protocolApplied'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          ImmunizationProtocolApplied.transform_json(var) 
-        end
-      } unless json_hash['protocolApplied'].nil?
+      result['reaction'] = json_hash['reaction'].map { |var| ImmunizationReaction.transform_json(var) } unless json_hash['reaction'].nil?
+      result['protocolApplied'] = json_hash['protocolApplied'].map { |var| ImmunizationProtocolApplied.transform_json(var) } unless json_hash['protocolApplied'].nil?
 
       result
     end

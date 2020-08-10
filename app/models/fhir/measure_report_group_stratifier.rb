@@ -22,21 +22,10 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = MeasureReportGroupStratifier.new)
+    
       result = self.superclass.transform_json(json_hash, target)
-      result['code'] = json_hash['code'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          CodeableConcept.transform_json(var) 
-        end
-      } unless json_hash['code'].nil?
-      result['stratum'] = json_hash['stratum'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          MeasureReportGroupStratifierStratum.transform_json(var) 
-        end
-      } unless json_hash['stratum'].nil?
+      result['code'] = json_hash['code'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['code'].nil?
+      result['stratum'] = json_hash['stratum'].map { |var| MeasureReportGroupStratifierStratum.transform_json(var) } unless json_hash['stratum'].nil?
 
       result
     end

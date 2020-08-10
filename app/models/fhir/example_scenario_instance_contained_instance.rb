@@ -26,6 +26,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = ExampleScenarioInstanceContainedInstance.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['resourceId'] = PrimitiveString.transform_json(json_hash['resourceId'], json_hash['_resourceId']) unless json_hash['resourceId'].nil?
       result['versionId'] = PrimitiveString.transform_json(json_hash['versionId'], json_hash['_versionId']) unless json_hash['versionId'].nil?

@@ -18,14 +18,9 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = StructureDefinitionSnapshot.new)
+    
       result = self.superclass.transform_json(json_hash, target)
-      result['element'] = json_hash['element'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          ElementDefinition.transform_json(var) 
-        end
-      } unless json_hash['element'].nil?
+      result['element'] = json_hash['element'].map { |var| ElementDefinition.transform_json(var) } unless json_hash['element'].nil?
 
       result
     end

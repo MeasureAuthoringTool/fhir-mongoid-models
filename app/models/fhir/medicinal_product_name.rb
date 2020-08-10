@@ -28,22 +28,11 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = MedicinalProductName.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['productName'] = PrimitiveString.transform_json(json_hash['productName'], json_hash['_productName']) unless json_hash['productName'].nil?
-      result['namePart'] = json_hash['namePart'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          MedicinalProductNameNamePart.transform_json(var) 
-        end
-      } unless json_hash['namePart'].nil?
-      result['countryLanguage'] = json_hash['countryLanguage'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          MedicinalProductNameCountryLanguage.transform_json(var) 
-        end
-      } unless json_hash['countryLanguage'].nil?
+      result['namePart'] = json_hash['namePart'].map { |var| MedicinalProductNameNamePart.transform_json(var) } unless json_hash['namePart'].nil?
+      result['countryLanguage'] = json_hash['countryLanguage'].map { |var| MedicinalProductNameCountryLanguage.transform_json(var) } unless json_hash['countryLanguage'].nil?
 
       result
     end

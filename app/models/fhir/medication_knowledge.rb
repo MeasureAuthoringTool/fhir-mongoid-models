@@ -108,6 +108,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = MedicationKnowledge.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['code'] = CodeableConcept.transform_json(json_hash['code']) unless json_hash['code'].nil?
       result['status'] = MedicationKnowledgeStatus.transform_json(json_hash['status'], json_hash['_status']) unless json_hash['status'].nil?
@@ -118,106 +119,22 @@ module FHIR
         extension_hash = json_hash['_synonym'] && json_hash['_synonym'][i]
         PrimitiveString.transform_json(var, extension_hash)
       end unless json_hash['synonym'].nil?
-      result['relatedMedicationKnowledge'] = json_hash['relatedMedicationKnowledge'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          MedicationKnowledgeRelatedMedicationKnowledge.transform_json(var) 
-        end
-      } unless json_hash['relatedMedicationKnowledge'].nil?
-      result['associatedMedication'] = json_hash['associatedMedication'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Reference.transform_json(var) 
-        end
-      } unless json_hash['associatedMedication'].nil?
-      result['productType'] = json_hash['productType'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          CodeableConcept.transform_json(var) 
-        end
-      } unless json_hash['productType'].nil?
-      result['monograph'] = json_hash['monograph'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          MedicationKnowledgeMonograph.transform_json(var) 
-        end
-      } unless json_hash['monograph'].nil?
-      result['ingredient'] = json_hash['ingredient'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          MedicationKnowledgeIngredient.transform_json(var) 
-        end
-      } unless json_hash['ingredient'].nil?
+      result['relatedMedicationKnowledge'] = json_hash['relatedMedicationKnowledge'].map { |var| MedicationKnowledgeRelatedMedicationKnowledge.transform_json(var) } unless json_hash['relatedMedicationKnowledge'].nil?
+      result['associatedMedication'] = json_hash['associatedMedication'].map { |var| Reference.transform_json(var) } unless json_hash['associatedMedication'].nil?
+      result['productType'] = json_hash['productType'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['productType'].nil?
+      result['monograph'] = json_hash['monograph'].map { |var| MedicationKnowledgeMonograph.transform_json(var) } unless json_hash['monograph'].nil?
+      result['ingredient'] = json_hash['ingredient'].map { |var| MedicationKnowledgeIngredient.transform_json(var) } unless json_hash['ingredient'].nil?
       result['preparationInstruction'] = PrimitiveMarkdown.transform_json(json_hash['preparationInstruction'], json_hash['_preparationInstruction']) unless json_hash['preparationInstruction'].nil?
-      result['intendedRoute'] = json_hash['intendedRoute'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          CodeableConcept.transform_json(var) 
-        end
-      } unless json_hash['intendedRoute'].nil?
-      result['cost'] = json_hash['cost'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          MedicationKnowledgeCost.transform_json(var) 
-        end
-      } unless json_hash['cost'].nil?
-      result['monitoringProgram'] = json_hash['monitoringProgram'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          MedicationKnowledgeMonitoringProgram.transform_json(var) 
-        end
-      } unless json_hash['monitoringProgram'].nil?
-      result['administrationGuidelines'] = json_hash['administrationGuidelines'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          MedicationKnowledgeAdministrationGuidelines.transform_json(var) 
-        end
-      } unless json_hash['administrationGuidelines'].nil?
-      result['medicineClassification'] = json_hash['medicineClassification'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          MedicationKnowledgeMedicineClassification.transform_json(var) 
-        end
-      } unless json_hash['medicineClassification'].nil?
+      result['intendedRoute'] = json_hash['intendedRoute'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['intendedRoute'].nil?
+      result['cost'] = json_hash['cost'].map { |var| MedicationKnowledgeCost.transform_json(var) } unless json_hash['cost'].nil?
+      result['monitoringProgram'] = json_hash['monitoringProgram'].map { |var| MedicationKnowledgeMonitoringProgram.transform_json(var) } unless json_hash['monitoringProgram'].nil?
+      result['administrationGuidelines'] = json_hash['administrationGuidelines'].map { |var| MedicationKnowledgeAdministrationGuidelines.transform_json(var) } unless json_hash['administrationGuidelines'].nil?
+      result['medicineClassification'] = json_hash['medicineClassification'].map { |var| MedicationKnowledgeMedicineClassification.transform_json(var) } unless json_hash['medicineClassification'].nil?
       result['packaging'] = MedicationKnowledgePackaging.transform_json(json_hash['packaging']) unless json_hash['packaging'].nil?
-      result['drugCharacteristic'] = json_hash['drugCharacteristic'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          MedicationKnowledgeDrugCharacteristic.transform_json(var) 
-        end
-      } unless json_hash['drugCharacteristic'].nil?
-      result['contraindication'] = json_hash['contraindication'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Reference.transform_json(var) 
-        end
-      } unless json_hash['contraindication'].nil?
-      result['regulatory'] = json_hash['regulatory'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          MedicationKnowledgeRegulatory.transform_json(var) 
-        end
-      } unless json_hash['regulatory'].nil?
-      result['kinetics'] = json_hash['kinetics'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          MedicationKnowledgeKinetics.transform_json(var) 
-        end
-      } unless json_hash['kinetics'].nil?
+      result['drugCharacteristic'] = json_hash['drugCharacteristic'].map { |var| MedicationKnowledgeDrugCharacteristic.transform_json(var) } unless json_hash['drugCharacteristic'].nil?
+      result['contraindication'] = json_hash['contraindication'].map { |var| Reference.transform_json(var) } unless json_hash['contraindication'].nil?
+      result['regulatory'] = json_hash['regulatory'].map { |var| MedicationKnowledgeRegulatory.transform_json(var) } unless json_hash['regulatory'].nil?
+      result['kinetics'] = json_hash['kinetics'].map { |var| MedicationKnowledgeKinetics.transform_json(var) } unless json_hash['kinetics'].nil?
 
       result
     end

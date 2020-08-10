@@ -32,6 +32,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = ElementDefinitionBinding.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['strength'] = BindingStrength.transform_json(json_hash['strength'], json_hash['_strength']) unless json_hash['strength'].nil?
       result['description'] = PrimitiveString.transform_json(json_hash['description'], json_hash['_description']) unless json_hash['description'].nil?

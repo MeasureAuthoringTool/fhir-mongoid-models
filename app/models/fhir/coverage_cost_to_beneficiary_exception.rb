@@ -22,6 +22,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = CoverageCostToBeneficiaryException.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['type'] = CodeableConcept.transform_json(json_hash['type']) unless json_hash['type'].nil?
       result['period'] = Period.transform_json(json_hash['period']) unless json_hash['period'].nil?

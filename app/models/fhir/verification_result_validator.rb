@@ -28,6 +28,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = VerificationResultValidator.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['organization'] = Reference.transform_json(json_hash['organization']) unless json_hash['organization'].nil?
       result['identityCertificate'] = PrimitiveString.transform_json(json_hash['identityCertificate'], json_hash['_identityCertificate']) unless json_hash['identityCertificate'].nil?

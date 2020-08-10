@@ -34,6 +34,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = EffectEvidenceSynthesisResultsByExposure.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['description'] = PrimitiveString.transform_json(json_hash['description'], json_hash['_description']) unless json_hash['description'].nil?
       result['exposureState'] = ExposureState.transform_json(json_hash['exposureState'], json_hash['_exposureState']) unless json_hash['exposureState'].nil?

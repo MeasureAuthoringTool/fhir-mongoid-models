@@ -24,6 +24,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = ConsentProvisionData.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['meaning'] = ConsentDataMeaning.transform_json(json_hash['meaning'], json_hash['_meaning']) unless json_hash['meaning'].nil?
       result['reference'] = Reference.transform_json(json_hash['reference']) unless json_hash['reference'].nil?

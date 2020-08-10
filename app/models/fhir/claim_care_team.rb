@@ -38,6 +38,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = ClaimCareTeam.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['sequence'] = PrimitivePositiveInt.transform_json(json_hash['sequence'], json_hash['_sequence']) unless json_hash['sequence'].nil?
       result['provider'] = Reference.transform_json(json_hash['provider']) unless json_hash['provider'].nil?

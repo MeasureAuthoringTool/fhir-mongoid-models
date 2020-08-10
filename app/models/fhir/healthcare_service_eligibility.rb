@@ -24,6 +24,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = HealthcareServiceEligibility.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['code'] = CodeableConcept.transform_json(json_hash['code']) unless json_hash['code'].nil?
       result['comment'] = PrimitiveMarkdown.transform_json(json_hash['comment'], json_hash['_comment']) unless json_hash['comment'].nil?

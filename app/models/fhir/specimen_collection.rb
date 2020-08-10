@@ -52,6 +52,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = SpecimenCollection.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['collector'] = Reference.transform_json(json_hash['collector']) unless json_hash['collector'].nil?
       result['collectedDateTime'] = PrimitiveDateTime.transform_json(json_hash['collectedDateTime'], json_hash['_collectedDateTime']) unless json_hash['collectedDateTime'].nil?

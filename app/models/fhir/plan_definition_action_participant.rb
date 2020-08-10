@@ -24,6 +24,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = PlanDefinitionActionParticipant.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['type'] = ActionParticipantType.transform_json(json_hash['type'], json_hash['_type']) unless json_hash['type'].nil?
       result['role'] = CodeableConcept.transform_json(json_hash['role']) unless json_hash['role'].nil?

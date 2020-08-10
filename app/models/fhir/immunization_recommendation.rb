@@ -36,24 +36,13 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = ImmunizationRecommendation.new)
+    
       result = self.superclass.transform_json(json_hash, target)
-      result['identifier'] = json_hash['identifier'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Identifier.transform_json(var) 
-        end
-      } unless json_hash['identifier'].nil?
+      result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['patient'] = Reference.transform_json(json_hash['patient']) unless json_hash['patient'].nil?
       result['date'] = PrimitiveDateTime.transform_json(json_hash['date'], json_hash['_date']) unless json_hash['date'].nil?
       result['authority'] = Reference.transform_json(json_hash['authority']) unless json_hash['authority'].nil?
-      result['recommendation'] = json_hash['recommendation'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          ImmunizationRecommendationRecommendation.transform_json(var) 
-        end
-      } unless json_hash['recommendation'].nil?
+      result['recommendation'] = json_hash['recommendation'].map { |var| ImmunizationRecommendationRecommendation.transform_json(var) } unless json_hash['recommendation'].nil?
 
       result
     end

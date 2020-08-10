@@ -74,56 +74,21 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = Consent.new)
+    
       result = self.superclass.transform_json(json_hash, target)
-      result['identifier'] = json_hash['identifier'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Identifier.transform_json(var) 
-        end
-      } unless json_hash['identifier'].nil?
+      result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['status'] = ConsentState.transform_json(json_hash['status'], json_hash['_status']) unless json_hash['status'].nil?
       result['scope'] = CodeableConcept.transform_json(json_hash['scope']) unless json_hash['scope'].nil?
-      result['category'] = json_hash['category'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          CodeableConcept.transform_json(var) 
-        end
-      } unless json_hash['category'].nil?
+      result['category'] = json_hash['category'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['category'].nil?
       result['patient'] = Reference.transform_json(json_hash['patient']) unless json_hash['patient'].nil?
       result['dateTime'] = PrimitiveDateTime.transform_json(json_hash['dateTime'], json_hash['_dateTime']) unless json_hash['dateTime'].nil?
-      result['performer'] = json_hash['performer'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Reference.transform_json(var) 
-        end
-      } unless json_hash['performer'].nil?
-      result['organization'] = json_hash['organization'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Reference.transform_json(var) 
-        end
-      } unless json_hash['organization'].nil?
+      result['performer'] = json_hash['performer'].map { |var| Reference.transform_json(var) } unless json_hash['performer'].nil?
+      result['organization'] = json_hash['organization'].map { |var| Reference.transform_json(var) } unless json_hash['organization'].nil?
       result['sourceAttachment'] = Attachment.transform_json(json_hash['sourceAttachment']) unless json_hash['sourceAttachment'].nil?
       result['sourceReference'] = Reference.transform_json(json_hash['sourceReference']) unless json_hash['sourceReference'].nil?
-      result['policy'] = json_hash['policy'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          ConsentPolicy.transform_json(var) 
-        end
-      } unless json_hash['policy'].nil?
+      result['policy'] = json_hash['policy'].map { |var| ConsentPolicy.transform_json(var) } unless json_hash['policy'].nil?
       result['policyRule'] = CodeableConcept.transform_json(json_hash['policyRule']) unless json_hash['policyRule'].nil?
-      result['verification'] = json_hash['verification'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          ConsentVerification.transform_json(var) 
-        end
-      } unless json_hash['verification'].nil?
+      result['verification'] = json_hash['verification'].map { |var| ConsentVerification.transform_json(var) } unless json_hash['verification'].nil?
       result['provision'] = ConsentProvision.transform_json(json_hash['provision']) unless json_hash['provision'].nil?
 
       result

@@ -32,6 +32,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = RiskEvidenceSynthesisSampleSize.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['description'] = PrimitiveString.transform_json(json_hash['description'], json_hash['_description']) unless json_hash['description'].nil?
       result['numberOfStudies'] = PrimitiveInteger.transform_json(json_hash['numberOfStudies'], json_hash['_numberOfStudies']) unless json_hash['numberOfStudies'].nil?

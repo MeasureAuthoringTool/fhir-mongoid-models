@@ -134,14 +134,9 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = ClaimResponse.new)
+    
       result = self.superclass.transform_json(json_hash, target)
-      result['identifier'] = json_hash['identifier'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Identifier.transform_json(var) 
-        end
-      } unless json_hash['identifier'].nil?
+      result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['status'] = ClaimResponseStatus.transform_json(json_hash['status'], json_hash['_status']) unless json_hash['status'].nil?
       result['type'] = CodeableConcept.transform_json(json_hash['type']) unless json_hash['type'].nil?
       result['subType'] = CodeableConcept.transform_json(json_hash['subType']) unless json_hash['subType'].nil?
@@ -156,66 +151,18 @@ module FHIR
       result['preAuthRef'] = PrimitiveString.transform_json(json_hash['preAuthRef'], json_hash['_preAuthRef']) unless json_hash['preAuthRef'].nil?
       result['preAuthPeriod'] = Period.transform_json(json_hash['preAuthPeriod']) unless json_hash['preAuthPeriod'].nil?
       result['payeeType'] = CodeableConcept.transform_json(json_hash['payeeType']) unless json_hash['payeeType'].nil?
-      result['item'] = json_hash['item'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          ClaimResponseItem.transform_json(var) 
-        end
-      } unless json_hash['item'].nil?
-      result['addItem'] = json_hash['addItem'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          ClaimResponseAddItem.transform_json(var) 
-        end
-      } unless json_hash['addItem'].nil?
-      result['adjudication'] = json_hash['adjudication'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          ClaimResponseItemAdjudication.transform_json(var) 
-        end
-      } unless json_hash['adjudication'].nil?
-      result['total'] = json_hash['total'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          ClaimResponseTotal.transform_json(var) 
-        end
-      } unless json_hash['total'].nil?
+      result['item'] = json_hash['item'].map { |var| ClaimResponseItem.transform_json(var) } unless json_hash['item'].nil?
+      result['addItem'] = json_hash['addItem'].map { |var| ClaimResponseAddItem.transform_json(var) } unless json_hash['addItem'].nil?
+      result['adjudication'] = json_hash['adjudication'].map { |var| ClaimResponseItemAdjudication.transform_json(var) } unless json_hash['adjudication'].nil?
+      result['total'] = json_hash['total'].map { |var| ClaimResponseTotal.transform_json(var) } unless json_hash['total'].nil?
       result['payment'] = ClaimResponsePayment.transform_json(json_hash['payment']) unless json_hash['payment'].nil?
       result['fundsReserve'] = CodeableConcept.transform_json(json_hash['fundsReserve']) unless json_hash['fundsReserve'].nil?
       result['formCode'] = CodeableConcept.transform_json(json_hash['formCode']) unless json_hash['formCode'].nil?
       result['form'] = Attachment.transform_json(json_hash['form']) unless json_hash['form'].nil?
-      result['processNote'] = json_hash['processNote'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          ClaimResponseProcessNote.transform_json(var) 
-        end
-      } unless json_hash['processNote'].nil?
-      result['communicationRequest'] = json_hash['communicationRequest'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Reference.transform_json(var) 
-        end
-      } unless json_hash['communicationRequest'].nil?
-      result['insurance'] = json_hash['insurance'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          ClaimResponseInsurance.transform_json(var) 
-        end
-      } unless json_hash['insurance'].nil?
-      result['error'] = json_hash['error'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          ClaimResponseError.transform_json(var) 
-        end
-      } unless json_hash['error'].nil?
+      result['processNote'] = json_hash['processNote'].map { |var| ClaimResponseProcessNote.transform_json(var) } unless json_hash['processNote'].nil?
+      result['communicationRequest'] = json_hash['communicationRequest'].map { |var| Reference.transform_json(var) } unless json_hash['communicationRequest'].nil?
+      result['insurance'] = json_hash['insurance'].map { |var| ClaimResponseInsurance.transform_json(var) } unless json_hash['insurance'].nil?
+      result['error'] = json_hash['error'].map { |var| ClaimResponseError.transform_json(var) } unless json_hash['error'].nil?
 
       result
     end

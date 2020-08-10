@@ -24,6 +24,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = DocumentReferenceRelatesTo.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['code'] = DocumentRelationshipType.transform_json(json_hash['code'], json_hash['_code']) unless json_hash['code'].nil?
       result['target'] = Reference.transform_json(json_hash['target']) unless json_hash['target'].nil?

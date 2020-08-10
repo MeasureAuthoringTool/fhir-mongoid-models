@@ -30,6 +30,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = Binary.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['contentType'] = MimeType.transform_json(json_hash['contentType'], json_hash['_contentType']) unless json_hash['contentType'].nil?
       result['securityContext'] = Reference.transform_json(json_hash['securityContext']) unless json_hash['securityContext'].nil?

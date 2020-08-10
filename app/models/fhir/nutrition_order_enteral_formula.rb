@@ -56,6 +56,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = NutritionOrderEnteralFormula.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['baseFormulaType'] = CodeableConcept.transform_json(json_hash['baseFormulaType']) unless json_hash['baseFormulaType'].nil?
       result['baseFormulaProductName'] = PrimitiveString.transform_json(json_hash['baseFormulaProductName'], json_hash['_baseFormulaProductName']) unless json_hash['baseFormulaProductName'].nil?
@@ -63,13 +64,7 @@ module FHIR
       result['additiveProductName'] = PrimitiveString.transform_json(json_hash['additiveProductName'], json_hash['_additiveProductName']) unless json_hash['additiveProductName'].nil?
       result['caloricDensity'] = SimpleQuantity.transform_json(json_hash['caloricDensity']) unless json_hash['caloricDensity'].nil?
       result['routeofAdministration'] = CodeableConcept.transform_json(json_hash['routeofAdministration']) unless json_hash['routeofAdministration'].nil?
-      result['administration'] = json_hash['administration'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          NutritionOrderEnteralFormulaAdministration.transform_json(var) 
-        end
-      } unless json_hash['administration'].nil?
+      result['administration'] = json_hash['administration'].map { |var| NutritionOrderEnteralFormulaAdministration.transform_json(var) } unless json_hash['administration'].nil?
       result['maxVolumeToDeliver'] = SimpleQuantity.transform_json(json_hash['maxVolumeToDeliver']) unless json_hash['maxVolumeToDeliver'].nil?
       result['administrationInstruction'] = PrimitiveString.transform_json(json_hash['administrationInstruction'], json_hash['_administrationInstruction']) unless json_hash['administrationInstruction'].nil?
 

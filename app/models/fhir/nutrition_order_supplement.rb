@@ -38,16 +38,11 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = NutritionOrderSupplement.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['type'] = CodeableConcept.transform_json(json_hash['type']) unless json_hash['type'].nil?
       result['productName'] = PrimitiveString.transform_json(json_hash['productName'], json_hash['_productName']) unless json_hash['productName'].nil?
-      result['schedule'] = json_hash['schedule'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Timing.transform_json(var) 
-        end
-      } unless json_hash['schedule'].nil?
+      result['schedule'] = json_hash['schedule'].map { |var| Timing.transform_json(var) } unless json_hash['schedule'].nil?
       result['quantity'] = SimpleQuantity.transform_json(json_hash['quantity']) unless json_hash['quantity'].nil?
       result['instruction'] = PrimitiveString.transform_json(json_hash['instruction'], json_hash['_instruction']) unless json_hash['instruction'].nil?
 

@@ -90,19 +90,14 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = VisionPrescriptionLensSpecification.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['product'] = CodeableConcept.transform_json(json_hash['product']) unless json_hash['product'].nil?
       result['eye'] = VisionEyes.transform_json(json_hash['eye'], json_hash['_eye']) unless json_hash['eye'].nil?
       result['sphere'] = PrimitiveDecimal.transform_json(json_hash['sphere'], json_hash['_sphere']) unless json_hash['sphere'].nil?
       result['cylinder'] = PrimitiveDecimal.transform_json(json_hash['cylinder'], json_hash['_cylinder']) unless json_hash['cylinder'].nil?
       result['axis'] = PrimitiveInteger.transform_json(json_hash['axis'], json_hash['_axis']) unless json_hash['axis'].nil?
-      result['prism'] = json_hash['prism'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          VisionPrescriptionLensSpecificationPrism.transform_json(var) 
-        end
-      } unless json_hash['prism'].nil?
+      result['prism'] = json_hash['prism'].map { |var| VisionPrescriptionLensSpecificationPrism.transform_json(var) } unless json_hash['prism'].nil?
       result['add'] = PrimitiveDecimal.transform_json(json_hash['add'], json_hash['_add']) unless json_hash['add'].nil?
       result['power'] = PrimitiveDecimal.transform_json(json_hash['power'], json_hash['_power']) unless json_hash['power'].nil?
       result['backCurve'] = PrimitiveDecimal.transform_json(json_hash['backCurve'], json_hash['_backCurve']) unless json_hash['backCurve'].nil?
@@ -110,13 +105,7 @@ module FHIR
       result['duration'] = SimpleQuantity.transform_json(json_hash['duration']) unless json_hash['duration'].nil?
       result['color'] = PrimitiveString.transform_json(json_hash['color'], json_hash['_color']) unless json_hash['color'].nil?
       result['brand'] = PrimitiveString.transform_json(json_hash['brand'], json_hash['_brand']) unless json_hash['brand'].nil?
-      result['note'] = json_hash['note'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Annotation.transform_json(var) 
-        end
-      } unless json_hash['note'].nil?
+      result['note'] = json_hash['note'].map { |var| Annotation.transform_json(var) } unless json_hash['note'].nil?
 
       result
     end

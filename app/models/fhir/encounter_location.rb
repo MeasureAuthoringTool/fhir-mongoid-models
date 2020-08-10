@@ -32,6 +32,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = EncounterLocation.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['location'] = Reference.transform_json(json_hash['location']) unless json_hash['location'].nil?
       result['status'] = EncounterLocationStatus.transform_json(json_hash['status'], json_hash['_status']) unless json_hash['status'].nil?

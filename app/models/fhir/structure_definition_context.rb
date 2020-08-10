@@ -26,6 +26,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = StructureDefinitionContext.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['type'] = ExtensionContextType.transform_json(json_hash['type'], json_hash['_type']) unless json_hash['type'].nil?
       result['expression'] = PrimitiveString.transform_json(json_hash['expression'], json_hash['_expression']) unless json_hash['expression'].nil?

@@ -30,17 +30,12 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = CoverageCostToBeneficiary.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['type'] = CodeableConcept.transform_json(json_hash['type']) unless json_hash['type'].nil?
       result['valueSimpleQuantity'] = SimpleQuantity.transform_json(json_hash['valueSimpleQuantity']) unless json_hash['valueSimpleQuantity'].nil?
       result['valueMoney'] = Money.transform_json(json_hash['valueMoney']) unless json_hash['valueMoney'].nil?
-      result['exception'] = json_hash['exception'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          CoverageCostToBeneficiaryException.transform_json(var) 
-        end
-      } unless json_hash['exception'].nil?
+      result['exception'] = json_hash['exception'].map { |var| CoverageCostToBeneficiaryException.transform_json(var) } unless json_hash['exception'].nil?
 
       result
     end

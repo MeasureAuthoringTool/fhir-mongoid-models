@@ -36,6 +36,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = ImagingStudySeriesInstance.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['uid'] = PrimitiveId.transform_json(json_hash['uid'], json_hash['_uid']) unless json_hash['uid'].nil?
       result['sopClass'] = Coding.transform_json(json_hash['sopClass']) unless json_hash['sopClass'].nil?

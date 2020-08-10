@@ -34,23 +34,12 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = CapabilityStatementMessaging.new)
+    
       result = self.superclass.transform_json(json_hash, target)
-      result['endpoint'] = json_hash['endpoint'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          CapabilityStatementMessagingEndpoint.transform_json(var) 
-        end
-      } unless json_hash['endpoint'].nil?
+      result['endpoint'] = json_hash['endpoint'].map { |var| CapabilityStatementMessagingEndpoint.transform_json(var) } unless json_hash['endpoint'].nil?
       result['reliableCache'] = PrimitiveUnsignedInt.transform_json(json_hash['reliableCache'], json_hash['_reliableCache']) unless json_hash['reliableCache'].nil?
       result['documentation'] = PrimitiveMarkdown.transform_json(json_hash['documentation'], json_hash['_documentation']) unless json_hash['documentation'].nil?
-      result['supportedMessage'] = json_hash['supportedMessage'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          CapabilityStatementMessagingSupportedMessage.transform_json(var) 
-        end
-      } unless json_hash['supportedMessage'].nil?
+      result['supportedMessage'] = json_hash['supportedMessage'].map { |var| CapabilityStatementMessagingSupportedMessage.transform_json(var) } unless json_hash['supportedMessage'].nil?
 
       result
     end

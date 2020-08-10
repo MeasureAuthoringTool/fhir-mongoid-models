@@ -54,6 +54,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = RelatedArtifact.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['type'] = RelatedArtifactType.transform_json(json_hash['type'], json_hash['_type']) unless json_hash['type'].nil?
       result['label'] = PrimitiveString.transform_json(json_hash['label'], json_hash['_label']) unless json_hash['label'].nil?

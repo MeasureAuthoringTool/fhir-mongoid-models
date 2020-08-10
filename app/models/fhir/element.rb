@@ -26,15 +26,10 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = Element.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['fhirId'] = json_hash['id'] unless json_hash['id'].nil?
-      result['extension'] = json_hash['extension'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Extension.transform_json(var) 
-        end
-      } unless json_hash['extension'].nil?
+      result['extension'] = json_hash['extension'].map { |var| Extension.transform_json(var) } unless json_hash['extension'].nil?
 
       result
     end

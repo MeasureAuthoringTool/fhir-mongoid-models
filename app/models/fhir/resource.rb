@@ -42,6 +42,10 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = Resource.new)
+      if 'Resource' == target.class.name.split('::').last && 'Resource' != json_hash['resourceType']
+        return Object.const_get('FHIR::' + json_hash['resourceType']).transform_json(json_hash)
+      end
+    
       result = target
       result['fhirId'] = json_hash['id'] unless json_hash['id'].nil?
       result['meta'] = Meta.transform_json(json_hash['meta']) unless json_hash['meta'].nil?

@@ -50,6 +50,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = BundleEntryRequest.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['method'] = HTTPVerb.transform_json(json_hash['method'], json_hash['_method']) unless json_hash['method'].nil?
       result['url'] = PrimitiveUri.transform_json(json_hash['url'], json_hash['_url']) unless json_hash['url'].nil?

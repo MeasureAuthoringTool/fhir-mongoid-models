@@ -72,6 +72,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = Address.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['use'] = AddressUse.transform_json(json_hash['use'], json_hash['_use']) unless json_hash['use'].nil?
       result['type'] = AddressType.transform_json(json_hash['type'], json_hash['_type']) unless json_hash['type'].nil?

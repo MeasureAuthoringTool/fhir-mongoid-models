@@ -44,26 +44,15 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = MedicinalProductIngredientSpecifiedSubstanceStrength.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['presentation'] = Ratio.transform_json(json_hash['presentation']) unless json_hash['presentation'].nil?
       result['presentationLowLimit'] = Ratio.transform_json(json_hash['presentationLowLimit']) unless json_hash['presentationLowLimit'].nil?
       result['concentration'] = Ratio.transform_json(json_hash['concentration']) unless json_hash['concentration'].nil?
       result['concentrationLowLimit'] = Ratio.transform_json(json_hash['concentrationLowLimit']) unless json_hash['concentrationLowLimit'].nil?
       result['measurementPoint'] = PrimitiveString.transform_json(json_hash['measurementPoint'], json_hash['_measurementPoint']) unless json_hash['measurementPoint'].nil?
-      result['country'] = json_hash['country'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          CodeableConcept.transform_json(var) 
-        end
-      } unless json_hash['country'].nil?
-      result['referenceStrength'] = json_hash['referenceStrength'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          MedicinalProductIngredientSpecifiedSubstanceStrengthReferenceStrength.transform_json(var) 
-        end
-      } unless json_hash['referenceStrength'].nil?
+      result['country'] = json_hash['country'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['country'].nil?
+      result['referenceStrength'] = json_hash['referenceStrength'].map { |var| MedicinalProductIngredientSpecifiedSubstanceStrengthReferenceStrength.transform_json(var) } unless json_hash['referenceStrength'].nil?
 
       result
     end

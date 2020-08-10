@@ -52,6 +52,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = SpecimenDefinitionTypeTested.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['isDerived'] = PrimitiveBoolean.transform_json(json_hash['isDerived'], json_hash['_isDerived']) unless json_hash['isDerived'].nil?
       result['type'] = CodeableConcept.transform_json(json_hash['type']) unless json_hash['type'].nil?
@@ -59,20 +60,8 @@ module FHIR
       result['container'] = SpecimenDefinitionTypeTestedContainer.transform_json(json_hash['container']) unless json_hash['container'].nil?
       result['requirement'] = PrimitiveString.transform_json(json_hash['requirement'], json_hash['_requirement']) unless json_hash['requirement'].nil?
       result['retentionTime'] = Duration.transform_json(json_hash['retentionTime']) unless json_hash['retentionTime'].nil?
-      result['rejectionCriterion'] = json_hash['rejectionCriterion'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          CodeableConcept.transform_json(var) 
-        end
-      } unless json_hash['rejectionCriterion'].nil?
-      result['handling'] = json_hash['handling'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          SpecimenDefinitionTypeTestedHandling.transform_json(var) 
-        end
-      } unless json_hash['handling'].nil?
+      result['rejectionCriterion'] = json_hash['rejectionCriterion'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['rejectionCriterion'].nil?
+      result['handling'] = json_hash['handling'].map { |var| SpecimenDefinitionTypeTestedHandling.transform_json(var) } unless json_hash['handling'].nil?
 
       result
     end

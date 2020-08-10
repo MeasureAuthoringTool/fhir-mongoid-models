@@ -32,23 +32,12 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = MedicationDispenseSubstitution.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['wasSubstituted'] = PrimitiveBoolean.transform_json(json_hash['wasSubstituted'], json_hash['_wasSubstituted']) unless json_hash['wasSubstituted'].nil?
       result['type'] = CodeableConcept.transform_json(json_hash['type']) unless json_hash['type'].nil?
-      result['reason'] = json_hash['reason'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          CodeableConcept.transform_json(var) 
-        end
-      } unless json_hash['reason'].nil?
-      result['responsibleParty'] = json_hash['responsibleParty'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Reference.transform_json(var) 
-        end
-      } unless json_hash['responsibleParty'].nil?
+      result['reason'] = json_hash['reason'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['reason'].nil?
+      result['responsibleParty'] = json_hash['responsibleParty'].map { |var| Reference.transform_json(var) } unless json_hash['responsibleParty'].nil?
 
       result
     end

@@ -30,19 +30,14 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = ClaimResponseItemDetailSubDetail.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['subDetailSequence'] = PrimitivePositiveInt.transform_json(json_hash['subDetailSequence'], json_hash['_subDetailSequence']) unless json_hash['subDetailSequence'].nil?
       result['noteNumber'] = json_hash['noteNumber'].each_with_index.map do |var, i|
         extension_hash = json_hash['_noteNumber'] && json_hash['_noteNumber'][i]
         PrimitivePositiveInt.transform_json(var, extension_hash)
       end unless json_hash['noteNumber'].nil?
-      result['adjudication'] = json_hash['adjudication'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          ClaimResponseItemAdjudication.transform_json(var) 
-        end
-      } unless json_hash['adjudication'].nil?
+      result['adjudication'] = json_hash['adjudication'].map { |var| ClaimResponseItemAdjudication.transform_json(var) } unless json_hash['adjudication'].nil?
 
       result
     end

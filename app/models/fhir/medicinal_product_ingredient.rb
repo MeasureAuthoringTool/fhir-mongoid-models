@@ -40,24 +40,13 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = MedicinalProductIngredient.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = Identifier.transform_json(json_hash['identifier']) unless json_hash['identifier'].nil?
       result['role'] = CodeableConcept.transform_json(json_hash['role']) unless json_hash['role'].nil?
       result['allergenicIndicator'] = PrimitiveBoolean.transform_json(json_hash['allergenicIndicator'], json_hash['_allergenicIndicator']) unless json_hash['allergenicIndicator'].nil?
-      result['manufacturer'] = json_hash['manufacturer'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Reference.transform_json(var) 
-        end
-      } unless json_hash['manufacturer'].nil?
-      result['specifiedSubstance'] = json_hash['specifiedSubstance'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          MedicinalProductIngredientSpecifiedSubstance.transform_json(var) 
-        end
-      } unless json_hash['specifiedSubstance'].nil?
+      result['manufacturer'] = json_hash['manufacturer'].map { |var| Reference.transform_json(var) } unless json_hash['manufacturer'].nil?
+      result['specifiedSubstance'] = json_hash['specifiedSubstance'].map { |var| MedicinalProductIngredientSpecifiedSubstance.transform_json(var) } unless json_hash['specifiedSubstance'].nil?
       result['substance'] = MedicinalProductIngredientSubstance.transform_json(json_hash['substance']) unless json_hash['substance'].nil?
 
       result

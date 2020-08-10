@@ -36,6 +36,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = Annotation.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['authorReference'] = Reference.transform_json(json_hash['authorReference']) unless json_hash['authorReference'].nil?
       result['authorString'] = PrimitiveString.transform_json(json_hash['authorString'], json_hash['_authorString']) unless json_hash['authorString'].nil?

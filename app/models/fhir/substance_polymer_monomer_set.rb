@@ -22,15 +22,10 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = SubstancePolymerMonomerSet.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['ratioType'] = CodeableConcept.transform_json(json_hash['ratioType']) unless json_hash['ratioType'].nil?
-      result['startingMaterial'] = json_hash['startingMaterial'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          SubstancePolymerMonomerSetStartingMaterial.transform_json(var) 
-        end
-      } unless json_hash['startingMaterial'].nil?
+      result['startingMaterial'] = json_hash['startingMaterial'].map { |var| SubstancePolymerMonomerSetStartingMaterial.transform_json(var) } unless json_hash['startingMaterial'].nil?
 
       result
     end

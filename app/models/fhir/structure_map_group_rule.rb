@@ -42,36 +42,13 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = StructureMapGroupRule.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['name'] = PrimitiveId.transform_json(json_hash['name'], json_hash['_name']) unless json_hash['name'].nil?
-      result['source'] = json_hash['source'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          StructureMapGroupRuleSource.transform_json(var) 
-        end
-      } unless json_hash['source'].nil?
-      result['target'] = json_hash['target'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          StructureMapGroupRuleTarget.transform_json(var) 
-        end
-      } unless json_hash['target'].nil?
-      result['rule'] = json_hash['rule'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          StructureMapGroupRule.transform_json(var) 
-        end
-      } unless json_hash['rule'].nil?
-      result['dependent'] = json_hash['dependent'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          StructureMapGroupRuleDependent.transform_json(var) 
-        end
-      } unless json_hash['dependent'].nil?
+      result['source'] = json_hash['source'].map { |var| StructureMapGroupRuleSource.transform_json(var) } unless json_hash['source'].nil?
+      result['target'] = json_hash['target'].map { |var| StructureMapGroupRuleTarget.transform_json(var) } unless json_hash['target'].nil?
+      result['rule'] = json_hash['rule'].map { |var| StructureMapGroupRule.transform_json(var) } unless json_hash['rule'].nil?
+      result['dependent'] = json_hash['dependent'].map { |var| StructureMapGroupRuleDependent.transform_json(var) } unless json_hash['dependent'].nil?
       result['documentation'] = PrimitiveString.transform_json(json_hash['documentation'], json_hash['_documentation']) unless json_hash['documentation'].nil?
 
       result

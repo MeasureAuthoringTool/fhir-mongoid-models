@@ -28,6 +28,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = DetectedIssueMitigation.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['action'] = CodeableConcept.transform_json(json_hash['action']) unless json_hash['action'].nil?
       result['date'] = PrimitiveDateTime.transform_json(json_hash['date'], json_hash['_date']) unless json_hash['date'].nil?

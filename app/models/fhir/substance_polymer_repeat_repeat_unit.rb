@@ -36,24 +36,13 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = SubstancePolymerRepeatRepeatUnit.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['orientationOfPolymerisation'] = CodeableConcept.transform_json(json_hash['orientationOfPolymerisation']) unless json_hash['orientationOfPolymerisation'].nil?
       result['repeatUnit'] = PrimitiveString.transform_json(json_hash['repeatUnit'], json_hash['_repeatUnit']) unless json_hash['repeatUnit'].nil?
       result['amount'] = SubstanceAmount.transform_json(json_hash['amount']) unless json_hash['amount'].nil?
-      result['degreeOfPolymerisation'] = json_hash['degreeOfPolymerisation'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation.transform_json(var) 
-        end
-      } unless json_hash['degreeOfPolymerisation'].nil?
-      result['structuralRepresentation'] = json_hash['structuralRepresentation'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          SubstancePolymerRepeatRepeatUnitStructuralRepresentation.transform_json(var) 
-        end
-      } unless json_hash['structuralRepresentation'].nil?
+      result['degreeOfPolymerisation'] = json_hash['degreeOfPolymerisation'].map { |var| SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation.transform_json(var) } unless json_hash['degreeOfPolymerisation'].nil?
+      result['structuralRepresentation'] = json_hash['structuralRepresentation'].map { |var| SubstancePolymerRepeatRepeatUnitStructuralRepresentation.transform_json(var) } unless json_hash['structuralRepresentation'].nil?
 
       result
     end

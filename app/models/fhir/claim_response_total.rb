@@ -22,6 +22,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = ClaimResponseTotal.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['category'] = CodeableConcept.transform_json(json_hash['category']) unless json_hash['category'].nil?
       result['amount'] = Money.transform_json(json_hash['amount']) unless json_hash['amount'].nil?

@@ -110,6 +110,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = TimingRepeat.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['boundsDuration'] = Duration.transform_json(json_hash['boundsDuration']) unless json_hash['boundsDuration'].nil?
       result['boundsRange'] = Range.transform_json(json_hash['boundsRange']) unless json_hash['boundsRange'].nil?

@@ -68,33 +68,16 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = Endpoint.new)
+    
       result = self.superclass.transform_json(json_hash, target)
-      result['identifier'] = json_hash['identifier'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Identifier.transform_json(var) 
-        end
-      } unless json_hash['identifier'].nil?
+      result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['status'] = EndpointStatus.transform_json(json_hash['status'], json_hash['_status']) unless json_hash['status'].nil?
       result['connectionType'] = Coding.transform_json(json_hash['connectionType']) unless json_hash['connectionType'].nil?
       result['name'] = PrimitiveString.transform_json(json_hash['name'], json_hash['_name']) unless json_hash['name'].nil?
       result['managingOrganization'] = Reference.transform_json(json_hash['managingOrganization']) unless json_hash['managingOrganization'].nil?
-      result['contact'] = json_hash['contact'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          ContactPoint.transform_json(var) 
-        end
-      } unless json_hash['contact'].nil?
+      result['contact'] = json_hash['contact'].map { |var| ContactPoint.transform_json(var) } unless json_hash['contact'].nil?
       result['period'] = Period.transform_json(json_hash['period']) unless json_hash['period'].nil?
-      result['payloadType'] = json_hash['payloadType'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          CodeableConcept.transform_json(var) 
-        end
-      } unless json_hash['payloadType'].nil?
+      result['payloadType'] = json_hash['payloadType'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['payloadType'].nil?
       result['payloadMimeType'] = json_hash['payloadMimeType'].each_with_index.map do |var, i|
         extension_hash = json_hash['_payloadMimeType'] && json_hash['_payloadMimeType'][i]
         MimeType.transform_json(var, extension_hash)

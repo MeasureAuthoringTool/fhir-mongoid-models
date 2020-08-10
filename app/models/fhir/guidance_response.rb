@@ -90,15 +90,10 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = GuidanceResponse.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['requestIdentifier'] = Identifier.transform_json(json_hash['requestIdentifier']) unless json_hash['requestIdentifier'].nil?
-      result['identifier'] = json_hash['identifier'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Identifier.transform_json(var) 
-        end
-      } unless json_hash['identifier'].nil?
+      result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['moduleUri'] = PrimitiveUri.transform_json(json_hash['moduleUri'], json_hash['_moduleUri']) unless json_hash['moduleUri'].nil?
       result['moduleCanonical'] = PrimitiveCanonical.transform_json(json_hash['moduleCanonical'], json_hash['_moduleCanonical']) unless json_hash['moduleCanonical'].nil?
       result['moduleCodeableConcept'] = CodeableConcept.transform_json(json_hash['moduleCodeableConcept']) unless json_hash['moduleCodeableConcept'].nil?
@@ -107,43 +102,13 @@ module FHIR
       result['encounter'] = Reference.transform_json(json_hash['encounter']) unless json_hash['encounter'].nil?
       result['occurrenceDateTime'] = PrimitiveDateTime.transform_json(json_hash['occurrenceDateTime'], json_hash['_occurrenceDateTime']) unless json_hash['occurrenceDateTime'].nil?
       result['performer'] = Reference.transform_json(json_hash['performer']) unless json_hash['performer'].nil?
-      result['reasonCode'] = json_hash['reasonCode'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          CodeableConcept.transform_json(var) 
-        end
-      } unless json_hash['reasonCode'].nil?
-      result['reasonReference'] = json_hash['reasonReference'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Reference.transform_json(var) 
-        end
-      } unless json_hash['reasonReference'].nil?
-      result['note'] = json_hash['note'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Annotation.transform_json(var) 
-        end
-      } unless json_hash['note'].nil?
-      result['evaluationMessage'] = json_hash['evaluationMessage'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Reference.transform_json(var) 
-        end
-      } unless json_hash['evaluationMessage'].nil?
+      result['reasonCode'] = json_hash['reasonCode'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['reasonCode'].nil?
+      result['reasonReference'] = json_hash['reasonReference'].map { |var| Reference.transform_json(var) } unless json_hash['reasonReference'].nil?
+      result['note'] = json_hash['note'].map { |var| Annotation.transform_json(var) } unless json_hash['note'].nil?
+      result['evaluationMessage'] = json_hash['evaluationMessage'].map { |var| Reference.transform_json(var) } unless json_hash['evaluationMessage'].nil?
       result['outputParameters'] = Reference.transform_json(json_hash['outputParameters']) unless json_hash['outputParameters'].nil?
       result['result'] = Reference.transform_json(json_hash['result']) unless json_hash['result'].nil?
-      result['dataRequirement'] = json_hash['dataRequirement'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          DataRequirement.transform_json(var) 
-        end
-      } unless json_hash['dataRequirement'].nil?
+      result['dataRequirement'] = json_hash['dataRequirement'].map { |var| DataRequirement.transform_json(var) } unless json_hash['dataRequirement'].nil?
 
       result
     end

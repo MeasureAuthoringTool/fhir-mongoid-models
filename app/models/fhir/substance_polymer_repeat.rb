@@ -34,17 +34,12 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = SubstancePolymerRepeat.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['numberOfUnits'] = PrimitiveInteger.transform_json(json_hash['numberOfUnits'], json_hash['_numberOfUnits']) unless json_hash['numberOfUnits'].nil?
       result['averageMolecularFormula'] = PrimitiveString.transform_json(json_hash['averageMolecularFormula'], json_hash['_averageMolecularFormula']) unless json_hash['averageMolecularFormula'].nil?
       result['repeatUnitAmountType'] = CodeableConcept.transform_json(json_hash['repeatUnitAmountType']) unless json_hash['repeatUnitAmountType'].nil?
-      result['repeatUnit'] = json_hash['repeatUnit'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          SubstancePolymerRepeatRepeatUnit.transform_json(var) 
-        end
-      } unless json_hash['repeatUnit'].nil?
+      result['repeatUnit'] = json_hash['repeatUnit'].map { |var| SubstancePolymerRepeatRepeatUnit.transform_json(var) } unless json_hash['repeatUnit'].nil?
 
       result
     end

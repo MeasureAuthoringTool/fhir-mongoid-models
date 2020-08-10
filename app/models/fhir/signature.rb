@@ -50,14 +50,9 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = Signature.new)
+    
       result = self.superclass.transform_json(json_hash, target)
-      result['type'] = json_hash['type'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Coding.transform_json(var) 
-        end
-      } unless json_hash['type'].nil?
+      result['type'] = json_hash['type'].map { |var| Coding.transform_json(var) } unless json_hash['type'].nil?
       result['when'] = PrimitiveInstant.transform_json(json_hash['when'], json_hash['_when']) unless json_hash['when'].nil?
       result['who'] = Reference.transform_json(json_hash['who']) unless json_hash['who'].nil?
       result['onBehalfOf'] = Reference.transform_json(json_hash['onBehalfOf']) unless json_hash['onBehalfOf'].nil?

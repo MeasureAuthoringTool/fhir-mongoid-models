@@ -38,6 +38,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = MessageDefinitionFocus.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['code'] = ResourceType.transform_json(json_hash['code'], json_hash['_code']) unless json_hash['code'].nil?
       result['profile'] = PrimitiveCanonical.transform_json(json_hash['profile'], json_hash['_profile']) unless json_hash['profile'].nil?

@@ -112,6 +112,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = TestScriptSetupActionOperation.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['type'] = Coding.transform_json(json_hash['type']) unless json_hash['type'].nil?
       result['resource'] = FHIRDefinedType.transform_json(json_hash['resource'], json_hash['_resource']) unless json_hash['resource'].nil?
@@ -124,13 +125,7 @@ module FHIR
       result['method'] = TestScriptRequestMethodCode.transform_json(json_hash['method'], json_hash['_method']) unless json_hash['method'].nil?
       result['origin'] = PrimitiveInteger.transform_json(json_hash['origin'], json_hash['_origin']) unless json_hash['origin'].nil?
       result['params'] = PrimitiveString.transform_json(json_hash['params'], json_hash['_params']) unless json_hash['params'].nil?
-      result['requestHeader'] = json_hash['requestHeader'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          TestScriptSetupActionOperationRequestHeader.transform_json(var) 
-        end
-      } unless json_hash['requestHeader'].nil?
+      result['requestHeader'] = json_hash['requestHeader'].map { |var| TestScriptSetupActionOperationRequestHeader.transform_json(var) } unless json_hash['requestHeader'].nil?
       result['requestId'] = PrimitiveId.transform_json(json_hash['requestId'], json_hash['_requestId']) unless json_hash['requestId'].nil?
       result['responseId'] = PrimitiveId.transform_json(json_hash['responseId'], json_hash['_responseId']) unless json_hash['responseId'].nil?
       result['sourceId'] = PrimitiveId.transform_json(json_hash['sourceId'], json_hash['_sourceId']) unless json_hash['sourceId'].nil?

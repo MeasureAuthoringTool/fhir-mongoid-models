@@ -48,19 +48,14 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = GraphDefinitionLink.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['path'] = PrimitiveString.transform_json(json_hash['path'], json_hash['_path']) unless json_hash['path'].nil?
       result['sliceName'] = PrimitiveString.transform_json(json_hash['sliceName'], json_hash['_sliceName']) unless json_hash['sliceName'].nil?
       result['min'] = PrimitiveInteger.transform_json(json_hash['min'], json_hash['_min']) unless json_hash['min'].nil?
       result['max'] = PrimitiveString.transform_json(json_hash['max'], json_hash['_max']) unless json_hash['max'].nil?
       result['description'] = PrimitiveString.transform_json(json_hash['description'], json_hash['_description']) unless json_hash['description'].nil?
-      result['target'] = json_hash['target'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          GraphDefinitionLinkTarget.transform_json(var) 
-        end
-      } unless json_hash['target'].nil?
+      result['target'] = json_hash['target'].map { |var| GraphDefinitionLinkTarget.transform_json(var) } unless json_hash['target'].nil?
 
       result
     end

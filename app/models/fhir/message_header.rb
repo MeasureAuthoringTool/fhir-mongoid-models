@@ -66,16 +66,11 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = MessageHeader.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['eventCoding'] = Coding.transform_json(json_hash['eventCoding']) unless json_hash['eventCoding'].nil?
       result['eventUri'] = PrimitiveUri.transform_json(json_hash['eventUri'], json_hash['_eventUri']) unless json_hash['eventUri'].nil?
-      result['destination'] = json_hash['destination'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          MessageHeaderDestination.transform_json(var) 
-        end
-      } unless json_hash['destination'].nil?
+      result['destination'] = json_hash['destination'].map { |var| MessageHeaderDestination.transform_json(var) } unless json_hash['destination'].nil?
       result['sender'] = Reference.transform_json(json_hash['sender']) unless json_hash['sender'].nil?
       result['enterer'] = Reference.transform_json(json_hash['enterer']) unless json_hash['enterer'].nil?
       result['author'] = Reference.transform_json(json_hash['author']) unless json_hash['author'].nil?
@@ -83,13 +78,7 @@ module FHIR
       result['responsible'] = Reference.transform_json(json_hash['responsible']) unless json_hash['responsible'].nil?
       result['reason'] = CodeableConcept.transform_json(json_hash['reason']) unless json_hash['reason'].nil?
       result['response'] = MessageHeaderResponse.transform_json(json_hash['response']) unless json_hash['response'].nil?
-      result['focus'] = json_hash['focus'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Reference.transform_json(var) 
-        end
-      } unless json_hash['focus'].nil?
+      result['focus'] = json_hash['focus'].map { |var| Reference.transform_json(var) } unless json_hash['focus'].nil?
       result['definition'] = PrimitiveCanonical.transform_json(json_hash['definition'], json_hash['_definition']) unless json_hash['definition'].nil?
 
       result

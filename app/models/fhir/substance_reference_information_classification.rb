@@ -30,23 +30,12 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = SubstanceReferenceInformationClassification.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['domain'] = CodeableConcept.transform_json(json_hash['domain']) unless json_hash['domain'].nil?
       result['classification'] = CodeableConcept.transform_json(json_hash['classification']) unless json_hash['classification'].nil?
-      result['subtype'] = json_hash['subtype'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          CodeableConcept.transform_json(var) 
-        end
-      } unless json_hash['subtype'].nil?
-      result['source'] = json_hash['source'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Reference.transform_json(var) 
-        end
-      } unless json_hash['source'].nil?
+      result['subtype'] = json_hash['subtype'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['subtype'].nil?
+      result['source'] = json_hash['source'].map { |var| Reference.transform_json(var) } unless json_hash['source'].nil?
 
       result
     end

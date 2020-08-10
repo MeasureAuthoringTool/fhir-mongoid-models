@@ -52,14 +52,9 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = ResearchSubject.new)
+    
       result = self.superclass.transform_json(json_hash, target)
-      result['identifier'] = json_hash['identifier'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Identifier.transform_json(var) 
-        end
-      } unless json_hash['identifier'].nil?
+      result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['status'] = ResearchSubjectStatus.transform_json(json_hash['status'], json_hash['_status']) unless json_hash['status'].nil?
       result['period'] = Period.transform_json(json_hash['period']) unless json_hash['period'].nil?
       result['study'] = Reference.transform_json(json_hash['study']) unless json_hash['study'].nil?

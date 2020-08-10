@@ -28,6 +28,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = MedicationKnowledgeAdministrationGuidelinesPatientCharacteristics.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['characteristicCodeableConcept'] = CodeableConcept.transform_json(json_hash['characteristicCodeableConcept']) unless json_hash['characteristicCodeableConcept'].nil?
       result['characteristicSimpleQuantity'] = SimpleQuantity.transform_json(json_hash['characteristicSimpleQuantity']) unless json_hash['characteristicSimpleQuantity'].nil?

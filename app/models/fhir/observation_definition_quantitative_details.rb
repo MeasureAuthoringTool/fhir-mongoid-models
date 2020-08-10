@@ -34,6 +34,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = ObservationDefinitionQuantitativeDetails.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['customaryUnit'] = CodeableConcept.transform_json(json_hash['customaryUnit']) unless json_hash['customaryUnit'].nil?
       result['unit'] = CodeableConcept.transform_json(json_hash['unit']) unless json_hash['unit'].nil?

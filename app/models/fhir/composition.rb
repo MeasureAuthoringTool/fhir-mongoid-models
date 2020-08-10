@@ -82,58 +82,23 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = Composition.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = Identifier.transform_json(json_hash['identifier']) unless json_hash['identifier'].nil?
       result['status'] = CompositionStatus.transform_json(json_hash['status'], json_hash['_status']) unless json_hash['status'].nil?
       result['type'] = CodeableConcept.transform_json(json_hash['type']) unless json_hash['type'].nil?
-      result['category'] = json_hash['category'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          CodeableConcept.transform_json(var) 
-        end
-      } unless json_hash['category'].nil?
+      result['category'] = json_hash['category'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['category'].nil?
       result['subject'] = Reference.transform_json(json_hash['subject']) unless json_hash['subject'].nil?
       result['encounter'] = Reference.transform_json(json_hash['encounter']) unless json_hash['encounter'].nil?
       result['date'] = PrimitiveDateTime.transform_json(json_hash['date'], json_hash['_date']) unless json_hash['date'].nil?
-      result['author'] = json_hash['author'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Reference.transform_json(var) 
-        end
-      } unless json_hash['author'].nil?
+      result['author'] = json_hash['author'].map { |var| Reference.transform_json(var) } unless json_hash['author'].nil?
       result['title'] = PrimitiveString.transform_json(json_hash['title'], json_hash['_title']) unless json_hash['title'].nil?
       result['confidentiality'] = DocumentConfidentiality.transform_json(json_hash['confidentiality'], json_hash['_confidentiality']) unless json_hash['confidentiality'].nil?
-      result['attester'] = json_hash['attester'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          CompositionAttester.transform_json(var) 
-        end
-      } unless json_hash['attester'].nil?
+      result['attester'] = json_hash['attester'].map { |var| CompositionAttester.transform_json(var) } unless json_hash['attester'].nil?
       result['custodian'] = Reference.transform_json(json_hash['custodian']) unless json_hash['custodian'].nil?
-      result['relatesTo'] = json_hash['relatesTo'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          CompositionRelatesTo.transform_json(var) 
-        end
-      } unless json_hash['relatesTo'].nil?
-      result['event'] = json_hash['event'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          CompositionEvent.transform_json(var) 
-        end
-      } unless json_hash['event'].nil?
-      result['section'] = json_hash['section'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          CompositionSection.transform_json(var) 
-        end
-      } unless json_hash['section'].nil?
+      result['relatesTo'] = json_hash['relatesTo'].map { |var| CompositionRelatesTo.transform_json(var) } unless json_hash['relatesTo'].nil?
+      result['event'] = json_hash['event'].map { |var| CompositionEvent.transform_json(var) } unless json_hash['event'].nil?
+      result['section'] = json_hash['section'].map { |var| CompositionSection.transform_json(var) } unless json_hash['section'].nil?
 
       result
     end

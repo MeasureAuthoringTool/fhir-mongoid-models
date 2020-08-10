@@ -146,6 +146,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = TestScriptSetupActionAssert.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['label'] = PrimitiveString.transform_json(json_hash['label'], json_hash['_label']) unless json_hash['label'].nil?
       result['description'] = PrimitiveString.transform_json(json_hash['description'], json_hash['_description']) unless json_hash['description'].nil?

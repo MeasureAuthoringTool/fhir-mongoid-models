@@ -44,6 +44,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = GraphDefinitionLinkTargetCompartment.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['use'] = GraphCompartmentUse.transform_json(json_hash['use'], json_hash['_use']) unless json_hash['use'].nil?
       result['code'] = CompartmentCode.transform_json(json_hash['code'], json_hash['_code']) unless json_hash['code'].nil?

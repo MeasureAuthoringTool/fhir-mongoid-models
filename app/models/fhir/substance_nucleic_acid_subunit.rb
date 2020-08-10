@@ -52,6 +52,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = SubstanceNucleicAcidSubunit.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['subunit'] = PrimitiveInteger.transform_json(json_hash['subunit'], json_hash['_subunit']) unless json_hash['subunit'].nil?
       result['sequence'] = PrimitiveString.transform_json(json_hash['sequence'], json_hash['_sequence']) unless json_hash['sequence'].nil?
@@ -59,20 +60,8 @@ module FHIR
       result['sequenceAttachment'] = Attachment.transform_json(json_hash['sequenceAttachment']) unless json_hash['sequenceAttachment'].nil?
       result['fivePrime'] = CodeableConcept.transform_json(json_hash['fivePrime']) unless json_hash['fivePrime'].nil?
       result['threePrime'] = CodeableConcept.transform_json(json_hash['threePrime']) unless json_hash['threePrime'].nil?
-      result['linkage'] = json_hash['linkage'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          SubstanceNucleicAcidSubunitLinkage.transform_json(var) 
-        end
-      } unless json_hash['linkage'].nil?
-      result['sugar'] = json_hash['sugar'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          SubstanceNucleicAcidSubunitSugar.transform_json(var) 
-        end
-      } unless json_hash['sugar'].nil?
+      result['linkage'] = json_hash['linkage'].map { |var| SubstanceNucleicAcidSubunitLinkage.transform_json(var) } unless json_hash['linkage'].nil?
+      result['sugar'] = json_hash['sugar'].map { |var| SubstanceNucleicAcidSubunitSugar.transform_json(var) } unless json_hash['sugar'].nil?
 
       result
     end

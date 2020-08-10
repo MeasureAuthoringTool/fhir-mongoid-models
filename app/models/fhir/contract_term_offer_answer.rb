@@ -78,6 +78,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = ContractTermOfferAnswer.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['valueBoolean'] = PrimitiveBoolean.transform_json(json_hash['valueBoolean'], json_hash['_valueBoolean']) unless json_hash['valueBoolean'].nil?
       result['valueDecimal'] = PrimitiveDecimal.transform_json(json_hash['valueDecimal'], json_hash['_valueDecimal']) unless json_hash['valueDecimal'].nil?

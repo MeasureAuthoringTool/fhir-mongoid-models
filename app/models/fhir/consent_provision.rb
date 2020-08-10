@@ -60,66 +60,19 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = ConsentProvision.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['type'] = ConsentProvisionType.transform_json(json_hash['type'], json_hash['_type']) unless json_hash['type'].nil?
       result['period'] = Period.transform_json(json_hash['period']) unless json_hash['period'].nil?
-      result['actor'] = json_hash['actor'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          ConsentProvisionActor.transform_json(var) 
-        end
-      } unless json_hash['actor'].nil?
-      result['action'] = json_hash['action'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          CodeableConcept.transform_json(var) 
-        end
-      } unless json_hash['action'].nil?
-      result['securityLabel'] = json_hash['securityLabel'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Coding.transform_json(var) 
-        end
-      } unless json_hash['securityLabel'].nil?
-      result['purpose'] = json_hash['purpose'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Coding.transform_json(var) 
-        end
-      } unless json_hash['purpose'].nil?
-      result['class'] = json_hash['class'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Coding.transform_json(var) 
-        end
-      } unless json_hash['class'].nil?
-      result['code'] = json_hash['code'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          CodeableConcept.transform_json(var) 
-        end
-      } unless json_hash['code'].nil?
+      result['actor'] = json_hash['actor'].map { |var| ConsentProvisionActor.transform_json(var) } unless json_hash['actor'].nil?
+      result['action'] = json_hash['action'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['action'].nil?
+      result['securityLabel'] = json_hash['securityLabel'].map { |var| Coding.transform_json(var) } unless json_hash['securityLabel'].nil?
+      result['purpose'] = json_hash['purpose'].map { |var| Coding.transform_json(var) } unless json_hash['purpose'].nil?
+      result['class'] = json_hash['class'].map { |var| Coding.transform_json(var) } unless json_hash['class'].nil?
+      result['code'] = json_hash['code'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['code'].nil?
       result['dataPeriod'] = Period.transform_json(json_hash['dataPeriod']) unless json_hash['dataPeriod'].nil?
-      result['data'] = json_hash['data'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          ConsentProvisionData.transform_json(var) 
-        end
-      } unless json_hash['data'].nil?
-      result['provision'] = json_hash['provision'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          ConsentProvision.transform_json(var) 
-        end
-      } unless json_hash['provision'].nil?
+      result['data'] = json_hash['data'].map { |var| ConsentProvisionData.transform_json(var) } unless json_hash['data'].nil?
+      result['provision'] = json_hash['provision'].map { |var| ConsentProvision.transform_json(var) } unless json_hash['provision'].nil?
 
       result
     end

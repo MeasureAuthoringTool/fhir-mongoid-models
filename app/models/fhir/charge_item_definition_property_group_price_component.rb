@@ -34,6 +34,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = ChargeItemDefinitionPropertyGroupPriceComponent.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['type'] = ChargeItemDefinitionPriceComponentType.transform_json(json_hash['type'], json_hash['_type']) unless json_hash['type'].nil?
       result['code'] = CodeableConcept.transform_json(json_hash['code']) unless json_hash['code'].nil?

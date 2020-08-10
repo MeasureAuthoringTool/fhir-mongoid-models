@@ -28,6 +28,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = MedicationKnowledgeCost.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['type'] = CodeableConcept.transform_json(json_hash['type']) unless json_hash['type'].nil?
       result['source'] = PrimitiveString.transform_json(json_hash['source'], json_hash['_source']) unless json_hash['source'].nil?

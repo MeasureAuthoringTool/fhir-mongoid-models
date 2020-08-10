@@ -14,6 +14,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, extension_hash, target = CurrencyCode.new)
+    
       result = target
       unless extension_hash.nil?
         result['fhirId'] = extension_hash['id'] unless extension_hash['id'].nil?

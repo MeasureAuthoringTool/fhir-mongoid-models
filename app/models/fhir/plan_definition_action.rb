@@ -180,87 +180,34 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = PlanDefinitionAction.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['prefix'] = PrimitiveString.transform_json(json_hash['prefix'], json_hash['_prefix']) unless json_hash['prefix'].nil?
       result['title'] = PrimitiveString.transform_json(json_hash['title'], json_hash['_title']) unless json_hash['title'].nil?
       result['description'] = PrimitiveString.transform_json(json_hash['description'], json_hash['_description']) unless json_hash['description'].nil?
       result['textEquivalent'] = PrimitiveString.transform_json(json_hash['textEquivalent'], json_hash['_textEquivalent']) unless json_hash['textEquivalent'].nil?
       result['priority'] = RequestPriority.transform_json(json_hash['priority'], json_hash['_priority']) unless json_hash['priority'].nil?
-      result['code'] = json_hash['code'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          CodeableConcept.transform_json(var) 
-        end
-      } unless json_hash['code'].nil?
-      result['reason'] = json_hash['reason'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          CodeableConcept.transform_json(var) 
-        end
-      } unless json_hash['reason'].nil?
-      result['documentation'] = json_hash['documentation'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          RelatedArtifact.transform_json(var) 
-        end
-      } unless json_hash['documentation'].nil?
+      result['code'] = json_hash['code'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['code'].nil?
+      result['reason'] = json_hash['reason'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['reason'].nil?
+      result['documentation'] = json_hash['documentation'].map { |var| RelatedArtifact.transform_json(var) } unless json_hash['documentation'].nil?
       result['goalId'] = json_hash['goalId'].each_with_index.map do |var, i|
         extension_hash = json_hash['_goalId'] && json_hash['_goalId'][i]
         PrimitiveId.transform_json(var, extension_hash)
       end unless json_hash['goalId'].nil?
       result['subjectCodeableConcept'] = CodeableConcept.transform_json(json_hash['subjectCodeableConcept']) unless json_hash['subjectCodeableConcept'].nil?
       result['subjectReference'] = Reference.transform_json(json_hash['subjectReference']) unless json_hash['subjectReference'].nil?
-      result['trigger'] = json_hash['trigger'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          TriggerDefinition.transform_json(var) 
-        end
-      } unless json_hash['trigger'].nil?
-      result['condition'] = json_hash['condition'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          PlanDefinitionActionCondition.transform_json(var) 
-        end
-      } unless json_hash['condition'].nil?
-      result['input'] = json_hash['input'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          DataRequirement.transform_json(var) 
-        end
-      } unless json_hash['input'].nil?
-      result['output'] = json_hash['output'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          DataRequirement.transform_json(var) 
-        end
-      } unless json_hash['output'].nil?
-      result['relatedAction'] = json_hash['relatedAction'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          PlanDefinitionActionRelatedAction.transform_json(var) 
-        end
-      } unless json_hash['relatedAction'].nil?
+      result['trigger'] = json_hash['trigger'].map { |var| TriggerDefinition.transform_json(var) } unless json_hash['trigger'].nil?
+      result['condition'] = json_hash['condition'].map { |var| PlanDefinitionActionCondition.transform_json(var) } unless json_hash['condition'].nil?
+      result['input'] = json_hash['input'].map { |var| DataRequirement.transform_json(var) } unless json_hash['input'].nil?
+      result['output'] = json_hash['output'].map { |var| DataRequirement.transform_json(var) } unless json_hash['output'].nil?
+      result['relatedAction'] = json_hash['relatedAction'].map { |var| PlanDefinitionActionRelatedAction.transform_json(var) } unless json_hash['relatedAction'].nil?
       result['timingDateTime'] = PrimitiveDateTime.transform_json(json_hash['timingDateTime'], json_hash['_timingDateTime']) unless json_hash['timingDateTime'].nil?
       result['timingAge'] = Age.transform_json(json_hash['timingAge']) unless json_hash['timingAge'].nil?
       result['timingPeriod'] = Period.transform_json(json_hash['timingPeriod']) unless json_hash['timingPeriod'].nil?
       result['timingDuration'] = Duration.transform_json(json_hash['timingDuration']) unless json_hash['timingDuration'].nil?
       result['timingRange'] = Range.transform_json(json_hash['timingRange']) unless json_hash['timingRange'].nil?
       result['timingTiming'] = Timing.transform_json(json_hash['timingTiming']) unless json_hash['timingTiming'].nil?
-      result['participant'] = json_hash['participant'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          PlanDefinitionActionParticipant.transform_json(var) 
-        end
-      } unless json_hash['participant'].nil?
+      result['participant'] = json_hash['participant'].map { |var| PlanDefinitionActionParticipant.transform_json(var) } unless json_hash['participant'].nil?
       result['type'] = CodeableConcept.transform_json(json_hash['type']) unless json_hash['type'].nil?
       result['groupingBehavior'] = ActionGroupingBehavior.transform_json(json_hash['groupingBehavior'], json_hash['_groupingBehavior']) unless json_hash['groupingBehavior'].nil?
       result['selectionBehavior'] = ActionSelectionBehavior.transform_json(json_hash['selectionBehavior'], json_hash['_selectionBehavior']) unless json_hash['selectionBehavior'].nil?
@@ -270,20 +217,8 @@ module FHIR
       result['definitionCanonical'] = PrimitiveCanonical.transform_json(json_hash['definitionCanonical'], json_hash['_definitionCanonical']) unless json_hash['definitionCanonical'].nil?
       result['definitionUri'] = PrimitiveUri.transform_json(json_hash['definitionUri'], json_hash['_definitionUri']) unless json_hash['definitionUri'].nil?
       result['transform'] = PrimitiveCanonical.transform_json(json_hash['transform'], json_hash['_transform']) unless json_hash['transform'].nil?
-      result['dynamicValue'] = json_hash['dynamicValue'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          PlanDefinitionActionDynamicValue.transform_json(var) 
-        end
-      } unless json_hash['dynamicValue'].nil?
-      result['action'] = json_hash['action'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          PlanDefinitionAction.transform_json(var) 
-        end
-      } unless json_hash['action'].nil?
+      result['dynamicValue'] = json_hash['dynamicValue'].map { |var| PlanDefinitionActionDynamicValue.transform_json(var) } unless json_hash['dynamicValue'].nil?
+      result['action'] = json_hash['action'].map { |var| PlanDefinitionAction.transform_json(var) } unless json_hash['action'].nil?
 
       result
     end

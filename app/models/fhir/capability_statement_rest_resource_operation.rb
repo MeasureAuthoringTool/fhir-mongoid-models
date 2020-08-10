@@ -32,6 +32,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = CapabilityStatementRestResourceOperation.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['name'] = PrimitiveString.transform_json(json_hash['name'], json_hash['_name']) unless json_hash['name'].nil?
       result['definition'] = PrimitiveCanonical.transform_json(json_hash['definition'], json_hash['_definition']) unless json_hash['definition'].nil?

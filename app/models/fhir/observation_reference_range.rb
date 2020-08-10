@@ -40,17 +40,12 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = ObservationReferenceRange.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['low'] = SimpleQuantity.transform_json(json_hash['low']) unless json_hash['low'].nil?
       result['high'] = SimpleQuantity.transform_json(json_hash['high']) unless json_hash['high'].nil?
       result['type'] = CodeableConcept.transform_json(json_hash['type']) unless json_hash['type'].nil?
-      result['appliesTo'] = json_hash['appliesTo'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          CodeableConcept.transform_json(var) 
-        end
-      } unless json_hash['appliesTo'].nil?
+      result['appliesTo'] = json_hash['appliesTo'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['appliesTo'].nil?
       result['age'] = Range.transform_json(json_hash['age']) unless json_hash['age'].nil?
       result['text'] = PrimitiveString.transform_json(json_hash['text'], json_hash['_text']) unless json_hash['text'].nil?
 

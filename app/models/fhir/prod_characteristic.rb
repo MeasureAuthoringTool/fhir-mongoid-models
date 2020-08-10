@@ -64,6 +64,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = ProdCharacteristic.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['height'] = Quantity.transform_json(json_hash['height']) unless json_hash['height'].nil?
       result['width'] = Quantity.transform_json(json_hash['width']) unless json_hash['width'].nil?
@@ -80,13 +81,7 @@ module FHIR
         extension_hash = json_hash['_imprint'] && json_hash['_imprint'][i]
         PrimitiveString.transform_json(var, extension_hash)
       end unless json_hash['imprint'].nil?
-      result['image'] = json_hash['image'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Attachment.transform_json(var) 
-        end
-      } unless json_hash['image'].nil?
+      result['image'] = json_hash['image'].map { |var| Attachment.transform_json(var) } unless json_hash['image'].nil?
       result['scoring'] = CodeableConcept.transform_json(json_hash['scoring']) unless json_hash['scoring'].nil?
 
       result

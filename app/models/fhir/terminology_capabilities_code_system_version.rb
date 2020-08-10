@@ -48,6 +48,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = TerminologyCapabilitiesCodeSystemVersion.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['code'] = PrimitiveString.transform_json(json_hash['code'], json_hash['_code']) unless json_hash['code'].nil?
       result['isDefault'] = PrimitiveBoolean.transform_json(json_hash['isDefault'], json_hash['_isDefault']) unless json_hash['isDefault'].nil?
@@ -56,13 +57,7 @@ module FHIR
         extension_hash = json_hash['_language'] && json_hash['_language'][i]
         PrimitiveCode.transform_json(var, extension_hash)
       end unless json_hash['language'].nil?
-      result['filter'] = json_hash['filter'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          TerminologyCapabilitiesCodeSystemVersionFilter.transform_json(var) 
-        end
-      } unless json_hash['filter'].nil?
+      result['filter'] = json_hash['filter'].map { |var| TerminologyCapabilitiesCodeSystemVersionFilter.transform_json(var) } unless json_hash['filter'].nil?
       result['property'] = json_hash['property'].each_with_index.map do |var, i|
         extension_hash = json_hash['_property'] && json_hash['_property'][i]
         PrimitiveCode.transform_json(var, extension_hash)

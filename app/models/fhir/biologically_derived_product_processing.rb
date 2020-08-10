@@ -38,6 +38,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = BiologicallyDerivedProductProcessing.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['description'] = PrimitiveString.transform_json(json_hash['description'], json_hash['_description']) unless json_hash['description'].nil?
       result['procedure'] = CodeableConcept.transform_json(json_hash['procedure']) unless json_hash['procedure'].nil?

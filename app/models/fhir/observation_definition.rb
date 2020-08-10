@@ -72,22 +72,11 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = ObservationDefinition.new)
+    
       result = self.superclass.transform_json(json_hash, target)
-      result['category'] = json_hash['category'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          CodeableConcept.transform_json(var) 
-        end
-      } unless json_hash['category'].nil?
+      result['category'] = json_hash['category'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['category'].nil?
       result['code'] = CodeableConcept.transform_json(json_hash['code']) unless json_hash['code'].nil?
-      result['identifier'] = json_hash['identifier'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Identifier.transform_json(var) 
-        end
-      } unless json_hash['identifier'].nil?
+      result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['permittedDataType'] = json_hash['permittedDataType'].each_with_index.map do |var, i|
         extension_hash = json_hash['_permittedDataType'] && json_hash['_permittedDataType'][i]
         ObservationDataType.transform_json(var, extension_hash)
@@ -96,13 +85,7 @@ module FHIR
       result['method'] = CodeableConcept.transform_json(json_hash['method']) unless json_hash['method'].nil?
       result['preferredReportName'] = PrimitiveString.transform_json(json_hash['preferredReportName'], json_hash['_preferredReportName']) unless json_hash['preferredReportName'].nil?
       result['quantitativeDetails'] = ObservationDefinitionQuantitativeDetails.transform_json(json_hash['quantitativeDetails']) unless json_hash['quantitativeDetails'].nil?
-      result['qualifiedInterval'] = json_hash['qualifiedInterval'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          ObservationDefinitionQualifiedInterval.transform_json(var) 
-        end
-      } unless json_hash['qualifiedInterval'].nil?
+      result['qualifiedInterval'] = json_hash['qualifiedInterval'].map { |var| ObservationDefinitionQualifiedInterval.transform_json(var) } unless json_hash['qualifiedInterval'].nil?
       result['validCodedValueSet'] = Reference.transform_json(json_hash['validCodedValueSet']) unless json_hash['validCodedValueSet'].nil?
       result['normalCodedValueSet'] = Reference.transform_json(json_hash['normalCodedValueSet']) unless json_hash['normalCodedValueSet'].nil?
       result['abnormalCodedValueSet'] = Reference.transform_json(json_hash['abnormalCodedValueSet']) unless json_hash['abnormalCodedValueSet'].nil?

@@ -32,6 +32,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = BiologicallyDerivedProductCollection.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['collector'] = Reference.transform_json(json_hash['collector']) unless json_hash['collector'].nil?
       result['source'] = Reference.transform_json(json_hash['source']) unless json_hash['source'].nil?

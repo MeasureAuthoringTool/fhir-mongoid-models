@@ -42,19 +42,14 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = EffectEvidenceSynthesisEffectEstimate.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['description'] = PrimitiveString.transform_json(json_hash['description'], json_hash['_description']) unless json_hash['description'].nil?
       result['type'] = CodeableConcept.transform_json(json_hash['type']) unless json_hash['type'].nil?
       result['variantState'] = CodeableConcept.transform_json(json_hash['variantState']) unless json_hash['variantState'].nil?
       result['value'] = PrimitiveDecimal.transform_json(json_hash['value'], json_hash['_value']) unless json_hash['value'].nil?
       result['unitOfMeasure'] = CodeableConcept.transform_json(json_hash['unitOfMeasure']) unless json_hash['unitOfMeasure'].nil?
-      result['precisionEstimate'] = json_hash['precisionEstimate'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          EffectEvidenceSynthesisEffectEstimatePrecisionEstimate.transform_json(var) 
-        end
-      } unless json_hash['precisionEstimate'].nil?
+      result['precisionEstimate'] = json_hash['precisionEstimate'].map { |var| EffectEvidenceSynthesisEffectEstimatePrecisionEstimate.transform_json(var) } unless json_hash['precisionEstimate'].nil?
 
       result
     end

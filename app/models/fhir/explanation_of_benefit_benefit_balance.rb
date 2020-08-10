@@ -52,6 +52,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = ExplanationOfBenefitBenefitBalance.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['category'] = CodeableConcept.transform_json(json_hash['category']) unless json_hash['category'].nil?
       result['excluded'] = PrimitiveBoolean.transform_json(json_hash['excluded'], json_hash['_excluded']) unless json_hash['excluded'].nil?
@@ -60,13 +61,7 @@ module FHIR
       result['network'] = CodeableConcept.transform_json(json_hash['network']) unless json_hash['network'].nil?
       result['unit'] = CodeableConcept.transform_json(json_hash['unit']) unless json_hash['unit'].nil?
       result['term'] = CodeableConcept.transform_json(json_hash['term']) unless json_hash['term'].nil?
-      result['financial'] = json_hash['financial'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          ExplanationOfBenefitBenefitBalanceFinancial.transform_json(var) 
-        end
-      } unless json_hash['financial'].nil?
+      result['financial'] = json_hash['financial'].map { |var| ExplanationOfBenefitBenefitBalanceFinancial.transform_json(var) } unless json_hash['financial'].nil?
 
       result
     end

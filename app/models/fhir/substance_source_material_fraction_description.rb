@@ -24,6 +24,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = SubstanceSourceMaterialFractionDescription.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['fraction'] = PrimitiveString.transform_json(json_hash['fraction'], json_hash['_fraction']) unless json_hash['fraction'].nil?
       result['materialType'] = CodeableConcept.transform_json(json_hash['materialType']) unless json_hash['materialType'].nil?

@@ -34,6 +34,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = PlanDefinitionGoalTarget.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['measure'] = CodeableConcept.transform_json(json_hash['measure']) unless json_hash['measure'].nil?
       result['detailQuantity'] = Quantity.transform_json(json_hash['detailQuantity']) unless json_hash['detailQuantity'].nil?

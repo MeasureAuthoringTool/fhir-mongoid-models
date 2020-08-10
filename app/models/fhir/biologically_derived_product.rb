@@ -65,48 +65,19 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = BiologicallyDerivedProduct.new)
+    
       result = self.superclass.transform_json(json_hash, target)
-      result['identifier'] = json_hash['identifier'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Identifier.transform_json(var) 
-        end
-      } unless json_hash['identifier'].nil?
+      result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['productCategory'] = BiologicallyDerivedProductCategory.transform_json(json_hash['productCategory'], json_hash['_productCategory']) unless json_hash['productCategory'].nil?
       result['productCode'] = CodeableConcept.transform_json(json_hash['productCode']) unless json_hash['productCode'].nil?
       result['status'] = BiologicallyDerivedProductStatus.transform_json(json_hash['status'], json_hash['_status']) unless json_hash['status'].nil?
-      result['request'] = json_hash['request'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Reference.transform_json(var) 
-        end
-      } unless json_hash['request'].nil?
+      result['request'] = json_hash['request'].map { |var| Reference.transform_json(var) } unless json_hash['request'].nil?
       result['quantity'] = PrimitiveInteger.transform_json(json_hash['quantity'], json_hash['_quantity']) unless json_hash['quantity'].nil?
-      result['parent'] = json_hash['parent'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Reference.transform_json(var) 
-        end
-      } unless json_hash['parent'].nil?
+      result['parent'] = json_hash['parent'].map { |var| Reference.transform_json(var) } unless json_hash['parent'].nil?
       result['_collection'] = BiologicallyDerivedProductCollection.transform_json(json_hash['collection']) unless json_hash['collection'].nil?
-      result['processing'] = json_hash['processing'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          BiologicallyDerivedProductProcessing.transform_json(var) 
-        end
-      } unless json_hash['processing'].nil?
+      result['processing'] = json_hash['processing'].map { |var| BiologicallyDerivedProductProcessing.transform_json(var) } unless json_hash['processing'].nil?
       result['manipulation'] = BiologicallyDerivedProductManipulation.transform_json(json_hash['manipulation']) unless json_hash['manipulation'].nil?
-      result['storage'] = json_hash['storage'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          BiologicallyDerivedProductStorage.transform_json(var) 
-        end
-      } unless json_hash['storage'].nil?
+      result['storage'] = json_hash['storage'].map { |var| BiologicallyDerivedProductStorage.transform_json(var) } unless json_hash['storage'].nil?
 
       result
     end

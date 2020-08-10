@@ -44,6 +44,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = Quantity.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['value'] = PrimitiveDecimal.transform_json(json_hash['value'], json_hash['_value']) unless json_hash['value'].nil?
       result['comparator'] = QuantityComparator.transform_json(json_hash['comparator'], json_hash['_comparator']) unless json_hash['comparator'].nil?

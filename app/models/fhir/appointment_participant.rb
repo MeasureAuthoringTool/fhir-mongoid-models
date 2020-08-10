@@ -38,14 +38,9 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = AppointmentParticipant.new)
+    
       result = self.superclass.transform_json(json_hash, target)
-      result['type'] = json_hash['type'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          CodeableConcept.transform_json(var) 
-        end
-      } unless json_hash['type'].nil?
+      result['type'] = json_hash['type'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['type'].nil?
       result['actor'] = Reference.transform_json(json_hash['actor']) unless json_hash['actor'].nil?
       result['required'] = ParticipantRequired.transform_json(json_hash['required'], json_hash['_required']) unless json_hash['required'].nil?
       result['status'] = ParticipationStatus.transform_json(json_hash['status'], json_hash['_status']) unless json_hash['status'].nil?

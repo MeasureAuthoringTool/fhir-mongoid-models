@@ -22,6 +22,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = MedicinalProductPharmaceuticalCharacteristics.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['code'] = CodeableConcept.transform_json(json_hash['code']) unless json_hash['code'].nil?
       result['status'] = CodeableConcept.transform_json(json_hash['status']) unless json_hash['status'].nil?

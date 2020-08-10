@@ -26,21 +26,10 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = MedicationKnowledgeKinetics.new)
+    
       result = self.superclass.transform_json(json_hash, target)
-      result['areaUnderCurve'] = json_hash['areaUnderCurve'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          SimpleQuantity.transform_json(var) 
-        end
-      } unless json_hash['areaUnderCurve'].nil?
-      result['lethalDose50'] = json_hash['lethalDose50'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          SimpleQuantity.transform_json(var) 
-        end
-      } unless json_hash['lethalDose50'].nil?
+      result['areaUnderCurve'] = json_hash['areaUnderCurve'].map { |var| SimpleQuantity.transform_json(var) } unless json_hash['areaUnderCurve'].nil?
+      result['lethalDose50'] = json_hash['lethalDose50'].map { |var| SimpleQuantity.transform_json(var) } unless json_hash['lethalDose50'].nil?
       result['halfLifePeriod'] = Duration.transform_json(json_hash['halfLifePeriod']) unless json_hash['halfLifePeriod'].nil?
 
       result

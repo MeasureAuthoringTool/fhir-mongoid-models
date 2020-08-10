@@ -32,23 +32,12 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = MeasureGroup.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['code'] = CodeableConcept.transform_json(json_hash['code']) unless json_hash['code'].nil?
       result['description'] = PrimitiveString.transform_json(json_hash['description'], json_hash['_description']) unless json_hash['description'].nil?
-      result['population'] = json_hash['population'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          MeasureGroupPopulation.transform_json(var) 
-        end
-      } unless json_hash['population'].nil?
-      result['stratifier'] = json_hash['stratifier'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          MeasureGroupStratifier.transform_json(var) 
-        end
-      } unless json_hash['stratifier'].nil?
+      result['population'] = json_hash['population'].map { |var| MeasureGroupPopulation.transform_json(var) } unless json_hash['population'].nil?
+      result['stratifier'] = json_hash['stratifier'].map { |var| MeasureGroupStratifier.transform_json(var) } unless json_hash['stratifier'].nil?
 
       result
     end

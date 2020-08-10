@@ -48,6 +48,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = OperationOutcomeIssue.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['severity'] = IssueSeverity.transform_json(json_hash['severity'], json_hash['_severity']) unless json_hash['severity'].nil?
       result['code'] = IssueType.transform_json(json_hash['code'], json_hash['_code']) unless json_hash['code'].nil?

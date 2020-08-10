@@ -42,32 +42,15 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = PlanDefinitionGoal.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['category'] = CodeableConcept.transform_json(json_hash['category']) unless json_hash['category'].nil?
       result['description'] = CodeableConcept.transform_json(json_hash['description']) unless json_hash['description'].nil?
       result['priority'] = CodeableConcept.transform_json(json_hash['priority']) unless json_hash['priority'].nil?
       result['start'] = CodeableConcept.transform_json(json_hash['start']) unless json_hash['start'].nil?
-      result['addresses'] = json_hash['addresses'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          CodeableConcept.transform_json(var) 
-        end
-      } unless json_hash['addresses'].nil?
-      result['documentation'] = json_hash['documentation'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          RelatedArtifact.transform_json(var) 
-        end
-      } unless json_hash['documentation'].nil?
-      result['target'] = json_hash['target'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          PlanDefinitionGoalTarget.transform_json(var) 
-        end
-      } unless json_hash['target'].nil?
+      result['addresses'] = json_hash['addresses'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['addresses'].nil?
+      result['documentation'] = json_hash['documentation'].map { |var| RelatedArtifact.transform_json(var) } unless json_hash['documentation'].nil?
+      result['target'] = json_hash['target'].map { |var| PlanDefinitionGoalTarget.transform_json(var) } unless json_hash['target'].nil?
 
       result
     end

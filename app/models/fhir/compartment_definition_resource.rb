@@ -32,6 +32,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = CompartmentDefinitionResource.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['code'] = ResourceType.transform_json(json_hash['code'], json_hash['_code']) unless json_hash['code'].nil?
       result['param'] = json_hash['param'].each_with_index.map do |var, i|

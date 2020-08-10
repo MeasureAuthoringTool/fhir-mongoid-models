@@ -28,6 +28,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = EncounterDiagnosis.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['condition'] = Reference.transform_json(json_hash['condition']) unless json_hash['condition'].nil?
       result['use'] = CodeableConcept.transform_json(json_hash['use']) unless json_hash['use'].nil?

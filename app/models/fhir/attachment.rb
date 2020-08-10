@@ -62,6 +62,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = Attachment.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['contentType'] = MimeType.transform_json(json_hash['contentType'], json_hash['_contentType']) unless json_hash['contentType'].nil?
       result['language'] = PrimitiveCode.transform_json(json_hash['language'], json_hash['_language']) unless json_hash['language'].nil?

@@ -28,16 +28,11 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = ProvenanceEntity.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['role'] = ProvenanceEntityRole.transform_json(json_hash['role'], json_hash['_role']) unless json_hash['role'].nil?
       result['what'] = Reference.transform_json(json_hash['what']) unless json_hash['what'].nil?
-      result['agent'] = json_hash['agent'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          ProvenanceAgent.transform_json(var) 
-        end
-      } unless json_hash['agent'].nil?
+      result['agent'] = json_hash['agent'].map { |var| ProvenanceAgent.transform_json(var) } unless json_hash['agent'].nil?
 
       result
     end

@@ -68,14 +68,9 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = PaymentNotice.new)
+    
       result = self.superclass.transform_json(json_hash, target)
-      result['identifier'] = json_hash['identifier'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Identifier.transform_json(var) 
-        end
-      } unless json_hash['identifier'].nil?
+      result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['status'] = PaymentNoticeStatus.transform_json(json_hash['status'], json_hash['_status']) unless json_hash['status'].nil?
       result['request'] = Reference.transform_json(json_hash['request']) unless json_hash['request'].nil?
       result['response'] = Reference.transform_json(json_hash['response']) unless json_hash['response'].nil?

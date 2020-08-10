@@ -30,16 +30,11 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = ExampleScenarioProcessStepAlternative.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['title'] = PrimitiveString.transform_json(json_hash['title'], json_hash['_title']) unless json_hash['title'].nil?
       result['description'] = PrimitiveMarkdown.transform_json(json_hash['description'], json_hash['_description']) unless json_hash['description'].nil?
-      result['step'] = json_hash['step'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          ExampleScenarioProcessStep.transform_json(var) 
-        end
-      } unless json_hash['step'].nil?
+      result['step'] = json_hash['step'].map { |var| ExampleScenarioProcessStep.transform_json(var) } unless json_hash['step'].nil?
 
       result
     end

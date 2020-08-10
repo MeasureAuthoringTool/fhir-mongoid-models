@@ -258,6 +258,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = ElementDefinitionExample.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['label'] = PrimitiveString.transform_json(json_hash['label'], json_hash['_label']) unless json_hash['label'].nil?
       result['valueBase64Binary'] = PrimitiveBase64Binary.transform_json(json_hash['valueBase64Binary'], json_hash['_valueBase64Binary']) unless json_hash['valueBase64Binary'].nil?

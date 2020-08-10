@@ -28,6 +28,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = SubstanceInstance.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['identifier'] = Identifier.transform_json(json_hash['identifier']) unless json_hash['identifier'].nil?
       result['expiry'] = PrimitiveDateTime.transform_json(json_hash['expiry'], json_hash['_expiry']) unless json_hash['expiry'].nil?

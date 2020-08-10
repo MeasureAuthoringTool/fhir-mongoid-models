@@ -38,6 +38,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = SimpleQuantity.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['value'] = PrimitiveDecimal.transform_json(json_hash['value'], json_hash['_value']) unless json_hash['value'].nil?
       result['unit'] = PrimitiveString.transform_json(json_hash['unit'], json_hash['_unit']) unless json_hash['unit'].nil?

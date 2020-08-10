@@ -54,24 +54,13 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = AppointmentResponse.new)
+    
       result = self.superclass.transform_json(json_hash, target)
-      result['identifier'] = json_hash['identifier'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Identifier.transform_json(var) 
-        end
-      } unless json_hash['identifier'].nil?
+      result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['appointment'] = Reference.transform_json(json_hash['appointment']) unless json_hash['appointment'].nil?
       result['start'] = PrimitiveInstant.transform_json(json_hash['start'], json_hash['_start']) unless json_hash['start'].nil?
       result['end'] = PrimitiveInstant.transform_json(json_hash['end'], json_hash['_end']) unless json_hash['end'].nil?
-      result['participantType'] = json_hash['participantType'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          CodeableConcept.transform_json(var) 
-        end
-      } unless json_hash['participantType'].nil?
+      result['participantType'] = json_hash['participantType'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['participantType'].nil?
       result['actor'] = Reference.transform_json(json_hash['actor']) unless json_hash['actor'].nil?
       result['participantStatus'] = ParticipantStatus.transform_json(json_hash['participantStatus'], json_hash['_participantStatus']) unless json_hash['participantStatus'].nil?
       result['comment'] = PrimitiveString.transform_json(json_hash['comment'], json_hash['_comment']) unless json_hash['comment'].nil?

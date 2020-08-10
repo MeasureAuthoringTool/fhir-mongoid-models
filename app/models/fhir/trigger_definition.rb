@@ -54,6 +54,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = TriggerDefinition.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['type'] = TriggerType.transform_json(json_hash['type'], json_hash['_type']) unless json_hash['type'].nil?
       result['name'] = PrimitiveString.transform_json(json_hash['name'], json_hash['_name']) unless json_hash['name'].nil?
@@ -61,13 +62,7 @@ module FHIR
       result['timingReference'] = Reference.transform_json(json_hash['timingReference']) unless json_hash['timingReference'].nil?
       result['timingDate'] = PrimitiveDate.transform_json(json_hash['timingDate'], json_hash['_timingDate']) unless json_hash['timingDate'].nil?
       result['timingDateTime'] = PrimitiveDateTime.transform_json(json_hash['timingDateTime'], json_hash['_timingDateTime']) unless json_hash['timingDateTime'].nil?
-      result['data'] = json_hash['data'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          DataRequirement.transform_json(var) 
-        end
-      } unless json_hash['data'].nil?
+      result['data'] = json_hash['data'].map { |var| DataRequirement.transform_json(var) } unless json_hash['data'].nil?
       result['condition'] = Expression.transform_json(json_hash['condition']) unless json_hash['condition'].nil?
 
       result

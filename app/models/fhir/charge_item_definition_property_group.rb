@@ -22,21 +22,10 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = ChargeItemDefinitionPropertyGroup.new)
+    
       result = self.superclass.transform_json(json_hash, target)
-      result['applicability'] = json_hash['applicability'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          ChargeItemDefinitionApplicability.transform_json(var) 
-        end
-      } unless json_hash['applicability'].nil?
-      result['priceComponent'] = json_hash['priceComponent'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          ChargeItemDefinitionPropertyGroupPriceComponent.transform_json(var) 
-        end
-      } unless json_hash['priceComponent'].nil?
+      result['applicability'] = json_hash['applicability'].map { |var| ChargeItemDefinitionApplicability.transform_json(var) } unless json_hash['applicability'].nil?
+      result['priceComponent'] = json_hash['priceComponent'].map { |var| ChargeItemDefinitionPropertyGroupPriceComponent.transform_json(var) } unless json_hash['priceComponent'].nil?
 
       result
     end

@@ -26,6 +26,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = StructureMapGroupRuleDependent.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['name'] = PrimitiveId.transform_json(json_hash['name'], json_hash['_name']) unless json_hash['name'].nil?
       result['variable'] = json_hash['variable'].each_with_index.map do |var, i|

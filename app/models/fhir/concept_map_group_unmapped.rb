@@ -38,6 +38,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = ConceptMapGroupUnmapped.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['mode'] = ConceptMapGroupUnmappedMode.transform_json(json_hash['mode'], json_hash['_mode']) unless json_hash['mode'].nil?
       result['code'] = PrimitiveCode.transform_json(json_hash['code'], json_hash['_code']) unless json_hash['code'].nil?

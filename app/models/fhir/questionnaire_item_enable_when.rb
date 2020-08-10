@@ -80,6 +80,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = QuestionnaireItemEnableWhen.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['question'] = PrimitiveString.transform_json(json_hash['question'], json_hash['_question']) unless json_hash['question'].nil?
       result['operator'] = QuestionnaireItemOperator.transform_json(json_hash['operator'], json_hash['_operator']) unless json_hash['operator'].nil?

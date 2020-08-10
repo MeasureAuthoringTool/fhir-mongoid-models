@@ -94,14 +94,9 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = NutritionOrder.new)
+    
       result = self.superclass.transform_json(json_hash, target)
-      result['identifier'] = json_hash['identifier'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Identifier.transform_json(var) 
-        end
-      } unless json_hash['identifier'].nil?
+      result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['instantiatesCanonical'] = json_hash['instantiatesCanonical'].each_with_index.map do |var, i|
         extension_hash = json_hash['_instantiatesCanonical'] && json_hash['_instantiatesCanonical'][i]
         PrimitiveCanonical.transform_json(var, extension_hash)
@@ -120,43 +115,13 @@ module FHIR
       result['encounter'] = Reference.transform_json(json_hash['encounter']) unless json_hash['encounter'].nil?
       result['dateTime'] = PrimitiveDateTime.transform_json(json_hash['dateTime'], json_hash['_dateTime']) unless json_hash['dateTime'].nil?
       result['orderer'] = Reference.transform_json(json_hash['orderer']) unless json_hash['orderer'].nil?
-      result['allergyIntolerance'] = json_hash['allergyIntolerance'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Reference.transform_json(var) 
-        end
-      } unless json_hash['allergyIntolerance'].nil?
-      result['foodPreferenceModifier'] = json_hash['foodPreferenceModifier'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          CodeableConcept.transform_json(var) 
-        end
-      } unless json_hash['foodPreferenceModifier'].nil?
-      result['excludeFoodModifier'] = json_hash['excludeFoodModifier'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          CodeableConcept.transform_json(var) 
-        end
-      } unless json_hash['excludeFoodModifier'].nil?
+      result['allergyIntolerance'] = json_hash['allergyIntolerance'].map { |var| Reference.transform_json(var) } unless json_hash['allergyIntolerance'].nil?
+      result['foodPreferenceModifier'] = json_hash['foodPreferenceModifier'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['foodPreferenceModifier'].nil?
+      result['excludeFoodModifier'] = json_hash['excludeFoodModifier'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['excludeFoodModifier'].nil?
       result['oralDiet'] = NutritionOrderOralDiet.transform_json(json_hash['oralDiet']) unless json_hash['oralDiet'].nil?
-      result['supplement'] = json_hash['supplement'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          NutritionOrderSupplement.transform_json(var) 
-        end
-      } unless json_hash['supplement'].nil?
+      result['supplement'] = json_hash['supplement'].map { |var| NutritionOrderSupplement.transform_json(var) } unless json_hash['supplement'].nil?
       result['enteralFormula'] = NutritionOrderEnteralFormula.transform_json(json_hash['enteralFormula']) unless json_hash['enteralFormula'].nil?
-      result['note'] = json_hash['note'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Annotation.transform_json(var) 
-        end
-      } unless json_hash['note'].nil?
+      result['note'] = json_hash['note'].map { |var| Annotation.transform_json(var) } unless json_hash['note'].nil?
 
       result
     end

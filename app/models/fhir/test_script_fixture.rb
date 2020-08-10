@@ -30,6 +30,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = TestScriptFixture.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['autocreate'] = PrimitiveBoolean.transform_json(json_hash['autocreate'], json_hash['_autocreate']) unless json_hash['autocreate'].nil?
       result['autodelete'] = PrimitiveBoolean.transform_json(json_hash['autodelete'], json_hash['_autodelete']) unless json_hash['autodelete'].nil?

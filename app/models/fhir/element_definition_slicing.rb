@@ -36,14 +36,9 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = ElementDefinitionSlicing.new)
+    
       result = self.superclass.transform_json(json_hash, target)
-      result['discriminator'] = json_hash['discriminator'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          ElementDefinitionSlicingDiscriminator.transform_json(var) 
-        end
-      } unless json_hash['discriminator'].nil?
+      result['discriminator'] = json_hash['discriminator'].map { |var| ElementDefinitionSlicingDiscriminator.transform_json(var) } unless json_hash['discriminator'].nil?
       result['description'] = PrimitiveString.transform_json(json_hash['description'], json_hash['_description']) unless json_hash['description'].nil?
       result['ordered'] = PrimitiveBoolean.transform_json(json_hash['ordered'], json_hash['_ordered']) unless json_hash['ordered'].nil?
       result['rules'] = SlicingRules.transform_json(json_hash['rules'], json_hash['_rules']) unless json_hash['rules'].nil?

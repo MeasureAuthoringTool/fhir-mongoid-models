@@ -22,15 +22,10 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = AdverseEventSuspectEntity.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['instance'] = Reference.transform_json(json_hash['instance']) unless json_hash['instance'].nil?
-      result['causality'] = json_hash['causality'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          AdverseEventSuspectEntityCausality.transform_json(var) 
-        end
-      } unless json_hash['causality'].nil?
+      result['causality'] = json_hash['causality'].map { |var| AdverseEventSuspectEntityCausality.transform_json(var) } unless json_hash['causality'].nil?
 
       result
     end

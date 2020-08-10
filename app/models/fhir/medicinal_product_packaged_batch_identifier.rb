@@ -22,6 +22,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = MedicinalProductPackagedBatchIdentifier.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['outerPackaging'] = Identifier.transform_json(json_hash['outerPackaging']) unless json_hash['outerPackaging'].nil?
       result['immediatePackaging'] = Identifier.transform_json(json_hash['immediatePackaging']) unless json_hash['immediatePackaging'].nil?

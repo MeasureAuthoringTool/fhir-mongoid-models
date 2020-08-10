@@ -172,14 +172,9 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = Contract.new)
+    
       result = self.superclass.transform_json(json_hash, target)
-      result['identifier'] = json_hash['identifier'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Identifier.transform_json(var) 
-        end
-      } unless json_hash['identifier'].nil?
+      result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
       result['url'] = PrimitiveUri.transform_json(json_hash['url'], json_hash['_url']) unless json_hash['url'].nil?
       result['version'] = PrimitiveString.transform_json(json_hash['version'], json_hash['_version']) unless json_hash['version'].nil?
       result['status'] = ContractStatus.transform_json(json_hash['status'], json_hash['_status']) unless json_hash['status'].nil?
@@ -190,34 +185,10 @@ module FHIR
       result['issued'] = PrimitiveDateTime.transform_json(json_hash['issued'], json_hash['_issued']) unless json_hash['issued'].nil?
       result['applies'] = Period.transform_json(json_hash['applies']) unless json_hash['applies'].nil?
       result['expirationType'] = CodeableConcept.transform_json(json_hash['expirationType']) unless json_hash['expirationType'].nil?
-      result['subject'] = json_hash['subject'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Reference.transform_json(var) 
-        end
-      } unless json_hash['subject'].nil?
-      result['authority'] = json_hash['authority'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Reference.transform_json(var) 
-        end
-      } unless json_hash['authority'].nil?
-      result['domain'] = json_hash['domain'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Reference.transform_json(var) 
-        end
-      } unless json_hash['domain'].nil?
-      result['site'] = json_hash['site'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Reference.transform_json(var) 
-        end
-      } unless json_hash['site'].nil?
+      result['subject'] = json_hash['subject'].map { |var| Reference.transform_json(var) } unless json_hash['subject'].nil?
+      result['authority'] = json_hash['authority'].map { |var| Reference.transform_json(var) } unless json_hash['authority'].nil?
+      result['domain'] = json_hash['domain'].map { |var| Reference.transform_json(var) } unless json_hash['domain'].nil?
+      result['site'] = json_hash['site'].map { |var| Reference.transform_json(var) } unless json_hash['site'].nil?
       result['name'] = PrimitiveString.transform_json(json_hash['name'], json_hash['_name']) unless json_hash['name'].nil?
       result['title'] = PrimitiveString.transform_json(json_hash['title'], json_hash['_title']) unless json_hash['title'].nil?
       result['subtitle'] = PrimitiveString.transform_json(json_hash['subtitle'], json_hash['_subtitle']) unless json_hash['subtitle'].nil?
@@ -230,63 +201,15 @@ module FHIR
       result['topicCodeableConcept'] = CodeableConcept.transform_json(json_hash['topicCodeableConcept']) unless json_hash['topicCodeableConcept'].nil?
       result['topicReference'] = Reference.transform_json(json_hash['topicReference']) unless json_hash['topicReference'].nil?
       result['type'] = CodeableConcept.transform_json(json_hash['type']) unless json_hash['type'].nil?
-      result['subType'] = json_hash['subType'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          CodeableConcept.transform_json(var) 
-        end
-      } unless json_hash['subType'].nil?
+      result['subType'] = json_hash['subType'].map { |var| CodeableConcept.transform_json(var) } unless json_hash['subType'].nil?
       result['contentDefinition'] = ContractContentDefinition.transform_json(json_hash['contentDefinition']) unless json_hash['contentDefinition'].nil?
-      result['term'] = json_hash['term'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          ContractTerm.transform_json(var) 
-        end
-      } unless json_hash['term'].nil?
-      result['supportingInfo'] = json_hash['supportingInfo'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Reference.transform_json(var) 
-        end
-      } unless json_hash['supportingInfo'].nil?
-      result['relevantHistory'] = json_hash['relevantHistory'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Reference.transform_json(var) 
-        end
-      } unless json_hash['relevantHistory'].nil?
-      result['signer'] = json_hash['signer'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          ContractSigner.transform_json(var) 
-        end
-      } unless json_hash['signer'].nil?
-      result['friendly'] = json_hash['friendly'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          ContractFriendly.transform_json(var) 
-        end
-      } unless json_hash['friendly'].nil?
-      result['legal'] = json_hash['legal'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          ContractLegal.transform_json(var) 
-        end
-      } unless json_hash['legal'].nil?
-      result['rule'] = json_hash['rule'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          ContractRule.transform_json(var) 
-        end
-      } unless json_hash['rule'].nil?
+      result['term'] = json_hash['term'].map { |var| ContractTerm.transform_json(var) } unless json_hash['term'].nil?
+      result['supportingInfo'] = json_hash['supportingInfo'].map { |var| Reference.transform_json(var) } unless json_hash['supportingInfo'].nil?
+      result['relevantHistory'] = json_hash['relevantHistory'].map { |var| Reference.transform_json(var) } unless json_hash['relevantHistory'].nil?
+      result['signer'] = json_hash['signer'].map { |var| ContractSigner.transform_json(var) } unless json_hash['signer'].nil?
+      result['friendly'] = json_hash['friendly'].map { |var| ContractFriendly.transform_json(var) } unless json_hash['friendly'].nil?
+      result['legal'] = json_hash['legal'].map { |var| ContractLegal.transform_json(var) } unless json_hash['legal'].nil?
+      result['rule'] = json_hash['rule'].map { |var| ContractRule.transform_json(var) } unless json_hash['rule'].nil?
       result['legallyBindingAttachment'] = Attachment.transform_json(json_hash['legallyBindingAttachment']) unless json_hash['legallyBindingAttachment'].nil?
       result['legallyBindingReference'] = Reference.transform_json(json_hash['legallyBindingReference']) unless json_hash['legallyBindingReference'].nil?
 

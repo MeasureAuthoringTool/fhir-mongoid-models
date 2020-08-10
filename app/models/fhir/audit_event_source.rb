@@ -28,16 +28,11 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = AuditEventSource.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['site'] = PrimitiveString.transform_json(json_hash['site'], json_hash['_site']) unless json_hash['site'].nil?
       result['observer'] = Reference.transform_json(json_hash['observer']) unless json_hash['observer'].nil?
-      result['type'] = json_hash['type'].map { |var| 
-        unless var['resourceType'].nil?
-          Object.const_get('FHIR::' + var['resourceType']).transform_json(var)
-        else
-          Coding.transform_json(var) 
-        end
-      } unless json_hash['type'].nil?
+      result['type'] = json_hash['type'].map { |var| Coding.transform_json(var) } unless json_hash['type'].nil?
 
       result
     end

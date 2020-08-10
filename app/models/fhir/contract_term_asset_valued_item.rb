@@ -88,6 +88,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = ContractTermAssetValuedItem.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['entityCodeableConcept'] = CodeableConcept.transform_json(json_hash['entityCodeableConcept']) unless json_hash['entityCodeableConcept'].nil?
       result['entityReference'] = Reference.transform_json(json_hash['entityReference']) unless json_hash['entityReference'].nil?

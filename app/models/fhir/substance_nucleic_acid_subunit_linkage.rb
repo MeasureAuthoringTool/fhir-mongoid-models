@@ -36,6 +36,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = SubstanceNucleicAcidSubunitLinkage.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['connectivity'] = PrimitiveString.transform_json(json_hash['connectivity'], json_hash['_connectivity']) unless json_hash['connectivity'].nil?
       result['identifier'] = Identifier.transform_json(json_hash['identifier']) unless json_hash['identifier'].nil?

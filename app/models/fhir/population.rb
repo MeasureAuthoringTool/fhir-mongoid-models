@@ -34,6 +34,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = Population.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['ageRange'] = Range.transform_json(json_hash['ageRange']) unless json_hash['ageRange'].nil?
       result['ageCodeableConcept'] = CodeableConcept.transform_json(json_hash['ageCodeableConcept']) unless json_hash['ageCodeableConcept'].nil?

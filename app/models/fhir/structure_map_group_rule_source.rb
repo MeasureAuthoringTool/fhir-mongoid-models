@@ -312,6 +312,7 @@ module FHIR
     end
 
     def self.transform_json(json_hash, target = StructureMapGroupRuleSource.new)
+    
       result = self.superclass.transform_json(json_hash, target)
       result['context'] = PrimitiveId.transform_json(json_hash['context'], json_hash['_context']) unless json_hash['context'].nil?
       result['min'] = PrimitiveInteger.transform_json(json_hash['min'], json_hash['_min']) unless json_hash['min'].nil?
