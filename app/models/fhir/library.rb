@@ -35,6 +35,23 @@ module FHIR
     embeds_many :dataRequirement, class_name: 'FHIR::DataRequirement'
     embeds_many :content, class_name: 'FHIR::Attachment'
 
+    def create_data_elements(cqm_measure)
+      dataRequirement.map do |dataReq|
+        type = dataReq.type.value
+        oid = dataReq.codeFilter&.first.valueSet&.value&.match(/([0-2])((\.0)|(\.[1-9][0-9]*))*$/).to_s
+        value_set = cqm_measure.value_sets.find{|vs| vs.fhir_value_set.fhirId == oid}
+        title = value_set&.fhir_value_set&.name&.value
+        description = "#{type}: #{title}"
+
+        CQM::DataElement.new(
+          codeListId: oid,
+          valueSetTitle: title,
+          description: description,
+          fhir_resource: "FHIR::#{type}".constantize.create
+        )
+      end
+    end
+
     def as_json(*args)
       result = super
       unless self.url.nil?
