@@ -1,0 +1,127 @@
+module FHIR
+  # fhir/patient.rb
+  class Patient < DomainResource
+    include Mongoid::Document
+    embeds_many :identifier, class_name: 'FHIR::Identifier'    
+    embeds_one :active, class_name: 'FHIR::PrimitiveBoolean'    
+    embeds_many :name, class_name: 'FHIR::HumanName'    
+    embeds_many :telecom, class_name: 'FHIR::ContactPoint'    
+    embeds_one :gender, class_name: 'FHIR::AdministrativeGender'    
+    embeds_one :birthDate, class_name: 'FHIR::PrimitiveDate'    
+    embeds_one :deceasedBoolean, class_name: 'FHIR::PrimitiveBoolean'    
+    embeds_one :deceasedDateTime, class_name: 'FHIR::PrimitiveDateTime'    
+    embeds_many :address, class_name: 'FHIR::Address'    
+    embeds_one :maritalStatus, class_name: 'FHIR::CodeableConcept'    
+    embeds_one :multipleBirthBoolean, class_name: 'FHIR::PrimitiveBoolean'    
+    embeds_one :multipleBirthInteger, class_name: 'FHIR::PrimitiveInteger'    
+    embeds_many :photo, class_name: 'FHIR::Attachment'    
+    embeds_many :contact, class_name: 'FHIR::PatientContact'    
+    embeds_many :communication, class_name: 'FHIR::PatientCommunication'    
+    embeds_many :generalPractitioner, class_name: 'FHIR::Reference'    
+    embeds_one :managingOrganization, class_name: 'FHIR::Reference'    
+    embeds_many :link, class_name: 'FHIR::PatientLink'    
+    
+    def as_json(*args)
+      result = super      
+      unless self.identifier.nil?  || !self.identifier.any? 
+        result['identifier'] = self.identifier.map{ |x| x.as_json(*args) }
+      end
+      unless self.active.nil? 
+        result['active'] = self.active.value
+        serialized = Extension.serializePrimitiveExtension(self.active)            
+        result['_active'] = serialized unless serialized.nil?
+      end
+      unless self.name.nil?  || !self.name.any? 
+        result['name'] = self.name.map{ |x| x.as_json(*args) }
+      end
+      unless self.telecom.nil?  || !self.telecom.any? 
+        result['telecom'] = self.telecom.map{ |x| x.as_json(*args) }
+      end
+      unless self.gender.nil? 
+        result['gender'] = self.gender.value
+        serialized = Extension.serializePrimitiveExtension(self.gender)            
+        result['_gender'] = serialized unless serialized.nil?
+      end
+      unless self.birthDate.nil? 
+        result['birthDate'] = self.birthDate.value
+        serialized = Extension.serializePrimitiveExtension(self.birthDate)            
+        result['_birthDate'] = serialized unless serialized.nil?
+      end
+      unless self.deceasedBoolean.nil?
+        result['deceasedBoolean'] = self.deceasedBoolean.value                        
+        serialized = Extension.serializePrimitiveExtension(self.deceasedBoolean) 
+        result['_deceasedBoolean'] = serialized unless serialized.nil?
+      end          
+      unless self.deceasedDateTime.nil?
+        result['deceasedDateTime'] = self.deceasedDateTime.value                        
+        serialized = Extension.serializePrimitiveExtension(self.deceasedDateTime) 
+        result['_deceasedDateTime'] = serialized unless serialized.nil?
+      end          
+      unless self.address.nil?  || !self.address.any? 
+        result['address'] = self.address.map{ |x| x.as_json(*args) }
+      end
+      unless self.maritalStatus.nil? 
+        result['maritalStatus'] = self.maritalStatus.as_json(*args)
+      end
+      unless self.multipleBirthBoolean.nil?
+        result['multipleBirthBoolean'] = self.multipleBirthBoolean.value                        
+        serialized = Extension.serializePrimitiveExtension(self.multipleBirthBoolean) 
+        result['_multipleBirthBoolean'] = serialized unless serialized.nil?
+      end          
+      unless self.multipleBirthInteger.nil?
+        result['multipleBirthInteger'] = self.multipleBirthInteger.value                        
+        serialized = Extension.serializePrimitiveExtension(self.multipleBirthInteger) 
+        result['_multipleBirthInteger'] = serialized unless serialized.nil?
+      end          
+      unless self.photo.nil?  || !self.photo.any? 
+        result['photo'] = self.photo.map{ |x| x.as_json(*args) }
+      end
+      unless self.contact.nil?  || !self.contact.any? 
+        result['contact'] = self.contact.map{ |x| x.as_json(*args) }
+      end
+      unless self.communication.nil?  || !self.communication.any? 
+        result['communication'] = self.communication.map{ |x| x.as_json(*args) }
+      end
+      unless self.generalPractitioner.nil?  || !self.generalPractitioner.any? 
+        result['generalPractitioner'] = self.generalPractitioner.map{ |x| x.as_json(*args) }
+      end
+      unless self.managingOrganization.nil? 
+        result['managingOrganization'] = self.managingOrganization.as_json(*args)
+      end
+      unless self.link.nil?  || !self.link.any? 
+        result['link'] = self.link.map{ |x| x.as_json(*args) }
+      end
+      result.delete('id')
+      unless self.fhirId.nil?
+        result['id'] = self.fhirId
+        result.delete('fhirId')
+      end  
+      result
+    end
+
+    def self.transform_json(json_hash, target = Patient.new)
+    
+      result = self.superclass.transform_json(json_hash, target)
+      result['identifier'] = json_hash['identifier'].map { |var| Identifier.transform_json(var) } unless json_hash['identifier'].nil?
+      result['active'] = PrimitiveBoolean.transform_json(json_hash['active'], json_hash['_active']) unless json_hash['active'].nil?
+      result['name'] = json_hash['name'].map { |var| HumanName.transform_json(var) } unless json_hash['name'].nil?
+      result['telecom'] = json_hash['telecom'].map { |var| ContactPoint.transform_json(var) } unless json_hash['telecom'].nil?
+      result['gender'] = AdministrativeGender.transform_json(json_hash['gender'], json_hash['_gender']) unless json_hash['gender'].nil?
+      result['birthDate'] = PrimitiveDate.transform_json(json_hash['birthDate'], json_hash['_birthDate']) unless json_hash['birthDate'].nil?
+      result['deceasedBoolean'] = PrimitiveBoolean.transform_json(json_hash['deceasedBoolean'], json_hash['_deceasedBoolean']) unless json_hash['deceasedBoolean'].nil?
+      result['deceasedDateTime'] = PrimitiveDateTime.transform_json(json_hash['deceasedDateTime'], json_hash['_deceasedDateTime']) unless json_hash['deceasedDateTime'].nil?
+      result['address'] = json_hash['address'].map { |var| Address.transform_json(var) } unless json_hash['address'].nil?
+      result['maritalStatus'] = CodeableConcept.transform_json(json_hash['maritalStatus']) unless json_hash['maritalStatus'].nil?
+      result['multipleBirthBoolean'] = PrimitiveBoolean.transform_json(json_hash['multipleBirthBoolean'], json_hash['_multipleBirthBoolean']) unless json_hash['multipleBirthBoolean'].nil?
+      result['multipleBirthInteger'] = PrimitiveInteger.transform_json(json_hash['multipleBirthInteger'], json_hash['_multipleBirthInteger']) unless json_hash['multipleBirthInteger'].nil?
+      result['photo'] = json_hash['photo'].map { |var| Attachment.transform_json(var) } unless json_hash['photo'].nil?
+      result['contact'] = json_hash['contact'].map { |var| PatientContact.transform_json(var) } unless json_hash['contact'].nil?
+      result['communication'] = json_hash['communication'].map { |var| PatientCommunication.transform_json(var) } unless json_hash['communication'].nil?
+      result['generalPractitioner'] = json_hash['generalPractitioner'].map { |var| Reference.transform_json(var) } unless json_hash['generalPractitioner'].nil?
+      result['managingOrganization'] = Reference.transform_json(json_hash['managingOrganization']) unless json_hash['managingOrganization'].nil?
+      result['link'] = json_hash['link'].map { |var| PatientLink.transform_json(var) } unless json_hash['link'].nil?
+
+      result
+    end
+  end
+end

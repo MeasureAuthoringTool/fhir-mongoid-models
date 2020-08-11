@@ -2,9 +2,9 @@ name: Build
 
 on:
   push:
-    branches: [master, develop]
+    branches: [main, develop]
   pull_request:
-    branches: [master, develop]
+    branches: [main, develop]
 
 jobs:
   build:
@@ -14,7 +14,8 @@ jobs:
     services:
       mongodb:
         image: mongo:3.4.23
-        ports: ['27017:2701']
+        ports:
+          - 27017:27017
 
     steps:
       - uses: actions/checkout@v2
@@ -23,19 +24,19 @@ jobs:
         with:
           ruby-version: 2.4
 
-      - name: Install bundler
+      - name: Install bundler & bundle-audit
         run: |
-          sudo apt-get -yqq install libpq-dev
           gem install bundler -v 2.1.4
+          gem install bundle-audit
 
       - name: Install ruby gems
-        run: bundle install
+        run: bundle install --jobs 4 --retry 3
 
       - name: Build and test with Rake
         env:
           RAILS_ENV: test
         run: |
-          # bundle exec rubocop
+          bundle exec rubocop
           bundle exec bundle-audit update && bundle exec bundle-audit check
           bundle exec rake
 
