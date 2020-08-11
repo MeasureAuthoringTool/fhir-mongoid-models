@@ -2,7 +2,7 @@ module FHIR
   # fhir/primitive_date_time.rb
   class PrimitiveDateTime < Element
     include Mongoid::Document
-    field :value, type: DateTime    
+    field :value, type: String    
     
     def as_json(*args)
       result = super      
