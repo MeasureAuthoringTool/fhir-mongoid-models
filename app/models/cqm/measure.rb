@@ -42,7 +42,5 @@ module CQM
     field :main_cql_library, type: String
 
     embeds_many :source_data_criteria, class_name: 'CQM::DataElement'
-
-    embeds_many :population_sets
   end
 end
