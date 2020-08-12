@@ -39,7 +39,6 @@ module CQM
 
     field :library_name, type: String
     field :statement_name, type: String
-    field :set_id, type: String
 
     def as_json(*args)
       result = Hash.new
@@ -49,9 +48,6 @@ module CQM
       unless self.statement_name.nil?
         result['statement_name'] = self.statement_name
       end
-      unless self.hqmf_id.nil?
-        result['hqmf_id'] = self.hqmf_id
-      end
 
       result
     end
@@ -60,7 +56,6 @@ module CQM
       result = target
       result['library_name'] = json_hash['library_name'] unless json_hash['library_name'].nil?
       result['statement_name'] = json_hash['statement_name'] unless json_hash['statement_name'].nil?
-      result['hqmf_id'] = json_hash['hqmf_id'] unless json_hash['hqmf_id'].nil?
 
       result
     end
