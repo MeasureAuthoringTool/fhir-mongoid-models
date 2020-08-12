@@ -21,9 +21,13 @@ RSpec.describe CQM::Measure do
     expect(cqm_measure.fhir_measure.extension).to be_present
     expect(cqm_measure.fhir_measure.contained).to be_present
     expect(cqm_measure.fhir_measure.meta).to be_present
+
+    # puts cqm_measure.to_json
+    # Make sure that the CQM measure can be serialized and deserialized correctly
+    expect(cqm_measure).to eq CQM::Measure.transform_json(cqm_measure.as_json)
   end
 
-  it 'Should be able to serialize mesaure in FHIR JSON' do
+  it 'Should be able to serialize measure in FHIR JSON' do
     fhir_measure = FHIR::Measure.transform_json @fhir_measure_hash
     expect(fhir_measure).to be_present
     # puts fhir_measure.to_json
@@ -31,18 +35,6 @@ RSpec.describe CQM::Measure do
     updated_fhir_measure_hash =  JSON.load updated_fhir_measure_json
     updated_fhir_measure = FHIR::Measure.transform_json updated_fhir_measure_hash
     expect(updated_fhir_measure).to be_present
-
-    # Dates/datetimes have different format and precision
-    # 1. effectivePeriod
-    expect(Date.parse(@fhir_measure_hash['effectivePeriod']['start'])).to eq  Date.parse(updated_fhir_measure_hash['effectivePeriod']['start'])
-    expect(Date.parse(@fhir_measure_hash['effectivePeriod']['end'])).to eq  Date.parse(updated_fhir_measure_hash['effectivePeriod']['end'])
-    @fhir_measure_hash.delete('effectivePeriod')
-    updated_fhir_measure_hash.delete('effectivePeriod')
-
-    # 2. lastUpdated
-    expect(DateTime.parse(@fhir_measure_hash['meta']['lastUpdated'])).to eq  DateTime.parse(updated_fhir_measure_hash['meta']['lastUpdated'])
-    @fhir_measure_hash['meta'].delete('lastUpdated')
-    updated_fhir_measure_hash['meta'].delete('lastUpdated')
 
     expect(updated_fhir_measure_hash).to eq @fhir_measure_hash
   end
@@ -61,6 +53,30 @@ RSpec.describe CQM::Measure do
     expect(cqm_measure._id).to be_present
     expect(cqm_measure.source_data_criteria.first._id).to be_present
     expect(cqm_measure.source_data_criteria).to include(source_data_criteria)
+
+    # puts cqm_measure.to_json
+  end
+
+  it 'should serialize and deserialize' do
+    cqm_measure = CQM::Measure.new
+    cqm_measure.fhir_measure = FHIR::Measure.new
+
+    source_data_criteria = CQM::DataElement.new
+    source_data_criteria.fhir_resource = FHIR::Condition.transform_json @fhir_resources_hash['condition']
+    cqm_measure.source_data_criteria = [source_data_criteria]
+
+    cql_libraries = CQM::LogicLibrary.new
+    cql_libraries.library_name = 'lib1v1'
+    cqm_measure.cql_libraries = [cql_libraries]
+
+    libraries = FHIR::Library.new
+    cqm_measure.libraries = [libraries]
+
+    value_sets = FHIR::ValueSet.new
+    cqm_measure.value_sets = [value_sets]
+
+    expect(cqm_measure).to be_present
+    expect(cqm_measure).to eq CQM::Measure.transform_json(cqm_measure.as_json)
   end
 
   private
@@ -70,9 +86,8 @@ RSpec.describe CQM::Measure do
     library = FHIR::Library.transform_json @library_hash
     value_set = FHIR::ValueSet.transform_json @value_set_hash
 
-    cqm_value_set = CQM::ValueSet.new(fhir_value_set: value_set)
     CQM::Measure.new(fhir_measure: fhir_measure,
                      libraries: [library],
-                     value_sets:[cqm_value_set])
+                     value_sets:[value_set])
   end
 end
