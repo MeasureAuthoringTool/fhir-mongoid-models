@@ -1,0 +1,17 @@
+{
+  "compose": {
+    "include": [
+      {
+        "system": "LOINC",
+        "version": "",
+        "concept": [
+          {
+            "code": "21112-8",
+            "display": "Birth date"
+          }
+        ]
+      }
+    ]
+  },
+  "id": "2.16.840.1.111222.3.333.5.4567"
+}
