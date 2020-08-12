@@ -1,6 +1,7 @@
 AllCops:
   Exclude:
     - 'bin/**/*'
+    - 'lib/ext/**/*'
     - 'vendor/**/*'
     - 'spec/**/*'
     #TODO: enable this once we have models in fully working state
