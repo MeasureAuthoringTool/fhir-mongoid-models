@@ -43,6 +43,8 @@ module CQM
 
     embeds_many :source_data_criteria, class_name: 'CQM::DataElement'
 
+    embeds_many :population_sets, class_name: 'CQM::PopulationSet'
+
     def as_json(*args)
       result = Hash.new
       unless self.id.nil?
@@ -83,6 +85,9 @@ module CQM
       end
       unless self.source_data_criteria.nil?  || !self.source_data_criteria.any?
         result['source_data_criteria'] = self.source_data_criteria.map{ |x| x.as_json(*args) }
+      end
+      unless self.population_sets.nil?  || !self.population_sets.any?
+        result['population_sets'] = self.population_sets.map{ |x| x.as_json(*args) }
       end
       result['created_at'] = self.created_at unless self.created_at.nil?
       result['updated_at'] = self.updated_at unless self.updated_at.nil?
