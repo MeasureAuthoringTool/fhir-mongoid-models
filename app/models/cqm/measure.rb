@@ -109,7 +109,8 @@ module CQM
       result['value_sets'] = json_hash['value_sets'].map { |var| FHIR::ValueSet.transform_json(var) } unless json_hash['value_sets'].nil?
       result['cql_libraries'] = json_hash['cql_libraries'].map { |var| CQM::LogicLibrary.transform_json(var) } unless json_hash['cql_libraries'].nil?
       result['main_cql_library'] = json_hash['main_cql_library'] unless json_hash['main_cql_library'].nil?
-      result['source_data_criteria'] = json_hash['source_data_criteria'].map { |var| CQM::DataElement.transform_json(var) } unless json_hash['cql_libraries'].nil?
+      result['source_data_criteria'] = json_hash['source_data_criteria'].map { |var| CQM::DataElement.transform_json(var) } unless json_hash['source_data_criteria'].nil?
+      result['population_sets'] = json_hash['population_sets'].map { |var| CQM::PopulationSet.transform_json(var) } unless json_hash['population_sets'].nil?
       result['created_at'] = json_hash['created_at'] unless json_hash['created_at'].nil?
       result['updated_at'] = json_hash['updated_at'] unless json_hash['updated_at'].nil?
       result

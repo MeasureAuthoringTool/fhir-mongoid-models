@@ -57,7 +57,88 @@ RSpec.describe CQM::Measure do
     # puts cqm_measure.to_json
   end
 
-  it 'should serialize and deserialize' do
+  it 'Should permit updates to CQM Measure from JSON' do
+    cqm_measure = load_measure
+    source_data_criteria = CQM::DataElement.new
+    source_data_criteria.fhir_resource = FHIR::Condition.transform_json @fhir_resources_hash['condition']
+    cqm_measure.source_data_criteria << source_data_criteria
+
+    expect do
+      cqm_measure.save!
+    end.to_not raise_error
+
+    updated_cqm_measure_hash = cqm_measure.as_json
+    updated_cqm_measure_hash['source_data_criteria'][0]['description'] = 'new title'
+    updated_cqm_measure = CQM::Measure.transform_json(updated_cqm_measure_hash)
+
+    expect do
+      updated_cqm_measure.upsert
+    end.to_not raise_error
+
+  end
+
+  it 'Should permit population_sets' do
+    cqm_measure = load_measure
+
+    population_set = CQM::PopulationSet.new
+
+    population_set.populations = CQM::CohortPopulationMap.new(IPP: CQM::StatementReference.new(
+        library_name: 'library_CohortPopulationMap',
+        statement_name: 'name_CohortPopulationMap'))
+
+    population_set.stratifications = [
+        CQM::Stratification.new(
+            title: 'title_Stratification',
+            stratification_id: 'random_stratification_id',
+            set_id: 'random_set_id',
+            statement: CQM::StatementReference.new(
+                library_name: 'library_Stratification',
+                statement_name: 'name_Stratification'))
+    ]
+    population_set.supplemental_data_elements = [
+        CQM::StatementReference.new(
+            library_name: 'library_name_ref1',
+            statement_name: 'name_ref1'),
+        CQM::StatementReference.new(
+            library_name: 'library_name_ref2',
+            statement_name: 'name_ref2'),
+    ]
+    population_set.observations = [
+        CQM::Observation.new(
+            observation_function: CQM::StatementReference.new(
+                library_name: 'observation_function_library_name_1',
+                statement_name: 'observation_function_statement_name_1'),
+            observation_parameter: CQM::StatementReference.new(
+                library_name: 'observation_parameter_library_name_1',
+                statement_name: 'observation_parameter_statement_name_1'),
+            aggregation_type: 'aggregation_type_1',
+            set_id: 'set_id_1'
+        ),
+        CQM::Observation.new(
+            observation_function: CQM::StatementReference.new(
+                library_name: 'observation_function_library_name_2',
+                statement_name: 'observation_function_statement_name_2'),
+            observation_parameter: CQM::StatementReference.new(
+                library_name: 'observation_parameter_library_name_2',
+                statement_name: 'observation_parameter_statement_name_2'),
+            aggregation_type: 'aggregation_type_2',
+            set_id: 'set_id_2'
+        )
+    ]
+
+    cqm_measure.population_sets << population_set
+
+    expect do
+      cqm_measure.save!
+    end.to_not raise_error
+    expect(cqm_measure._id).to be_present
+    expect(cqm_measure.population_sets.first._id).to be_present
+    expect(cqm_measure.population_sets).to include(population_set)
+
+    # puts cqm_measure.to_json
+  end
+
+  it 'Should serialize and deserialize CQM measure with nested elements' do
     cqm_measure = CQM::Measure.new
     cqm_measure.fhir_measure = FHIR::Measure.new
 
