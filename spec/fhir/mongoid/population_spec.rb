@@ -284,7 +284,6 @@ RSpec.describe 'Populations' do
 
     it.title = 'random title'
     it.stratification_id = 'random stratification id'
-    it.set_id = 'random set id'
     it.statement = CQM::StatementReference.new(library_name: 'library_observation_function', statement_name: 'name_observation_function')
 
     it_hash = it.as_json
@@ -309,7 +308,6 @@ RSpec.describe 'Populations' do
         CQM::Stratification.new(
           title: 'title_Stratification',
           stratification_id: 'random_stratification_id',
-          set_id: 'random_set_id',
           statement: CQM::StatementReference.new(
               library_name: 'library_Stratification',
               statement_name: 'name_Stratification'))
