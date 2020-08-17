@@ -90,7 +90,6 @@ RSpec.describe CQM::Measure do
         CQM::Stratification.new(
             title: 'title_Stratification',
             stratification_id: 'random_stratification_id',
-            set_id: 'random_set_id',
             statement: CQM::StatementReference.new(
                 library_name: 'library_Stratification',
                 statement_name: 'name_Stratification'))
@@ -111,8 +110,7 @@ RSpec.describe CQM::Measure do
             observation_parameter: CQM::StatementReference.new(
                 library_name: 'observation_parameter_library_name_1',
                 statement_name: 'observation_parameter_statement_name_1'),
-            aggregation_type: 'aggregation_type_1',
-            set_id: 'set_id_1'
+            aggregation_type: 'aggregation_type_1'
         ),
         CQM::Observation.new(
             observation_function: CQM::StatementReference.new(
@@ -121,8 +119,7 @@ RSpec.describe CQM::Measure do
             observation_parameter: CQM::StatementReference.new(
                 library_name: 'observation_parameter_library_name_2',
                 statement_name: 'observation_parameter_statement_name_2'),
-            aggregation_type: 'aggregation_type_2',
-            set_id: 'set_id_2'
+            aggregation_type: 'aggregation_type_2'
         )
     ]
 

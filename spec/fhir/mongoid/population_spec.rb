@@ -1,5 +1,139 @@
 RSpec.describe 'Populations' do
 
+  context 'given measure populations' do
+    before :each do
+      @ipp       = CQM::StatementReference.new(library_name: 'msr_lib', statement_name: 'ipp')
+      @denom     = CQM::StatementReference.new(library_name: 'msr_lib', statement_name: 'denom')
+      @numer     = CQM::StatementReference.new(library_name: 'msr_lib', statement_name: 'numer')
+      @numex     = CQM::StatementReference.new(library_name: 'msr_lib', statement_name: 'numex')
+      @denex     = CQM::StatementReference.new(library_name: 'msr_lib', statement_name: 'denex')
+      @denexcep  = CQM::StatementReference.new(library_name: 'msr_lib', statement_name: 'denexcep')
+      @msrpopl   = CQM::StatementReference.new(library_name: 'msr_lib', statement_name: 'msrpopl')
+      @msrpoplex = CQM::StatementReference.new(library_name: 'msr_lib', statement_name: 'msrpoplex')
+    end
+
+    it 'models and persists Proportion measure populations' do
+      pop_set = CQM::PopulationSet.new(
+          populations: CQM::ProportionPopulationMap.new(IPP: @ipp, NUMER: @numer, NUMEX: @numex, DENOM: @denom, DENEX: @denex, DENEXCEP: @denexcep),
+          stratifications: nil,
+          supplemental_data_elements: nil,
+          observations: nil,
+          title: 'pop_set',
+          population_set_id: 'pop_set_id'
+      )
+      cqm_measure = CQM::Measure.new(population_sets: [pop_set])
+
+      expect do
+        cqm_measure.save!
+      end.to_not raise_error
+
+      expect(pop_set._id).to be_present
+      expect(pop_set.populations).to be_present
+      expect(pop_set.populations.attributes).to include('IPP', 'NUMER', 'NUMEX', 'DENOM', 'DENEX', 'DENEXCEP')
+
+      expect(pop_set.populations.IPP).to eq(@ipp)
+      expect(pop_set.populations.NUMER).to eq(@numer)
+      expect(pop_set.populations.NUMEX).to eq(@numex)
+      expect(pop_set.populations.DENOM).to eq(@denom)
+      expect(pop_set.populations.DENEX).to eq(@denex)
+      expect(pop_set.populations.DENEXCEP).to eq(@denexcep)
+
+      expect(pop_set.populations['MSRPOPL']).to be_nil
+      expect(pop_set.populations['MSRPOPLEX']).to be_nil
+    end
+
+    it 'models and persists Ratio measure populations' do
+      pop_set = CQM::PopulationSet.new(
+          populations: CQM::RatioPopulationMap.new(IPP: @ipp, NUMER: @numer, NUMEX: @numex, DENOM: @denom, DENEX: @denex),
+          stratifications: nil,
+          supplemental_data_elements: nil,
+          observations: nil,
+          title: 'pop_set',
+          population_set_id: 'pop_set_id'
+      )
+      cqm_measure = CQM::Measure.new(population_sets: [pop_set])
+
+      expect do
+        cqm_measure.save!
+      end.to_not raise_error
+
+      expect(pop_set._id).to be_present
+      expect(pop_set.populations).to be_present
+      expect(pop_set.populations.attributes).to include('IPP', 'NUMER', 'NUMEX', 'DENOM', 'DENEX')
+
+      expect(pop_set.populations.IPP).to eq(@ipp)
+      expect(pop_set.populations.NUMER).to eq(@numer)
+      expect(pop_set.populations.NUMEX).to eq(@numex)
+      expect(pop_set.populations.DENOM).to eq(@denom)
+      expect(pop_set.populations.DENEX).to eq(@denex)
+
+      expect(pop_set.populations['DENEXCEP']).to be_nil
+      expect(pop_set.populations['MSRPOPL']).to be_nil
+      expect(pop_set.populations['MSRPOPLEX']).to be_nil
+    end
+
+    it 'models and persists Continuous Variable measure populations' do
+      pop_set = CQM::PopulationSet.new(
+          populations: CQM::ContinuousVariablePopulationMap.new(IPP: @ipp, MSRPOPL: @msrpopl, MSRPOPLEX: @msrpoplex),
+          stratifications: nil,
+          supplemental_data_elements: nil,
+          observations: nil,
+          title: 'pop_set',
+          population_set_id: 'pop_set_id'
+      )
+      cqm_measure = CQM::Measure.new(population_sets: [pop_set])
+
+      expect do
+        cqm_measure.save!
+      end.to_not raise_error
+
+      expect(pop_set._id).to be_present
+      expect(pop_set.populations).to be_present
+      expect(pop_set.populations.attributes).to include('IPP', 'MSRPOPL', 'MSRPOPLEX')
+
+      expect(pop_set.populations.IPP).to eq(@ipp)
+      expect(pop_set.populations.MSRPOPL).to eq(@msrpopl)
+      expect(pop_set.populations.MSRPOPLEX).to eq(@msrpoplex)
+
+      expect(pop_set.populations['NUMER']).to be_nil
+      expect(pop_set.populations['NUMEX']).to be_nil
+      expect(pop_set.populations['DENOM']).to be_nil
+      expect(pop_set.populations['DENEX']).to be_nil
+      expect(pop_set.populations['DENEXCEP']).to be_nil
+
+    end
+
+    it 'models and persists Cohort measure populations' do
+      pop_set = CQM::PopulationSet.new(
+          populations: CQM::ContinuousVariablePopulationMap.new(IPP: @ipp),
+          stratifications: nil,
+          supplemental_data_elements: nil,
+          observations: nil,
+          title: 'pop_set',
+          population_set_id: 'pop_set_id'
+      )
+      cqm_measure = CQM::Measure.new(population_sets: [pop_set])
+
+      expect do
+        cqm_measure.save!
+      end.to_not raise_error
+
+      expect(pop_set._id).to be_present
+      expect(pop_set.populations).to be_present
+      expect(pop_set.populations.attributes).to include('IPP')
+
+      expect(pop_set.populations.IPP).to eq(@ipp)
+
+      expect(pop_set.populations['NUMER']).to be_nil
+      expect(pop_set.populations['NUMEX']).to be_nil
+      expect(pop_set.populations['DENOM']).to be_nil
+      expect(pop_set.populations['DENEX']).to be_nil
+      expect(pop_set.populations['DENEXCEP']).to be_nil
+      expect(pop_set.populations['MSRPOPL']).to be_nil
+      expect(pop_set.populations['MSRPOPLEX']).to be_nil
+    end
+  end
+
   it 'can serialize/deserialize CQM::StatementReference' do
     st_ref = CQM::StatementReference.new
     st_ref.library_name = 'library1'
@@ -109,7 +243,6 @@ RSpec.describe 'Populations' do
     it.observation_function = CQM::StatementReference.new(library_name: 'library_observation_function', statement_name: 'name_observation_function')
     it.observation_parameter = CQM::StatementReference.new(library_name: 'library_observation_parameter', statement_name: 'name_observation_parameter')
     it.aggregation_type = 'random_aggregation_type'
-    it.set_id = 'random_set_id'
 
     it_hash = it.as_json
     expect(it_hash).to be_present
@@ -127,7 +260,6 @@ RSpec.describe 'Populations' do
 
     it.title = 'random title'
     it.stratification_id = 'random stratification id'
-    it.set_id = 'random set id'
     it.statement = CQM::StatementReference.new(library_name: 'library_observation_function', statement_name: 'name_observation_function')
 
     it_hash = it.as_json
@@ -152,7 +284,6 @@ RSpec.describe 'Populations' do
         CQM::Stratification.new(
           title: 'title_Stratification',
           stratification_id: 'random_stratification_id',
-          set_id: 'random_set_id',
           statement: CQM::StatementReference.new(
               library_name: 'library_Stratification',
               statement_name: 'name_Stratification'))
@@ -173,8 +304,7 @@ RSpec.describe 'Populations' do
             observation_parameter: CQM::StatementReference.new(
                 library_name: 'observation_parameter_library_name_1',
                 statement_name: 'observation_parameter_statement_name_1'),
-            aggregation_type: 'aggregation_type_1',
-            set_id: 'set_id_1'
+            aggregation_type: 'aggregation_type_1'
         ),
         CQM::Observation.new(
             observation_function: CQM::StatementReference.new(
@@ -183,8 +313,7 @@ RSpec.describe 'Populations' do
             observation_parameter: CQM::StatementReference.new(
                 library_name: 'observation_parameter_library_name_2',
                 statement_name: 'observation_parameter_statement_name_2'),
-            aggregation_type: 'aggregation_type_2',
-            set_id: 'set_id_2'
+            aggregation_type: 'aggregation_type_2'
         )
     ]
 

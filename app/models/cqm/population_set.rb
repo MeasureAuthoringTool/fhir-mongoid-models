@@ -58,7 +58,6 @@ module CQM
 
     field :title, type: String
     field :stratification_id, type: String
-    field :set_id, type: String
     embeds_one :statement, class_name: 'CQM::StatementReference'
 
     def as_json(*args)
@@ -68,9 +67,6 @@ module CQM
       end
       unless self.stratification_id.nil?
         result['stratification_id'] = self.stratification_id
-      end
-      unless self.set_id.nil?
-        result['set_id'] = self.set_id
       end
       unless self.statement.nil?
         result['statement'] = self.statement.as_json(args)
@@ -83,7 +79,6 @@ module CQM
       result = target
       result['title'] = json_hash['title'] unless json_hash['title'].nil?
       result['stratification_id'] = json_hash['stratification_id'] unless json_hash['stratification_id'].nil?
-      result['set_id'] = json_hash['set_id'] unless json_hash['set_id'].nil?
       result['statement'] = CQM::StatementReference.transform_json(json_hash['statement']) unless json_hash['statement'].nil?
 
       result
@@ -96,10 +91,14 @@ module CQM
 
     embedded_in :population_set
 
+    # observationPopulation.criteria
     embeds_one :observation_function, class_name: 'CQM::StatementReference'
+
+    # Observation Identifier, observationPopulation.extension.[url]/cqfm-criteriaReference
     embeds_one :observation_parameter, class_name: 'CQM::StatementReference'
+
+    # Aggregate Method (aka Aggregate Type), observationPopulation.extension.[url]/cqfm-aggregateMethod
     field :aggregation_type, type: String
-    field :set_id, type: String
 
     def as_json(*args)
       result = Hash.new
@@ -112,9 +111,6 @@ module CQM
       unless self.aggregation_type.nil?
         result['aggregation_type'] = self.aggregation_type
       end
-      unless self.set_id.nil?
-        result['set_id'] = self.set_id
-      end
 
       result
     end
@@ -124,7 +120,6 @@ module CQM
       result['observation_function'] = CQM::StatementReference.transform_json(json_hash['observation_function']) unless json_hash['observation_function'].nil?
       result['observation_parameter'] = CQM::StatementReference.transform_json(json_hash['observation_parameter']) unless json_hash['observation_parameter'].nil?
       result['aggregation_type'] = json_hash['aggregation_type'] unless json_hash['aggregation_type'].nil?
-      result['set_id'] = json_hash['set_id'] unless json_hash['set_id'].nil?
 
       result
     end

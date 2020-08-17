@@ -33,9 +33,9 @@ module CQM
   class StatementReference
     include Mongoid::Document
     embedded_in :statement_dependency
-    # embedded_in :population_set
-    # embedded_in :population_map
-    # embedded_in :stratification
+    embedded_in :population_set
+    embedded_in :population_map
+    embedded_in :stratification
 
     field :library_name, type: String
     field :statement_name, type: String
