@@ -134,30 +134,6 @@ RSpec.describe 'Populations' do
     end
   end
 
-  it 'models and persists Observations' do
-    observation = CQM::Observation.new(
-        observation_function: @ipp,
-        aggregation_type: 'aggregate_type',
-        observation_parameter: @numer
-    )
-    pop_set = CQM::PopulationSet.new(
-        populations: CQM::RatioPopulationMap.new(IPP: @ipp, NUMER: @numer, NUMEX: @numex, DENOM: @denom, DENEX: @denex),
-        stratifications: nil,
-        supplemental_data_elements: nil,
-        observations: [observation],
-        title: 'pop_set',
-        population_set_id: 'pop_set_id'
-    )
-    cqm_measure = CQM::Measure.new(population_sets: [pop_set])
-
-    expect do
-      cqm_measure.save!
-    end.to_not raise_error
-
-    expect(pop_set.observations).to be_present
-    expect(pop_set.observations.first).to eq(observation)
-  end
-
   it 'can serialize/deserialize CQM::StatementReference' do
     st_ref = CQM::StatementReference.new
     st_ref.library_name = 'library1'
