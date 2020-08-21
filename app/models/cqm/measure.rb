@@ -45,6 +45,9 @@ module CQM
 
     embeds_many :population_sets, class_name: 'CQM::PopulationSet'
 
+    # TODO: Reconsider after MAT-1628
+    field :measure_period, type: Hash
+
     def as_json(*args)
       result = Hash.new
       unless self.id.nil?
@@ -89,6 +92,9 @@ module CQM
       unless self.population_sets.nil?  || !self.population_sets.any?
         result['population_sets'] = self.population_sets.map{ |x| x.as_json(*args) }
       end
+      unless self.measure_period.nil?
+        result['measure_period'] = self.measure_period
+      end
       result['created_at'] = self.created_at unless self.created_at.nil?
       result['updated_at'] = self.updated_at unless self.updated_at.nil?
 
@@ -111,6 +117,7 @@ module CQM
       result['main_cql_library'] = json_hash['main_cql_library'] unless json_hash['main_cql_library'].nil?
       result['source_data_criteria'] = json_hash['source_data_criteria'].map { |var| CQM::DataElement.transform_json(var) } unless json_hash['source_data_criteria'].nil?
       result['population_sets'] = json_hash['population_sets'].map { |var| CQM::PopulationSet.transform_json(var) } unless json_hash['population_sets'].nil?
+      result['measure_period'] = json_hash['measure_period'] unless json_hash['measure_period'].nil?
       result['created_at'] = json_hash['created_at'] unless json_hash['created_at'].nil?
       result['updated_at'] = json_hash['updated_at'] unless json_hash['updated_at'].nil?
       result
