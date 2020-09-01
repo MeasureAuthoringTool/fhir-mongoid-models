@@ -16,4 +16,10 @@ RSpec.describe FHIR::ValueSet do
     expect(updated_value_set).to be_present
     expect(updated_value_set_hash).to eq value_set_hash
   end
+
+  it 'assigns resourceType' do
+    vs = FHIR::ValueSet.new
+    expect(vs).to be_present
+    expect(vs.resourceType).to eq 'ValueSet'
+  end
 end
