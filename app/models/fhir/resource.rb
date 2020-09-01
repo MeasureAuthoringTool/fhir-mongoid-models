@@ -8,6 +8,11 @@ module FHIR
     embeds_one :language, class_name: 'FHIR::PrimitiveCode'    
     field :resourceType, type: String    
     field :fhirId, type: String    
+
+    def initialize(attrs = nil)
+      super(attrs)
+      self.resourceType = self.class.name.split("::")[1].to_s
+    end   
     
     def as_json(*args)
       result = Hash.new      
