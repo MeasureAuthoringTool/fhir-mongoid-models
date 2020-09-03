@@ -33,7 +33,6 @@ module CQM
     embeds_one :fhir_measure, class_name: 'FHIR::Measure'
     embeds_many :libraries, class_name: 'FHIR::Library'
     embeds_many :value_sets, class_name: 'FHIR::ValueSet'
-    has_one :package, class_name: 'CQM::MeasurePackage', inverse_of: :measure, dependent: :destroy
 
     # ELM/CQL Measure-logic related data
     # Field name changed from 'cql' to 'cql_libraries' because the semantics of

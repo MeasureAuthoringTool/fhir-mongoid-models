@@ -1,7 +1,6 @@
 require_relative '../../../app/models/models'
 require_relative '../../../app/models/cqm/patient'
 require_relative '../../../app/models/cqm/measure'
-require_relative '../../../app/models/cqm/measure_package'
 require_relative '../../../app/models/cqm/logic_library'
 require_relative '../../../app/models/cqm/cql_statement_dependency'
 require_relative '../../../app/models/cqm/population_set'
