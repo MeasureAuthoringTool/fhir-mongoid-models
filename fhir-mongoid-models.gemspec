@@ -3,9 +3,9 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 Gem::Specification.new do |spec|
   spec.name = 'fhir-mongoid-models'
-  spec.version = '0.0.1'
-  spec.authors = %w[Andrew Bird Ashok Dongare Joseph Kotanchik Rohit Kandimalla Serhii Ilin]
-  spec.email = %w[andrew.bird@semanticbits.com ashok.dongare@semanticbits.com joseph.kotanchik@semanticbits.com rohit.kandimalla@semanticbits.com serhii.ilin@semanticbits.com]
+  spec.version = '0.0.2'
+  spec.authors = ['Andrew Bird', 'Ashok Dongare', 'Joseph Kotanchik', 'Serhii Ilin', 'Matthew Gifford', 'Daniel Mee']
+  spec.email = %w[andrew.bird@semanticbits.com ashok.dongare@semanticbits.com joseph.kotanchik@semanticbits.com serhii.ilin@semanticbits.com matthew.gifford@semanticbits.com daniel.mee@semanticbits.com]
 
   spec.summary = 'Mongo models that correspond to the FHIR specification.'
   spec.description = 'This library contains auto generated Mongo (Mongoid) models that correspond to the FHIR specification.'
