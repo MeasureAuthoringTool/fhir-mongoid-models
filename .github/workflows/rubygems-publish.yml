@@ -8,7 +8,14 @@ on:
       - v*
 jobs:
   build:
+
     runs-on: ubuntu-latest
+
+    services:
+      mongodb:
+        image: mongo:3.4.23
+        ports:
+          - 27017:27017
 
     steps:
       - uses: actions/checkout@v2
