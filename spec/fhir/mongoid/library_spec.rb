@@ -112,7 +112,7 @@ RSpec.describe FHIR::Library do
         expect(CQM::DataElement.count).to be 0
 
         expect(FHIR::MedicationRequest.count).to be 1
-        expect(elements[0].codeListId).to eq ""
+        expect(elements[0].codeListId).to eq nil
         expect(elements[0].valueSetTitle).to eq nil
         expect(elements[0].description).to eq "MedicationRequest: "
         expect(elements[0].fhir_resource).to eq FHIR::MedicationRequest.first
@@ -139,9 +139,46 @@ RSpec.describe FHIR::Library do
         expect(CQM::DataElement.count).to be 0
 
         expect(FHIR::Condition.count).to be 1
-        expect(elements[0].codeListId).to eq ""
+        expect(elements[0].codeListId).to eq nil
         expect(elements[0].valueSetTitle).to eq nil
         expect(elements[0].description).to eq "Condition: "
+        expect(elements[0].fhir_resource).to eq FHIR::Condition.first
+      end
+    end
+
+    context "given a library with at least one dataRequirement that has codeFilter with code" do
+      before :each do
+        @library = build_library([
+          {
+            'type' => 'Condition',
+            'codeFilter' => [
+              {
+                'path' => 'code',
+                'code' => [
+                  {
+                    'system' => 'http://snomed.info/sct',
+                    'code' => '37687000',
+                    'display' => 'Congenital absence of cervix (disorder)'
+                  }
+                ]
+              }
+            ]
+          }
+        ])
+
+        @fhir_value_sets = build_fhir_value_sets([
+          { 'id' => '5fad5b44b789022f34250ef5', 'name' => 'Congenital absence of cervix (disorder)' }
+        ])
+      end
+
+      it "builds and returns the expected CQM::DataElements" do
+        expect(FHIR::Condition.count).to be 0
+        elements = @library.create_data_elements(@fhir_value_sets)
+
+        expect(FHIR::Condition.count).to be 1
+        expect(elements[0].codeListId).to eq '5fad5b44b789022f34250ef5'
+        expect(elements[0].valueSetTitle).to eq 'Congenital absence of cervix (disorder)'
+        expect(elements[0].description).to eq 'Condition: Congenital absence of cervix (disorder)'
         expect(elements[0].fhir_resource).to eq FHIR::Condition.first
       end
     end
