@@ -14,7 +14,7 @@ module FHIR
             [oid, title]
           # for DRCs
           elsif data_req.codeFilter&.first&.code?
-            title = data_req.codeFilter.first&.code&.first&.display&.value
+            title = data_req.codeFilter.first.code.first.display.value
             value_set = value_sets.find{ |vs| vs.name.value == title }
             oid = value_set.fhirId
             [oid, title]
