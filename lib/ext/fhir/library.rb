@@ -3,7 +3,7 @@ module FHIR
   class Library < DomainResource
 
     def create_data_elements(value_sets)
-      dataRequirement&.map do |data_req|
+      dataRequirement.map do |data_req|
         type = data_req.type.value
         oid, title =
           # for ValueSets
