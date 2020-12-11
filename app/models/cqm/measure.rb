@@ -44,8 +44,10 @@ module CQM
 
     embeds_many :population_sets, class_name: 'CQM::PopulationSet'
 
-    # TODO: Reconsider after MAT-1628
     field :measure_period, type: Hash
+    # Order is important, store as an array to preserve the order
+    # MongoDB doesn't allow URIs as keys in a Hash
+    field :code_systems_by_name, type: Array
 
     def as_json(*args)
       result = Hash.new
@@ -94,6 +96,9 @@ module CQM
       unless self.measure_period.nil?
         result['measure_period'] = self.measure_period
       end
+      unless self.code_systems_by_name.nil?
+        result['code_systems_by_name'] = self.code_systems_by_name
+      end
       result['created_at'] = self.created_at unless self.created_at.nil?
       result['updated_at'] = self.updated_at unless self.updated_at.nil?
 
@@ -117,6 +122,7 @@ module CQM
       result['source_data_criteria'] = json_hash['source_data_criteria'].map { |var| CQM::DataElement.transform_json(var) } unless json_hash['source_data_criteria'].nil?
       result['population_sets'] = json_hash['population_sets'].map { |var| CQM::PopulationSet.transform_json(var) } unless json_hash['population_sets'].nil?
       result['measure_period'] = json_hash['measure_period'] unless json_hash['measure_period'].nil?
+      result['code_systems_by_name'] = json_hash['code_systems_by_name'] unless json_hash['code_systems_by_name'].nil?
       result['created_at'] = json_hash['created_at'] unless json_hash['created_at'].nil?
       result['updated_at'] = json_hash['updated_at'] unless json_hash['updated_at'].nil?
       result
