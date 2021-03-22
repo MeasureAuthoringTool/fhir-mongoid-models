@@ -8,7 +8,7 @@ module FHIR
     embeds_one :method, class_name: 'FHIR::CodeableConcept'    
     embeds_one :dose, class_name: 'FHIR::SimpleQuantity'    
     embeds_one :rateRatio, class_name: 'FHIR::Ratio'    
-    embeds_one :rateSimpleQuantity, class_name: 'FHIR::SimpleQuantity'    
+    embeds_one :rateQuantity, class_name: 'FHIR::SimpleQuantity'    
     
     def as_json(*args)
       result = super      
@@ -32,8 +32,8 @@ module FHIR
       unless self.rateRatio.nil?
         result['rateRatio'] = self.rateRatio.as_json(*args)                        
       end          
-      unless self.rateSimpleQuantity.nil?
-        result['rateSimpleQuantity'] = self.rateSimpleQuantity.as_json(*args)                        
+      unless self.rateQuantity.nil?
+        result['rateQuantity'] = self.rateQuantity.as_json(*args)                        
       end          
       result.delete('id')
       unless self.fhirId.nil?
@@ -52,7 +52,7 @@ module FHIR
       result['method'] = CodeableConcept.transform_json(json_hash['method']) unless json_hash['method'].nil?
       result['dose'] = SimpleQuantity.transform_json(json_hash['dose']) unless json_hash['dose'].nil?
       result['rateRatio'] = Ratio.transform_json(json_hash['rateRatio']) unless json_hash['rateRatio'].nil?
-      result['rateSimpleQuantity'] = SimpleQuantity.transform_json(json_hash['rateSimpleQuantity']) unless json_hash['rateSimpleQuantity'].nil?
+      result['rateQuantity'] = SimpleQuantity.transform_json(json_hash['rateQuantity']) unless json_hash['rateQuantity'].nil?
 
       result
     end
