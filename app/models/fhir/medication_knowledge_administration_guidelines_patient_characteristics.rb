@@ -3,7 +3,7 @@ module FHIR
   class MedicationKnowledgeAdministrationGuidelinesPatientCharacteristics < BackboneElement
     include Mongoid::Document
     embeds_one :characteristicCodeableConcept, class_name: 'FHIR::CodeableConcept'    
-    embeds_one :characteristicSimpleQuantity, class_name: 'FHIR::SimpleQuantity'    
+    embeds_one :characteristicQuantity, class_name: 'FHIR::SimpleQuantity'    
     embeds_many :value, class_name: 'FHIR::PrimitiveString'    
     
     def as_json(*args)
@@ -11,8 +11,8 @@ module FHIR
       unless self.characteristicCodeableConcept.nil?
         result['characteristicCodeableConcept'] = self.characteristicCodeableConcept.as_json(*args)                        
       end          
-      unless self.characteristicSimpleQuantity.nil?
-        result['characteristicSimpleQuantity'] = self.characteristicSimpleQuantity.as_json(*args)                        
+      unless self.characteristicQuantity.nil?
+        result['characteristicQuantity'] = self.characteristicQuantity.as_json(*args)                        
       end          
       unless self.value.nil?  || !self.value.any? 
         result['value'] = self.value.compact().map{ |x| x.value }
@@ -31,7 +31,7 @@ module FHIR
     
       result = self.superclass.transform_json(json_hash, target)
       result['characteristicCodeableConcept'] = CodeableConcept.transform_json(json_hash['characteristicCodeableConcept']) unless json_hash['characteristicCodeableConcept'].nil?
-      result['characteristicSimpleQuantity'] = SimpleQuantity.transform_json(json_hash['characteristicSimpleQuantity']) unless json_hash['characteristicSimpleQuantity'].nil?
+      result['characteristicQuantity'] = SimpleQuantity.transform_json(json_hash['characteristicQuantity']) unless json_hash['characteristicQuantity'].nil?
       result['value'] = json_hash['value'].each_with_index.map do |var, i|
         extension_hash = json_hash['_value'] && json_hash['_value'][i]
         PrimitiveString.transform_json(var, extension_hash)

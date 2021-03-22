@@ -1,6 +1,6 @@
 {
   "name": "fhir-mongoid-models",
-  "version": "0.0.1",
+  "version": "0.0.4",
   "description": "This is a library containing Ruby Mongoid models that conform to the FHIR specification. Its code is generated using the model-info-parser utility",
   "repository": {
     "type": "git",
@@ -14,7 +14,7 @@
   "license": "CC0-1.0",
   "dependencies": {},
   "devDependencies": {
-    "model-info-parser": "^0.0.3"
+    "model-info-parser": "^1.0.7"
   },
   "contributors": [
     "Andrew Bird <andrew.bird@semanticbits.com>",

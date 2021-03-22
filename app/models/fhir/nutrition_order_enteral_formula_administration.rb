@@ -4,7 +4,7 @@ module FHIR
     include Mongoid::Document
     embeds_one :schedule, class_name: 'FHIR::Timing'    
     embeds_one :quantity, class_name: 'FHIR::SimpleQuantity'    
-    embeds_one :rateSimpleQuantity, class_name: 'FHIR::SimpleQuantity'    
+    embeds_one :rateQuantity, class_name: 'FHIR::SimpleQuantity'    
     embeds_one :rateRatio, class_name: 'FHIR::Ratio'    
     
     def as_json(*args)
@@ -15,8 +15,8 @@ module FHIR
       unless self.quantity.nil? 
         result['quantity'] = self.quantity.as_json(*args)
       end
-      unless self.rateSimpleQuantity.nil?
-        result['rateSimpleQuantity'] = self.rateSimpleQuantity.as_json(*args)                        
+      unless self.rateQuantity.nil?
+        result['rateQuantity'] = self.rateQuantity.as_json(*args)                        
       end          
       unless self.rateRatio.nil?
         result['rateRatio'] = self.rateRatio.as_json(*args)                        
@@ -34,7 +34,7 @@ module FHIR
       result = self.superclass.transform_json(json_hash, target)
       result['schedule'] = Timing.transform_json(json_hash['schedule']) unless json_hash['schedule'].nil?
       result['quantity'] = SimpleQuantity.transform_json(json_hash['quantity']) unless json_hash['quantity'].nil?
-      result['rateSimpleQuantity'] = SimpleQuantity.transform_json(json_hash['rateSimpleQuantity']) unless json_hash['rateSimpleQuantity'].nil?
+      result['rateQuantity'] = SimpleQuantity.transform_json(json_hash['rateQuantity']) unless json_hash['rateQuantity'].nil?
       result['rateRatio'] = Ratio.transform_json(json_hash['rateRatio']) unless json_hash['rateRatio'].nil?
 
       result
