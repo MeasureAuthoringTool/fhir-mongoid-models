@@ -1,6 +1,6 @@
 module FHIR
   # fhir/resource.rb
-  class Resource
+  class Resource < Type
     include Mongoid::Document
     field :id, type: String    
     embeds_one :meta, class_name: 'FHIR::Meta'    
@@ -8,9 +8,14 @@ module FHIR
     embeds_one :language, class_name: 'FHIR::PrimitiveCode'    
     field :resourceType, type: String    
     field :fhirId, type: String    
+
+    def initialize(attrs = nil)
+      super(attrs)
+      self.resourceType = self.class.name.split("::")[1].to_s
+    end   
     
     def as_json(*args)
-      result = Hash.new      
+      result = super      
       unless self.id.nil? 
         result['id'] = self.id
       end
@@ -46,7 +51,7 @@ module FHIR
         return Object.const_get('FHIR::' + json_hash['resourceType']).transform_json(json_hash)
       end
     
-      result = target
+      result = self.superclass.transform_json(json_hash, target)
       result['fhirId'] = json_hash['id'] unless json_hash['id'].nil?
       result['meta'] = Meta.transform_json(json_hash['meta']) unless json_hash['meta'].nil?
       result['implicitRules'] = PrimitiveUri.transform_json(json_hash['implicitRules'], json_hash['_implicitRules']) unless json_hash['implicitRules'].nil?

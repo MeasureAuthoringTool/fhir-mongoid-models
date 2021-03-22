@@ -3,25 +3,13 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 Gem::Specification.new do |spec|
   spec.name = 'fhir-mongoid-models'
-  spec.version = '0.0.1'
-  spec.authors = %w[Andrew Bird Ashok Dongare Joseph Kotanchik Rohit Kandimalla Serhii Ilin]
-  spec.email = %w[andrew.bird@semanticbits.com ashok.dongare@semanticbits.com joseph.kotanchik@semanticbits.com rohit.kandimalla@semanticbits.com serhii.ilin@semanticbits.com]
+  spec.version = '0.0.4'
+  spec.authors = ['Andrew Bird', 'Ashok Dongare', 'Joseph Kotanchik', 'Serhii Ilin', 'Matthew Gifford', 'Daniel Mee']
+  spec.email = %w[andrew.bird@semanticbits.com ashok.dongare@semanticbits.com joseph.kotanchik@semanticbits.com serhii.ilin@semanticbits.com matthew.gifford@semanticbits.com daniel.mee@semanticbits.com]
 
   spec.summary = 'Mongo models that correspond to the FHIR specification.'
   spec.description = 'This library contains auto generated Mongo (Mongoid) models that correspond to the FHIR specification.'
   spec.homepage = 'https://github.com/MeasureAuthoringTool/fhir-mongoid-models'
-
-  # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
-  # to allow pushing to a single host or delete this section to allow pushing to any host.
-  if spec.respond_to?(:metadata)
-    spec.metadata['allowed_push_host'] = 'TODO: Set to http://mygemserver.com'
-
-    spec.metadata['homepage_uri'] = spec.homepage
-    spec.metadata['source_code_uri'] = spec.homepage
-    spec.metadata['changelog_uri'] = "#{spec.homepage}/releases"
-  else
-    raise 'RubyGems 2.0 or newer is required to protect against public gem pushes.'
-  end
 
   # Specify which files should be added to the gem when it is released.
   # The `git ls-files -z` loads the files in the RubyGem that have been added into git.

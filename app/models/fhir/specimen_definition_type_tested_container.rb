@@ -7,7 +7,7 @@ module FHIR
     embeds_one :cap, class_name: 'FHIR::CodeableConcept'    
     embeds_one :description, class_name: 'FHIR::PrimitiveString'    
     embeds_one :capacity, class_name: 'FHIR::SimpleQuantity'    
-    embeds_one :minimumVolumeSimpleQuantity, class_name: 'FHIR::SimpleQuantity'    
+    embeds_one :minimumVolumeQuantity, class_name: 'FHIR::SimpleQuantity'    
     embeds_one :minimumVolumeString, class_name: 'FHIR::PrimitiveString'    
     embeds_many :additive, class_name: 'FHIR::SpecimenDefinitionTypeTestedContainerAdditive'    
     embeds_one :preparation, class_name: 'FHIR::PrimitiveString'    
@@ -31,8 +31,8 @@ module FHIR
       unless self.capacity.nil? 
         result['capacity'] = self.capacity.as_json(*args)
       end
-      unless self.minimumVolumeSimpleQuantity.nil?
-        result['minimumVolumeSimpleQuantity'] = self.minimumVolumeSimpleQuantity.as_json(*args)                        
+      unless self.minimumVolumeQuantity.nil?
+        result['minimumVolumeQuantity'] = self.minimumVolumeQuantity.as_json(*args)                        
       end          
       unless self.minimumVolumeString.nil?
         result['minimumVolumeString'] = self.minimumVolumeString.value                        
@@ -63,7 +63,7 @@ module FHIR
       result['cap'] = CodeableConcept.transform_json(json_hash['cap']) unless json_hash['cap'].nil?
       result['description'] = PrimitiveString.transform_json(json_hash['description'], json_hash['_description']) unless json_hash['description'].nil?
       result['capacity'] = SimpleQuantity.transform_json(json_hash['capacity']) unless json_hash['capacity'].nil?
-      result['minimumVolumeSimpleQuantity'] = SimpleQuantity.transform_json(json_hash['minimumVolumeSimpleQuantity']) unless json_hash['minimumVolumeSimpleQuantity'].nil?
+      result['minimumVolumeQuantity'] = SimpleQuantity.transform_json(json_hash['minimumVolumeQuantity']) unless json_hash['minimumVolumeQuantity'].nil?
       result['minimumVolumeString'] = PrimitiveString.transform_json(json_hash['minimumVolumeString'], json_hash['_minimumVolumeString']) unless json_hash['minimumVolumeString'].nil?
       result['additive'] = json_hash['additive'].map { |var| SpecimenDefinitionTypeTestedContainerAdditive.transform_json(var) } unless json_hash['additive'].nil?
       result['preparation'] = PrimitiveString.transform_json(json_hash['preparation'], json_hash['_preparation']) unless json_hash['preparation'].nil?

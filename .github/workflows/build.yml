@@ -19,10 +19,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - name: Set up Ruby 2.4
+      - name: Set up Ruby 2.7.2
         uses: actions/setup-ruby@v1
         with:
-          ruby-version: 2.4
+          ruby-version: 2.7.2
 
       - name: Install bundler & bundle-audit
         run: |
@@ -52,3 +52,26 @@ jobs:
         with:
           file: coverage/lcov.info
           fail_ci_if_error: true
+
+
+      - name: Release Gem
+        if: contains(github.ref, 'refs/tags/v')
+        run: |
+          echo "Setting up gem credentials..."
+          set +x
+          mkdir -p ~/.gem
+
+          cat << EOF > ~/.gem/credentials
+          ---
+          :github: Bearer ${GITHUB_TOKEN}
+          :rubygems_api_key: ${RUBYGEMS_API_KEY}
+          EOF
+
+          chmod 0600 ~/.gem/credentials
+          set -x
+
+          echo "Running gem release task..."
+          bundle exec rake release
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          RUBYGEMS_API_KEY: ${{secrets.RUBYGEMS_API_KEY}}

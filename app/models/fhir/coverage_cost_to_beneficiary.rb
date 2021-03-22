@@ -3,7 +3,7 @@ module FHIR
   class CoverageCostToBeneficiary < BackboneElement
     include Mongoid::Document
     embeds_one :type, class_name: 'FHIR::CodeableConcept'    
-    embeds_one :valueSimpleQuantity, class_name: 'FHIR::SimpleQuantity'    
+    embeds_one :valueQuantity, class_name: 'FHIR::SimpleQuantity'    
     embeds_one :valueMoney, class_name: 'FHIR::Money'    
     embeds_many :exception, class_name: 'FHIR::CoverageCostToBeneficiaryException'    
     
@@ -12,8 +12,8 @@ module FHIR
       unless self.type.nil? 
         result['type'] = self.type.as_json(*args)
       end
-      unless self.valueSimpleQuantity.nil?
-        result['valueSimpleQuantity'] = self.valueSimpleQuantity.as_json(*args)                        
+      unless self.valueQuantity.nil?
+        result['valueQuantity'] = self.valueQuantity.as_json(*args)                        
       end          
       unless self.valueMoney.nil?
         result['valueMoney'] = self.valueMoney.as_json(*args)                        
@@ -33,7 +33,7 @@ module FHIR
     
       result = self.superclass.transform_json(json_hash, target)
       result['type'] = CodeableConcept.transform_json(json_hash['type']) unless json_hash['type'].nil?
-      result['valueSimpleQuantity'] = SimpleQuantity.transform_json(json_hash['valueSimpleQuantity']) unless json_hash['valueSimpleQuantity'].nil?
+      result['valueQuantity'] = SimpleQuantity.transform_json(json_hash['valueQuantity']) unless json_hash['valueQuantity'].nil?
       result['valueMoney'] = Money.transform_json(json_hash['valueMoney']) unless json_hash['valueMoney'].nil?
       result['exception'] = json_hash['exception'].map { |var| CoverageCostToBeneficiaryException.transform_json(var) } unless json_hash['exception'].nil?
 

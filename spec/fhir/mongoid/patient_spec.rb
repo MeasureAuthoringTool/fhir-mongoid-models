@@ -10,6 +10,7 @@ RSpec.describe CQM::Patient do
     expect(cqm_patient._id).to be_present
   end
 
+
   it 'Should be able to parse and serialize FHIR JSON' do
     patient_json = File.open(File.join(File.dirname(__FILE__), '../fixture/patient.json'))
     patient_hash = JSON.load patient_json
@@ -47,6 +48,10 @@ RSpec.describe CQM::Patient do
     end.to_not raise_error
     expect(cqm_patient._id).to be_present
     expect(cqm_patient.data_elements).to include(data_element)
+
+    expect(cqm_patient).to eq CQM::Patient.transform_json(cqm_patient.as_json)
+
+    # puts cqm_patient.to_json
   end
 
   it 'Should permit FHIR Resources as Data Elements' do
